@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="自增, 自减, 递归, 循环, 单例模式, 懒汉式, 饿汉式, 动态规划">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Java面试题-学习笔记">
+<meta name="keywords" content="自增, 自减, 递归, 循环, 单例模式, 懒汉式, 饿汉式, 动态规划">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进击的Java面试">
+<meta property="og:url" content="https://woodwhales.github.io/2019/07/02/038/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="Java面试题-学习笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2019/07/02/038/2019/07/02/038/face.png">
+<meta property="og:updated_time" content="2019-07-05T13:14:12.368Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进击的Java面试">
+<meta name="twitter:description" content="Java面试题-学习笔记">
+<meta name="twitter:image" content="https://woodwhales.github.io/2019/07/02/038/2019/07/02/038/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2019/07/02/038/">
+
+
+
+
+
+  <title>进击的Java面试 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/07/02/038/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">进击的Java面试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T21:16:10+08:00">
+                2019-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试题/" itemprop="url" rel="index">
+                    <span itemprop="name">面试题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/02/038/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/02/038/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/07/02/038/" class="leancloud_visitors" data-flag-title="进击的Java面试">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  2.4k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Java面试题-学习笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2019/07/02/038/face.png" rel="gallery_cjzz5ojof0028j4vgl6ipnuft" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2019/07/02/038/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h2 id="1-&#x81EA;&#x589E;&#x81EA;&#x51CF;&#x95EE;&#x9898;"><a href="#1-&#x81EA;&#x589E;&#x81EA;&#x51CF;&#x95EE;&#x9898;" class="headerlink" title="1. &#x81EA;&#x589E;&#x81EA;&#x51CF;&#x95EE;&#x9898;"></a>1. &#x81EA;&#x589E;&#x81EA;&#x51CF;&#x95EE;&#x9898;</h2><h3 id="1-1-i"><a href="#1-1-i" class="headerlink" title="1.1 i++"></a>1.1 i++</h3><p>&#x5BF9;&#x4E8E;<code>i++</code>&#xFF0C;&#x5728;&#x7A0B;&#x5E8F;&#x6267;&#x884C;&#x65F6;&#x4F1A;&#x5148;&#x5C06;<code>i</code>&#x8D4B;&#x503C;&#x7ED9;&#x53D8;&#x91CF;&#xFF0C;&#x7B49;&#x8BED;&#x53E5;&#x6267;&#x884C;&#x5B8C;&#x4EE5;&#x540E;<code>i</code>&#x7684;&#x503C;&#x518D;&#x52A0;1&#x3002;&#x5982;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// &#x5148;&#x5C06;i&#x7684;&#x503C;1&#x8D4B;&#x7ED9;a&#xFF0C;&#x6240;&#x4EE5;a=1&#x3002;&#x7136;&#x540E;i&#x518D;&#x52A0;1&#xFF0C;i = 2</span></span><br><span class="line">    a = i++;</span><br><span class="line">    System.out.println(<span class="string">&quot;a&#x7684;&#x503C;&#x4E3A;&#xFF1A;&quot;</span> + a);</span><br><span class="line">    System.out.println(<span class="string">&quot;i&#x7684;&#x503C;&#x4E3A;&#xFF1A;&quot;</span> + i);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a&#x7684;&#x503C;&#x4E3A;&#xFF1A;<span class="number">1</span></span><br><span class="line">i&#x7684;&#x503C;&#x4E3A;&#xFF1A;<span class="number">2</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="1-2-i"><a href="#1-2-i" class="headerlink" title="1.2 ++i"></a>1.2 ++i</h3><p>&#x5BF9;&#x4E8E;<code>++i</code>&#xFF0C;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x65F6;&#x5148;&#x5C06;<code>i</code>&#x7684;&#x503C;&#x52A0;1&#x518D;&#x8D4B;&#x503C;&#x7ED9;&#x53D8;&#x91CF;&#xFF0C;&#x5F53;&#x7136;&#x8BED;&#x53E5;&#x6267;&#x884C;&#x7ED3;&#x675F;&#x540E;<code>i</code>&#x7684;&#x503C;&#x3002;&#x5982;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// &#x5148;&#x5C06;i&#x7684;&#x503C;&#x52A0;1&#x7136;&#x540E;&#x518D;&#x8D4B;&#x7ED9;b&#xFF0C;&#x6240;&#x4EE5;b=2&#xFF1B;i=2</span></span><br><span class="line">    b = ++i;</span><br><span class="line">    System.out.println(<span class="string">&quot;b&#x7684;&#x503C;&#x4E3A;&#xFF1A;&quot;</span> + b);</span><br><span class="line">    System.out.println(<span class="string">&quot;i&#x7684;&#x503C;&#x4E3A;&#xFF1A;&quot;</span> + i);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b&#x7684;&#x503C;&#x4E3A;&#xFF1A;<span class="number">2</span></span><br><span class="line">i&#x7684;&#x503C;&#x4E3A;&#xFF1A;<span class="number">2</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="1-3-&#x7EFC;&#x5408;&#x95EE;&#x9898;"><a href="#1-3-&#x7EFC;&#x5408;&#x95EE;&#x9898;" class="headerlink" title="1.3 &#x7EFC;&#x5408;&#x95EE;&#x9898;"></a>1.3 &#x7EFC;&#x5408;&#x95EE;&#x9898;</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">    i = i++; <span class="comment">// i=1</span></span><br><span class="line">    <span class="keyword">int</span> j = i++; <span class="comment">// j=1,i=2</span></span><br><span class="line">    <span class="keyword">int</span> k = i + ++i * i++; <span class="comment">// k=2+3*3=11,i=4</span></span><br><span class="line">    </span><br><span class="line">    System.out.println(<span class="string">&quot;i&#x7684;&#x503C;&#x4E3A;&#xFF1A;&quot;</span>+ i);</span><br><span class="line">    System.out.println(<span class="string">&quot;j&#x7684;&#x503C;&#x4E3A;&#xFF1A;&quot;</span>+ j);</span><br><span class="line">    System.out.println(<span class="string">&quot;k&#x7684;&#x503C;&#x4E3A;&#xFF1A;&quot;</span>+ k);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i&#x7684;&#x503C;&#x4E3A;&#xFF1A;<span class="number">4</span></span><br><span class="line">j&#x7684;&#x503C;&#x4E3A;&#xFF1A;<span class="number">1</span></span><br><span class="line">k&#x7684;&#x503C;&#x4E3A;&#xFF1A;<span class="number">11</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5206;&#x6790;&#xFF1A;</p>
+<p>&#x901A;&#x8FC7;<code>javap</code>&#x547D;&#x4EE4;&#x5BF9;&#x5B57;&#x8282;&#x7801;&#x8FDB;&#x884C;&#x53CD;&#x6C47;&#x7F16;&#xFF1A;<code>javap -c MyCode.class</code>&#xFF0C;&#x5F97;&#x5230;&#x5982;&#x4E0B;&#x4FE1;&#x606F;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Method descriptor #15 ([Ljava/lang/String;)V</span></span><br><span class="line"><span class="comment">// Stack: 4, Locals: 4</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(java.lang.String[] args)</span></span>;</span><br><span class="line">   <span class="number">0</span>  iconst_1</span><br><span class="line">   <span class="number">1</span>  istore_1 [i]</span><br><span class="line">   <span class="number">2</span>  iload_1 [i]</span><br><span class="line">   <span class="number">3</span>  iinc <span class="number">1</span> <span class="number">1</span> [i]</span><br><span class="line">   <span class="number">6</span>  istore_1 [i]</span><br><span class="line">   <span class="number">7</span>  iload_1 [i]</span><br><span class="line">   <span class="number">8</span>  iinc <span class="number">1</span> <span class="number">1</span> [i]</span><br><span class="line">  <span class="number">11</span>  istore_2 [j]</span><br><span class="line">  <span class="number">12</span>  iload_1 [i]</span><br><span class="line">  <span class="number">13</span>  iinc <span class="number">1</span> <span class="number">1</span> [i]</span><br><span class="line">  <span class="number">16</span>  iload_1 [i]</span><br><span class="line">  <span class="number">17</span>  iload_1 [i]</span><br><span class="line">  <span class="number">18</span>  iinc <span class="number">1</span> <span class="number">1</span> [i]</span><br><span class="line">  <span class="number">21</span>  imul</span><br><span class="line">  <span class="number">22</span>  iadd</span><br><span class="line">  <span class="number">23</span>  istore_3 [k]</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5176;&#x4E2D;&#xFF0C;<code>0  iconst_1</code>&#x548C;<code>1  istore_1 [i]</code>&#x8868;&#x793A;&#x6E90;&#x7801;&#x4E2D;&#x7684;<code>int i = 1;</code>&#x8BED;&#x53E5;&#xFF1A;&#x9996;&#x5148;&#x9759;&#x6001;&#x53D8;&#x91CF;1&#x88AB;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x968F;&#x540E;&#x8D4B;&#x503C;&#x7ED9;&#x4E86;&#x53D8;&#x91CF;<code>i</code>&#x3002;</p>
+<p><code>istore_x</code>&#x8868;&#x793A;&#x5C06;&#x64CD;&#x4F5C;&#x6811;&#x6808;&#x7684;&#x7ED3;&#x679C;&#x8D4B;&#x503C;&#x7ED9;&#x5BF9;&#x5E94;&#x7684;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x3002;</p>
+<p><code>iload_x</code>&#x8868;&#x793A;&#x5C06;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x538B;&#x5165;&#x64CD;&#x4F5C;&#x6570;&#x7684;&#x6808;&#x4E2D;&#x3002;</p>
+<p><code>iinc</code>&#x8868;&#x793A;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x81EA;&#x8EAB;&#x81EA;&#x589E;&#x3002;</p>
+<p><code>imul</code>&#x8868;&#x793A;&#x6C42;&#x4E58;&#x79EF;&#x3002;</p>
+<p><code>iadd</code>&#x8868;&#x793A;&#x6C42;&#x548C;&#x3002;</p>
+<p><img src="/2019/07/02/038/images/01.png" alt=""></p>
+<p><img src="/2019/07/02/038/images/02.png" alt="02"></p>
+<p><img src="/2019/07/02/038/images/03.png" alt="03"></p>
+<h3 id="1-4-&#x5C0F;&#x7ED3;"><a href="#1-4-&#x5C0F;&#x7ED3;" class="headerlink" title="1.4 &#x5C0F;&#x7ED3;"></a>1.4 &#x5C0F;&#x7ED3;</h3><ul>
+<li>&#x8868;&#x8FBE;&#x5F0F;&#x4E2D;&#xFF0C;&#x8D4B;&#x503C;&#xFF08;=&#xFF09;&#x6700;&#x540E;&#x8BA1;&#x7B97;</li>
+<li>= &#x53F3;&#x8FB9;&#x7684;&#x4ECE;&#x5DE6;&#x5230;&#x53F3;&#x4F9D;&#x6B21;&#x52A0;&#x8F7D;&#x503C;&#xFF0C;&#x5E76;&#x538B;&#x5165;&#x64CD;&#x4F5C;&#x6570;&#x6808;</li>
+<li>&#x5B9E;&#x9645;&#x7B97;&#x54EA;&#x4E2A;&#xFF0C;&#x770B;&#x8FD0;&#x7B97;&#x7B26;&#x7684;&#x4F18;&#x5148;&#x7EA7;</li>
+<li>&#x81EA;&#x589E;&#x3001;&#x81EA;&#x51CF;&#x64CD;&#x4F5C;&#x90FD;&#x662F;&#x76F4;&#x63A5;&#x4FEE;&#x6539;&#x53D8;&#x91CF;&#x7684;&#x503C;&#xFF0C;&#x4E0D;&#x7ECF;&#x8FC7;&#x64CD;&#x4F5C;&#x6570;&#x6808;</li>
+<li>&#x6700;&#x540E;&#x7684;&#x8D4B;&#x503C;&#x64CD;&#x4F5C;&#x4E4B;&#x524D;&#xFF0C;&#x4E34;&#x65F6;&#x7ED3;&#x679C;&#x4E5F;&#x662F;&#x5B58;&#x50A8;&#x5728;&#x64CD;&#x4F5C;&#x6570;&#x6808;&#x4E2D;</li>
+</ul>
+<blockquote>
+<p>&#x5EFA;&#x8BAE;&#x53C2;&#x8003;&#x300A;JVM&#x865A;&#x62DF;&#x673A;&#x89C4;&#x8303;&#x300B;&#x5173;&#x4E8E;&#x6307;&#x4EE4;&#x7684;&#x90E8;&#x5206;&#x3002;</p>
+</blockquote>
+<h2 id="2-&#x5355;&#x4F8B;&#x6A21;&#x5F0F;"><a href="#2-&#x5355;&#x4F8B;&#x6A21;&#x5F0F;" class="headerlink" title="2. &#x5355;&#x4F8B;&#x6A21;&#x5F0F;"></a>2. &#x5355;&#x4F8B;&#x6A21;&#x5F0F;</h2><p>Singleton&#xFF1A;&#x5728;Java&#x4E2D;&#x5373;&#x6307;&#x5355;&#x4F8B;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#xFF0C;&#x5B83;&#x662F;&#x8F6F;&#x4EF6;&#x5F00;&#x53D1;&#x4E2D;&#x6700;&#x5E38;&#x7528;&#x7684;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E4B;&#x4E00;&#x3002;</p>
+<ul>
+<li><p>&#x5355;&#xFF1A;&#x552F;&#x4E00;</p>
+</li>
+<li><p>&#x4F8B;&#xFF1A;&#x5B9E;&#x4F8B;</p>
+</li>
+</ul>
+<p>&#x5355;&#x4F8B;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#xFF0C;&#x5373;&#x67D0;&#x4E2A;&#x7C7B;&#x5728;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#x4E2D;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x53EF;&#x88AB;&#x83B7;&#x53D6;&#x548C;&#x4F7F;&#x7528;&#x7684;&#x4EE3;&#x7801;&#x6A21;&#x5F0F;&#x3002;&#x4F8B;&#x5982;&#xFF1A;&#x4EE3;&#x8868;JVM&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x7684;<code>Runtime</code>&#x7C7B;&#x3002;</p>
+<h3 id="2-1-&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x8981;&#x70B9;"><a href="#2-1-&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x8981;&#x70B9;" class="headerlink" title="2.1 &#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x8981;&#x70B9;"></a>2.1 &#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x8981;&#x70B9;</h3><p>&#x5B9E;&#x73B0;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x91CD;&#x8981;&#x70B9;&#xFF1A;</p>
+<ol>
+<li><p>&#x67D0;&#x4E2A;&#x7C7B;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#xFF1B;</p>
+<ul>
+<li>&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#xFF1A;&#x6784;&#x9020;&#x5668;&#x79C1;&#x6709;&#x5316;</li>
+</ul>
+</li>
+<li><p>&#x5B83;&#x5FC5;&#x987B;&#x81EA;&#x884C;&#x521B;&#x5EFA;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;</p>
+<ul>
+<li>&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#xFF1A;&#x542B;&#x6709;&#x4E00;&#x4E2A;&#x8BE5;&#x7C7B;&#x7684;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x6765;&#x4FDD;&#x5B58;&#x8FD9;&#x4E2A;&#x552F;&#x4E00;&#x7684;&#x5B9E;&#x4F8B;</li>
+</ul>
+</li>
+<li><p>&#x5FC5;&#x987B;&#x81EA;&#x884C;&#x5411;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;</p>
+<p>&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#xFF1A;&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x83B7;&#x53D6;&#x8BE5;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x7684;&#x65B9;&#x5F0F;&#xFF1A;1&#xFF09;&#x76F4;&#x63A5;&#x66B4;&#x9732;&#x3002;2&#xFF09;&#x7528;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x7684;get&#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x3002;</p>
+</li>
+</ol>
+<h3 id="2-2-&#x5355;&#x4F8B;&#x7C7B;&#x578B;"><a href="#2-2-&#x5355;&#x4F8B;&#x7C7B;&#x578B;" class="headerlink" title="2.2 &#x5355;&#x4F8B;&#x7C7B;&#x578B;"></a>2.2 &#x5355;&#x4F8B;&#x7C7B;&#x578B;</h3><h4 id="2-2-1-&#x997F;&#x6C49;&#x5F0F;"><a href="#2-2-1-&#x997F;&#x6C49;&#x5F0F;" class="headerlink" title="2.2.1 &#x997F;&#x6C49;&#x5F0F;"></a>2.2.1 &#x997F;&#x6C49;&#x5F0F;</h4><p>&#x76F4;&#x63A5;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#xFF0C;&#x4E0D;&#x5B58;&#x5728;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;</p>
+<ul>
+<li>&#x76F4;&#x63A5;&#x5B9E;&#x4F8B;&#x5316;&#x997F;&#x6C49;&#x5F0F;&#xFF08;&#x7B80;&#x6D01;&#x76F4;&#x89C2;&#xFF09;</li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * &#x997F;&#x6C49;&#x5F0F;&#xFF1A;</span></span><br><span class="line"><span class="comment"> * 	&#x5728;&#x7C7B;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x76F4;&#x63A5;&#x521B;&#x5EFA;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#xFF0C;&#x4E0D;&#x7BA1;&#x4F60;&#x662F;&#x5426;&#x9700;&#x8981;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * &#xFF08;1&#xFF09;&#x6784;&#x9020;&#x5668;&#x79C1;&#x6709;&#x5316;</span></span><br><span class="line"><span class="comment"> * &#xFF08;2&#xFF09;&#x81EA;&#x884C;&#x521B;&#x5EFA;&#xFF0C;&#x5E76;&#x4E14;&#x7528;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x4FDD;&#x5B58;</span></span><br><span class="line"><span class="comment"> * &#xFF08;3&#xFF09;&#x5411;&#x5916;&#x63D0;&#x4F9B;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;</span></span><br><span class="line"><span class="comment"> * &#xFF08;4&#xFF09;&#x5F3A;&#x8C03;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x5355;&#x4F8B;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;final&#x4FEE;&#x6539;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1</span> </span>{</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton1 INSTANCE = <span class="keyword">new</span> Singleton1();</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton1</span><span class="params">()</span></span>{</span><br><span class="line">		</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>&#x679A;&#x4E3E;&#x5F0F;&#xFF08;&#x6700;&#x7B80;&#x6D01;&#xFF09;</li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * &#x679A;&#x4E3E;&#x7C7B;&#x578B;&#xFF1A;&#x8868;&#x793A;&#x8BE5;&#x7C7B;&#x578B;&#x7684;&#x5BF9;&#x8C61;&#x662F;&#x6709;&#x9650;&#x7684;&#x51E0;&#x4E2A;</span></span><br><span class="line"><span class="comment"> * &#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x9650;&#x5B9A;&#x4E3A;&#x4E00;&#x4E2A;&#xFF0C;&#x5C31;&#x6210;&#x4E86;&#x5355;&#x4F8B;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Singleton2 {</span><br><span class="line">	INSTANCE</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>&#x9759;&#x6001;&#x4EE3;&#x7801;&#x5757;&#x997F;&#x6C49;&#x5F0F;&#xFF08;&#x9002;&#x5408;&#x590D;&#x6742;&#x5B9E;&#x4F8B;&#x5316;&#xFF09;&#xFF0C;&#x9002;&#x7528;&#x4E8E;&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E9B;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;</li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton3</span> </span>{</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton3 INSTANCE;</span><br><span class="line">	<span class="keyword">private</span> String info;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span>{</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">			Properties pro = <span class="keyword">new</span> Properties()</span><br><span class="line">            <span class="comment">// &#x4ECE;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x52A0;&#x8F7D;&#x7C7B;&#x540D;	pro.load(Singleton3.class.getClassLoader().getResourceAsStream(&quot;single.properties&quot;));</span></span><br><span class="line">			</span><br><span class="line">			INSTANCE = <span class="keyword">new</span> Singleton3(pro.getProperty(<span class="string">&quot;info&quot;</span>));</span><br><span class="line">		} <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton3</span><span class="params">(String info)</span></span>{</span><br><span class="line">		<span class="keyword">this</span>.info = info;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getInfo</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> info;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setInfo</span><span class="params">(String info)</span> </span>{</span><br><span class="line">		<span class="keyword">this</span>.info = info;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;Singleton3 [info=&quot;</span> + info + <span class="string">&quot;]&quot;</span>;</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="2-2-2-&#x61D2;&#x6C49;&#x5F0F;"><a href="#2-2-2-&#x61D2;&#x6C49;&#x5F0F;" class="headerlink" title="2.2.2 &#x61D2;&#x6C49;&#x5F0F;"></a>2.2.2 &#x61D2;&#x6C49;&#x5F0F;</h4><p>&#x5EF6;&#x8FDF;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;</p>
+<ul>
+<li>&#x7EBF;&#x7A0B;&#x4E0D;&#x5B89;&#x5168;&#xFF08;&#x9002;&#x7528;&#x4E8E;&#x5355;&#x7EBF;&#x7A0B;&#xFF09;</li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * &#x61D2;&#x6C49;&#x5F0F;&#xFF1A;</span></span><br><span class="line"><span class="comment"> * 	&#x5EF6;&#x8FDF;&#x521B;&#x5EFA;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * (1)&#x6784;&#x9020;&#x5668;&#x79C1;&#x6709;&#x5316;</span></span><br><span class="line"><span class="comment"> * (2)&#x7528;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x4FDD;&#x5B58;&#x8FD9;&#x4E2A;&#x552F;&#x4E00;&#x7684;&#x5B9E;&#x4F8B;</span></span><br><span class="line"><span class="comment"> * (3)&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#xFF0C;&#x83B7;&#x53D6;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton4</span> </span>{</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton4 instance;</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton4</span><span class="params">()</span></span>{	</span><br><span class="line">	}</span><br><span class="line">    </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton4 <span class="title">getInstance</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">if</span>(instance == <span class="keyword">null</span>) {</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">try</span> {</span><br><span class="line">				Thread.sleep(<span class="number">100</span>);</span><br><span class="line">			} <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			}</span><br><span class="line">			</span><br><span class="line">			instance = <span class="keyword">new</span> Singleton4();</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#xFF08;&#x9002;&#x7528;&#x4E8E;&#x591A;&#x7EBF;&#x7A0B;&#xFF09;</li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * &#x61D2;&#x6C49;&#x5F0F;&#xFF1A;</span></span><br><span class="line"><span class="comment"> * 	&#x5EF6;&#x8FDF;&#x521B;&#x5EFA;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * (1)&#x6784;&#x9020;&#x5668;&#x79C1;&#x6709;&#x5316;</span></span><br><span class="line"><span class="comment"> * (2)&#x7528;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x4FDD;&#x5B58;&#x8FD9;&#x4E2A;&#x552F;&#x4E00;&#x7684;&#x5B9E;&#x4F8B;</span></span><br><span class="line"><span class="comment"> * (3)&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#xFF0C;&#x83B7;&#x53D6;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton5</span> </span>{</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton5 instance;</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton5</span><span class="params">()</span> </span>{</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton5 <span class="title">getInstance</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">if</span>(instance == <span class="keyword">null</span>){</span><br><span class="line">			<span class="keyword">synchronized</span> (Singleton5.class) {</span><br><span class="line">				<span class="keyword">if</span>(instance == <span class="keyword">null</span>){</span><br><span class="line">					<span class="keyword">try</span> {</span><br><span class="line">						Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">					} <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">						e.printStackTrace();</span><br><span class="line">					}</span><br><span class="line">					</span><br><span class="line">					instance = <span class="keyword">new</span> Singleton5();</span><br><span class="line">				}</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> instance;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x5F62;&#x5F0F;&#xFF08;&#x9002;&#x7528;&#x4E8E;&#x591A;&#x7EBF;&#x7A0B;&#xFF09;</li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * &#x5728;&#x5185;&#x90E8;&#x7C7B;&#x88AB;&#x52A0;&#x8F7D;&#x548C;&#x521D;&#x59CB;&#x5316;&#x65F6;&#xFF0C;&#x624D;&#x521B;&#x5EFA;INSTANCE&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;</span></span><br><span class="line"><span class="comment"> * &#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x4E0D;&#x4F1A;&#x81EA;&#x52A8;&#x968F;&#x7740;&#x5916;&#x90E8;&#x7C7B;&#x7684;&#x52A0;&#x8F7D;&#x548C;&#x521D;&#x59CB;&#x5316;&#x800C;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5B83;&#x662F;&#x8981;&#x5355;&#x72EC;&#x53BB;&#x52A0;&#x8F7D;&#x548C;&#x521D;&#x59CB;&#x5316;&#x7684;&#x3002;</span></span><br><span class="line"><span class="comment"> * &#x56E0;&#x4E3A;&#x662F;&#x5728;&#x5185;&#x90E8;&#x7C7B;&#x52A0;&#x8F7D;&#x548C;&#x521D;&#x59CB;&#x5316;&#x65F6;&#xFF0C;&#x521B;&#x5EFA;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x662F;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton6</span> </span>{</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton6</span><span class="params">()</span> </span>{	</span><br><span class="line">	}</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Inner</span> </span>{</span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton6 INSTANCE = <span class="keyword">new</span> Singleton6();</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton6 <span class="title">getInstance</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> Inner.INSTANCE;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="3-&#x8D70;&#x53F0;&#x9636;&#x7B97;&#x6CD5;&#xFF08;&#x5FAA;&#x73AF;&#x5B9E;&#x73B0;&#xFF09;"><a href="#3-&#x8D70;&#x53F0;&#x9636;&#x7B97;&#x6CD5;&#xFF08;&#x5FAA;&#x73AF;&#x5B9E;&#x73B0;&#xFF09;" class="headerlink" title="3. &#x8D70;&#x53F0;&#x9636;&#x7B97;&#x6CD5;&#xFF08;&#x5FAA;&#x73AF;&#x5B9E;&#x73B0;&#xFF09;"></a>3. &#x8D70;&#x53F0;&#x9636;&#x7B97;&#x6CD5;&#xFF08;&#x5FAA;&#x73AF;&#x5B9E;&#x73B0;&#xFF09;</h2><p><strong>&#x7F16;&#x7A0B;&#x9898;</strong>&#xFF1A;</p>
+<p>&#x6709;n&#x6B65;&#x53F0;&#x9636;&#xFF0C;&#x4E00;&#x6B21;&#x53EA;&#x80FD;&#x4E0A;1&#x6B65;&#x6216;2&#x6B65;&#xFF0C;&#x5171;&#x6709;&#x591A;&#x5C11;&#x79CD;&#x8D70;&#x6CD5;&#xFF1F;</p>
+<h3 id="3-1-&#x601D;&#x8DEF;&#x5206;&#x6790;"><a href="#3-1-&#x601D;&#x8DEF;&#x5206;&#x6790;" class="headerlink" title="3.1 &#x601D;&#x8DEF;&#x5206;&#x6790;"></a>3.1 &#x601D;&#x8DEF;&#x5206;&#x6790;</h3><p>&#x8D70;&#x7B2C; 1 &#x4E2A;&#x53F0;&#x9636;</p>
+<ul>
+<li><p>&#x8D70;&#x7B2C; 1 &#x4E2A;&#x53F0;&#x9636;</p>
+<p>&#x53EA;&#x6709; 1 &#x79CD;&#x8D70;&#x6CD5;&#xFF0C;&#x5373;&#xFF1A;&#x8D70;1&#x6B65;&#x3002;</p>
+</li>
+<li><p>&#x8D70;&#x7B2C; 2 &#x4E2A;&#x53F0;&#x9636;</p>
+<p>&#x6709; 2 &#x79CD;&#x8D70;&#x6CD5;&#xFF0C;&#x5373;&#xFF1A;&#x53EF;&#x4EE5;&#x4FE9;&#x4E2A; 1 &#x6B65;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8D70;&#x4E00;&#x4E2A; 2 &#x6B65;&#x3002;</p>
+</li>
+<li><p>&#x8D70;&#x7B2C; 3 &#x4E2A;&#x53F0;&#x9636;</p>
+<p>&#x56E0;&#x4E3A;&#x53EA;&#x80FD;&#x8D70; 1 &#x6B65;&#x6216;&#x8005; 2 &#x6B65;&#xFF0C;&#x6240;&#x4EE5;&#x80FD;&#x8D70;&#x5230;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53F0;&#x9636;&#xFF0C;&#x4E00;&#x5B9A;&#x662F;&#x8D70;&#x5230;&#x4E86;&#x524D;&#x9762;&#x67D0;&#x4E2A;&#x53F0;&#x9636;&#xFF0C;&#x518D;&#x8DE8;&#x4E00;&#x6B65;&#x5C31;&#x5230;&#x4E86;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53F0;&#x9636;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x80FD;&#x8D70;&#x5230;&#x7B2C; 3 &#x4E2A;&#x53F0;&#x9636;&#x7684;&#x4E4B;&#x524D;&#x4E00;&#x4E2A;&#x53F0;&#x9636;&#xFF0C;&#x53EA;&#x80FD;&#x4EE5;&#x4E0B;&#x4FE9;&#x79CD;&#x53EF;&#x80FD;&#xFF1A;</p>
+<ul>
+<li>&#x8D70;&#x5230;&#x7B2C; 1 &#x4E2A;&#x53F0;&#x9636;&#xFF0C; &#x518D;&#x8D70; 2 &#x6B65;&#x3002;</li>
+<li>&#x8D70;&#x5230;&#x7B2C; 2 &#x4E2A;&#x53F0;&#x9636;&#xFF0C;&#x518D;&#x8D70; 1 &#x6B65;&#x3002;</li>
+</ul>
+</li>
+<li><p>&#x4F9D;&#x6B21;&#x7C7B;&#x63A8;</p>
+</li>
+<li><p>&#x8D70;&#x7B2C; n &#x4E2A;&#x53F0;&#x9636;&#xFF08;n &gt;= 3&#xFF09;</p>
+<p>&#x56E0;&#x4E3A;&#x53EA;&#x80FD;&#x8D70; 1 &#x6B65;&#x6216;&#x8005; 2 &#x6B65;&#xFF0C;&#x6240;&#x4EE5;&#x53EA;&#x80FD;&#x8D70;&#x5230;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53F0;&#x9636;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x53EA;&#x80FD;&#x662F;&#x4E0B;&#x9762;&#x8FD9;&#x4FE9;&#x79CD;&#x53EF;&#x80FD;&#xFF1A;</p>
+<p>&#x8D70;&#x5230;&#x7B2C; n-2 &#x4E2A;&#x53F0;&#x9636;&#x4E86;&#xFF0C;&#x518D;&#x8D70; 2 &#x6B65;&#x3002;</p>
+<p>&#x8D70;&#x5230;&#x7B2C; n-1 &#x4E2A;&#x53F0;&#x9636;&#x4E86;&#xFF0C;&#x518D;&#x8D70; 1 &#x6B65;&#x3002;</p>
+</li>
+</ul>
+<p>&#x4ECE;&#x4E0A;&#x8FF0;&#x63A8;&#x7406;&#x8FC7;&#x7A0B;&#x53EF;&#x4EE5;&#xFF0C;&#x63A8;&#x5BFC;&#x51FA;&#x6570;&#x5B66;&#x51FD;&#x6570;&#x516C;&#x5F0F;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f(<span class="number">1</span>) = <span class="number">1</span></span><br><span class="line">f(<span class="number">2</span>) = <span class="number">2</span></span><br><span class="line">f(n) = f(n-<span class="number">1</span>) + f(n-<span class="number">2</span>), n&gt;=<span class="number">3</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD9;&#x91CC;&#x7684;<code>f(n)</code>&#x51FD;&#x6570;&#x8868;&#x793A;&#x8D70;&#x5230;&#x7B2C; n &#x4E2A;&#x53F0;&#x9636;&#x80FD;&#x8D70;&#x5230;&#x7684;&#x53EF;&#x80FD;&#x6570;&#x3002;</p>
+<h3 id="3-2-&#x9012;&#x5F52;&#x5B9E;&#x73B0;"><a href="#3-2-&#x9012;&#x5F52;&#x5B9E;&#x73B0;" class="headerlink" title="3.2 &#x9012;&#x5F52;&#x5B9E;&#x73B0;"></a>3.2 &#x9012;&#x5F52;&#x5B9E;&#x73B0;</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x9012;&#x5F52;&#x5B9E;&#x73B0;</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStep1</span> </span>{</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>{</span><br><span class="line">		<span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">		System.out.println(f(<span class="number">100</span>));<span class="comment">//165580141</span></span><br><span class="line">		<span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">		System.out.println(end-start);<span class="comment">//586ms</span></span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//&#x5B9E;&#x73B0;f(n)&#xFF1A;&#x6C42;n&#x6B65;&#x53F0;&#x9636;&#xFF0C;&#x4E00;&#x5171;&#x6709;&#x51E0;&#x79CD;&#x8D70;&#x6CD5;</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n)</span> </span>{</span><br><span class="line">		<span class="keyword">if</span>(n&lt;<span class="number">1</span>){</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(n + <span class="string">&quot;&#x4E0D;&#x80FD;&#x5C0F;&#x4E8E;1&quot;</span>);</span><br><span class="line">		}</span><br><span class="line">        </span><br><span class="line">		<span class="keyword">if</span>(n==<span class="number">1</span> || n==<span class="number">2</span>) {</span><br><span class="line">			<span class="keyword">return</span> n;</span><br><span class="line">		}</span><br><span class="line">        </span><br><span class="line">		<span class="keyword">return</span> f(n-<span class="number">2</span>) + f(n-<span class="number">1</span>);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x9012;&#x5F52;&#x5B9E;&#x73B0;&#x7684;&#x6700;&#x5927;&#x5F0A;&#x7AEF;&#x5728;&#x4E8E;&#xFF0C;&#x9012;&#x5F52;&#x592A;&#x6DF1;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x6808;&#x6EA2;&#x51FA;&#xFF0C;&#x540C;&#x65F6;&#x9012;&#x5F52;&#x8C03;&#x7528;&#x5F88;&#x8017;&#x8D39;CPU&#x4E14;&#x8017;&#x65F6;&#x3002;</p>
+<h3 id="3-3-&#x5FAA;&#x73AF;&#x5B9E;&#x73B0;"><a href="#3-3-&#x5FAA;&#x73AF;&#x5B9E;&#x73B0;" class="headerlink" title="3.3 &#x5FAA;&#x73AF;&#x5B9E;&#x73B0;"></a>3.3 &#x5FAA;&#x73AF;&#x5B9E;&#x73B0;</h3><p>&#x5728;&#x9012;&#x5F52;&#x4E2D;&#xFF0C;&#x5982;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">f(<span class="number">1</span>) = <span class="number">1</span></span><br><span class="line">f(<span class="number">2</span>) = <span class="number">1</span> </span><br><span class="line">f(<span class="number">3</span>) = f(<span class="number">1</span>) + f(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// f(4) = f(2) + f(3), f(3) &#x9700;&#x8981;&#x7528;&#x5230;&#x4E0A;&#x4E00;&#x6B65;&#x7684; f(3)&#xFF0C;&#x6240;&#x4EE5;</span></span><br><span class="line">f(<span class="number">4</span>) = f(<span class="number">2</span>) + f(<span class="number">1</span>) + f(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// f(5) = f(3) + f(4), f(3) f(4) &#x9700;&#x8981;&#x7528;&#x5230;&#x4E0A;&#x9762;&#x7684; f(3) &#x548C; f(4)&#xFF0C;&#x6240;&#x4EE5;</span></span><br><span class="line">f(<span class="number">5</span>) = f(<span class="number">1</span>) + f(<span class="number">2</span>) + f(<span class="number">2</span>) + f(<span class="number">1</span>) + f(<span class="number">2</span>)</span><br><span class="line">&#x2026;&#x2026;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4ECE;&#x4E0A;&#x9762;&#x7684;&#x5206;&#x6790;&#x53EF;&#x4EE5;&#x51FA;&#xFF1A;<code>f(5)</code>&#x4E2D;&#x7684;<code>f(1)+f(2)</code>&#x5DF2;&#x7ECF;&#x8BA1;&#x7B97;&#x4E86;2 &#x6B21;&#x3002;</p>
+<p>&#x8FD9;&#x7B97;&#x662F;&#x4E00;&#x79CD;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x6D6A;&#x8D39;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;<code>f(1)+f(2)</code>&#x7684;&#x8BA1;&#x7B97;&#x7ED3;&#x679C;&#x4FDD;&#x5B58;&#x4E0B;&#x6765;&#xFF0C;&#x5728;&#x8BA1;&#x7B97;<code>f(4)</code>&#x7684;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x7ED3;&#x679C;&#x80FD;&#x66F4;&#x5FEB;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x6BCF;&#x6B21;&#x90FD;&#x5230;&#x7684;&#x53F0;&#x9636;&#x7684;&#x524D; 2 &#x79CD;&#x53EF;&#x80FD;&#x8BB0;&#x4F4F;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x7701;&#x53BB;&#x518D;&#x6B21;&#x8BA1;&#x7B97;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x5FAA;&#x73AF;&#x5B9E;&#x73B0;</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStep2</span> </span>{</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">		System.out.println(f(<span class="number">100</span>));<span class="comment">//165580141</span></span><br><span class="line">		<span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">		System.out.println(end-start);<span class="comment">//&lt;1ms</span></span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n)</span> </span>{</span><br><span class="line">		<span class="keyword">if</span>(n&lt;<span class="number">1</span>) {</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(n + <span class="string">&quot;&#x4E0D;&#x80FD;&#x5C0F;&#x4E8E;1&quot;</span>);</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span>(n==<span class="number">1</span> || n==<span class="number">2</span>) {</span><br><span class="line">			<span class="keyword">return</span> n;</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> one = <span class="number">2</span>;<span class="comment">//&#x521D;&#x59CB;&#x5316;&#x4E3A;&#x8D70;&#x5230;&#x7B2C;&#x4E8C;&#x7EA7;&#x53F0;&#x9636;&#x7684;&#x8D70;&#x6CD5;</span></span><br><span class="line">		<span class="keyword">int</span> two = <span class="number">1</span>;<span class="comment">//&#x521D;&#x59CB;&#x5316;&#x4E3A;&#x8D70;&#x5230;&#x7B2C;&#x4E00;&#x7EA7;&#x53F0;&#x9636;&#x7684;&#x8D70;&#x6CD5;</span></span><br><span class="line">		<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>; i&lt;=n; i++) {</span><br><span class="line">			<span class="comment">//&#x6700;&#x540E;&#x8DE8;2&#x6B65; + &#x6700;&#x540E;&#x8DE8;1&#x6B65;&#x7684;&#x8D70;&#x6CD5;</span></span><br><span class="line">			sum = two + one;</span><br><span class="line">			two = one;</span><br><span class="line">			one = sum;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> sum;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-07-05</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-07-05</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/07/02/038/">进击的Java面试</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2019/07/02/038/" title="进击的Java面试">https://woodwhales.github.io/2019/07/02/038/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/07/02/038/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/01/037/" rel="next" title="浅析分布式系统（一）">
+                <i class="fa fa-chevron-left"></i> 浅析分布式系统（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/02/039/" rel="prev" title="浅析分布式系统（二）">
+                浅析分布式系统（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-自增自减问题"><span class="nav-text">1. 自增自减问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-i"><span class="nav-text">1.1 i++</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-i"><span class="nav-text">1.2 ++i</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-综合问题"><span class="nav-text">1.3 综合问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-小结"><span class="nav-text">1.4 小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-单例模式"><span class="nav-text">2. 单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-代码实现要点"><span class="nav-text">2.1 代码实现要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-单例类型"><span class="nav-text">2.2 单例类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-饿汉式"><span class="nav-text">2.2.1 饿汉式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-懒汉式"><span class="nav-text">2.2.2 懒汉式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-走台阶算法（循环实现）"><span class="nav-text">3. 走台阶算法（循环实现）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-思路分析"><span class="nav-text">3.1 思路分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-递归实现"><span class="nav-text">3.2 递归实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-循环实现"><span class="nav-text">3.3 循环实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

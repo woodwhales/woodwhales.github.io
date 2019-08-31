@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="分布式, 分库分表, mycat, 水平分库, 垂直分表, 垂直分库, DRDS, 拆分主库">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="互联网Java工程师面试突击训练第1季-学习笔记">
+<meta name="keywords" content="分布式, 分库分表, mycat, 水平分库, 垂直分表, 垂直分库, DRDS, 拆分主库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析分布式系统（三）">
+<meta property="og:url" content="https://woodwhales.github.io/2019/07/04/040/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="互联网Java工程师面试突击训练第1季-学习笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2019/07/04/040/2019/07/04/040/face.png">
+<meta property="og:updated_time" content="2019-07-04T16:55:57.260Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅析分布式系统（三）">
+<meta name="twitter:description" content="互联网Java工程师面试突击训练第1季-学习笔记">
+<meta name="twitter:image" content="https://woodwhales.github.io/2019/07/04/040/2019/07/04/040/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2019/07/04/040/">
+
+
+
+
+
+  <title>浅析分布式系统（三） | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/07/04/040/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅析分布式系统（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-04T20:30:14+08:00">
+                2019-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/分布式/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/04/040/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/04/040/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/07/04/040/" class="leancloud_visitors" data-flag-title="浅析分布式系统（三）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  7.4k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  互联网Java工程师面试突击训练第1季-学习笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2019/07/04/040/face.png" rel="gallery_cjzz5ojx60040j4vg6fiwjgdc" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2019/07/04/040/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="1-&#x5206;&#x5E93;&#x5206;&#x8868;"><a href="#1-&#x5206;&#x5E93;&#x5206;&#x8868;" class="headerlink" title="1. &#x5206;&#x5E93;&#x5206;&#x8868;"></a>1. &#x5206;&#x5E93;&#x5206;&#x8868;</h1><h2 id="1-1-&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5206;&#x5E93;&#x5206;&#x8868;"><a href="#1-1-&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5206;&#x5E93;&#x5206;&#x8868;" class="headerlink" title="1.1 &#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5206;&#x5E93;&#x5206;&#x8868;"></a>1.1 &#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5206;&#x5E93;&#x5206;&#x8868;</h2><p>&#x6211;&#x4EEC;&#x770B;&#x4E00;&#x4E0B; sql &#x7684;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x3002;mysql &#x6267;&#x884C;&#x4E00;&#x6761;sql&#x7684;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. &#x6536;&#x5230;sql</span><br><span class="line">2. &#x628A;sql&#x653E;&#x5230;&#x6392;&#x961F;&#x961F;&#x5217;&#x4E2D;</span><br><span class="line">3. &#x6267;&#x884C;sql</span><br><span class="line">4. &#x8FD4;&#x56DE;&#x7ED3;&#x679C;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#x6700;&#x82B1;&#x65F6;&#x95F4;&#x7684;&#x5730;&#x65B9;&#x5728;&#x4E8E;&#xFF1A;&#x6392;&#x961F;&#x7B49;&#x5F85;&#x7684;&#x65F6;&#x95F4;&#x548C;sql&#x7684;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6709; 2 &#x4E2A; sql &#x90FD;&#x8981;&#x540C;&#x65F6;&#x4FEE;&#x6539;&#x540C;&#x4E00;&#x5F20;&#x8868;&#x7684;&#x540C;&#x4E00;&#x6761;&#x6570;&#x636E;&#xFF0C;mysql &#x5BF9;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x7684;&#x5904;&#x7406;&#x662F;&#xFF1A;</p>
+<ul>
+<li>&#x4E00;&#x79CD;&#x662F;&#x8868;&#x9501;&#x5B9A;&#xFF08;MyISAM&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#xFF09;<br>&#x8868;&#x9501;&#x5B9A;&#x8868;&#x793A;&#x5176;&#x4ED6;&#x64CD;&#x4F5C;&#x90FD;&#x4E0D;&#x80FD;&#x5BF9;<strong>&#x8FD9;&#x5F20;&#x8868;</strong>&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x5FC5;&#x987B;&#x7B49;&#x5F53;&#x524D;&#x5BF9;&#x8868;&#x7684;&#x64CD;&#x4F5C;&#x5B8C;&#x624D;&#x884C;&#x3002;</li>
+<li>&#x4E00;&#x4E2A;&#x662F;&#x884C;&#x9501;&#x5B9A;&#xFF08;InnoDB&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#xFF09;<br>&#x884C;&#x9501;&#x5B9A;&#x4E5F;&#x4E00;&#x6837;&#xFF0C;&#x522B;&#x7684;sql&#x5FC5;&#x987B;&#x7B49;<strong>&#x8FD9;&#x6761;&#x6570;&#x636E;</strong>&#x64CD;&#x4F5C;&#x5B8C;&#x4E86;&#xFF0C;&#x5176;&#x4ED6;&#x4EBA;&#x624D;&#x80FD;&#x5BF9;&#x8FD9;&#x6761;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#x3002;</li>
+</ul>
+<p>&#x5982;&#x679C;&#x6570;&#x636E;&#x592A;&#x591A;&#xFF0C;&#x4E00;&#x6B21;&#x6267;&#x884C;&#x7684;&#x65F6;&#x95F4;&#x592A;&#x957F;&#xFF0C;&#x7B49;&#x5F85;&#x7684;&#x65F6;&#x95F4;&#x5C31;&#x8D8A;&#x957F;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x6211;&#x4EEC;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5206;&#x8868;&#x7684;&#x539F;&#x56E0;&#x3002;</p>
+<h2 id="1-2-&#x5206;&#x5E93;&#x5206;&#x8868;&#x672F;&#x8BED;"><a href="#1-2-&#x5206;&#x5E93;&#x5206;&#x8868;&#x672F;&#x8BED;" class="headerlink" title="1.2 &#x5206;&#x5E93;&#x5206;&#x8868;&#x672F;&#x8BED;"></a>1.2 &#x5206;&#x5E93;&#x5206;&#x8868;&#x672F;&#x8BED;</h2><p><strong>&#x8BFB;&#x5199;&#x5206;&#x79BB;&#xFF1A;</strong> &#x4E0D;&#x540C;&#x7684;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x540C;&#x6B65;&#x76F8;&#x540C;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5206;&#x522B;&#x53EA;&#x8D1F;&#x8D23;&#x6570;&#x636E;&#x7684;&#x8BFB;&#x548C;&#x5199;&#x3002;</p>
+<p><strong>&#x5206;&#x533A;&#xFF1A;</strong>&#x6307;&#x5B9A;&#x5206;&#x533A;&#x5217;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x628A;&#x8BB0;&#x5F55;&#x62C6;&#x5206;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x533A;&#x57DF;&#x4E2D;&#xFF08;&#x5FC5;&#x987B;&#x662F;&#x540C;&#x4E00;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x4E0D;&#x540C;&#x786C;&#x76D8;&#xFF09;&#xFF0C;&#x5E94;&#x7528;&#x770B;&#x6765;&#x8FD8;&#x662F;&#x540C;&#x4E00;&#x5F20;&#x8868;&#xFF0C;&#x6CA1;&#x6709;&#x53D8;&#x5316;&#x3002;</p>
+<p><strong>&#x5206;&#x5E93;&#xFF1A;</strong>&#x4E00;&#x4E2A;&#x7CFB;&#x7EDF;&#x7684;&#x591A;&#x5F20;&#x6570;&#x636E;&#x8868;&#xFF0C;&#x5B58;&#x50A8;&#x5230;&#x591A;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x5B9E;&#x4F8B;&#x4E2D;&#x3002;</p>
+<p><strong>&#x5206;&#x8868;&#xFF1A;</strong> &#x5BF9;&#x4E8E;&#x4E00;&#x5F20;&#x591A;&#x884C;&#xFF08;&#x8BB0;&#x5F55;&#xFF09;&#x591A;&#x5217;&#xFF08;&#x5B57;&#x6BB5;&#xFF09;&#x7684;&#x4E8C;&#x7EF4;&#x6570;&#x636E;&#x8868;&#xFF0C;&#x53C8;&#x5206;&#x4E24;&#x79CD;&#x60C5;&#x5F62;&#xFF1A;</p>
+<ul>
+<li>&#x5782;&#x76F4;&#x5206;&#x8868;<br>&#x7AD6;&#x5411;&#x5207;&#x5206;&#xFF0C;&#x4E0D;&#x540C;&#x5206;&#x8868;&#x5B58;&#x50A8;&#x4E0D;&#x540C;&#x7684;&#x5B57;&#x6BB5;&#xFF0C;&#x53EF;&#x4EE5;&#x628A;&#x4E0D;&#x5E38;&#x7528;&#x6216;&#x8005;&#x5927;&#x5BB9;&#x91CF;&#x3001;&#x6216;&#x8005;&#x4E0D;&#x540C;&#x4E1A;&#x52A1;&#x7684;&#x5B57;&#x6BB5;&#x62C6;&#x5206;&#x51FA;&#x53BB;</li>
+<li>&#x6C34;&#x5E73;&#x5206;&#x8868;(&#x6700;&#x590D;&#x6742;)<br>&#x6A2A;&#x5411;&#x5207;&#x5206;&#xFF0C;&#x6309;&#x7167;&#x7279;&#x5B9A;&#x5206;&#x7247;&#x7B97;&#x6CD5;&#xFF0C;&#x4E0D;&#x540C;&#x5206;&#x8868;&#x5B58;&#x50A8;&#x4E0D;&#x540C;&#x7684;&#x8BB0;&#x5F55;&#x3002;</li>
+</ul>
+<p>&#x5728;&#x5B9E;&#x9645;&#x751F;&#x4EA7;&#x4E2D;&#xFF0C;&#x901A;&#x5E38;&#x7684;&#x8FDB;&#x5316;&#x8FC7;&#x7A0B;&#x662F;&#xFF1A;</p>
+<ul>
+<li>&#x5355;&#x5E93;&#x5355;&#x8868; -&gt; &#x5355;&#x5E93;&#x591A;&#x8868; -&gt; &#x591A;&#x5E93;&#x591A;&#x8868;</li>
+<li>&#x5206;&#x533A; -&gt; &#x5206;&#x8868; -&gt; &#x5206;&#x5E93;&#xFF08;&#x5782;&#x76F4;&#x5206;&#x5E93; - &#x6C34;&#x5E73;&#x5206;&#x5E93; - &#x8BFB;&#x5199;&#x5206;&#x79BB;&#xFF09;</li>
+</ul>
+<blockquote>
+<p><strong>&#x5355;&#x5E93;&#x5355;&#x8868;</strong></p>
+<p>&#x5355;&#x5E93;&#x5355;&#x8868;&#x662F;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x6570;&#x636E;&#x5E93;&#x8BBE;&#x8BA1;&#xFF0C;&#x5982;&#x6709;&#x4E00;&#x5F20;&#x8BA2;&#x5355;&#x8868;&#xFF08;order&#xFF09;&#x653E;&#x5728;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x8BA2;&#x5355;&#x90FD;&#x53EF;&#x4EE5;&#x5728; order &#x8868;&#x4E2D;&#x67E5;&#x5230;&#x3002;</p>
+<p><strong>&#x5355;&#x5E93;&#x591A;&#x8868;</strong></p>
+<p>&#x968F;&#x7740;&#x9700;&#x6C42;&#x7684;&#x8FED;&#x4EE3;&#xFF0C;&#x5982;&#x679C;&#x589E;&#x52A0;&#x6DFB;&#x52A0;&#x4E00;&#x5217;&#x7684;&#x65F6;&#x5019;&#xFF0C;mysql&#x4F1A;&#x9501;&#x8868;&#xFF0C;&#x671F;&#x95F4;&#x6240;&#x6709;&#x7684;&#x8BFB;&#x5199;&#x64CD;&#x4F5C;&#x53EA;&#x80FD;&#x7B49;&#x5F85;&#xFF0C;&#x522B;&#x65E0;&#x4ED6;&#x6CD5;&#x3002;</p>
+<p>&#x8FD9;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06; order &#x8FDB;&#x884C;&#x6C34;&#x5E73;&#x7684;&#x5207;&#x5206;&#xFF0C;&#x4EA7;&#x751F;&#x591A;&#x4E2A;&#x8868;&#x7ED3;&#x6784;&#x5B8C;&#x5168;&#x4E00;&#x6837;&#x7684; order &#x8868;&#x3002;&#x6BD4;&#x5982;&#xFF1A;<code>order_01</code>&#xFF0C;<code>order_02</code>&#xFF0C; &#x2026;&#xFF0C;<code>order_n</code>&#xFF0C;&#x90A3;&#x4E48;<code>order_01</code> + <code>order_02</code> + &#x2026; + <code>order_n</code> &#x7684;&#x6570;&#x636E;&#x662F;&#x4E00;&#x4EFD;&#x5B8C;&#x6574;&#x7684;&#x8BA2;&#x5355;&#x6570;&#x636E;&#x3002;</p>
+</blockquote>
+<p>&#x6C34;&#x5E73;&#x5207;&#x5206;&#xFF0C;&#x7B80;&#x5355;&#x7684;&#x505A;&#x6CD5;&#x5982;&#xFF1A;</p>
+<p><strong>&#x6309;ID&#x533A;&#x95F4;&#x6765;&#x5207;&#x5206;</strong>&#xFF0C;&#x5C06;<code>orderId</code>&#x4E3A; 1~9999 &#x7684;&#x8BB0;&#x5F55;&#x5206;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x5E93;&#xFF0C;10000~20000 &#x7684;&#x5206;&#x5230;&#x7B2C;&#x4E8C;&#x4E2A;&#x5E93;&#xFF0C;&#x4EE5;&#x6B64;&#x7C7B;&#x63A8;&#x3002;</p>
+<p>&#x597D;&#x5904;&#x5728;&#x4E8E;&#x6269;&#x5BB9;&#x5F88;&#x65B9;&#x4FBF;&#xFF0C;&#x56E0;&#x4E3A;&#x53EA;&#x8981;&#x6BCF;&#x4E2A;&#x6708;&#x9884;&#x5907;&#x597D;&#x5408;&#x9002;&#x5927;&#x5C0F;&#x7684;&#x65B0;&#x5E93;&#xFF0C;&#x5230;&#x4E86;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6708;&#x4EFD;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x81EA;&#x7136;&#x800C;&#x7136;&#x5C31;&#x4F1A;&#x5199;&#x65B0;&#x7684;&#x5E93;&#x4E86;&#x3002;&#x7F3A;&#x70B9;&#x5728;&#x4E8E;&#x5982;&#x679C;&#x5927;&#x90E8;&#x5206;&#x8BF7;&#x6C42;&#x90FD;&#x662F;&#x8BBF;&#x95EE;&#x6700;&#x65B0;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E48;&#x5C40;&#x90E8;&#x8868;&#x7684;&#x8D1F;&#x8377;&#x5F88;&#x5927;&#xFF0C;&#x65E7;&#x6570;&#x636E;&#x7684;&#x6570;&#x636E;&#x5E93;&#x51E0;&#x4E4E;&#x6CA1;&#x6709;&#x8D1F;&#x8377;&#x3002;</p>
+<p><strong>&#x6309;&#x65F6;&#x95F4;&#x5207;&#x5206;</strong>&#xFF0C;&#x6309;&#x65E5;&#x671F;&#x5C06;&#x4E0D;&#x540C;&#x6708;&#x751A;&#x81F3;&#x662F;&#x65E5;&#x7684;&#x6570;&#x636E;&#x5206;&#x6563;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x5E93;&#x4E2D;&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;2019&#x5E74;1&#x6708;&#x4EFD;&#x5B58;&#x5728;&#x7B2C;&#x4E00;&#x5F20;&#x8868;&#xFF0C;2019&#x5E74;2&#x6708;&#x4EFD;&#x5B58;&#x5728;&#x7B2C;&#x4E8C;&#x5F20;&#x8868;&#x3002;&#x4F9D;&#x6B21;&#x7C7B;&#x63A8;&#x3002;&#x8FD8;&#x53EF;&#x4EE5;&#x6309;&#x7167;id&#x7684;&#x54C8;&#x5E0C;&#x503C;&#x8FDB;&#x884C;&#x5207;&#x5206;&#x7B49;&#x3002;</p>
+<p>&#x597D;&#x5904;&#x5728;&#x4E8E;&#x53EF;&#x4EE5;&#x5E73;&#x5747;&#x5206;&#x914D;&#x6CA1;&#x7ED9;&#x5E93;&#x7684;&#x6570;&#x636E;&#x91CF;&#x548C;&#x8BF7;&#x6C42;&#x538B;&#x529B;&#x3002;&#x574F;&#x5904;&#x5728;&#x4E8E;&#x6269;&#x5BB9;&#x8D77;&#x6765;&#x6BD4;&#x8F83;&#x9EBB;&#x70E6;&#xFF0C;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x8FC1;&#x79FB;&#x7684;&#x8FD9;&#x4E48;&#x4E00;&#x4E2A;&#x8FC7;&#x7A0B;&#x3002;</p>
+<h1 id="2-&#x5206;&#x8868;&#x4E2D;&#x95F4;&#x4EF6;"><a href="#2-&#x5206;&#x8868;&#x4E2D;&#x95F4;&#x4EF6;" class="headerlink" title="2. &#x5206;&#x8868;&#x4E2D;&#x95F4;&#x4EF6;"></a>2. &#x5206;&#x8868;&#x4E2D;&#x95F4;&#x4EF6;</h1><p>&#x7528;&#x8FC7;&#x54EA;&#x4E9B;&#x5206;&#x5E93;&#x5206;&#x8868;&#x4E2D;&#x95F4;&#x4EF6;&#xFF1F;&#x4E0D;&#x540C;&#x7684;&#x5206;&#x5E93;&#x5206;&#x8868;&#x4E2D;&#x95F4;&#x4EF6;&#x90FD;&#x6709;&#x4EC0;&#x4E48;&#x4F18;&#x70B9;&#x548C;&#x7F3A;&#x70B9;&#xFF1F;</p>
+<h2 id="2-1-Cobar"><a href="#2-1-Cobar" class="headerlink" title="2.1 Cobar"></a>2.1 Cobar</h2><p>Cobar &#x662F;&#x63D0;&#x4F9B;&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;&#xFF08;MySQL&#xFF09;&#x5206;&#x5E03;&#x5F0F;&#x670D;&#x52A1;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x8BA9;&#x4F20;&#x7EDF;&#x7684;&#x6570;&#x636E;&#x5E93;&#x5F97;&#x5230;&#x826F;&#x597D;&#x7684;&#x7EBF;&#x6027;&#x6269;&#x5C55;&#xFF0C;&#x5E76;&#x770B;&#x4E0A;&#x53BB;&#x8FD8;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5BF9;&#x5E94;&#x7528;&#x4FDD;&#x6301;&#x900F;&#x660E;&#x3002;</p>
+<p>Cobar&#x4EE5;<code>Proxy</code>&#x7684;&#x5F62;&#x5F0F;&#x4F4D;&#x4E8E;&#x524D;&#x53F0;&#x5E94;&#x7528;&#x548C;&#x5B9E;&#x9645;&#x6570;&#x636E;&#x5E93;&#x4E4B;&#x95F4;&#xFF0C;&#x5BF9;&#x524D;&#x53F0;&#x7684;&#x5F00;&#x653E;&#x7684;&#x63A5;&#x53E3;&#x662F; MySQL &#x901A;&#x4FE1;&#x534F;&#x8BAE;&#xFF0C;&#x5C06;&#x524D;&#x53F0; SQL &#x8BED;&#x53E5;&#x53D8;&#x66F4;&#x5E76;&#x6309;&#x7167;&#x6570;&#x636E;&#x5206;&#x5E03;&#x89C4;&#x5219;&#x53D1;&#x5230;&#x5408;&#x9002;&#x7684;&#x540E;&#x53F0;&#x6570;&#x636E;&#x5206;&#x5E93;&#xFF0C;&#x518D;&#x5408;&#x5E76;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#xFF0C;&#x6A21;&#x62DF;&#x5355;&#x5E93;&#x4E0B;&#x7684;&#x6570;&#x636E;&#x5E93;&#x884C;&#x4E3A;&#x3002;</p>
+<p>Cobar &#x5C5E;&#x4E8E;&#x4E2D;&#x95F4;&#x5C42;&#x65B9;&#x6848;&#xFF0C;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x548C; MySQL &#x4E4B;&#x95F4;&#x642D;&#x5EFA;&#x4E00;&#x5C42; Proxy&#x3002;&#x4E2D;&#x95F4;&#x5C42;&#x4ECB;&#x4E8E;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x95F4;&#xFF0C;&#x9700;&#x8981;&#x505A;&#x4E00;&#x6B21;&#x8F6C;&#x53D1;&#xFF0C;&#x800C;&#x57FA;&#x4E8E; JDBC &#x534F;&#x8BAE;&#x5E76;&#x65E0;&#x989D;&#x5916;&#x8F6C;&#x53D1;&#xFF0C;&#x76F4;&#x63A5;&#x7531;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;&#x3002;</p>
+<p>&#x6027;&#x80FD;&#x4E0A;&#x6709;&#x4E9B;&#x8BB8;&#x4F18;&#x52BF;&#x3002;&#x8FD9;&#x91CC;&#x5E76;&#x975E;&#x8BF4;&#x660E;&#x4E2D;&#x95F4;&#x5C42;&#x4E00;&#x5B9A;&#x4E0D;&#x5982;&#x5BA2;&#x6237;&#x7AEF;&#x76F4;&#x8FDE;&#xFF0C;&#x9664;&#x4E86;&#x6027;&#x80FD;&#xFF0C;&#x9700;&#x8981;&#x8003;&#x8651;&#x7684;&#x56E0;&#x7D20;&#x8FD8;&#x6709;&#x5F88;&#x591A;&#xFF0C;&#x4E2D;&#x95F4;&#x5C42;&#x66F4;&#x4FBF;&#x4E8E;&#x5B9E;&#x73B0;&#x76D1;&#x63A7;&#x3001;&#x6570;&#x636E;&#x8FC1;&#x79FB;&#x3001;&#x8FDE;&#x63A5;&#x7BA1;&#x7406;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p>Cobar &#x5C5E;&#x4E8E;&#x963F;&#x91CC; B2B &#x4E8B;&#x4E1A;&#x7FA4;&#xFF0C;&#x59CB;&#x4E8E; 2008 &#x5E74;&#xFF0C;&#x5728;&#x963F;&#x91CC;&#x670D;&#x5F79; 3 &#x5E74;&#x591A;&#xFF0C;&#x63A5;&#x7BA1; 3000+ &#x4E2A; MySQL &#x6570;&#x636E;&#x5E93;&#x7684; schema&#xFF0C;&#x96C6;&#x7FA4;&#x65E5;&#x5904;&#x7406;&#x5728;&#x7EBF; SQL &#x8BF7;&#x6C42; 50 &#x4EBF;&#x6B21;&#x4EE5;&#x4E0A;&#x3002;</p>
+<p>&#x7531;&#x4E8E;Cobar&#x53D1;&#x8D77;&#x4EBA;&#x7684;&#x79BB;&#x804C;&#xFF0C;Cobar &#x505C;&#x6B62;&#x7EF4;&#x62A4;&#x3002;&#x540E;&#x7EED;&#x7684;&#x7C7B;&#x4F3C;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x6BD4;&#x5982; MyCAT &#x5EFA;&#x7ACB;&#x4E8E; Cobar &#x4E4B;&#x4E0A;&#xFF0C;&#x5305;&#x62EC;&#x73B0;&#x5728;&#x963F;&#x91CC;&#x670D;&#x5F79;&#x7684; RDRS &#x5176;&#x4E2D;&#x4E5F;&#x590D;&#x7528;&#x4E86; Cobar-Proxy &#x7684;&#x76F8;&#x5173;&#x4EE3;&#x7801;&#x3002;</p>
+<h2 id="2-2-MyCAT"><a href="#2-2-MyCAT" class="headerlink" title="2.2 MyCAT"></a>2.2 MyCAT</h2><p>MyCAT &#x662F;&#x793E;&#x533A;&#x7231;&#x597D;&#x8005;&#x5728;&#x963F;&#x91CC; cobar &#x57FA;&#x7840;&#x4E0A;&#x8FDB;&#x884C;&#x4E8C;&#x6B21;&#x5F00;&#x53D1;&#xFF0C;&#x89E3;&#x51B3;&#x4E86; cobar &#x5F53;&#x65F6;&#x5B58; &#x5728;&#x7684;&#x4E00;&#x4E9B;&#x95EE;&#x9898;&#xFF0C;&#x5E76;&#x4E14;&#x52A0;&#x5165;&#x4E86;&#x8BB8;&#x591A;&#x65B0;&#x7684;&#x529F;&#x80FD;&#x5728;&#x5176;&#x4E2D;&#x3002;&#x76EE;&#x524D; MyCAT &#x793E;&#x533A;&#x6D3B; &#x8DC3;&#x5EA6;&#x5F88;&#x9AD8;&#xFF0C;&#x76EE;&#x524D;&#x5DF2;&#x7ECF;&#x6709;&#x4E00;&#x4E9B;&#x516C;&#x53F8;&#x5728;&#x4F7F;&#x7528;MyCAT&#x3002;&#x603B;&#x4F53;&#x6765;&#x8BF4;&#x652F;&#x6301;&#x5EA6;&#x6BD4;&#x8F83;&#x9AD8;&#xFF0C;&#x4E5F;&#x4F1A;&#x4E00;&#x76F4;&#x7EF4;&#x62A4;&#x4E0B;&#x53BB;&#xFF0C;&#x53D1;&#x5C55;&#x5230;&#x76EE;&#x524D;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x5DF2;&#x7ECF;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x5355;&#x7EAF;&#x7684; MySQL &#x4EE3;&#x7406;&#x4E86;&#x3002;</p>
+<p>&#x5B83;&#x7684;&#x540E;&#x7AEF;&#x53EF;&#x4EE5;&#x652F;&#x6301; MySQL&#xFF0C;SQL Server&#xFF0C;Oracle&#xFF0C;DB2&#xFF0C;PostgreSQL &#x7B49;&#x4E3B;&#x6D41;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x4E5F;&#x652F;&#x6301; MongoDB &#x8FD9;&#x79CD;&#x65B0;&#x578B;NoSQL &#x65B9;&#x5F0F;&#x7684;&#x5B58;&#x50A8;&#xFF0C;&#x672A;&#x6765;&#x8FD8;&#x4F1A;&#x652F;&#x6301;&#x66F4;&#x591A;&#x7C7B;&#x578B;&#x7684;&#x5B58;&#x50A8;&#x3002;</p>
+<p>MyCAT&#x662F;&#x4E00;&#x4E2A;&#x5F3A;&#x5927;&#x7684;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x4E0D;&#x4EC5;&#x4EC5;&#x53EF;&#x4EE5;&#x7528;&#x4F5C;&#x8BFB;&#x5199;&#x5206;&#x79BB;&#xFF0C;&#x4EE5;&#x53CA;&#x5206;&#x8868;&#x5206;&#x5E93;&#x3001;&#x5BB9;&#x707E;&#x7BA1;&#x7406;&#xFF0C;&#x800C;&#x4E14;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x591A;&#x79DF;&#x6237;&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x3001;&#x4E91;&#x5E73;&#x53F0;&#x57FA;&#x7840;&#x8BBE;&#x65BD;&#xFF0C;&#x8BA9;&#x4F60;&#x7684;&#x67B6;&#x6784;&#x5177;&#x5907;&#x5F88;&#x5F3A;&#x7684;&#x9002;&#x5E94;&#x6027;&#x548C;&#x7075;&#x6D3B;&#x6027;&#x3002;</p>
+<p>&#x501F;&#x52A9;&#x4E8E;&#x5373;&#x5C06;&#x53D1;&#x5E03;&#x7684; MyCAT &#x6027;&#x80FD;&#x4F18;&#x5316;&#x6A21;&#x5757;&#xFF0C;&#x7CFB;&#x7EDF;&#x7684;&#x6570;&#x636E;&#x8BBF;&#x95EE;&#x74F6;&#x9888;&#x548C;&#x70ED;&#x70B9;&#x4E00;&#x76EE;&#x4E86;&#x7136;&#xFF0C;&#x6839;&#x636E;&#x8FD9;&#x4E9B;&#x7EDF;&#x8BA1;&#x5206;&#x6790;&#x6570;&#x636E;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x81EA;&#x52A8;&#x6216;&#x624B;&#x5DE5;&#x8C03;&#x6574;&#x540E;&#x7AEF;&#x5B58;&#x50A8;&#xFF0C;&#x5C06;&#x4E0D;&#x540C;&#x7684;&#x8868;&#x9690;&#x5C04;&#x5230;&#x4E0D;&#x540C;&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#x4E0A;&#xFF0C;&#x800C;&#x6574;&#x4E2A;&#x5E94;&#x7528;&#x7684;&#x4EE3;&#x7801;&#x4E00;&#x884C;&#x4E5F;&#x4E0D;&#x7528;&#x6539;&#x53D8;&#x3002;</p>
+<p>MyCAT&#x662F;&#x5728; Cobar &#x57FA;&#x7840;&#x4E0A;&#x53D1;&#x5C55;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x4E24;&#x4E2A;&#x663E;&#x8457;&#x63D0;&#x9AD8;&#xFF1A;&#x540E;&#x7AEF;&#x7531; BIO &#x6539;&#x4E3A; NIO&#xFF0C;&#x5E76;&#x53D1;&#x91CF;&#x6709;&#x5927;&#x5E45;&#x63D0;&#x9AD8;&#xFF1B; &#x589E;&#x52A0;&#x4E86;&#x5BF9;<code>Order By</code>&#xFF0C;<code>Group By</code>&#xFF0C;<code>Limit</code>&#x7B49;&#x805A;&#x5408;&#x529F;&#x80FD;&#x3002;&#xFF08;&#x867D;&#x7136; Cobar &#x4E5F;&#x53EF;&#x4EE5;&#x652F;&#x6301; Order By&#xFF0C;Group By&#xFF0C;Limit&#x8BED;&#x6CD5;&#xFF0C;&#x4F46;&#x662F;&#x7ED3;&#x679C;&#x6CA1;&#x6709;&#x8FDB;&#x884C;&#x805A;&#x5408;&#xFF0C;&#x53EA;&#x662F;&#x7B80;&#x5355;&#x8FD4;&#x56DE;&#x7ED9;&#x524D;&#x7AEF;&#xFF0C;&#x805A;&#x5408;&#x529F;&#x80FD;&#x8FD8;&#x662F;&#x9700;&#x8981;&#x4E1A;&#x52A1;&#x7CFB;&#x7EDF;&#x81EA;&#x5DF1;&#x5B8C;&#x6210;&#xFF09;</p>
+<h2 id="2-3-TDDL"><a href="#2-3-TDDL" class="headerlink" title="2.3 TDDL"></a>2.3 TDDL</h2><p>TDDL&#x662F; Tabao &#x6839;&#x636E;&#x81EA;&#x5DF1;&#x7684;&#x4E1A;&#x52A1;&#x7279;&#x70B9;&#x5F00;&#x53D1;&#x4E86;&#xFF08;Tabao Distributed Data Layer&#xFF0C;&#x5916;&#x53F7;&#xFF1A;&#x5934;&#x90FD;&#x5927;&#x4E86;&#xFF09;&#x3002;&#x4E3B;&#x8981;&#x89E3;&#x51B3;&#x4E86;&#x5206;&#x5E93;&#x5206;&#x8868;&#x5BF9;&#x5E94;&#x7528;&#x7684;&#x900F;&#x660E;&#x5316;&#x4EE5;&#x53CA;&#x5F02;&#x6784;&#x6570;&#x636E;&#x5E93;&#x4E4B;&#x95F4;&#x7684;&#x6570;&#x636E;&#x590D;&#x5236;&#xFF0C;&#x5B83;&#x662F;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E;&#x96C6;&#x4E2D;&#x5F0F;&#x914D;&#x7F6E;&#x7684;<code>jdbc datasourcce</code>&#x5B9E;&#x73B0;&#xFF0C;&#x5177;&#x6709;&#x4E3B;&#x5907;&#xFF0C;&#x8BFB;&#x5199;&#x5206;&#x79BB;&#xFF0C;&#x52A8;&#x6001;&#x6570;&#x636E;&#x5E93;&#x914D;&#x7F6E;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p>TDDL&#x5E76;&#x975E;&#x72EC;&#x7ACB;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x53EA;&#x80FD;&#x7B97;&#x4F5C;&#x4E2D;&#x95F4;&#x5C42;&#xFF0C;&#x5904;&#x4E8E;&#x4E1A;&#x52A1;&#x5C42;&#x548C;JDBC&#x5C42;&#x4E2D;&#x95F4;&#xFF0C;&#x662F;&#x4EE5;Jar&#x5305;&#x65B9;&#x5F0F;&#x63D0;&#x4F9B;&#x7ED9;&#x5E94;&#x7528;&#x8C03;&#x7528;&#xFF0C;&#x5C5E;&#x4E8E;JDBC Shard&#x7684;&#x601D;&#x60F3;&#x3002;</p>
+<blockquote>
+<p>TDDL&#x6E90;&#x7801;&#xFF1A;<a href="https://github.com/alibaba/tb_tddl" target="_blank" rel="noopener">https://github.com/alibaba/tb_tddl</a></p>
+</blockquote>
+<p>TDDL&#x590D;&#x6742;&#x5EA6;&#x76F8;&#x5BF9;&#x8F83;&#x9AD8;&#x3002;&#x5F53;&#x524D;&#x516C;&#x5E03;&#x7684;&#x6587;&#x6863;&#x8F83;&#x5C11;&#xFF0C;&#x53EA;&#x5F00;&#x6E90;&#x52A8;&#x6001;&#x6570;&#x636E;&#x6E90;&#xFF0C;&#x5206;&#x8868;&#x5206;&#x5E93;&#x90E8;&#x5206;&#x8FD8;&#x672A;&#x5F00;&#x6E90;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x4F9D;&#x8D56;<code>diamond</code>&#xFF0C;&#x4E0D;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x3002;</p>
+<h2 id="2-4-DRDS"><a href="#2-4-DRDS" class="headerlink" title="2.4 DRDS"></a>2.4 DRDS</h2><p>DRDS &#x662F;&#x963F;&#x91CC;&#x5DF4;&#x5DF4;&#x81EA;&#x4E3B;&#x7814;&#x53D1;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#xFF08;&#x6B64;&#x9879;&#x76EE;&#x4E0D;&#x5F00;&#x6E90;&#xFF09;&#xFF0C;DRDS&#x8131;&#x80CE;&#x4E8E;&#x963F;&#x91CC;&#x5DF4;&#x5DF4;&#x5F00;&#x6E90;&#x7684; Cobar &#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5E93;&#x5F15;&#x64CE;&#xFF0C;&#x5438;&#x6536;&#x4E86; Cobar &#x6838;&#x5FC3;&#x7684;Cobar-Proxy &#x6E90;&#x7801;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x5957;&#x72EC;&#x7ACB;&#x7684;&#x7C7B;&#x4F3C;<code>MySQL-Proxy</code>&#x534F;&#x8BAE;&#x7684;&#x89E3;&#x6790;&#x7AEF;&#xFF0C;&#x80FD;&#x591F;&#x5BF9;&#x4F20;&#x5165;&#x7684;SQL&#x8FDB;&#x884C;&#x89E3;&#x6790;&#x548C;&#x5904;&#x7406;&#xFF0C;&#x5BF9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5C4F;&#x853D;&#x5404;&#x79CD;&#x590D;&#x6742;&#x7684;&#x5E95;&#x5C42;DB&#x62D3;&#x6251;&#x7ED3;&#x6784;&#xFF0C;&#x83B7;&#x5F97;&#x5355;&#x673A;&#x6570;&#x636E;&#x5E93;&#x4E00;&#x6837;&#x7684;&#x4F7F;&#x7528;&#x4F53;&#x9A8C;&#x3002;</p>
+<p>&#x540C;&#x65F6;&#x501F;&#x9274;&#x4E86;&#x6DD8;&#x5B9D;TDDL&#x4E30;&#x5BCC;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5E93;&#x5B9E;&#x8DF5;&#x7ECF;&#x9A8C;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x5BF9;&#x5206;&#x5E03;&#x5F0F;Join&#x652F;&#x6301;&#xFF0C;SUM/MAX/COUNT/AVG&#x7B49;&#x805A;&#x5408;&#x51FD;&#x6570;&#x652F;&#x6301;&#x4EE5;&#x53CA;&#x6392;&#x5E8F;&#x7B49;&#x51FD;&#x6570;&#x652F;&#x6301;&#xFF0C;&#x901A;&#x8FC7;&#x5F02;&#x6784;&#x7D22;&#x5F15;&#x3001;&#x5C0F;&#x8868;&#x5E7F;&#x64AD;&#x7B49;&#x89E3;&#x51B3;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5E93;&#x4F7F;&#x7528;&#x573A;&#x666F;&#x4E0B;&#x884D;&#x751F;&#x51FA;&#x7684;&#x4E00;&#x7CFB;&#x5217;&#x95EE;&#x9898;&#xFF0C;&#x6700;&#x7EC8;&#x5F62;&#x6210;&#x4E86;&#x5B8C;&#x6574;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5E93;&#x65B9;&#x6848;&#x3002;</p>
+<h2 id="2-5-Atlas"><a href="#2-5-Atlas" class="headerlink" title="2.5 Atlas"></a>2.5 Atlas</h2><p>Atlas &#x662F;&#x4E00;&#x4E2A;&#x4F4D;&#x4E8E;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E0E;MySQL&#x4E4B;&#x95F4;&#x7684;&#x57FA;&#x4E8E;MySQL&#x534F;&#x8BAE;&#x7684;&#x6570;&#x636E;&#x4E2D;&#x95F4;&#x5C42;&#x9879;&#x76EE;&#xFF0C;&#x5B83;&#x662F;&#x5728;<code>mysql-proxy 0.8.2</code>&#x7248;&#x672C;&#x4E0A;&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x4F18;&#x5316;&#xFF0C;360&#x56E2;&#x961F;&#x57FA;&#x4E8E;mysql proxy &#x628A; lua &#x7528; C &#x6539;&#x5199;&#xFF0C;&#x5B83;&#x5B9E;&#x73B0;&#x4E86;MySQL&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x670D;&#x52A1;&#x7AEF;&#x534F;&#x8BAE;&#xFF0C;&#x4F5C;&#x4E3A;&#x670D;&#x52A1;&#x7AEF;&#x4E0E;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x901A;&#x8BAF;&#xFF0C;&#x540C;&#x65F6;&#x4F5C;&#x4E3A;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;MySQL&#x901A;&#x8BAF;&#x3002;&#x5B83;&#x5BF9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5C4F;&#x853D;&#x4E86;DB&#x7684;&#x7EC6;&#x8282;&#x3002;</p>
+<blockquote>
+<p>&#x8FD9;&#x4E2A;&#x4EA7;&#x54C1;&#x6700;&#x65B0;&#x4E00;&#x6B21;&#x5C0F;&#x5E45;&#x5EA6;&#x66F4;&#x65B0;&#x4E5F;&#x662F;&#x4E00;&#x5E74;&#x524D;&#xFF0C;&#x6D3B;&#x8DC3;&#x5EA6;&#x5F88;&#x4F4E;&#xFF0C;&#x4E0D;&#x7B80;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x3002;</p>
+</blockquote>
+<h2 id="2-5-Sharding-JDBC-Sharding-Sphere"><a href="#2-5-Sharding-JDBC-Sharding-Sphere" class="headerlink" title="2.5 Sharding-JDBC/Sharding-Sphere"></a>2.5 Sharding-JDBC/Sharding-Sphere</h2><p>sharding-JDBC &#xFF0C;&#x4ECE; 3.0 &#x5F00;&#x59CB;&#xFF0C;Sharding-JDBC &#x5C06;&#x66F4;&#x540D;&#x4E3A; Sharding-Sphere&#x3002;&#x662F;&#x5F53;&#x5F53;&#x5E94;&#x7528;&#x6846;&#x67B6;<code>ddframe</code>&#x4E2D;&#xFF0C;&#x4ECE;&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;&#x6A21;&#x5757;<code>dd-rdb</code>&#x4E2D;&#x5206;&#x79BB;&#x51FA;&#x6765;&#x7684;&#x6570;&#x636E;&#x5E93;&#x6C34;&#x5E73;&#x5206;&#x7247;&#x6846;&#x67B6;&#xFF0C;&#x5B9E;&#x73B0;&#x900F;&#x660E;&#x5316;&#x6570;&#x636E;&#x5E93;&#x5206;&#x5E93;&#x5206;&#x8868;&#x8BBF;&#x95EE;&#x3002;</p>
+<blockquote>
+<p>Sharding-JDBC &#x662F;&#x7EE7;<code>dubbox</code>&#x548C;<code>elastic-job</code>&#x4E4B;&#x540E;&#xFF0C;<code>ddframe</code>&#x7CFB;&#x5217;&#x5F00;&#x6E90;&#x7684;&#x7B2C; 3 &#x4E2A;&#x9879;&#x76EE;&#x3002;</p>
+</blockquote>
+<p>Sharding-JDBC&#x76F4;&#x63A5;&#x5C01;&#x88C5;JDBC API&#xFF0C;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x589E;&#x5F3A;&#x7248;&#x7684;JDBC&#x9A71;&#x52A8;&#xFF0C;&#x65E7;&#x4EE3;&#x7801;&#x8FC1;&#x79FB;&#x6210;&#x672C;&#x51E0;&#x4E4E;&#x4E3A;&#x96F6;&#xFF1A;</p>
+<ul>
+<li>&#x53EF;&#x9002;&#x7528;&#x4E8E;&#x4EFB;&#x4F55;&#x57FA;&#x4E8E;Java&#x7684;ORM&#x6846;&#x67B6;&#xFF0C;&#x5982;JPA&#x3001;Hibernate&#x3001;Mybatis&#x3001;Spring JDBC Template&#x6216;&#x76F4;&#x63A5;&#x4F7F;&#x7528;JDBC&#x3002;</li>
+<li>&#x53EF;&#x57FA;&#x4E8E;&#x4EFB;&#x4F55;&#x7B2C;&#x4E09;&#x65B9;&#x7684;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6C60;&#xFF0C;&#x5982;DBCP&#x3001;C3P0&#x3001; BoneCP&#x3001;Druid&#x7B49;&#x3002;</li>
+<li>&#x7406;&#x8BBA;&#x4E0A;&#x53EF;&#x652F;&#x6301;&#x4EFB;&#x610F;&#x5B9E;&#x73B0;JDBC&#x89C4;&#x8303;&#x7684;&#x6570;&#x636E;&#x5E93;&#x3002;&#x867D;&#x7136;&#x76EE;&#x524D;&#x4EC5;&#x652F;&#x6301;MySQL&#xFF0C;&#x4F46;&#x5DF2;&#x6709;&#x652F;&#x6301;Oracle&#x3001;SQLServer&#x7B49;&#x6570;&#x636E;&#x5E93;&#x7684;&#x8BA1;&#x5212;&#x3002;</li>
+</ul>
+<p>Sharding-JDBC&#x5B9A;&#x4F4D;&#x4E3A;&#x8F7B;&#x91CF;Java&#x6846;&#x67B6;&#xFF0C;&#x4F7F;&#x7528;&#x5BA2;&#x6237;&#x7AEF;&#x76F4;&#x8FDE;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x4EE5; jar &#x5305;&#x5F62;&#x5F0F;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#xFF0C;&#x65E0;proxy&#x4EE3;&#x7406;&#x5C42;&#xFF0C;&#x65E0;&#x9700;&#x989D;&#x5916;&#x90E8;&#x7F72;&#xFF0C;&#x65E0;&#x5176;&#x4ED6;&#x4F9D;&#x8D56;&#xFF0C;DBA&#x4E5F;&#x65E0;&#x9700;&#x6539;&#x53D8;&#x539F;&#x6709;&#x7684;&#x8FD0;&#x7EF4;&#x65B9;&#x5F0F;&#x3002;</p>
+<p>Sharding-JDBC&#x5206;&#x7247;&#x7B56;&#x7565;&#x7075;&#x6D3B;&#xFF0C;&#x53EF;&#x652F;&#x6301;&#x7B49;&#x53F7;&#x3001;between&#x3001;in&#x7B49;&#x591A;&#x7EF4;&#x5EA6;&#x5206;&#x7247;&#xFF0C;&#x4E5F;&#x53EF;&#x652F;&#x6301;&#x591A;&#x5206;&#x7247;&#x952E;&#x3002;</p>
+<p>SQL&#x89E3;&#x6790;&#x529F;&#x80FD;&#x5B8C;&#x5584;&#xFF0C;&#x652F;&#x6301;&#x805A;&#x5408;&#x3001;&#x5206;&#x7EC4;&#x3001;&#x6392;&#x5E8F;&#x3001;limit&#x3001;or&#x7B49;&#x67E5;&#x8BE2;&#xFF0C;&#x5E76;&#x652F;&#x6301;Binding Table&#x4EE5;&#x53CA;&#x7B1B;&#x5361;&#x5C14;&#x79EF;&#x8868;&#x67E5;&#x8BE2;&#x3002;</p>
+<h1 id="2-&#x6570;&#x636E;&#x5E93;&#x8FC1;&#x79FB;&#x65B9;&#x6848;"><a href="#2-&#x6570;&#x636E;&#x5E93;&#x8FC1;&#x79FB;&#x65B9;&#x6848;" class="headerlink" title="2. &#x6570;&#x636E;&#x5E93;&#x8FC1;&#x79FB;&#x65B9;&#x6848;"></a>2. &#x6570;&#x636E;&#x5E93;&#x8FC1;&#x79FB;&#x65B9;&#x6848;</h1><p>&#x73B0;&#x5728;&#x6709;&#x4E00;&#x4E2A;&#x672A;&#x5206;&#x5E93;&#x5206;&#x8868;&#x7684;&#x7CFB;&#x7EDF;&#xFF0C;&#x672A;&#x6765;&#x8981;&#x5206;&#x5E93;&#x5206;&#x8868;&#xFF0C;&#x5982;&#x4F55;&#x8BBE;&#x8BA1;&#x624D;&#x53EF;&#x4EE5;&#x8BA9;&#x7CFB;&#x7EDF;&#x4ECE;&#x672A;&#x5206;&#x5E93;&#x5206;&#x8868;&#x52A8;&#x6001;&#x5207;&#x6362;&#x5230;&#x5206;&#x5E93;&#x5206;&#x8868;&#x4E0A;&#xFF1F;</p>
+<h2 id="2-1-&#x505C;&#x673A;&#x8FC1;&#x79FB;&#x65B9;&#x6848;"><a href="#2-1-&#x505C;&#x673A;&#x8FC1;&#x79FB;&#x65B9;&#x6848;" class="headerlink" title="2.1 &#x505C;&#x673A;&#x8FC1;&#x79FB;&#x65B9;&#x6848;"></a>2.1 &#x505C;&#x673A;&#x8FC1;&#x79FB;&#x65B9;&#x6848;</h2><p>&#x7CFB;&#x7EDF;&#x505C;&#x6389;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x8001;&#x5E93;&#x7684;&#x6570;&#x636E;&#x8FC1;&#x79FB;&#x5230;&#x5206;&#x5E93;&#x5206;&#x8868;&#x7684;&#x6570;&#x636E;&#x4E2D;</p>
+<h2 id="2-2-&#x53CC;&#x5199;&#x8FC1;&#x79FB;&#x65B9;&#x6848;"><a href="#2-2-&#x53CC;&#x5199;&#x8FC1;&#x79FB;&#x65B9;&#x6848;" class="headerlink" title="2.2 &#x53CC;&#x5199;&#x8FC1;&#x79FB;&#x65B9;&#x6848;"></a>2.2 &#x53CC;&#x5199;&#x8FC1;&#x79FB;&#x65B9;&#x6848;</h2><p>&#x53CC;&#x5199;&#x8FC1;&#x79FB;&#x65B9;&#x6848;&#x5C31;&#x662F;&#x540C;&#x65F6;&#x5199;&#x4E24;&#x4E2A;&#x5E93;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x8001;&#x5E93;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x65B0;&#x5E93;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x5728;&#x7EBF;&#x4E0A;&#x7CFB;&#x7EDF;&#x91CC;&#x9762;&#xFF0C;&#x9664;&#x4E86;&#x5BF9;&#x6240;&#x6709;&#x8001;&#x5E93;&#x7684;&#x589E;&#x5220;&#x6539;&#x5730;&#x65B9;&#xFF0C;&#x540C;&#x65F6;&#x5BF9;&#x65B0;&#x5E93;&#x540C;&#x6837;&#x6267;&#x884C;&#x589E;&#x5220;&#x6539;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x6240;&#x8C13;&#x7684;&#x53CC;&#x5199;&#x3002;</p>
+<p>&#x7CFB;&#x7EDF;&#x90E8;&#x7F72;&#x4E4B;&#x540E;&#xFF0C;&#x65B0;&#x5E93;&#x6570;&#x636E;&#x5DEE;&#x592A;&#x8FDC;&#xFF0C;&#x7528;&#x5BFC;&#x6570;&#x5DE5;&#x5177;&#x8BFB;&#x8001;&#x5E93;&#x6570;&#x636E;&#x5E76;&#x5199;&#x5230;&#x65B0;&#x5E93;&#x4E2D;&#xFF0C;&#x5199;&#x7684;&#x65F6;&#x5019;&#x8981;&#x6839;&#x636E;<code>gmt_modified</code>&#x8FD9;&#x7C7B;&#x5B57;&#x6BB5;&#x5224;&#x65AD;&#x8FD9;&#x6761;&#x6570;&#x636E;&#x6700;&#x540E;&#x4FEE;&#x6539;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x9664;&#x975E;&#x662F;&#x8BFB;&#x51FA;&#x6765;&#x7684;&#x6570;&#x636E;&#x5728;&#x65B0;&#x5E93;&#x91CC;&#x6CA1;&#x6709;&#xFF0C;&#x6216;&#x8005;&#x662F;&#x6BD4;&#x65B0;&#x5E93;&#x7684;&#x6570;&#x636E;&#x65B0;&#x624D;&#x4F1A;&#x5199;&#x3002;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;&#x5C31;&#x662F;&#x4E0D;&#x5141;&#x8BB8;&#x7528;&#x8001;&#x6570;&#x636E;&#x8986;&#x76D6;&#x65B0;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x5BFC;&#x5B8C;&#x4E00;&#x8F6E;&#x4E4B;&#x540E;&#xFF0C;&#x6709;&#x53EF;&#x80FD;&#x6570;&#x636E;&#x8FD8;&#x662F;&#x5B58;&#x5728;&#x4E0D;&#x4E00;&#x81F4;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x7A0B;&#x5E8F;&#x81EA;&#x52A8;&#x505A;&#x4E00;&#x8F6E;&#x6821;&#x9A8C;&#xFF0C;&#x6BD4;&#x5BF9;&#x65B0;&#x8001;&#x5E93;&#x6BCF;&#x4E2A;&#x8868;&#x7684;&#x6BCF;&#x6761;&#x6570;&#x636E;&#xFF0C;&#x63A5;&#x7740;&#x5982;&#x679C;&#x6709;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x5C31;&#x9488;&#x5BF9;&#x90A3;&#x4E9B;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x4ECE;&#x8001;&#x5E93;&#x8BFB;&#x6570;&#x636E;&#x518D;&#x6B21;&#x5199;&#x3002;&#x53CD;&#x590D;&#x5FAA;&#x73AF;&#xFF0C;&#x76F4;&#x5230;&#x4E24;&#x4E2A;&#x5E93;&#x6BCF;&#x4E2A;&#x8868;&#x7684;&#x6570;&#x636E;&#x90FD;&#x5B8C;&#x5168;&#x4E00;&#x81F4;&#x4E3A;&#x6B62;&#x3002;</p>
+<p>&#x5F53;&#x6570;&#x636E;&#x5B8C;&#x5168;&#x4E00;&#x81F4;&#x65F6;&#xFF0C;&#x57FA;&#x4E8E;&#x4EC5;&#x4F7F;&#x7528;&#x5206;&#x5E93;&#x5206;&#x8868;&#x7684;&#x6700;&#x65B0;&#x4EE3;&#x7801;&#xFF0C;&#x91CD;&#x65B0;&#x90E8;&#x7F72;&#x4E00;&#x6B21;&#x3002;</p>
+<h1 id="4-&#x52A8;&#x6001;&#x6269;&#x5BB9;"><a href="#4-&#x52A8;&#x6001;&#x6269;&#x5BB9;" class="headerlink" title="4. &#x52A8;&#x6001;&#x6269;&#x5BB9;"></a>4. &#x52A8;&#x6001;&#x6269;&#x5BB9;</h1><p>&#x5982;&#x4F55;&#x8BBE;&#x8BA1;&#x53EF;&#x4EE5;&#x52A8;&#x6001;&#x6269;&#x5BB9;&#x7F29;&#x5BB9;&#x7684;&#x5206;&#x5E93;&#x5206;&#x8868;&#x65B9;&#x6848;&#xFF1F;</p>
+<p>&#x52A8;&#x6001;&#x6269;&#x5BB9;&#x505A;&#x5230;&#x5F88;&#x4F18;&#x96C5;&#x5C31;&#x662F;&#x8981;&#x4FDD;&#x8BC1;&#x6269;&#x5BB9;&#x7F29;&#x5BB9;&#x7684;&#x4EE3;&#x4EF7;&#x8981;&#x5C0F;&#xFF0C;&#x8FC1;&#x79FB;&#x6570;&#x636E;&#x8981;&#x5FEB;&#x3002;&#x53EF;&#x4EE5;&#x91C7;&#x7528;<strong>&#x903B;&#x8F91;&#x5206;&#x5E93;&#x5206;&#x8868;</strong>&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x4EE3;&#x66FF;<strong>&#x7269;&#x7406;&#x5206;&#x5E93;&#x5206;&#x8868;</strong>&#x7684;&#x65B9;&#x5F0F;&#xFF1A;&#x8981;&#x6269;&#x5BB9;&#x7F29;&#x5BB9;&#x65F6;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5C06;&#x903B;&#x8F91;&#x4E0A;&#x7684;&#x6570;&#x636E;&#x5E93;&#x548C;&#x8868;&#x6539;&#x4E3A;&#x7269;&#x7406;&#x4E0A;&#x7684;&#x6570;&#x636E;&#x5E93;&#x548C;&#x8868;&#x3002;</p>
+<p>&#x5FEB;&#x901F;&#x5E73;&#x7A33;&#x7684;&#x6269;&#x5BB9;&#x7F29;&#x5BB9;&#x662F;&#x5EFA;&#x7ACB;&#x5728;&#x5408;&#x7406;&#x7684;&#x5206;&#x5E93;&#x5206;&#x8868;&#x7684;&#x57FA;&#x7840;&#x4E4B;&#x4E0A;&#xFF0C;&#x5229;&#x7528;&#x5BF9;2&#x7684;&#x500D;&#x6570;&#x53D6;&#x4F59;&#x5177;&#x6709;&#x5411;&#x524D;&#x517C;&#x5BB9;&#x7684;&#x7279;&#x6027;&#xFF08;&#x5982;&#x5BF9;4&#x53D6;&#x4F59;&#x5F97;1&#x7684;&#x6570;&#x5BF9;2&#x53D6;&#x4F59;&#x4E5F;&#x662F;1&#xFF09;&#x6765;&#x5206;&#x914D;&#x6570;&#x636E;&#xFF0C;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x884C;&#x7EA7;&#x522B;&#x6570;&#x636E;&#x7684;&#x8FC1;&#x79FB;&#xFF0C;&#x4F46;&#x662F;&#x4F9D;&#x7136;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x8868;&#x7EA7;&#x522B;&#x6570;&#x636E;&#x7684;&#x8FC1;&#x79FB;&#x3002;&#x6240;&#x4EE5;&#x7B2C;&#x4E00;&#x6B21;&#x8FDB;&#x884C;&#x5206;&#x5E93;&#x5206;&#x8868;&#x65F6;&#x591A;&#x5206;&#x51E0;&#x4E2A;&#x5E93;&#xFF0C;&#x4EE5;&#x4FDD;&#x8BC1;&#x672A;&#x6765;&#x5F88;&#x957F;&#x65F6;&#x95F4;&#x5185;&#x90FD;&#x4E0D;&#x9700;&#x8981;&#x518D;&#x5206;&#x5E93;&#x5206;&#x8868;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x6709;&#x4E2A;&#x5B9E;&#x8DF5;&#x53C2;&#x8003;&#xFF1A;&#x5229;&#x7528; 32 * 32 &#x6765;&#x5206;&#x5E93;&#x5206;&#x8868;&#xFF0C;&#x5373;&#x5206;&#x4E3A; 32 &#x4E2A;&#x5E93;&#xFF0C;&#x6BCF;&#x4E2A;&#x5E93; 32 &#x5F20;&#x8868;&#xFF0C;&#x4E00;&#x5171;&#x5C31;&#x662F; 1024 &#x5F20;&#x8868;&#xFF0C;&#x4E00;&#x6761;&#x6570;&#x636E;&#x5148;&#x6839;&#x636E;&#x5148;&#x6839;&#x636E;&#x6570;&#x636E;&#x5E93;&#x6570;&#x91CF;&#x53D6;&#x6A21;&#x8DEF;&#x7531;&#x5230;&#x54EA;&#x4E2A;&#x5E93;&#xFF0C;&#x518D;&#x6839;&#x636E;&#x5E93;&#x7684;&#x8868;&#x6570;&#x91CF;&#x53D6;&#x6A21;&#x8DEF;&#x7531;&#x5230;&#x54EA;&#x5F20;&#x8868;&#x3002;</p>
+<blockquote>
+<p>&#x4E00;&#x822C;&#x8DEF;&#x7531;&#x5230;&#x8868;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5148;&#x5C06;&#x6570;&#x636E;&#x7684; id &#x5BF9;&#x8868;&#x7684;&#x603B;&#x6570;&#x6574;&#x9664;&#xFF0C;&#x518D;&#x5BF9;&#x8868;&#x7684;&#x603B;&#x6570;&#x53D6;&#x6A21;&#xFF0C;&#x8FD9;&#x6837;&#x6570;&#x636E;&#x4F1A;&#x66F4;&#x5747;&#x5300;&#x5206;&#x5E03;&#x5728;&#x4E00;&#x4E2A;&#x5E93;&#x7684;&#x8868;&#x4E2D;&#x3002;</p>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x662F;&#x82E5;&#x8868;&#x7684;&#x6570;&#x91CF;&#x4E3A; 1024&#xFF0C;&#x5E93;&#x7684;&#x6570;&#x91CF;&#x4E3A; 33&#xFF0C;&#x5219;&#x65E0;&#x6CD5;&#x5747;&#x5206;&#x3002;</p>
+</blockquote>
+<p>&#x521A;&#x5F00;&#x59CB;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8FD9;&#x4E2A;&#x5E93;&#x53EF;&#x80FD;&#x5C31;&#x662F;&#x903B;&#x8F91;&#x5E93;&#xFF0C;&#x7B49;&#x5230;&#x9700;&#x8981;&#x6269;&#x5BB9;&#x7684;&#x65F6;&#x5019;&#x6539;&#x6210;&#x7269;&#x7406;&#x6269;&#x5BB9;&#x5373;&#x53EF;&#x3002;</p>
+<h1 id="5-&#x5206;&#x5E03;&#x5F0F;&#x5168;&#x5C40;&#x552F;&#x4E00;ID"><a href="#5-&#x5206;&#x5E03;&#x5F0F;&#x5168;&#x5C40;&#x552F;&#x4E00;ID" class="headerlink" title="5. &#x5206;&#x5E03;&#x5F0F;&#x5168;&#x5C40;&#x552F;&#x4E00;ID"></a>5. &#x5206;&#x5E03;&#x5F0F;&#x5168;&#x5C40;&#x552F;&#x4E00;ID</h1><p>5.2 &#x7ED3;&#x5408;&#x6570;&#x636E;&#x5E93;&#x7EF4;&#x62A4;&#x4E00;&#x4E2A;Sequence&#x8868;</p>
+<p>&#x6B64;&#x65B9;&#x6848;&#x7684;&#x601D;&#x8DEF;&#x4E5F;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5728;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;Sequence&#x8868;&#xFF0C;&#x8868;&#x7684;&#x7ED3;&#x6784;&#x7C7B;&#x4F3C;&#x4E8E;&#xFF1A;</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`SEQUENCE`</span> (  </span><br><span class="line">    <span class="string">`table_name`</span> <span class="built_in">varchar</span>(<span class="number">18</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,  </span><br><span class="line">    <span class="string">`next_id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,  </span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`table_name`</span>)  </span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6BCF;&#x5F53;&#x9700;&#x8981;&#x4E3A;&#x67D0;&#x4E2A;&#x8868;&#x7684;&#x65B0;&#x7EAA;&#x5F55;&#x751F;&#x6210; ID &#x65F6;&#x5C31;&#x4ECE;<code>Sequence</code>&#x8868;&#x4E2D;&#x53D6;&#x51FA;&#x5BF9;&#x5E94;&#x8868;&#x7684;<code>next_id</code>&#xFF0C;&#x5E76;&#x5C06;<code>next_id</code>&#x7684;&#x503C;&#x52A0;1&#x540E;&#x66F4;&#x65B0;&#x5230;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x4EE5;&#x5907;&#x4E0B;&#x6B21;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x6B64;&#x65B9;&#x6848;&#x4E5F;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x7F3A;&#x70B9;&#x540C;&#x6837;&#x660E;&#x663E;&#xFF1A;&#x7531;&#x4E8E;&#x6240;&#x6709;&#x63D2;&#x5165;&#x4EFB;&#x4F55;&#x90FD;&#x9700;&#x8981;&#x8BBF;&#x95EE;&#x8BE5;&#x8868;&#xFF0C;&#x8BE5;&#x8868;&#x5F88;&#x5BB9;&#x6613;&#x6210;&#x4E3A;&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x74F6;&#x9888;&#xFF0C;&#x540C;&#x65F6;&#x5B83;&#x4E5F;&#x5B58;&#x5728;&#x5355;&#x70B9;&#x95EE;&#x9898;&#xFF0C;&#x4E00;&#x65E6;&#x8BE5;&#x8868;&#x6570;&#x636E;&#x5E93;&#x5931;&#x6548;&#xFF0C;&#x6574;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5C06;&#x65E0;&#x6CD5;&#x5DE5;&#x4F5C;&#x3002;</p>
+<blockquote>
+<p>&#x6709;&#x4EBA;&#x63D0;&#x51FA;&#x4F7F;&#x7528;<code>Master-Slave</code>&#x8FDB;&#x884C;&#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#xFF0C;&#x4F46;&#x8FD9;&#x4E5F;&#x53EA;&#x80FD;&#x89E3;&#x51B3;&#x5355;&#x70B9;&#x95EE;&#x9898;&#xFF0C;&#x5E76;&#x4E0D;&#x80FD;&#x89E3;&#x51B3;&#x8BFB;&#x5199;&#x6BD4;&#x4E3A;<code>1:1</code>&#x7684;&#x8BBF;&#x95EE;&#x538B;&#x529B;&#x95EE;&#x9898;&#x3002;</p>
+</blockquote>
+<h2 id="5-2-UUID"><a href="#5-2-UUID" class="headerlink" title="5.2 UUID"></a>5.2 UUID</h2><p>UUID &#x751F;&#x6210;&#x7684;&#x662F;<code>length=32</code>&#x7684;<code>16</code>&#x8FDB;&#x5236;&#x683C;&#x5F0F;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x7B97;&#x6CD5;&#x7684;&#x6838;&#x5FC3;&#x601D;&#x60F3;&#x662F;&#x7ED3;&#x5408;&#x673A;&#x5668;&#x7684;&#x7F51;&#x5361;&#x3001;&#x5F53;&#x5730;&#x65F6;&#x95F4;&#x3001;&#x4E00;&#x4E2A;&#x968F;&#x5373;&#x6570;&#x6765;&#x751F;&#x6210; UUID&#xFF0C;&#x4F7F;&#x7528; UUID &#x4F5C;&#x4E3B;&#x952E;&#x662F;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x6848;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x7F3A;&#x70B9;&#x4E5F;&#x662F;&#x975E;&#x5E38;&#x660E;&#x663E;&#x7684;&#xFF0C;&#x7531;&#x4E8E;UUID&#x975E;&#x5E38;&#x7684;&#x957F;&#xFF0C;&#x9664;&#x5360;&#x7528;&#x5927;&#x91CF;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;&#x5916;&#xFF0C;&#x6700;&#x4E3B;&#x8981;&#x7684;&#x95EE;&#x9898;&#x662F;&#x5728;&#x7D22;&#x5F15;&#x4E0A;&#x3002;</p>
+<h2 id="5-3-&#x83B7;&#x53D6;&#x7CFB;&#x7EDF;&#x5F53;&#x524D;&#x65F6;&#x95F4;"><a href="#5-3-&#x83B7;&#x53D6;&#x7CFB;&#x7EDF;&#x5F53;&#x524D;&#x65F6;&#x95F4;" class="headerlink" title="5.3 &#x83B7;&#x53D6;&#x7CFB;&#x7EDF;&#x5F53;&#x524D;&#x65F6;&#x95F4;"></a>5.3 &#x83B7;&#x53D6;&#x7CFB;&#x7EDF;&#x5F53;&#x524D;&#x65F6;&#x95F4;</h2><p>&#x7EAF;&#x83B7;&#x53D6;&#x7CFB;&#x7EDF;&#x5F53;&#x524D;&#x65F6;&#x95F4;&#x4F5C;&#x4E3A;&#x552F;&#x4E00;id&#x5728;&#x9AD8;&#x5E76;&#x53D1;&#x60C5;&#x51B5;&#x4E0B;&#x662F;&#x6709;&#x98CE;&#x9669;&#x7684;&#xFF0C;&#x4F1A;&#x51FA;&#x73B0;&#x91CD;&#x590D;&#x4E3B;&#x952E;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x518D;&#x589E;&#x52A0;&#x4E00;&#x4E9B;&#x552F;&#x4E00;&#x6807;&#x8BC6;&#xFF0C;&#x5982;&#x4E1A;&#x52A1;&#x5B57;&#x6BB5;&#x503C;&#x8DDF;&#x5F53;&#x524D;&#x65F6;&#x95F4;&#x62FC;&#x63A5;&#x8D77;&#x6765;&#xFF0C;&#x7EC4;&#x6210;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x552F;&#x4E00;&#x7684;&#x7F16;&#x53F7;&#xFF1A;&#x8BA2;&#x5355;&#x7F16;&#x53F7; + &#x65F6;&#x95F4;&#x6233; + &#x7528;&#x6237;id + &#x4E1A;&#x52A1;&#x542B;&#x4E49;&#x7F16;&#x7801;&#x3002;</p>
+<h2 id="5-4-Snowflake-&#x7B97;&#x6CD5;&#x751F;&#x6210;&#x5168;&#x5C40;ID"><a href="#5-4-Snowflake-&#x7B97;&#x6CD5;&#x751F;&#x6210;&#x5168;&#x5C40;ID" class="headerlink" title="5.4 Snowflake &#x7B97;&#x6CD5;&#x751F;&#x6210;&#x5168;&#x5C40;ID"></a>5.4 Snowflake &#x7B97;&#x6CD5;&#x751F;&#x6210;&#x5168;&#x5C40;ID</h2><p>Twitter&#x7684;<code>snowflake</code>&#x7B97;&#x6CD5;&#x89E3;&#x51B3;&#x4E86;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x751F;&#x6210;&#x5168;&#x5C40;ID&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x751F;&#x6210;64&#x4F4D;&#x7684;Long&#x578B;&#x6570;&#x5B57;&#xFF0C;&#x7EC4;&#x6210;&#x90E8;&#x5206;&#xFF1A;</p>
+<ul>
+<li><p><code>1bit</code>&#xFF1A;&#x7B2C;&#x4E00;&#x4F4D;&#x4E0D;&#x4F7F;&#x7528;<br>&#x6C38;&#x8FDC;&#x662F;0&#xFF0C;&#x4FDD;&#x8BC1;&#x662F;&#x6B63;&#x6570;&#x3002;</p>
+</li>
+<li><p><code>41bit</code>&#xFF1A;&#x8868;&#x793A;&#x7684;&#x662F;&#x65F6;&#x95F4;&#x6233;&#xFF0C;&#x5355;&#x4F4D;&#x662F;&#x6BEB;&#x79D2;<br>41 bit &#x7684;&#x957F;&#x5EA6;&#x53EF;&#x4EE5;&#x8868;&#x793A; 69 &#x5E74;&#x7684;&#x65F6;&#x95F4;</p>
+</li>
+<li><p><code>10bit</code>&#xFF1A;&#x8282;&#x70B9; ID<br>5&#x4F4D;&#x6570;&#x636E;&#x4E2D;&#x5FC3;&#xFF08;&#x673A;&#x623F;&#xFF09;+ 5&#x4F4D;&#x8282;&#x70B9;ID&#xFF08;&#x670D;&#x52A1;&#x5668;&#xFF09;&#xFF0C;&#x652F;&#x6301; 32 * 32 = 1024 &#x4E2A;&#x8282;&#x70B9;</p>
+</li>
+<li><p><code>12bit</code>&#xFF1A;&#x6D41;&#x6C34;&#x53F7;&#xFF0C;&#x7528;&#x6765;&#x8BB0;&#x5F55;&#x540C;&#x4E00;&#x4E2A;&#x6BEB;&#x79D2;&#x5185;&#x4EA7;&#x751F;&#x7684;&#x4E0D;&#x540C; ID<br>12 bit &#x7684;&#x8BA1;&#x6570;&#x987A;&#x5E8F;&#x53F7;&#xFF0C;&#x652F;&#x6301;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x6BCF;&#x6BEB;&#x79D2;&#x4EA7;&#x751F;4096&#x4E2A;ID&#x5E8F;&#x5217;&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x6BCF;&#x6BEB;&#x79D2;&#x5185;&#x652F;&#x6301; 4096 &#x4E2A; ID&#xFF0C;&#x76F8;&#x5F53;&#x4E8E; 409&#x4E07;&#x7684; QPS&#xFF0C;&#x76F8;&#x540C;&#x65F6;&#x95F4;&#x5185;&#x5982; ID &#x9047;&#x7FFB;&#x8F6C;&#xFF0C;&#x5219;&#x7B49;&#x5F85;&#x81F3;&#x4E0B;&#x4E00;&#x6BEB;&#x79D2;&#x3002;</p>
+</li>
+</ul>
+<p><img src="/2019/07/04/040/images/01.png" alt=""></p>
+<h1 id="6-MySQL-&#x8BFB;&#x5199;&#x5206;&#x79BB;"><a href="#6-MySQL-&#x8BFB;&#x5199;&#x5206;&#x79BB;" class="headerlink" title="6. MySQL &#x8BFB;&#x5199;&#x5206;&#x79BB;"></a>6. MySQL &#x8BFB;&#x5199;&#x5206;&#x79BB;</h1><p>&#x8BFB;&#x5199;&#x5206;&#x79BB;&#xFF0C;&#x57FA;&#x672C;&#x7684;&#x539F;&#x7406;&#x662F;&#x8BA9;&#x4E3B;&#x6570;&#x636E;&#x5E93;&#x5904;&#x7406;&#x4E8B;&#x52A1;&#x6027;&#x589E;&#x3001;&#x6539;&#x3001;&#x5220;&#x64CD;&#x4F5C;&#xFF08;INSERT&#x3001;UPDATE&#x3001;DELETE&#xFF09;&#xFF0C;&#x800C;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x5904;&#x7406;SELECT&#x67E5;&#x8BE2;&#x64CD;&#x4F5C;&#x3002;&#x6570;&#x636E;&#x5E93;&#x590D;&#x5236;&#x88AB;&#x7528;&#x6765;&#x628A;&#x4E8B;&#x52A1;&#x6027;&#x64CD;&#x4F5C;&#x5BFC;&#x81F4;&#x7684;&#x53D8;&#x66F4;&#x540C;&#x6B65;&#x5230;&#x96C6;&#x7FA4;&#x4E2D;&#x7684;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x3002;</p>
+<p>&#x56E0;&#x4E3A;&#x6570;&#x636E;&#x5E93;&#x7684;&#x201D;&#x5199;&#x201D;&#xFF08;&#x5199; 10000 &#x6761;&#x6570;&#x636E;&#x5230; oracle &#x53EF;&#x80FD;&#x8981;3&#x5206;&#x949F;&#xFF09;&#x64CD;&#x4F5C;&#x662F;&#x6BD4;&#x8F83;&#x8017;&#x65F6;&#x7684;&#x3002; &#x4F46;&#x662F;&#x6570;&#x636E;&#x5E93;&#x7684;&#x201D;&#x8BFB;&#x201D;&#xFF08;&#x4ECE; oracle &#x8BFB;10000 &#x6761;&#x6570;&#x636E;&#x53EF;&#x80FD;&#x53EA;&#x8981; 5 &#x79D2;&#x949F;&#xFF09;&#x3002; <strong>&#x6240;&#x4EE5;&#x8BFB;&#x5199;&#x5206;&#x79BB;&#xFF0C;&#x89E3;&#x51B3;&#x7684;&#x662F;&#xFF0C;&#x6570;&#x636E;&#x5E93;&#x7684;&#x5199;&#x5165;&#xFF0C;&#x5F71;&#x54CD;&#x4E86;&#x67E5;&#x8BE2;&#x7684;&#x6548;&#x7387;&#x3002;</strong></p>
+<blockquote>
+<p>&#x6570;&#x636E;&#x5E93;&#x4E0D;&#x4E00;&#x5B9A;&#x8981;&#x8BFB;&#x5199;&#x5206;&#x79BB;&#xFF0C;&#x5982;&#x679C;&#x7A0B;&#x5E8F;&#x4F7F;&#x7528;&#x6570;&#x636E;&#x5E93;&#x8F83;&#x591A;&#x65F6;&#xFF0C;&#x800C;&#x66F4;&#x65B0;&#x5C11;&#xFF0C;&#x67E5;&#x8BE2;&#x591A;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x4F1A;&#x8003;&#x8651;&#x4F7F;&#x7528;&#xFF0C;&#x5229;&#x7528;&#x6570;&#x636E;&#x5E93; &#x4E3B;&#x4ECE;&#x540C;&#x6B65; &#x3002;&#x53EF;&#x4EE5;&#x51CF;&#x5C11;&#x6570;&#x636E;&#x5E93;&#x538B;&#x529B;&#xFF0C;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x6570;&#x636E;&#x5E93;&#x4E5F;&#x6709;&#x5176;&#x5B83;&#x4F18;&#x5316;&#x65B9;&#x6848;&#x3002;memcache &#x6216;&#x662F; &#x8868;&#x6298;&#x5206;&#xFF0C;&#x6216;&#x662F;&#x641C;&#x7D22;&#x5F15;&#x64CE;&#x3002;&#x90FD;&#x662F;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x3002;</p>
+</blockquote>
+<h1 id="7-MySQL-&#x4E3B;&#x4ECE;&#x590D;&#x5236;"><a href="#7-MySQL-&#x4E3B;&#x4ECE;&#x590D;&#x5236;" class="headerlink" title="7. MySQL &#x4E3B;&#x4ECE;&#x590D;&#x5236;"></a>7. MySQL &#x4E3B;&#x4ECE;&#x590D;&#x5236;</h1><p>&#x5728;&#x5B9E;&#x9645;&#x7684;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4E2D;&#xFF0C;&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x7684;&#x8BFB;&#x548C;&#x5199;&#x90FD;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x5668;&#x4E2D;&#xFF0C;&#x662F;&#x4E0D;&#x80FD;&#x6EE1;&#x8DB3;&#x5B9E;&#x9645;&#x9700;&#x6C42;&#x7684;&#x3002;&#x65E0;&#x8BBA;&#x662F;&#x5728;&#x5B89;&#x5168;&#x6027;&#x3001;&#x9AD8;&#x53EF;&#x7528;&#x6027;&#x8FD8;&#x662F;&#x9AD8;&#x5E76;&#x53D1;&#x7B49;&#x5404;&#x4E2A;&#x65B9;&#x9762;&#x90FD;&#x662F;&#x5B8C;&#x5168;&#x4E0D;&#x80FD;&#x6EE1;&#x8DB3;&#x5B9E;&#x9645;&#x9700;&#x6C42;&#x7684;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x901A;&#x8FC7;<code>&#x4E3B;&#x4ECE;&#x590D;&#x5236;</code>&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x540C;&#x6B65;&#x6570;&#x636E;&#xFF0C;&#x518D;&#x901A;&#x8FC7;<code>&#x8BFB;&#x5199;&#x5206;&#x79BB;</code>&#x6765;&#x63D0;&#x5347;&#x6570;&#x636E;&#x5E93;&#x7684;&#x5E76;&#x53D1;&#x8D1F;&#x8F7D;&#x80FD;&#x529B;&#x3002;&#x6709;&#x70B9;&#x7C7B;&#x4F3C;&#x4E8E; ES &#x641C;&#x7D22;&#x5F15;&#x64CE;&#x7684;<code>rsync</code>&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x540C;&#x7684;&#x662F;<code>rsync</code>&#x662F;&#x5BF9;&#x78C1;&#x76D8;&#x6587;&#x4EF6;&#x505A;&#x5907;&#x4EFD;&#xFF0C;&#x800C; MySQL &#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x662F;&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x3001;&#x8BED;&#x53E5;&#x505A;&#x5907;&#x4EFD;&#x3002;</p>
+<h2 id="7-1-MySQL&#x652F;&#x6301;&#x7684;&#x590D;&#x5236;&#x7C7B;&#x578B;"><a href="#7-1-MySQL&#x652F;&#x6301;&#x7684;&#x590D;&#x5236;&#x7C7B;&#x578B;" class="headerlink" title="7.1 MySQL&#x652F;&#x6301;&#x7684;&#x590D;&#x5236;&#x7C7B;&#x578B;"></a>7.1 MySQL&#x652F;&#x6301;&#x7684;&#x590D;&#x5236;&#x7C7B;&#x578B;</h2><p><strong>1. &#x57FA;&#x4E8E;&#x8BED;&#x53E5;&#x7684;&#x590D;&#x5236;</strong></p>
+<p>&#x5728;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6267;&#x884C;sql&#x8BED;&#x53E5;&#xFF0C;&#x5728;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6267;&#x884C;&#x540C;&#x6837;&#x7684;&#x8BED;&#x53E5;&#xFF0C;MySQL &#x9ED8;&#x8BA4;&#x91C7;&#x7528;&#x57FA;&#x4E8E;&#x8BED;&#x53E5;&#x7684;&#x590D;&#x5236;&#xFF0C;&#x6267;&#x884C;&#x6548;&#x7387;&#x9AD8;&#x3002;</p>
+<p><strong>2. &#x57FA;&#x4E8E;&#x884C;&#x7684;&#x590D;&#x5236;</strong></p>
+<p>&#x628A;&#x6539;&#x53D8;&#x7684;&#x5185;&#x5BB9;&#x590D;&#x5236;&#x8FC7;&#x53BB;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x628A;&#x547D;&#x4EE4;&#x5728;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x6267;&#x884C;&#x4E00;&#x904D;&#x3002;</p>
+<p><strong>3. &#x6DF7;&#x5408;&#x7C7B;&#x578B;&#x7684;&#x590D;&#x5236;</strong></p>
+<p>&#x9ED8;&#x8BA4;&#x91C7;&#x7528;&#x57FA;&#x4E8E;&#x8BED;&#x53E5;&#x7684;&#x590D;&#x5236;&#xFF0C;&#x4E00;&#x65E6;&#x53D1;&#x73B0;&#x57FA;&#x4E8E;&#x8BED;&#x53E5;&#x65E0;&#x6CD5;&#x7CBE;&#x786E;&#x590D;&#x5236;&#x65F6;&#xFF0C;&#x5C31;&#x4F1A;&#x91C7;&#x7528;&#x57FA;&#x4E8E;&#x884C;&#x7684;&#x590D;&#x5236;&#x3002;</p>
+<h2 id="7-2-&#x590D;&#x5236;&#x7684;&#x5DE5;&#x4F5C;&#x8FC7;&#x7A0B;"><a href="#7-2-&#x590D;&#x5236;&#x7684;&#x5DE5;&#x4F5C;&#x8FC7;&#x7A0B;" class="headerlink" title="7.2 &#x590D;&#x5236;&#x7684;&#x5DE5;&#x4F5C;&#x8FC7;&#x7A0B;"></a>7.2 &#x590D;&#x5236;&#x7684;&#x5DE5;&#x4F5C;&#x8FC7;&#x7A0B;</h2><p>mysql&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x9700;&#x8981;&#x4E09;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;master&#xFF08;binlog dump thread&#xFF09;&#x3001;slave&#xFF08;I/O thread &#x3001;SQL thread&#xFF09;&#x3002;</p>
+<p><strong>master</strong></p>
+<p>&#xFF08;1&#xFF09;<code>binlog dump&#x7EBF;&#x7A0B;</code>&#xFF1A;&#x5F53;&#x4E3B;&#x5E93;&#x4E2D;&#x6709;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x65F6;&#xFF0C;&#x90A3;&#x4E48;&#x4E3B;&#x5E93;&#x5C31;&#x4F1A;&#x6839;&#x636E;&#x6309;&#x7167;&#x8BBE;&#x7F6E;&#x7684;<code>binlog</code>&#x683C;&#x5F0F;&#xFF0C;&#x5C06;&#x6B64;&#x6B21;&#x66F4;&#x65B0;&#x7684;&#x4E8B;&#x4EF6;&#x7C7B;&#x578B;&#x5199;&#x5165;&#x5230;&#x4E3B;&#x5E93;&#x7684;<code>binlog</code>&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x6B64;&#x65F6;&#x4E3B;&#x5E93;&#x4F1A;&#x521B;&#x5EFA;<code>log dump</code>&#x7EBF;&#x7A0B;&#x901A;&#x77E5;slave&#x6709;&#x6570;&#x636E;&#x66F4;&#x65B0;&#xFF0C;&#x5F53;I/O&#x7EBF;&#x7A0B;&#x8BF7;&#x6C42;&#x65E5;&#x5FD7;&#x5185;&#x5BB9;&#x65F6;&#xFF0C;&#x4F1A;&#x5C06;&#x6B64;&#x65F6;&#x7684;<code>binlog</code>&#x540D;&#x79F0;&#x548C;&#x5F53;&#x524D;&#x66F4;&#x65B0;&#x7684;&#x4F4D;&#x7F6E;&#x540C;&#x65F6;&#x4F20;&#x7ED9;slave&#x7684;I/O&#x7EBF;&#x7A0B;&#x3002;</p>
+<p><strong>slave</strong></p>
+<p>&#xFF08;2&#xFF09;<code>I/O&#x7EBF;&#x7A0B;</code>&#xFF1A;&#x8BE5;&#x7EBF;&#x7A0B;&#x4F1A;&#x8FDE;&#x63A5;&#x5230;master&#xFF0C;&#x5411;<code>log dump</code>&#x7EBF;&#x7A0B;&#x8BF7;&#x6C42;&#x4E00;&#x4EFD;&#x6307;&#x5B9A;<code>binlog</code>&#x6587;&#x4EF6;&#x4F4D;&#x7F6E;&#x7684;&#x526F;&#x672C;&#xFF0C;&#x5E76;&#x5C06;&#x8BF7;&#x6C42;&#x56DE;&#x6765;&#x7684;<code>binlog</code>&#x5B58;&#x5230;&#x672C;&#x5730;&#x7684;<code>relay log</code>&#x4E2D;&#xFF0C;<code>relay log</code>&#x548C;<code>binlog</code>&#x65E5;&#x5FD7;&#x4E00;&#x6837;&#x4E5F;&#x662F;&#x8BB0;&#x5F55;&#x4E86;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x5B83;&#x4E5F;&#x662F;&#x6309;&#x7167;&#x9012;&#x589E;&#x540E;&#x7F00;&#x540D;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4EA7;&#x751F;&#x591A;&#x4E2A;<code>relay log</code>&#xFF08; host_name-relay-bin.000001&#xFF09;&#x6587;&#x4EF6;&#xFF0C;slave&#x4F1A;&#x4F7F;&#x7528;&#x4E00;&#x4E2A; index &#x6587;&#x4EF6;&#xFF08; host_name-relay-bin.index&#xFF09;&#x6765;&#x8FFD;&#x8E2A;&#x5F53;&#x524D;&#x6B63;&#x5728;&#x4F7F;&#x7528;&#x7684;<code>relay log</code>&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#xFF08;3&#xFF09;<code>SQL&#x7EBF;&#x7A0B;</code>&#xFF1A;&#x8BE5;&#x7EBF;&#x7A0B;&#x68C0;&#x6D4B;&#x5230;relay log&#x6709;&#x66F4;&#x65B0;&#x540E;&#xFF0C;&#x4F1A;&#x8BFB;&#x53D6;&#x5E76;&#x5728;&#x672C;&#x5730;&#x505A;<code>redo</code>&#x64CD;&#x4F5C;&#xFF0C;&#x5C06;&#x53D1;&#x751F;&#x5728;&#x4E3B;&#x5E93;&#x7684;&#x4E8B;&#x4EF6;&#x5728;&#x672C;&#x5730;&#x91CD;&#x65B0;&#x6267;&#x884C;&#x4E00;&#x904D;&#xFF0C;&#x6765;&#x4FDD;&#x8BC1;&#x4E3B;&#x4ECE;&#x6570;&#x636E;&#x540C;&#x6B65;&#x3002;</p>
+<blockquote>
+<p>&#x5982;&#x679C;&#x4E00;&#x4E2A;<code>relay log</code>&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5168;&#x90E8;&#x4E8B;&#x4EF6;&#x90FD;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#xFF0C;&#x90A3;&#x4E48;SQL&#x7EBF;&#x7A0B;&#x4F1A;&#x81EA;&#x52A8;&#x5C06;&#x8BE5;<code>relay log</code>&#x6587;&#x4EF6;&#x5220;&#x9664;&#x6389;&#x3002;</p>
+</blockquote>
+<p><img src="/2019/07/04/040/images/02.png" alt=""></p>
+<p>MySQL 5.7 &#x4E4B;&#x540E;&#x589E;&#x52A0;&#x4E86;&#x5E76;&#x884C;&#x590D;&#x5236;&#x529F;&#x80FD;&#xFF0C;&#x5E76;&#x884C;&#x590D;&#x5236;&#x6307;&#x7684;&#x662F;&#x4ECE;&#x5E93;&#x5F00;&#x542F;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x5E76;&#x884C;&#x8BFB;&#x53D6;relay log&#x4E2D;&#x4E0D;&#x540C;&#x5E93;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x7136;&#x540E;&#x5E76;&#x884C;&#x91CD;&#x653E;&#x4E0D;&#x540C;&#x5E93;&#x7684;&#x65E5;&#x5FD7;&#xFF0C;&#x8FD9;&#x662F;&#x5E93;&#x7EA7;&#x522B;&#x7684;&#x5E76;&#x884C;&#x3002;</p>
+<p>&#x5EFA;&#x8BAE;&#x662F;&#x4E00;&#x822C;&#x5728;&#x8BFB;&#x8FDC;&#x8FDC;&#x591A;&#x4E8E;&#x5199;&#xFF0C;&#x800C;&#x4E14;&#x8BFB;&#x7684;&#x65F6;&#x5019;&#x4E00;&#x822C;&#x5BF9;&#x6570;&#x636E;&#x65F6;&#x6548;&#x6027;&#x8981;&#x6C42;&#x6CA1;&#x90A3;&#x4E48;&#x9AD8;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x7528; MySQL &#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x3002;</p>
+<h2 id="7-3-&#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x7684;&#x5EF6;&#x65F6;&#x95EE;&#x9898;"><a href="#7-3-&#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x7684;&#x5EF6;&#x65F6;&#x95EE;&#x9898;" class="headerlink" title="7.3 &#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x7684;&#x5EF6;&#x65F6;&#x95EE;&#x9898;"></a>7.3 &#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x7684;&#x5EF6;&#x65F6;&#x95EE;&#x9898;</h2><p>&#x5F53;&#x5199;&#x6570;&#x636E;&#x7684;&#x5E76;&#x53D1;&#x5F88;&#x9AD8;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x73B0;&#x5C11;&#x8BB8;&#x6570;&#x636E;&#x4E0D;&#x80FD;&#x53CA;&#x65F6;&#x67E5;&#x8BE2;&#x5230;&#xFF0C;&#x5F88;&#x6709;&#x53EF;&#x80FD;&#x5C31;&#x662F;&#x6570;&#x636E;&#x5E93;&#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x5EF6;&#x65F6;&#x95EE;&#x9898;&#x3002;</p>
+<p><strong>slave &#x540C;&#x6B65;&#x5EF6;&#x8FDF;&#x7684;&#x53EF;&#x80FD;&#x539F;&#x56E0;</strong></p>
+<ul>
+<li>slave&#x7684;I/O&#x7EBF;&#x7A0B;&#x63A8;&#x8FDF;&#x8BFB;&#x53D6;&#x65E5;&#x5FD7;&#x4E2D;&#x7684;&#x4E8B;&#x4EF6;&#x4FE1;&#x606F;&#xFF1B;&#x6700;&#x5E38;&#x89C1;&#x539F;&#x56E0;&#x662F;slave&#x662F;&#x5728;&#x5355;&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;&#x6240;&#x6709;&#x4E8B;&#x52A1;&#xFF0C;&#x800C;master&#x6709;&#x5F88;&#x591A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x5E76;&#x884C;&#x6267;&#x884C;&#x4E8B;&#x52A1;&#x3002;</li>
+<li>&#x5E26;&#x6765;&#x4F4E;&#x6548;&#x8FDE;&#x63A5;&#x7684;&#x957F;&#x67E5;&#x8BE2;&#x3001;&#x78C1;&#x76D8;&#x8BFB;&#x53D6;&#x7684;I/O&#x9650;&#x5236;&#x3001;&#x9501;&#x7ADE;&#x4E89;&#x548C;<code>innodb</code>&#x7EBF;&#x7A0B;&#x540C;&#x6B65;&#x542F;&#x52A8;&#x7B49;&#x3002;</li>
+<li>Master&#x8D1F;&#x8F7D;&#x3001;Slave&#x8D1F;&#x8F7D;</li>
+<li>&#x7F51;&#x7EDC;&#x5EF6;&#x8FDF;</li>
+</ul>
+<p><strong>&#x5982;&#x4F55;&#x67E5;&#x770B;&#x540C;&#x6B65;&#x5EF6;&#x8FDF;</strong></p>
+<ul>
+<li>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6BD4;&#x5BF9;master&#x3001;slave&#x4E0A;&#x7684;&#x65E5;&#x5FD7;&#x4F4D;&#x7F6E;</li>
+<li>&#x901A;&#x8FC7;<code>show slave status</code>&#x67E5;&#x770B;<code>Seconds_Behind_Master</code>&#x7684;&#x503C;&#xFF0C;&#x8FD9;&#x4E2A;&#x503C;&#x4EE3;&#x8868;&#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x5EF6;&#x8FDF;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x503C;&#x8D8A;&#x5927;&#x8BF4;&#x660E;&#x5EF6;&#x8FDF;&#x8D8A;&#x4E25;&#x91CD;&#x3002;&#x503C;&#x4E3A;0&#x4E3A;&#x6B63;&#x5E38;&#x60C5;&#x51B5;&#xFF0C;&#x6B63;&#x503C;&#x8868;&#x793A;&#x5DF2;&#x7ECF;&#x51FA;&#x73B0;&#x5EF6;&#x8FDF;&#xFF0C;&#x6570;&#x5B57;&#x8D8A;&#x5927;&#x4ECE;&#x5E93;&#x843D;&#x540E;&#x4E3B;&#x5E93;&#x8D8A;&#x591A;&#x3002;</li>
+<li>&#x4F7F;&#x7528;<code>percona-toolkit</code>&#x7684;<code>pt-hearbeat</code>&#x5DE5;&#x5177;&#x8FDB;&#x884C;&#x67E5;&#x770B;&#x3002;</li>
+</ul>
+<p><strong>&#x51CF;&#x5C11;&#x540C;&#x6B65;&#x5EF6;&#x8FDF;&#x7684;&#x64CD;&#x4F5C;&#x65B9;&#x6848;</strong></p>
+<ul>
+<li>&#x62C6;&#x5206;&#x4E3B;&#x5E93;<br>&#x5C06;&#x4E3B;&#x5E93;&#x62C6;&#x5206;&#xFF0C;&#x964D;&#x4F4E;&#x6BCF;&#x4E2A;&#x4E3B;&#x5E93;&#x5199;&#x7684;&#x5E76;&#x53D1;&#x91CF;&#xFF0C;&#x8FD9;&#x6837;&#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x7684;&#x5EF6;&#x65F6;&#x65F6;&#x957F;&#x5C31;&#x80FD;&#x6709;&#x6548;&#x7F29;&#x77ED;&#x3002;</li>
+<li>&#x4F18;&#x5316;&#x4EE3;&#x7801;&#x903B;&#x8F91;<br>&#x63D2;&#x5165;&#x6570;&#x636E;&#x7684;&#x65F6;&#x5019;&#x7ACB;&#x5373;&#x67E5;&#x6570;&#x636E;&#x662F;&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x67B6;&#x6784;&#x4E0A;&#x5F00;&#x53D1;&#x7684;&#x4E00;&#x4E2A;&#x5927;&#x5FCC;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x4EE3;&#x7801;&#x4FEE;&#x6539;&#x903B;&#x8F91;&#x53EF;&#x4EE5;&#x501F;&#x9274;&#x5982;&#x4E0B;&#xFF1A;<ul>
+<li>&#x5982;&#x679C;&#x7B2C;&#x4E8C;&#x6B65;&#x83B7;&#x53D6;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x9700;&#x8981;&#x7B2C;&#x4E00;&#x6B65;&#x66F4;&#x65B0;&#x7684;status&#x5B57;&#x6BB5;&#xFF0C;&#x90A3;&#x5C31;&#x5148;&#x8BFB;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x66F4;&#x65B0;</li>
+<li>&#x5982;&#x679C;&#x7B2C;&#x4E8C;&#x6B65;&#x83B7;&#x53D6;&#x7684;&#x6570;&#x636E;&#x9700;&#x8981;&#x4F9D;&#x8D56;&#x7B2C;&#x4E00;&#x6B65;&#x7684;status&#x5B57;&#x6BB5;&#xFF0C;&#x90A3;&#x5C31;&#x5728;&#x8BFB;&#x51FA;&#x6765;&#x7684;&#x65F6;&#x5019;&#x5148;&#x5224;&#x65AD;&#x662F;&#x5426;&#x4E3A;&#x7A7A;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x62A5;&#x9519;&#xFF0C;&#x4E0B;&#x4E00;&#x6B21;&#x91CD;&#x8BD5;&#x3002;</li>
+</ul>
+</li>
+<li>&#x8D1F;&#x8F7D;&#x5747;&#x8861;<br>&#x642D;&#x5EFA;&#x591A;&#x5C11;slave&#xFF0C;&#x5E76;&#x4E14;&#x4F7F;&#x7528;<code>lvs</code>&#x6216;<code>nginx</code>&#x8FDB;&#x884C;&#x67E5;&#x8BE2;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#xFF0C;&#x53EF;&#x4EE5;&#x51CF;&#x5C11;&#x6BCF;&#x4E2A; slave &#x6267;&#x884C;&#x67E5;&#x8BE2;&#x7684;&#x6B21;&#x6570;&#x548C;&#x65F6;&#x95F4;&#xFF0C;&#x4ECE;&#x800C;&#x5C06;&#x66F4;&#x591A;&#x7684;&#x65F6;&#x95F4;&#x7528;&#x4E8E;&#x53BB;&#x5904;&#x7406;&#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x3002;</li>
+<li>Slave&#x8C03;&#x6574;&#x53C2;&#x6570;<br>&#x4E3A;&#x4E86;&#x4FDD;&#x969C;&#x8F83;&#x9AD8;&#x7684;&#x6570;&#x636E;&#x5B89;&#x5168;&#x6027;&#xFF0C;&#x914D;&#x7F6E;<code>sync_binlog=1</code>&#xFF0C;<code>innodb_flush_log_at_trx_commit=1</code>&#x7B49;&#x8BBE;&#x7F6E;&#x3002;&#x800C;Slave&#x53EF;&#x4EE5;&#x5173;&#x95ED;<code>binlog</code>&#xFF0C;<code>innodb_flush_log_at_trx_commit</code>&#x4E5F;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x4E3A; 0 &#x6765;&#x63D0;&#x9AD8;sql&#x7684;&#x6267;&#x884C;&#x6548;&#x7387;&#xFF08;&#x8FD9;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x5F88;&#x7BA1;&#x7528;&#xFF09;</li>
+<li><p>&#x5E76;&#x884C;&#x590D;&#x5236;<br>&#x5373;&#x6709;&#x5355;&#x7EBF;&#x7A0B;&#x7684;&#x590D;&#x5236;&#x6539;&#x6210;&#x591A;&#x7EBF;&#x7A0B;&#x590D;&#x5236;&#xFF0C;&#x4ECE;&#x5E93;&#x6709;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E0E;&#x590D;&#x5236;&#x76F8;&#x5173;&#xFF1A;<code>io_thread</code>&#x8D1F;&#x8D23;&#x4ECE;&#x4E3B;&#x5E93;&#x62FF;<code>binlog</code>&#x5E76;&#x5199;&#x5230;<code>relaylog</code>&#xFF0C;<code>sql_thread</code>&#x8D1F;&#x8D23;&#x8BFB;<code>relaylog</code>&#x5E76;&#x6267;&#x884C;&#x3002;<br>&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x601D;&#x8DEF;&#x5C31;&#x662F;&#x628A;<code>sql_thread</code>&#x53D8;&#x6210;&#x5206;&#x53D1;&#x7EBF;&#x7A0B;&#xFF0C;&#x7136;&#x540E;&#x7531;&#x4E00;&#x7EC4;<code>worker_thread</code>&#x6765;&#x8D1F;&#x8D23;&#x6267;&#x884C;&#x3002;&#x51E0;&#x4E4E;&#x6240;&#x6709;&#x7684;&#x5E76;&#x884C;&#x590D;&#x5236;&#x90FD;&#x662F;&#x8FD9;&#x4E2A;&#x601D;&#x8DEF;&#xFF0C;&#x6709;&#x4E0D;&#x540C;&#x7684;&#xFF0C;&#x4FBF;&#x662F;sql_thread &#x7684;&#x5206;&#x53D1;&#x7B56;&#x7565;&#x3002;</p>
+<blockquote>
+<p>MySQL 5.7 &#x7684;&#x771F;&#x6B63;&#x5E76;&#x884C;&#x590D;&#x5236;<code>enhanced multi-threaded slave&#xFF08;MTS&#xFF09;</code>&#x5F88;&#x597D;&#x7684;&#x89E3;&#x51B3;&#x4E86;&#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x590D;&#x5236;&#x7684;&#x5EF6;&#x8FDF;&#x95EE;&#x9898;&#x3002;</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="8-&#x6269;&#x5C55;&#x535A;&#x6587;"><a href="#8-&#x6269;&#x5C55;&#x535A;&#x6587;" class="headerlink" title="8. &#x6269;&#x5C55;&#x535A;&#x6587;"></a>8. &#x6269;&#x5C55;&#x535A;&#x6587;</h1><p><a href="https://www.cnblogs.com/butterfly100/p/9034281.html" target="_blank" rel="noopener">&#x6570;&#x636E;&#x5E93;&#x5206;&#x5E93;&#x5206;&#x8868;&#x601D;&#x8DEF;</a></p>
+<p><a href="https://www.jianshu.com/p/32b3e91aa22c" target="_blank" rel="noopener">&#x5206;&#x5E93;&#x5206;&#x8868;&#x9700;&#x8981;&#x8003;&#x8651;&#x7684;&#x95EE;&#x9898;&#x53CA;&#x65B9;&#x6848;</a></p>
+<p><a href="https://blog.csdn.net/bluishglc/article/details/6274841" target="_blank" rel="noopener">&#x5173;&#x4E8E;&#x5782;&#x76F4;&#x5207;&#x5206;Vertical Sharding&#x7684;&#x7C92;&#x5EA6;</a></p>
+<p><a href="https://www.cnblogs.com/scode2/p/8718509.html" target="_blank" rel="noopener">&#x5206;&#x5E93;&#x5206;&#x8868;&#x3001;&#x4E3B;&#x4ECE;&#x3001;&#x8BFB;&#x5199;&#x5206;&#x79BB;</a></p>
+<p><a href="https://www.cnblogs.com/405845829qq/p/7552736.html" target="_blank" rel="noopener">&#x6570;&#x636E;&#x5E93;&#x5206;&#x5E93;&#x5206;&#x8868;</a></p>
+<p><a href="https://www.jianshu.com/p/3fed6db29a01" target="_blank" rel="noopener">&#x5206;&#x5E93;&#x5206;&#x8868;&#x6D45;&#x8C08;</a></p>
+<p><a href="https://blog.csdn.net/mingover/article/details/71108852" target="_blank" rel="noopener">&#x5343;&#x4E07;&#x6570;&#x636E;&#x7684;&#x5206;&#x5E93;&#x5206;&#x8868;(&#x4E00;)</a></p>
+<p><a href="https://segmentfault.com/a/1190000017272697" target="_blank" rel="noopener">&#x201C;&#x5206;&#x5E93;&#x5206;&#x8868;&#x201D; &#xFF1F;&#x9009;&#x578B;&#x548C;&#x6D41;&#x7A0B;&#x8981;&#x614E;&#x91CD;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x5931;&#x63A7;</a></p>
+<p><a href="https://blog.csdn.net/dinglang_2009/article/details/53195835" target="_blank" rel="noopener">&#x5206;&#x5E93;&#x5206;&#x8868;&#x7684;&#x51E0;&#x79CD;&#x5E38;&#x89C1;&#x73A9;&#x6CD5;&#x53CA;&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x8DE8;&#x5E93;&#x67E5;&#x8BE2;&#x7B49;&#x95EE;&#x9898;</a></p>
+<p><a href="https://www.cnblogs.com/wangzhongqiu/p/7100332.html" target="_blank" rel="noopener">&#x6570;&#x636E;&#x5E93;&#xFF08;&#x5206;&#x5E93;&#x5206;&#x8868;&#xFF09;&#x4E2D;&#x95F4;&#x4EF6;&#x5BF9;&#x6BD4;</a></p>
+<p><a href="https://www.guokr.com/blog/475765/" target="_blank" rel="noopener">mysql&#x4E2D;&#x95F4;&#x4EF6;&#x7814;&#x7A76;&#xFF08;Atlas&#xFF0C;cobar&#xFF0C;TDDL&#xFF09;</a></p>
+<p><a href="https://www.cnblogs.com/itech/archive/2011/09/22/2185365.html" target="_blank" rel="noopener">MySQL Proxy&#x4F7F;&#x7528;</a></p>
+<p><a href="https://blog.csdn.net/xinzhi8/article/details/72598455" target="_blank" rel="noopener">mysql-proxy&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x95F4;&#x4EF6;&#x67B6;&#x6784;</a></p>
+<p><a href="https://blog.csdn.net/piantoutongyang/article/details/91410959#7_shardingjdbc_416" target="_blank" rel="noopener">7.&#x504F;&#x5934;&#x75DB;&#x6768;&#x7684;mysql&#x6559;&#x5B66;&#x7CFB;&#x5217;&#x4E4B;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5E93;</a></p>
+<p><a href="https://blog.csdn.net/qq_22152261/article/details/80374990" target="_blank" rel="noopener">&#x4F7F;&#x7528;Spring Boot + Sharding-JDBC &#x5FEB;&#x901F;&#x7B80;&#x5355;&#x5730;&#x5B9E;&#x73B0;&#x6570;&#x636E;&#x5E93;&#x8BFB;&#x5199;&#x5206;&#x79BB;</a></p>
+<p><a href="https://segmentfault.com/a/1190000014037539" target="_blank" rel="noopener">springboot&#x5B9E;&#x8DF5;&#x7B14;&#x8BB0;&#x4E4B;&#x4E00;&#xFF1A;springboot+sharding-jdbc+mybatis&#x5168;&#x6CE8;&#x89E3;&#x5B9E;&#x73B0;&#x589E;&#x91CF;&#x6570;&#x636E;&#x5E93;&#x5206;&#x7247;&#x5B9E;&#x73B0;</a></p>
+<p><a href="https://mp.weixin.qq.com/s/VlJ_3oN0Us2e_ZPk0sDT7w" target="_blank" rel="noopener">Spring Boot&#x4E2D;&#x6574;&#x5408;Sharding-JDBC&#x8BFB;&#x5199;&#x5206;&#x79BB;&#x793A;&#x4F8B;</a></p>
+<p><a href="https://www.52lhd.com/article/21" target="_blank" rel="noopener">Spring Boot&#x6574;&#x5408;sharding-jdbc&#x8BFB;&#x5199;&#x5206;&#x79BB;+&#x5206;&#x5E93;&#x5206;&#x8868;&#x64CD;&#x4F5C;</a></p>
+<p><a href="https://www.infoq.cn/article/1QvyzW9W*YuF685kYBkq" target="_blank" rel="noopener">&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x95F4;&#x4EF6; Apache ShardingSphere &#x4EAC;&#x4E1C;&#x843D;&#x5730;&#x5B9E;&#x6218;</a></p>
+<p><a href="https://www.codesheep.cn/2018/12/19/mycattest/" target="_blank" rel="noopener">&#x57FA;&#x4E8E;&#x4EE3;&#x7406;&#x7684;&#x6570;&#x636E;&#x5E93;&#x5206;&#x5E93;&#x5206;&#x8868;&#x6846;&#x67B6; Mycat&#x5B9E;&#x8DF5;</a></p>
+<p><a href="https://www.jianshu.com/p/f81422b1c915" target="_blank" rel="noopener">&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x95F4;&#x4EF6;Mycat+SpringBoot&#x5B8C;&#x6210;&#x5206;&#x5E93;&#x5206;&#x8868;</a></p>
+<p><a href="https://www.cnblogs.com/youzhibing/p/10384439.html" target="_blank" rel="noopener">&#x5E94;&#x7528;&#x96C6;&#x6210;mycat&#xFF0C;&#x5B9E;&#x73B0;mycat&#x7684;&#x9AD8;&#x53EF;&#x7528;&#x4E0E;mysql&#x7684;&#x8BFB;&#x5199;&#x5206;&#x79BB;</a></p>
+<p><a href="https://bboyjing.github.io/2016/08/10/Mysql%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E4%B9%8BMycat%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%9B%9B%E3%80%90%E6%96%B0%E5%BB%BAJava%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE%E3%80%91/" target="_blank" rel="noopener">Mysql&#x5206;&#x5E93;&#x5206;&#x8868;&#x4E4B;Mycat&#x5B66;&#x4E60;&#x7B14;&#x8BB0;&#x56DB;&#x3010;&#x65B0;&#x5EFA;Java&#x6D4B;&#x8BD5;&#x9879;&#x76EE;&#x3011;</a></p>
+<p><a href="https://www.linliuxing.top/2018/08/31/SpringBoot-MyCat-Mybatis/" target="_blank" rel="noopener">SpringBoot+MyCat+Mybatis</a></p>
+<p><a href="https://raye.wang/mycatji-chu-pei-zhi-shuo-ming/" target="_blank" rel="noopener">MySQL&#x8BFB;&#x5199;&#x5206;&#x79BB;&#x57FA;&#x4E8E;Mycat&#x5B9E;&#x73B0;</a></p>
+<p><a href="https://raye.wang/springboot-mybatis-du-xie-fen-chi-pei-zhi/" target="_blank" rel="noopener">SpringBoot Mybatis &#x8BFB;&#x5199;&#x5206;&#x79BB;&#x914D;&#x7F6E;</a></p>
+<p><a href="https://my.oschina.net/u/3768341/blog/3051296" target="_blank" rel="noopener">Springboot2&#x4F7F;&#x7528;shardingsphere&#x5206;&#x8868;&#x653B;&#x7565;</a></p>
+<p><a href="https://blog.51cto.com/shangdc/2121209" target="_blank" rel="noopener">Sharding-Sphere 3.X &#x4E0E;spring&#x4E0E;mybatis&#x96C6;&#x6210;&#xFF08;&#x5206;&#x5E93;&#x5206;&#x8868;&#xFF09;demo</a></p>
+<p><a href="https://tech.meituan.com/2016/11/18/dianping-order-db-sharding.html" target="_blank" rel="noopener">&#x5927;&#x4F17;&#x70B9;&#x8BC4;&#x8BA2;&#x5355;&#x7CFB;&#x7EDF;&#x5206;&#x5E93;&#x5206;&#x8868;&#x5B9E;&#x8DF5;</a></p>
+<p><a href="https://yuerblog.cc/2018/05/31/mysql-database-partition/" target="_blank" rel="noopener">mysql&#x5206;&#x5E93;&#x5206;&#x8868;&#x65B9;&#x6848;</a></p>
+<p><a href="https://chaser520.iteye.com/blog/2428261" target="_blank" rel="noopener">&#x4E0D;&#x505C;&#x673A;&#x5206;&#x5E93;&#x5206;&#x8868;&#x8FC1;&#x79FB;</a></p>
+<p><a href="http://xiaorui.cc/2016/11/06/%E5%85%B3%E4%BA%8Emysql%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%8F%8A%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E7%BB%8F%E9%AA%8C-%E4%B8%8B/" target="_blank" rel="noopener">&#x5173;&#x4E8E;mysql&#x5206;&#x5E93;&#x5206;&#x8868;&#x53CA;&#x9AD8;&#x53EF;&#x7528;&#x96C6;&#x7FA4;&#x7ECF;&#x9A8C; [&#x4E0B;]</a></p>
+<p><a href="https://www.cnblogs.com/rjzheng/p/9597810.html" target="_blank" rel="noopener">&#x3010;&#x539F;&#x521B;&#x3011;&#x5206;&#x5E93;&#x5206;&#x8868;&#x540E;&#x5982;&#x4F55;&#x90E8;&#x7F72;&#x4E0A;&#x7EBF;</a></p>
+<p><a href="https://kefeng.wang/2018/07/22/mysql-sharding/" target="_blank" rel="noopener">MySQL &#x5206;&#x5E93;&#x5206;&#x8868;&#x53CA;&#x5176;&#x5E73;&#x6ED1;&#x6269;&#x5BB9;&#x65B9;&#x6848;</a></p>
+<p><a href="http://www.10tiao.com/html/249/201703/2651959953/1.html" target="_blank" rel="noopener">&#x5206;&#x9875;&#x4E0E;&#x5206;&#x5E93;&#x90A3;&#x4E9B;&#x4E8B;&#x513F;&#xFF08;&#x7EBF;&#x4E0A;&#x4EA4;&#x6D41;&#x7EAA;&#x8981;&#xFF09;</a></p>
+<p><a href="https://www.cnblogs.com/rjzheng/p/9041659.html" target="_blank" rel="noopener">&#x3010;&#x539F;&#x521B;&#x3011;&#x5206;&#x5E03;&#x5F0F;&#x4E4B;&#x6570;&#x636E;&#x5E93;&#x548C;&#x7F13;&#x5B58;&#x53CC;&#x5199;&#x4E00;&#x81F4;&#x6027;&#x65B9;&#x6848;&#x89E3;&#x6790;</a></p>
+<p><a href="https://www.cnblogs.com/rjzheng/p/9302609.html" target="_blank" rel="noopener">&#x3010;&#x539F;&#x521B;&#x3011;&#x5206;&#x5E03;&#x5F0F;&#x4E4B;&#x6570;&#x636E;&#x5E93;&#x548C;&#x7F13;&#x5B58;&#x53CC;&#x5199;&#x4E00;&#x81F4;&#x6027;&#x65B9;&#x6848;&#x89E3;&#x6790;(&#x4E09;)</a></p>
+<p><a href="https://quericy.me/blog/867/" target="_blank" rel="noopener">&#x8BB0;&#x4E00;&#x6B21;&#x6570;&#x636E;&#x53CC;&#x5199;&#x5E73;&#x6ED1;&#x8FC1;&#x79FB;&#x5B9E;&#x8DF5;</a></p>
+<p><a href="https://www.w3cschool.cn/architectroad/architectroad-data-smooth-migration.html" target="_blank" rel="noopener">100&#x4EBF;&#x6570;&#x636E;&#x5E73;&#x6ED1;&#x6570;&#x636E;&#x8FC1;&#x79FB;,&#x4E0D;&#x5F71;&#x54CD;&#x670D;&#x52A1;</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzU4MDUxOTI5NA==&amp;mid=2247484360&amp;idx=1&amp;sn=322ad96dfc5ac4b6e3b148ea6398dc8a&amp;chksm=fd54d7d9ca235ecf11459a2021c87cc601b687bb3ccaae7c6f5a8ca5d98bd49f2bd859cf1f90&amp;token=1060232458&amp;lang=zh_CN#rd" target="_blank" rel="noopener">21&#x4E16;&#x7EAA;&#x4E86;&#x8FD8;&#x611A;&#x516C;&#x79FB;&#x5C71;&#xFF1F;&#x6570;&#x636E;&#x5E93;&#x8FD9;&#x4E48;&#x8FC1;&#x79FB;&#x66F4;&#x7A33;&#x5B9A;&#xFF01;</a></p>
+<p><a href="https://lzjohnny.github.io/2019/04/01/database-migration/" target="_blank" rel="noopener">&#x6570;&#x636E;&#x5E93;&#x62C6;&#x5206;&#x8FC1;&#x79FB;</a></p>
+<p><a href="https://m.w3cschool.cn/architectroad/architectroad-database-smooth-expansion.html" target="_blank" rel="noopener">&#x6570;&#x636E;&#x5E93;&#x79D2;&#x7EA7;&#x5E73;&#x6ED1;&#x6269;&#x5BB9;&#x67B6;&#x6784;&#x65B9;&#x6848;</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/37792971" target="_blank" rel="noopener">&#x6D45;&#x8C08;&#x6570;&#x636E;&#x5E93;&#x6269;&#x5BB9;&#x65B9;&#x6848;</a></p>
+<p><a href="http://www.sohu.com/a/205762066_463989" target="_blank" rel="noopener">&#x6570;&#x636E;&#x5E93; schema &#x8FC1;&#x79FB;&#x6570;&#x636E;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;</a></p>
+<p><a href="https://www.dutycode.com/yizhixing_hash_shujuqianyi.html" target="_blank" rel="noopener">&#x4E00;&#x81F4;&#x6027;&#x54C8;&#x5E0C;-&#x6570;&#x636E;&#x8FC1;&#x79FB;</a></p>
+<p><a href="https://www.upyun.com/opentalk/285.html" target="_blank" rel="noopener">&#x4EA7;&#x54C1;&#x67B6;&#x6784;&#x4E13;&#x573A;&#xFF1A;58&#x540C;&#x57CE;&#x6570;&#x636E;&#x5E93;&#x67B6;&#x6784;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;</a></p>
+<p><a href="http://www.jiangxinlingdu.com/thought/2018/08/15/images.html" target="_blank" rel="noopener">&#x4E0D;&#x505C;&#x673A;&#x56FE;&#x7247;&#x5347;&#x7EA7;&#x8FC1;&#x79FB;</a></p>
+<p><a href="https://sq.163yun.com/blog/article/178242037354303488" target="_blank" rel="noopener">&#x7F51;&#x6613;&#x8003;&#x62C9;&#x5185;&#x5BB9;&#x7BA1;&#x7406;&#x5E73;&#x53F0;&#x5168;&#x91CF;ES&#x6570;&#x636E;&#x8FC1;&#x79FB;&#x603B;&#x7ED3;</a></p>
+<p><a href="https://www.owenzhang.net/blog/100.html" target="_blank" rel="noopener">&#x4E92;&#x8054;&#x7F51;&#x670D;&#x52A1;&#x7EBF;&#x4E0A;&#x6570;&#x636E;&#x8FC1;&#x79FB;&#x7684;&#x539F;&#x5219;&#x548C;&#x65B9;&#x6CD5;</a></p>
+<p><a href="https://www.01hai.com/note/av246858" target="_blank" rel="noopener">&#x4E5F;&#x8C08;&#x5206;&#x5E93;&#x5206;&#x8868;&#x5728;&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x7684;&#x5B9E;&#x8DF5;</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/59167071" target="_blank" rel="noopener">Redis&#x4E0E;Mysql&#x53CC;&#x5199;&#x4E00;&#x81F4;&#x6027;&#x65B9;&#x6848;&#x89E3;&#x6790;</a></p>
+<p><a href="https://hackjutsu.com/2016/01/25/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98/" target="_blank" rel="noopener">&#x79D2;&#x6740;&#x7CFB;&#x7EDF;&#x67B6;&#x6784;&#x5206;&#x6790;&#x4E0E;&#x5B9E;&#x6218;</a></p>
+<p><a href="http://database.51cto.com/art/201801/563567.htm" target="_blank" rel="noopener">&#x6C34;&#x5E73;&#x5206;&#x5E93;&#x5982;&#x4F55;&#x505A;&#x5230;&#x5E73;&#x6ED1;&#x6269;&#x5C55;</a></p>
+<p><a href="https://juejin.im/post/5992b2f8f265da3e185eb75d" target="_blank" rel="noopener">&#x8D1D;&#x804A;&#x4EBF;&#x7EA7;&#x6570;&#x636E;&#x5E93;&#x5206;&#x5E93;&#x5206;&#x8868;&#x5B9E;&#x8DF5;</a></p>
+<p><a href="https://linux.cn/blog-47901-6359.html" target="_blank" rel="noopener">&#x76F4;&#x64AD;&#x5E73;&#x53F0;&#x7684;&#x6570;&#x636E;&#x5E93;&#x67B6;&#x6784;&#x6F14;&#x53D8;</a></p>
+<p><a href="http://apsarastackdocument.oss-cn-hangzhou.aliyuncs.com/04_ApsaraStackLite/V2.1.0/%E9%98%BF%E9%87%8C%E4%BA%91%20%E4%B8%93%E6%9C%89%E4%BA%91%E6%95%8F%E6%8D%B7%E7%89%88%20V2.1.0%20%E4%BA%A7%E5%93%81%E7%AE%80%E4%BB%8B%2020190227.pdf" target="_blank" rel="noopener">&#x300A;&#x963F;&#x91CC;&#x4E91;&#x4E13;&#x6709;&#x4E91;&#x654F;&#x6377;&#x7248;&#x300B;</a></p>
+<p><a href="http://www.mycat.io/document/mycat-definitive-guide.pdf" target="_blank" rel="noopener">&#x300A;mycat&#x6743;&#x5A01;&#x6307;&#x5357;&#x300B;</a></p>
+<p><a href="https://juejin.im/post/5a61ad34f265da3e3c6c3943" target="_blank" rel="noopener">&#x8BA9;&#x6570;&#x636E;&#x5E93;&#x4E0D;&#x518D;&#x6210;&#x4E3A;&#x4E1A;&#x52A1;&#x53D1;&#x5C55;&#x74F6;&#x9888;&#x2014;&#x2014;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5E93;&#x67B6;&#x6784;&#x8BBE;&#x8BA1;</a></p>
+<p><a href="http://www.apexyun.com/logistics-order/" target="_blank" rel="noopener">&#x57FA;&#x4E8E;&#x4E2D;&#x53F0;&#x601D;&#x60F3;&#x7684;&#x7269;&#x6D41;&#x7CFB;&#x7EDF;&#x8BBE;&#x8BA1;&#xFF08;&#x4E8C;&#xFF09;&#xFF1A;&#x6784;&#x5EFA;&#x7269;&#x6D41;&#x8BA2;&#x5355;&#x80FD;&#x529B;</a></p>
+<p><a href="https://www.qdcto.com/archives/271" target="_blank" rel="noopener">&#x6D45;&#x6790;&#x6570;&#x636E;&#x5E93;&#x8868;&#x62C6;&#x5206;&#x7684;&#x539F;&#x7406;&#x53CA;&#x601D;&#x8DEF;</a></p>
+<p><a href="https://blog.csdn.net/u013467442/article/details/73864846" target="_blank" rel="noopener">mysql&#x52A8;&#x6001;&#x6269;&#x5BB9;&#x8C03;&#x7814;</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/27871998" target="_blank" rel="noopener">&#x6570;&#x636E;&#x5E93;&#x5206;&#x5E03;&#x5F0F;&#x67B6;&#x6784;&#x626B;&#x76F2;&#x2014;&#x2014;&#x5206;&#x5E93;&#x5206;&#x8868;&#xFF08;&#x53CA;&#x94F6;&#x884C;&#x6838;&#x5FC3;&#x7CFB;&#x7EDF;&#x9002;&#x7528;&#x6027;&#x601D;&#x8003;&#xFF09;</a></p>
+<p><a href="https://blog.csdn.net/u013421629/article/details/78793966" target="_blank" rel="noopener">&#x3010;mysql &#x8BFB;&#x5199;&#x5206;&#x79BB;&#x3011;10&#x5206;&#x949F;&#x4E86;&#x89E3;&#x8BFB;&#x5199;&#x5206;&#x79BB;&#x7684;&#x4F5C;&#x7528;</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/50597960" target="_blank" rel="noopener">&#x6DF1;&#x5EA6;&#x63A2;&#x7D22;MySQL&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;</a></p>
+<p><a href="http://database.51cto.com/art/201801/563213.htm" target="_blank" rel="noopener">&#x6570;&#x636E;&#x5E93;&#x8BFB;&#x5199;&#x5206;&#x79BB;&#x67B6;&#x6784;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x4E0D;&#x559C;&#x6B22;</a></p>
+<p><a href="https://www.cnblogs.com/Aiapple/p/5792939.html" target="_blank" rel="noopener">mysql &#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;</a></p>
+<p><a href="https://www.liuliya.com/archive/580.html" target="_blank" rel="noopener">MySQL&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;</a></p>
+<p><a href="http://www.linkedkeeper.com/1028.html" target="_blank" rel="noopener">MySQL&#x4E3B;&#x4ECE;&#x540C;&#x6B65;&#x90A3;&#x70B9;&#x4E8B;&#x513F;</a></p>
+<p><a href="https://www.hi-linux.com/posts/9892.html" target="_blank" rel="noopener">MySQL 5.7 &#x5E76;&#x884C;&#x590D;&#x5236;&#x5B9E;&#x8DF5;</a></p>
+<p><a href="https://www.ihaiyun.cc/2018/08/24/MySQL-replication-1/" target="_blank" rel="noopener">MySQL &#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;</a></p>
+<p><a href="https://i4t.com/42.html" target="_blank" rel="noopener">MySQL&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;&#x3001;&#x534A;&#x540C;&#x6B65;&#x64CD;&#x4F5C;&#x6B65;&#x9AA4;&#x53CA;&#x539F;&#x7406;</a></p>
+<p><a href="http://eyesmoons.com/article/70" target="_blank" rel="noopener">mysql&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x5B9E;&#x8DF5;</a></p>
+<p><a href="https://juejin.im/post/5ca2a176f265da30ba5b0b91" target="_blank" rel="noopener">MySQL&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;</a></p>
+<p><a href="http://www.tianfeiyu.com/?p=1640" target="_blank" rel="noopener">MySQL&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;&#x53CA;&#x914D;&#x7F6E;</a></p>
+<p><a href="http://www.simlinux.com/2014/08/20/mysql-rep.html" target="_blank" rel="noopener">MySQL&#x590D;&#x5236;&#x539F;&#x7406;&#x4E0E;&#x914D;&#x7F6E;</a></p>
+<p><a href="https://www.cnblogs.com/kevingrace/p/6261111.html" target="_blank" rel="noopener">mysql&#x4E3B;&#x4ECE;&#x540C;&#x6B65;(2)-&#x95EE;&#x9898;&#x68B3;&#x7406;</a></p>
+<p><a href="https://www.cnblogs.com/hoohack/p/7073286.html" target="_blank" rel="noopener">&#x3010;&#x8E29;&#x5751;&#x8BB0;&#x5F55;&#x3011;&#x8BB0;&#x4E00;&#x6B21;MySQL&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x5EF6;&#x8FDF;&#x7684;&#x5751;</a></p>
+<p>&#x89C6;&#x9891;&#x8D44;&#x6599;&#xFF1A;</p>
+<p><a href="https://www.bilibili.com/video/av32782483?from=search&amp;seid=9619289845834549705" target="_blank" rel="noopener">&#x4EBF;&#x7EA7;&#x5927;&#x8868;&#x5206;&#x5E93;&#x5206;&#x8868;&#x89E3;&#x51B3;&#x65B9;&#x6848;</a></p>
+<p><a href="https://www.bilibili.com/video/av44292088?from=search&amp;seid=9619289845834549705" target="_blank" rel="noopener">&#x57FA;&#x4E8E;mycat&#x5206;&#x5E93;&#x5206;&#x8868;</a></p>
+<p><a href="https://www.bilibili.com/video/av26912145?from=search&amp;seid=9619289845834549705" target="_blank" rel="noopener">&#x5206;&#x5E93;&#x5206;&#x8868;&#x5E94;&#x5BF9;&#x6570;&#x636E;&#x91CF;&#x8FC7;&#x5927;</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-07-05</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-07-05</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/07/04/040/">浅析分布式系统（三）</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2019/07/04/040/" title="浅析分布式系统（三）">https://woodwhales.github.io/2019/07/04/040/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/07/04/040/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mycat/" rel="tag"><i class="fa fa-tag"></i> mycat</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/02/039/" rel="next" title="浅析分布式系统（二）">
+                <i class="fa fa-chevron-left"></i> 浅析分布式系统（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-分库分表"><span class="nav-text">1. 分库分表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-为什么要分库分表"><span class="nav-text">1.1 为什么要分库分表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-分库分表术语"><span class="nav-text">1.2 分库分表术语</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-分表中间件"><span class="nav-text">2. 分表中间件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Cobar"><span class="nav-text">2.1 Cobar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-MyCAT"><span class="nav-text">2.2 MyCAT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-TDDL"><span class="nav-text">2.3 TDDL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-DRDS"><span class="nav-text">2.4 DRDS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-Atlas"><span class="nav-text">2.5 Atlas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-Sharding-JDBC-Sharding-Sphere"><span class="nav-text">2.5 Sharding-JDBC/Sharding-Sphere</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-数据库迁移方案"><span class="nav-text">2. 数据库迁移方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-停机迁移方案"><span class="nav-text">2.1 停机迁移方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-双写迁移方案"><span class="nav-text">2.2 双写迁移方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-动态扩容"><span class="nav-text">4. 动态扩容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-分布式全局唯一ID"><span class="nav-text">5. 分布式全局唯一ID</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-UUID"><span class="nav-text">5.2 UUID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-获取系统当前时间"><span class="nav-text">5.3 获取系统当前时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-Snowflake-算法生成全局ID"><span class="nav-text">5.4 Snowflake 算法生成全局ID</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-MySQL-读写分离"><span class="nav-text">6. MySQL 读写分离</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-MySQL-主从复制"><span class="nav-text">7. MySQL 主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-MySQL支持的复制类型"><span class="nav-text">7.1 MySQL支持的复制类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-复制的工作过程"><span class="nav-text">7.2 复制的工作过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-主从同步的延时问题"><span class="nav-text">7.3 主从同步的延时问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-扩展博文"><span class="nav-text">8. 扩展博文</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

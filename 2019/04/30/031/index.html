@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="OAuth, OAuth 2.0, 授权码模式, 授权码, 授权, 安全认证, 三方登录, 资源服务器">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="OAuth 2.0 授权认证全详解">
+<meta name="keywords" content="OAuth, OAuth 2.0, 授权码模式, 授权码, 授权, 安全认证, 三方登录, 资源服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OAuth 2.0 授权认证详解">
+<meta property="og:url" content="https://woodwhales.github.io/2019/04/30/031/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="OAuth 2.0 授权认证全详解">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2019/04/30/031/2019/04/30/031/face.png">
+<meta property="og:updated_time" content="2019-05-30T14:20:39.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OAuth 2.0 授权认证详解">
+<meta name="twitter:description" content="OAuth 2.0 授权认证全详解">
+<meta name="twitter:image" content="https://woodwhales.github.io/2019/04/30/031/2019/04/30/031/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2019/04/30/031/">
+
+
+
+
+
+  <title>OAuth 2.0 授权认证详解 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/04/30/031/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OAuth 2.0 授权认证详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-30T20:00:00+08:00">
+                2019-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OAuth-2-0/" itemprop="url" rel="index">
+                    <span itemprop="name">OAuth 2.0</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/30/031/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/30/031/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/04/30/031/" class="leancloud_visitors" data-flag-title="OAuth 2.0 授权认证详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  5.8k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  OAuth 2.0 授权认证全详解
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2019/04/30/031/face.png" rel="gallery_cjzz5ojwh003hj4vg6mec4wu7" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2019/04/30/031/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h2 id="&#x4E00;&#x3001;&#x8BA4;&#x8BC6;-OAuth-2-0"><a href="#&#x4E00;&#x3001;&#x8BA4;&#x8BC6;-OAuth-2-0" class="headerlink" title="&#x4E00;&#x3001;&#x8BA4;&#x8BC6; OAuth 2.0"></a>&#x4E00;&#x3001;&#x8BA4;&#x8BC6; OAuth 2.0</h2><h3 id="1-1-OAuth-2-0-&#x5E94;&#x7528;&#x573A;&#x666F;"><a href="#1-1-OAuth-2-0-&#x5E94;&#x7528;&#x573A;&#x666F;" class="headerlink" title="1.1 OAuth 2.0 &#x5E94;&#x7528;&#x573A;&#x666F;"></a>1.1 OAuth 2.0 &#x5E94;&#x7528;&#x573A;&#x666F;</h3><p>OAuth 2.0 &#x6807;&#x51C6;&#x76EE;&#x524D;&#x88AB;&#x5E7F;&#x6CDB;&#x5E94;&#x7528;&#x5728;&#x7B2C;&#x4E09;&#x65B9;&#x767B;&#x5F55;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x4EE5;&#x4E0B;&#x662F;&#x865A;&#x62DF;&#x51FA;&#x6765;&#x7684;&#x89D2;&#x8272;&#xFF0C;&#x9610;&#x8FF0; OAuth2 &#x80FD;&#x5E2E;&#x6211;&#x4EEC;&#x5E72;&#x4EC0;&#x4E48;&#xFF0C;&#x5F15;&#x7528;&#x962E;&#x4E00;&#x5CF0;&#x8FD9;&#x7BC7;<a href="https://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="noopener">&#x7406;&#x89E3;OAuth 2.0</a>&#x4E2D;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<p>&#x6709;&#x4E00;&#x4E2A;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x7684;&#x7F51;&#x7AD9;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x7528;&#x6237;&#x50A8;&#x5B58;&#x5728;Google&#x7684;&#x7167;&#x7247;&#xFF0C;&#x51B2;&#x5370;&#x51FA;&#x6765;&#x3002;&#x7528;&#x6237;&#x4E3A;&#x4E86;&#x4F7F;&#x7528;&#x8BE5;&#x670D;&#x52A1;&#xFF0C;&#x5FC5;&#x987B;&#x8BA9;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x8BFB;&#x53D6;&#x81EA;&#x5DF1;&#x50A8;&#x5B58;&#x5728;Google&#x4E0A;&#x7684;&#x7167;&#x7247;&#x3002;</p>
+<p>&#x95EE;&#x9898;&#x662F;&#x53EA;&#x6709;&#x5F97;&#x5230;&#x7528;&#x6237;&#x7684;&#x6388;&#x6743;&#xFF0C;Google&#x624D;&#x4F1A;&#x540C;&#x610F;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x8BFB;&#x53D6;&#x8FD9;&#x4E9B;&#x7167;&#x7247;&#x3002;&#x90A3;&#x4E48;&#xFF0C;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x600E;&#x6837;&#x83B7;&#x5F97;&#x7528;&#x6237;&#x7684;&#x6388;&#x6743;&#x5462;&#xFF1F;</p>
+<p>&#x4F20;&#x7EDF;&#x65B9;&#x6CD5;&#x662F;&#xFF0C;&#x7528;&#x6237;&#x5C06;&#x81EA;&#x5DF1;&#x7684;Google&#x7528;&#x6237;&#x540D;&#x548C;&#x5BC6;&#x7801;&#xFF0C;&#x544A;&#x8BC9;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#xFF0C;&#x540E;&#x8005;&#x5C31;&#x53EF;&#x4EE5;&#x8BFB;&#x53D6;&#x7528;&#x6237;&#x7684;&#x7167;&#x7247;&#x4E86;&#x3002;&#x8FD9;&#x6837;&#x7684;&#x505A;&#x6CD5;&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x4E25;&#x91CD;&#x7684;&#x7F3A;&#x70B9;&#x3002;</p>
+<blockquote>
+<p>&#xFF08;1&#xFF09;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x4E3A;&#x4E86;&#x540E;&#x7EED;&#x7684;&#x670D;&#x52A1;&#xFF0C;&#x4F1A;&#x4FDD;&#x5B58;&#x7528;&#x6237;&#x7684;&#x5BC6;&#x7801;&#xFF0C;&#x8FD9;&#x6837;&#x5F88;&#x4E0D;&#x5B89;&#x5168;&#x3002;<br>&#xFF08;2&#xFF09;Google&#x4E0D;&#x5F97;&#x4E0D;&#x90E8;&#x7F72;&#x5BC6;&#x7801;&#x767B;&#x5F55;&#xFF0C;&#x800C;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#xFF0C;&#x5355;&#x7EAF;&#x7684;&#x5BC6;&#x7801;&#x767B;&#x5F55;&#x5E76;&#x4E0D;&#x5B89;&#x5168;&#x3002;<br>&#xFF08;3&#xFF09;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x62E5;&#x6709;&#x4E86;&#x83B7;&#x53D6;&#x7528;&#x6237;&#x50A8;&#x5B58;&#x5728;Google&#x6240;&#x6709;&#x8D44;&#x6599;&#x7684;&#x6743;&#x529B;&#xFF0C;&#x7528;&#x6237;&#x6CA1;&#x6CD5;&#x9650;&#x5236;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x83B7;&#x5F97;&#x6388;&#x6743;&#x7684;&#x8303;&#x56F4;&#x548C;&#x6709;&#x6548;&#x671F;&#x3002;<br>&#xFF08;4&#xFF09;&#x7528;&#x6237;&#x53EA;&#x6709;&#x4FEE;&#x6539;&#x5BC6;&#x7801;&#xFF0C;&#x624D;&#x80FD;&#x6536;&#x56DE;&#x8D4B;&#x4E88;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x7684;&#x6743;&#x529B;&#x3002;&#x4F46;&#x662F;&#x8FD9;&#x6837;&#x505A;&#xFF0C;&#x4F1A;&#x4F7F;&#x5F97;&#x5176;&#x4ED6;&#x6240;&#x6709;&#x83B7;&#x5F97;&#x7528;&#x6237;&#x6388;&#x6743;&#x7684;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5168;&#x90E8;&#x5931;&#x6548;&#x3002;<br>&#xFF08;5&#xFF09;&#x53EA;&#x8981;&#x6709;&#x4E00;&#x4E2A;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x88AB;&#x7834;&#x89E3;&#xFF0C;&#x5C31;&#x4F1A;&#x5BFC;&#x81F4;&#x7528;&#x6237;&#x5BC6;&#x7801;&#x6CC4;&#x6F0F;&#xFF0C;&#x4EE5;&#x53CA;&#x6240;&#x6709;&#x88AB;&#x5BC6;&#x7801;&#x4FDD;&#x62A4;&#x7684;&#x6570;&#x636E;&#x6CC4;&#x6F0F;&#x3002;</p>
+</blockquote>
+<h3 id="1-2-&#x540D;&#x8BCD;&#x6982;&#x5FF5;"><a href="#1-2-&#x540D;&#x8BCD;&#x6982;&#x5FF5;" class="headerlink" title="1.2 &#x540D;&#x8BCD;&#x6982;&#x5FF5;"></a>1.2 &#x540D;&#x8BCD;&#x6982;&#x5FF5;</h3><p>OAuth &#x5C31;&#x662F;&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x4E0A;&#x9762;&#x8FD9;&#x4E9B;&#x95EE;&#x9898;&#x800C;&#x8BDE;&#x751F;&#x7684;&#x3002;&#x5728;&#x8BE6;&#x89E3; OAuth &#x4E4B;&#x524D;&#xFF0C;&#x9700;&#x8981;&#x660E;&#x786E;&#x4E00;&#x4E9B;&#x57FA;&#x672C;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x4ECE;&#x4E0A;&#x9762;&#x573A;&#x666F;&#x4E2D;&#x62BD;&#x8C61;&#x51FA;&#x4EE5;&#x4E0B;&#x6982;&#x5FF5;&#x3002;</p>
+<p><strong>&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;</strong></p>
+<p><strong>Third-party application</strong>&#xFF1A;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF0C;&#x672C;&#x6587;&#x4E2D;&#x53C8;&#x79F0;&#x201D;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#xFF08;client&#xFF09;&#xFF0C;&#x5373;&#x4E0A;&#x4E00;&#x8282;&#x4F8B;&#x5B50;&#x4E2D;&#x7684;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x3002;</p>
+<p><strong>HTTP&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;</strong></p>
+<p><strong>HTTP service</strong>&#xFF1A;HTTP&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#xFF0C;&#x672C;&#x6587;&#x4E2D;&#x7B80;&#x79F0;&#x201D;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x201D;&#xFF0C;&#x5373;&#x4E0A;&#x4E00;&#x8282;&#x4F8B;&#x5B50;&#x4E2D;&#x7684;Google&#x3002;</p>
+<p><strong>&#x8D44;&#x6E90;&#x6240;&#x6709;&#x8005;</strong></p>
+<p><strong>Resource Owner</strong>&#xFF1A;&#x8D44;&#x6E90;&#x6240;&#x6709;&#x8005;&#xFF0C;&#x672C;&#x6587;&#x4E2D;&#x53C8;&#x79F0;&#x201D;&#x7528;&#x6237;&#x201D;&#xFF08;user&#xFF09;&#x3002;</p>
+<p><strong>&#x7528;&#x6237;&#x4EE3;&#x7406;</strong></p>
+<p><strong>User Agent</strong>&#xFF1A;&#x7528;&#x6237;&#x4EE3;&#x7406;&#xFF0C;&#x672C;&#x6587;&#x4E2D;&#x5C31;&#x662F;&#x6307;&#x6D4F;&#x89C8;&#x5668;&#x3002;</p>
+<p><strong>&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;</strong></p>
+<p><strong>Authorization server</strong>&#xFF1A;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5373;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x4E13;&#x95E8;&#x7528;&#x6765;&#x5904;&#x7406;&#x8BA4;&#x8BC1;&#x7684;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<p><strong>&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;</strong></p>
+<p><strong>Resource server</strong>&#xFF1A;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5373;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x5B58;&#x653E;&#x7528;&#x6237;&#x751F;&#x6210;&#x7684;&#x8D44;&#x6E90;&#x7684;&#x670D;&#x52A1;&#x5668;&#x3002;&#x5B83;&#x4E0E;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x540C;&#x4E00;&#x53F0;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x4E0D;&#x540C;&#x7684;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<p>&#x77E5;&#x9053;&#x4E86;&#x4E0A;&#x9762;&#x8FD9;&#x4E9B;&#x540D;&#x8BCD;&#xFF0C;&#x5C31;&#x4E0D;&#x96BE;&#x7406;&#x89E3;&#xFF0C;OAuth&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x8BA9;&#x201D;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#x5B89;&#x5168;&#x53EF;&#x63A7;&#x5730;&#x83B7;&#x53D6;&#x201D;&#x7528;&#x6237;&#x201D;&#x7684;&#x6388;&#x6743;&#xFF0C;&#x4ECE;&#x800C;&#x53EF;&#x4EE5;&#x548C;&#x201D;&#x670D;&#x52A1;&#x5546;&#x63D0;&#x4F9B;&#x5546;&#x201D;&#x8FDB;&#x884C;&#x4E92;&#x52A8;&#x3002;</p>
+<h2 id="&#x4E8C;&#x3001;OAuth-&#x7684;&#x6388;&#x6743;&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;"><a href="#&#x4E8C;&#x3001;OAuth-&#x7684;&#x6388;&#x6743;&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;" class="headerlink" title="&#x4E8C;&#x3001;OAuth &#x7684;&#x6388;&#x6743;&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;"></a>&#x4E8C;&#x3001;OAuth &#x7684;&#x6388;&#x6743;&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;</h2><h3 id="2-1-&#x8BA4;&#x8BC1;&#x601D;&#x8DEF;"><a href="#2-1-&#x8BA4;&#x8BC1;&#x601D;&#x8DEF;" class="headerlink" title="2.1 &#x8BA4;&#x8BC1;&#x601D;&#x8DEF;"></a>2.1 &#x8BA4;&#x8BC1;&#x601D;&#x8DEF;</h3><p>OAuth &#x5728;&#x201D;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#x4E0E;&#x201D;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x201D;&#x4E4B;&#x95F4;&#xFF0C;&#x8BBE;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A; <strong>&#x6388;&#x6743;&#x5C42;</strong>&#xFF08;authorization  layer&#xFF09;&#x3002;&#x201D;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x767B;&#x5F55;&#x201D;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x201D;&#xFF0C;&#x53EA;&#x80FD;&#x767B;&#x5F55;&#x6388;&#x6743;&#x5C42;&#xFF0C;&#x4EE5;&#x6B64;&#x5C06;&#x7528;&#x6237;&#x4E0E;&#x5BA2;&#x6237;&#x7AEF;&#x533A;&#x5206;&#x5F00;&#x6765;&#x3002;&#x201D;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#x767B;&#x5F55;&#x6388;&#x6743;&#x5C42;&#x6240;&#x7528;&#x7684;&#x4EE4;&#x724C;&#xFF08;token&#xFF09;&#xFF0C;&#x4E0E;&#x7528;&#x6237;&#x7684;&#x5BC6;&#x7801;&#x4E0D;&#x540C;&#x3002;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x5728;&#x767B;&#x5F55;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6307;&#x5B9A;&#x6388;&#x6743;&#x5C42;&#x4EE4;&#x724C;&#x7684;&#x6743;&#x9650;&#x8303;&#x56F4;&#x548C;&#x6709;&#x6548;&#x671F;&#x3002;</p>
+<p>&#x201C;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#x767B;&#x5F55;&#x6388;&#x6743;&#x5C42;&#x4EE5;&#x540E;&#xFF0C;&#x201D;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x201D;&#x6839;&#x636E;&#x4EE4;&#x724C;&#x7684;&#x6743;&#x9650;&#x8303;&#x56F4;&#x548C;&#x6709;&#x6548;&#x671F;&#xFF0C;&#x5411;&#x201D;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#x5F00;&#x653E;&#x7528;&#x6237;&#x50A8;&#x5B58;&#x7684;&#x8D44;&#x6599;&#x3002;</p>
+<h3 id="2-2-&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;"><a href="#2-2-&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;" class="headerlink" title="2.2 &#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;"></a>2.2 &#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;</h3><p>&#x5B98;&#x65B9; RFC 6749 &#x6587;&#x4EF6;&#x4E2D;&#x7684; OAuth 2.0 &#x6D41;&#x7A0B;&#x56FE;&#x6709;&#x70B9;&#x6666;&#x6DA9;&#xFF0C;&#x4F18;&#x5316;&#x4E86; &#x4E00;&#x4E0B;&#xFF1A;</p>
+<p><img src="/2019/04/30/031/oauth-1.png" alt=""></p>
+<blockquote>
+<ol>
+<li>&#x7528;&#x6237;&#x8BBF;&#x95EE;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF08;&#x7B80;&#x79F0;&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#xFF09;&#x4EE5;&#x540E;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x8981;&#x6C42;&#x7528;&#x6237;&#x7ED9;&#x4E88;&#x6388;&#x6743;&#x3002;</li>
+<li>&#x7528;&#x6237;&#x540C;&#x610F;&#x7ED9;&#x4E88;&#x5BA2;&#x6237;&#x7AEF;&#x6388;&#x6743;&#x3002;</li>
+<li>&#x5BA2;&#x6237;&#x7AEF;&#x4F7F;&#x7528;&#x7B2C; 2 &#x6B65;&#x83B7;&#x5F97;&#x7684;&#x6388;&#x6743;&#xFF0C;&#x5411;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x7533;&#x8BF7;&#x4EE4;&#x724C;&#x3002;</li>
+<li>&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x5BF9;&#x5BA2;&#x6237;&#x7AEF;&#x8FDB;&#x884C;&#x8BA4;&#x8BC1;&#x4EE5;&#x540E;&#xFF0C;&#x786E;&#x8BA4;&#x65E0;&#x8BEF;&#xFF0C;&#x540C;&#x610F;&#x53D1;&#x653E;&#x4EE4;&#x724C;&#x3002;</li>
+<li>&#x5BA2;&#x6237;&#x7AEF;&#x4F7F;&#x7528;&#x4EE4;&#x724C;&#xFF0C;&#x5411;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x7533;&#x8BF7;&#x83B7;&#x53D6;&#x8D44;&#x6E90;&#x3002;</li>
+<li>&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x786E;&#x8BA4;&#x4EE4;&#x724C;&#x65E0;&#x8BEF;&#xFF0C;&#x540C;&#x610F;&#x5411;&#x5BA2;&#x6237;&#x7AEF;&#x5F00;&#x653E;&#x8D44;&#x6E90;&#x3002;</li>
+</ol>
+</blockquote>
+<p>&#x4E0A;&#x8FF0;&#x4E2D;&#x7684;&#x7B2C; 2 &#x6B65; &#x662F;&#x5173;&#x952E;&#xFF0C;&#x5373;&#x7528;&#x6237;&#x600E;&#x6837;&#x624D;&#x80FD;&#x7ED9;&#x4E8E;&#x5BA2;&#x6237;&#x7AEF;&#x6388;&#x6743;&#x3002;&#x6709;&#x4E86;&#x8FD9;&#x4E2A;&#x6388;&#x6743;&#x4EE5;&#x540E;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x5C31;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x4EE4;&#x724C;&#xFF0C;&#x8FDB;&#x800C;&#x51ED;&#x4EE4;&#x724C;&#x83B7;&#x53D6;&#x8D44;&#x6E90;&#x3002;</p>
+<h2 id="&#x4E09;&#x3001;&#x56DB;&#x79CD;&#x6388;&#x6743;&#x6A21;&#x5F0F;"><a href="#&#x4E09;&#x3001;&#x56DB;&#x79CD;&#x6388;&#x6743;&#x6A21;&#x5F0F;" class="headerlink" title="&#x4E09;&#x3001;&#x56DB;&#x79CD;&#x6388;&#x6743;&#x6A21;&#x5F0F;"></a>&#x4E09;&#x3001;&#x56DB;&#x79CD;&#x6388;&#x6743;&#x6A21;&#x5F0F;</h2><p>&#x4E0A;&#x4E00;&#x5C0F;&#x8282;&#x53EF;&#x4EE5;&#x5F97;&#x51FA;&#x7528;&#x6237;&#x5BF9;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x6388;&#x6743;&#x52A8;&#x4F5C;&#x662F;&#x6838;&#x5FC3;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x5FC5;&#x987B;&#x5F97;&#x5230;&#x7528;&#x6237;&#x7684;&#x6388;&#x6743;&#xFF08;authorization grant&#xFF09;&#xFF0C;&#x624D;&#x80FD;&#x83B7;&#x5F97;&#x4EE4;&#x724C;&#xFF08;access token&#xFF09;&#x3002;OAuth 2.0&#x5B9A;&#x4E49;&#x4E86;&#x56DB;&#x79CD;&#x6388;&#x6743;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<h3 id="3-1-&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#xFF08;authorization-code&#xFF09;"><a href="#3-1-&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#xFF08;authorization-code&#xFF09;" class="headerlink" title="3.1 &#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#xFF08;authorization code&#xFF09;"></a>3.1 &#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#xFF08;authorization code&#xFF09;</h3><p>&#x6388;&#x6743;&#x7801;&#xFF08;authorization code&#xFF09;&#x65B9;&#x5F0F;&#xFF0C;&#x6307;&#x7684;&#x662F;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x5148;&#x7533;&#x8BF7;&#x4E00;&#x4E2A;&#x6388;&#x6743;&#x7801;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x7528;&#x8BE5;&#x7801;&#x83B7;&#x53D6;&#x4EE4;&#x724C;&#x3002;</p>
+<h3 id="3-2-&#x7B80;&#x5316;&#x6A21;&#x5F0F;&#xFF08;implicit&#xFF09;"><a href="#3-2-&#x7B80;&#x5316;&#x6A21;&#x5F0F;&#xFF08;implicit&#xFF09;" class="headerlink" title="3.2 &#x7B80;&#x5316;&#x6A21;&#x5F0F;&#xFF08;implicit&#xFF09;"></a>3.2 &#x7B80;&#x5316;&#x6A21;&#x5F0F;&#xFF08;implicit&#xFF09;</h3><p>&#x6709;&#x4E9B; Web &#x5E94;&#x7528;&#x662F;&#x7EAF;&#x524D;&#x7AEF;&#x5E94;&#x7528;&#xFF0C;&#x6CA1;&#x6709;&#x540E;&#x7AEF;&#x3002;&#x8FD9;&#x65F6;&#x5C31;&#x4E0D;&#x80FD;&#x7528;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x5F0F;&#x4E86;&#xFF0C;&#x5FC5;&#x987B;&#x5C06;&#x4EE4;&#x724C;&#x50A8;&#x5B58;&#x5728;&#x524D;&#x7AEF;&#x3002;RFC 6749 &#x5C31;&#x89C4;&#x5B9A;&#x4E86;&#x7B2C;&#x4E8C;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x5141;&#x8BB8;&#x76F4;&#x63A5;&#x5411;&#x524D;&#x7AEF;&#x9881;&#x53D1;&#x4EE4;&#x724C;&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x6CA1;&#x6709;&#x6388;&#x6743;&#x7801;&#x8FD9;&#x4E2A;&#x4E2D;&#x95F4;&#x6B65;&#x9AA4;&#xFF0C;&#x6240;&#x4EE5;&#x79F0;&#x4E3A;&#xFF08;&#x6388;&#x6743;&#x7801;&#xFF09;&#x201D;&#x9690;&#x85CF;&#x5F0F;&#x201D;&#xFF08;implicit&#xFF09;&#x3002;</p>
+<h3 id="3-3-&#x5BC6;&#x7801;&#x6A21;&#x5F0F;&#xFF08;resource-owner-password-credentials&#xFF09;"><a href="#3-3-&#x5BC6;&#x7801;&#x6A21;&#x5F0F;&#xFF08;resource-owner-password-credentials&#xFF09;" class="headerlink" title="3.3 &#x5BC6;&#x7801;&#x6A21;&#x5F0F;&#xFF08;resource owner password credentials&#xFF09;"></a>3.3 &#x5BC6;&#x7801;&#x6A21;&#x5F0F;&#xFF08;resource owner password credentials&#xFF09;</h3><p>&#x5982;&#x679C;&#x4F60;&#x9AD8;&#x5EA6;&#x4FE1;&#x4EFB;&#x67D0;&#x4E2A;&#x5E94;&#x7528;&#xFF0C;RFC 6749 &#x4E5F;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x628A;&#x7528;&#x6237;&#x540D;&#x548C;&#x5BC6;&#x7801;&#xFF0C;&#x76F4;&#x63A5;&#x544A;&#x8BC9;&#x8BE5;&#x5E94;&#x7528;&#x3002;&#x8BE5;&#x5E94;&#x7528;&#x5C31;&#x4F7F;&#x7528;&#x4F60;&#x7684;&#x5BC6;&#x7801;&#xFF0C;&#x7533;&#x8BF7;&#x4EE4;&#x724C;&#xFF0C;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x79F0;&#x4E3A;&#x201D;&#x5BC6;&#x7801;&#x5F0F;&#x201D;&#xFF08;password&#xFF09;&#x3002;</p>
+<h3 id="3-4-&#x5BA2;&#x6237;&#x7AEF;&#x6A21;&#x5F0F;&#xFF08;client-credentials&#xFF09;"><a href="#3-4-&#x5BA2;&#x6237;&#x7AEF;&#x6A21;&#x5F0F;&#xFF08;client-credentials&#xFF09;" class="headerlink" title="3.4 &#x5BA2;&#x6237;&#x7AEF;&#x6A21;&#x5F0F;&#xFF08;client credentials&#xFF09;"></a>3.4 &#x5BA2;&#x6237;&#x7AEF;&#x6A21;&#x5F0F;&#xFF08;client credentials&#xFF09;</h3><p>&#x6700;&#x540E;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x662F;&#x51ED;&#x8BC1;&#x5F0F;&#xFF08;client credentials&#xFF09;&#xFF0C;&#x9002;&#x7528;&#x4E8E;&#x6CA1;&#x6709;&#x524D;&#x7AEF;&#x7684;&#x547D;&#x4EE4;&#x884C;&#x5E94;&#x7528;&#xFF0C;&#x5373;&#x5728;&#x547D;&#x4EE4;&#x884C;&#x4E0B;&#x8BF7;&#x6C42;&#x4EE4;&#x724C;&#x3002;</p>
+<h2 id="&#x56DB;&#x3001;&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x8BE6;&#x89E3;"><a href="#&#x56DB;&#x3001;&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x8BE6;&#x89E3;" class="headerlink" title="&#x56DB;&#x3001;&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x8BE6;&#x89E3;"></a>&#x56DB;&#x3001;&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x8BE6;&#x89E3;</h2><h3 id="4-1-&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;"><a href="#4-1-&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;" class="headerlink" title="4.1 &#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;"></a>4.1 &#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;</h3><p>&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#xFF08;authorization code&#xFF09;&#x662F;&#x529F;&#x80FD;&#x6700;&#x5B8C;&#x6574;&#x3001;&#x6D41;&#x7A0B;&#x6700;&#x4E25;&#x5BC6;&#x5B89;&#x5168;&#x7684;&#x6388;&#x6743;&#x6A21;&#x5F0F;&#x3002;&#x5B83;&#x7684;&#x7279;&#x70B9;&#x5C31;&#x662F;&#x901A;&#x8FC7;&#x5BA2;&#x6237;&#x7AEF;&#x7684; <strong>&#x540E;&#x53F0;&#x670D;&#x52A1;&#x5668;</strong>&#xFF0C;&#x4E0E;&#x201D;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x201D;&#x7684;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x4E92;&#x52A8;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x9002;&#x7528;&#x4E8E;&#x90A3;&#x4E9B;&#x6709;&#x540E;&#x7AEF;&#x7684; Web &#x5E94;&#x7528;&#x3002;&#x6388;&#x6743;&#x7801;&#x901A;&#x8FC7;&#x524D;&#x7AEF;&#x4F20;&#x9001;&#xFF0C;&#x4EE4;&#x724C;&#x5219;&#x662F;&#x50A8;&#x5B58;&#x5728;&#x540E;&#x7AEF;&#xFF0C;&#x800C;&#x4E14;&#x6240;&#x6709;&#x4E0E;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x7684;&#x901A;&#x4FE1;&#x90FD;&#x5728;&#x540E;&#x7AEF;&#x5B8C;&#x6210;&#x3002;&#x8FD9;&#x6837;&#x7684;&#x524D;&#x540E;&#x7AEF;&#x5206;&#x79BB;&#xFF0C;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x4EE4;&#x724C;&#x6CC4;&#x6F0F;&#x3002;</p>
+<p><img src="/2019/04/30/031/oauth-2.png" alt=""></p>
+<p>&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<ol>
+<li>&#x7528;&#x6237;&#x8BBF;&#x95EE;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x5C06;&#x7528;&#x6237;&#x5BFC;&#x5411;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x3002;</li>
+<li>&#x7528;&#x6237;&#x9009;&#x62E9;&#x662F;&#x5426;&#x7ED9;&#x4E88;&#x5BA2;&#x6237;&#x7AEF;&#x6388;&#x6743;&#x3002;</li>
+<li>&#x5047;&#x8BBE;&#x7528;&#x6237;&#x7ED9;&#x4E88;&#x6388;&#x6743;&#xFF0C;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x5C06;&#x7528;&#x6237;&#x5BFC;&#x5411;&#x5BA2;&#x6237;&#x7AEF;&#x4E8B;&#x5148;&#x6307;&#x5B9A;&#x7684;&#x201D;&#x91CD;&#x5B9A;&#x5411;URI&#x201D;&#xFF08;redirection URI&#xFF09;&#xFF0C;&#x540C;&#x65F6;&#x9644;&#x4E0A;&#x4E00;&#x4E2A;&#x6388;&#x6743;&#x7801;&#x3002;</li>
+<li>&#x5BA2;&#x6237;&#x7AEF;&#x6536;&#x5230;&#x6388;&#x6743;&#x7801;&#xFF0C;&#x9644;&#x4E0A;&#x65E9;&#x5148;&#x7684;&#x201D;&#x91CD;&#x5B9A;&#x5411;URI&#x201D;&#xFF0C;&#x5411;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x7533;&#x8BF7;&#x4EE4;&#x724C;&#x3002;&#x8FD9;&#x4E00;&#x6B65;&#x662F;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x7684; <strong>&#x540E;&#x53F0;&#x670D;&#x52A1;&#x5668;</strong> &#x4E0A;&#x5B8C;&#x6210;&#x7684;&#xFF0C;&#x5BF9;&#x7528;&#x6237;&#x4E0D;&#x53EF;&#x89C1;&#x3002;</li>
+<li>&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x6838;&#x5BF9;&#x4E86;&#x6388;&#x6743;&#x7801;&#x548C;&#x91CD;&#x5B9A;&#x5411;URI&#xFF0C;&#x786E;&#x8BA4;&#x65E0;&#x8BEF;&#x540E;&#xFF0C;&#x5411;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#xFF08;access token&#xFF09;&#x548C;&#x66F4;&#x65B0;&#x4EE4;&#x724C;&#xFF08;refresh token&#xFF09;&#x3002;</li>
+</ol>
+</blockquote>
+<p>&#x4ECE;&#x4E0A;&#x8FF0;&#x7684;&#x6D41;&#x7A0B;&#x63CF;&#x8FF0;&#x53EF;&#x77E5;&#xFF0C;&#x53EA;&#x6709;&#x7B2C; 2 &#x6B65;&#x9700;&#x8981;&#x7528;&#x6237;&#x8FDB;&#x884C;&#x6388;&#x6743;&#x64CD;&#x4F5C;&#xFF0C;&#x4E4B;&#x540E;&#x7684;&#x6D41;&#x7A0B;&#x90FD;&#x662F;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x540E;&#x53F0;&#x548C;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x540E;&#x53F0;&#x4E4B;&#x524D;&#x8FDB;&#x884C;&#x201D;&#x9759;&#x9ED8;&#x201D;&#x64CD;&#x4F5C;&#xFF0C;&#x5BF9;&#x4E8E;&#x7528;&#x6237;&#x6765;&#x8BF4;&#x662F;&#x65E0;&#x611F;&#x77E5;&#x7684;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x4E0A;&#x9762;&#x8FD9;&#x4E9B;&#x6B65;&#x9AA4;&#x6240;&#x9700;&#x8981;&#x7684;&#x53C2;&#x6570;&#x3002;</p>
+<h3 id="4-2-&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;&#x7684;&#x4E94;&#x4E2A;&#x6B65;&#x9AA4;"><a href="#4-2-&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;&#x7684;&#x4E94;&#x4E2A;&#x6B65;&#x9AA4;" class="headerlink" title="4.2 &#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;&#x7684;&#x4E94;&#x4E2A;&#x6B65;&#x9AA4;"></a>4.2 &#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;&#x7684;&#x4E94;&#x4E2A;&#x6B65;&#x9AA4;</h3><h4 id="&#x7B2C;-1-&#x6B65;&#x9AA4;"><a href="#&#x7B2C;-1-&#x6B65;&#x9AA4;" class="headerlink" title="&#x7B2C; 1 &#x6B65;&#x9AA4;"></a>&#x7B2C; 1 &#x6B65;&#x9AA4;</h4><h5 id="&#x53C2;&#x6570;&#x8BF4;&#x660E;"><a href="#&#x53C2;&#x6570;&#x8BF4;&#x660E;" class="headerlink" title="&#x53C2;&#x6570;&#x8BF4;&#x660E;"></a>&#x53C2;&#x6570;&#x8BF4;&#x660E;</h5><p>&#x7B2C; 1 &#x6B65;&#x9AA4;&#x4E2D;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x7533;&#x8BF7;&#x8BA4;&#x8BC1;&#x7684;URI&#xFF0C;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li><code>response_type</code>&#xFF1A;&#x8868;&#x793A;&#x6388;&#x6743;&#x7C7B;&#x578B;&#xFF0C;<strong>&#x5FC5;&#x9009;&#x9879;</strong>&#xFF0C;&#x6B64;&#x5904;&#x7684;&#x503C;&#x56FA;&#x5B9A;&#x4E3A;&#x201D;code&#x201D;</li>
+<li><code>client_id</code>&#xFF1A;&#x8868;&#x793A;&#x5BA2;&#x6237;&#x7AEF;&#x7684;ID&#xFF0C;<strong>&#x5FC5;&#x9009;&#x9879;</strong></li>
+<li><code>redirect_uri</code>&#xFF1A;&#x8868;&#x793A;&#x91CD;&#x5B9A;&#x5411;URI&#xFF0C;&#x53EF;&#x9009;&#x9879;</li>
+<li><code>scope</code>&#xFF1A;&#x8868;&#x793A;&#x7533;&#x8BF7;&#x7684;&#x6743;&#x9650;&#x8303;&#x56F4;&#xFF0C;&#x53EF;&#x9009;&#x9879;</li>
+<li><code>state</code>&#xFF1A;&#x8868;&#x793A;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x5F53;&#x524D;&#x72B6;&#x6001;&#xFF0C;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x4EFB;&#x610F;&#x503C;&#xFF0C;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x539F;&#x5C01;&#x4E0D;&#x52A8;&#x5730;&#x8FD4;&#x56DE;&#x8FD9;&#x4E2A;&#x503C;&#x3002;</li>
+</ul>
+<h5 id="&#x793A;&#x4F8B;"><a href="#&#x793A;&#x4F8B;" class="headerlink" title="&#x793A;&#x4F8B;"></a>&#x793A;&#x4F8B;</h5><p>A &#x7F51;&#x7AD9;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x94FE;&#x63A5;&#xFF0C;&#x7528;&#x6237;&#x70B9;&#x51FB;&#x540E;&#x5C31;&#x4F1A;&#x8DF3;&#x8F6C;&#x5230; B &#x7F51;&#x7AD9;&#xFF0C;&#x6388;&#x6743;&#x7528;&#x6237;&#x6570;&#x636E;&#x7ED9; A &#x7F51;&#x7AD9;&#x4F7F;&#x7528;&#x3002;&#x4E0B;&#x9762;&#x5C31;&#x662F; A &#x7F51;&#x7AD9;&#x8DF3;&#x8F6C; B &#x7F51;&#x7AD9;&#x7684;&#x4E00;&#x4E2A;&#x793A;&#x610F;&#x94FE;&#x63A5;&#xFF1A;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://b.com/oauth/authorize?</span><br><span class="line">  response_type=code&amp;</span><br><span class="line">  client_id=CLIENT_ID&amp;</span><br><span class="line">  redirect_uri=CALLBACK_URL&amp;</span><br><span class="line">  scope=read</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x9762; URL &#x4E2D;&#xFF1A;</p>
+<p><code>response_type</code>&#x53C2;&#x6570;&#x8868;&#x793A;&#x8981;&#x6C42;&#x8FD4;&#x56DE;&#x6388;&#x6743;&#x7801;&#xFF08;<code>code</code>&#xFF09;&#xFF1B;</p>
+<p><code>client_id</code>&#x53C2;&#x6570;&#x8BA9; B &#x7F51;&#x7AD9;&#x77E5;&#x9053;&#x662F;&#x8C01;&#x5728;&#x8BF7;&#x6C42;&#xFF1B;</p>
+<p><code>redirect_uri</code>&#x53C2;&#x6570;&#x662F; B &#x7F51;&#x7AD9;&#x63A5;&#x53D7;&#x6216;&#x62D2;&#x7EDD;&#x8BF7;&#x6C42;&#x540E;&#x7684;&#x8DF3;&#x8F6C;&#x7F51;&#x5740;&#xFF1B;</p>
+<p><code>scope</code>&#x53C2;&#x6570;&#x8868;&#x793A;&#x8981;&#x6C42;&#x7684;&#x6388;&#x6743;&#x8303;&#x56F4;&#xFF08;&#x8FD9;&#x91CC;&#x662F;&#x53EA;&#x8BFB;&#xFF09;&#x3002;</p>
+<h4 id="&#x7B2C;-2-&#x6B65;&#x9AA4;"><a href="#&#x7B2C;-2-&#x6B65;&#x9AA4;" class="headerlink" title="&#x7B2C; 2 &#x6B65;&#x9AA4;"></a>&#x7B2C; 2 &#x6B65;&#x9AA4;</h4><p>&#x7B2C; 2 &#x6B65;&#x9AA4;&#x4E2D;&#xFF0C;&#x7528;&#x6237;&#x8DF3;&#x8F6C;&#x540E;&#xFF0C;B &#x7F51;&#x7AD9;&#x4F1A;&#x8981;&#x6C42;&#x7528;&#x6237;&#x767B;&#x5F55;&#xFF0C;&#x7136;&#x540E;&#x8BE2;&#x95EE;&#x662F;&#x5426;&#x540C;&#x610F;&#x7ED9;&#x4E88; A &#x7F51;&#x7AD9;&#x6388;&#x6743;&#x3002;</p>
+<h4 id="&#x7B2C;-3-&#x6B65;&#x9AA4;"><a href="#&#x7B2C;-3-&#x6B65;&#x9AA4;" class="headerlink" title="&#x7B2C; 3 &#x6B65;&#x9AA4;"></a>&#x7B2C; 3 &#x6B65;&#x9AA4;</h4><h5 id="&#x53C2;&#x6570;&#x8BF4;&#x660E;-1"><a href="#&#x53C2;&#x6570;&#x8BF4;&#x660E;-1" class="headerlink" title="&#x53C2;&#x6570;&#x8BF4;&#x660E;"></a>&#x53C2;&#x6570;&#x8BF4;&#x660E;</h5><p>&#x7B2C; 3 &#x6B65;&#x9AA4;&#x4E2D;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x56DE;&#x5E94;&#x5BA2;&#x6237;&#x7AEF;&#x7684;URI&#xFF0C;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li><code>code</code>&#xFF1A;&#x8868;&#x793A;&#x6388;&#x6743;&#x7801;&#xFF0C;<strong>&#x5FC5;&#x9009;&#x9879;</strong>&#x3002;&#x8BE5;&#x7801;&#x7684;&#x6709;&#x6548;&#x671F;&#x5E94;&#x8BE5;&#x5F88;&#x77ED;&#xFF0C;&#x901A;&#x5E38;&#x8BBE;&#x4E3A;10&#x5206;&#x949F;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x53EA;&#x80FD;&#x4F7F;&#x7528;&#x8BE5;&#x7801;&#x4E00;&#x6B21;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x88AB;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x62D2;&#x7EDD;&#x3002;&#x8BE5;&#x7801;&#x4E0E;&#x5BA2;&#x6237;&#x7AEF;ID&#x548C;&#x91CD;&#x5B9A;&#x5411;URI&#xFF0C;&#x662F;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#x5173;&#x7CFB;&#x3002;</li>
+<li><code>state</code>&#xFF1A;&#x5982;&#x679C;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x8BF7;&#x6C42;&#x4E2D;&#x5305;&#x542B;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x7684;&#x56DE;&#x5E94;&#x4E5F;&#x5FC5;&#x987B;&#x4E00;&#x6A21;&#x4E00;&#x6837;&#x5305;&#x542B;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x3002;</li>
+</ul>
+<h5 id="&#x793A;&#x4F8B;-1"><a href="#&#x793A;&#x4F8B;-1" class="headerlink" title="&#x793A;&#x4F8B;"></a>&#x793A;&#x4F8B;</h5><p>&#x5728;&#x7B2C; 2 &#x6B65;&#x9AA4;&#x7528;&#x6237;&#x8868;&#x793A;&#x540C;&#x610F;&#x4E4B;&#x540E;&#xFF0C;&#x8FD9;&#x65F6; B &#x7F51;&#x7AD9;&#x5C31;&#x4F1A;&#x8DF3;&#x56DE;<code>redirect_uri</code>&#x53C2;&#x6570;&#x6307;&#x5B9A;&#x7684;&#x7F51;&#x5740;&#x3002;&#x8DF3;&#x8F6C;&#x65F6;&#xFF0C;&#x4F1A;&#x4F20;&#x56DE;&#x4E00;&#x4E2A;&#x6388;&#x6743;&#x7801;&#xFF0C;&#x5C31;&#x50CF;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#x3002;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://a.com/callback?code=AUTHORIZATION_CODE</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x9762; URL &#x4E2D;&#xFF0C;<code>code</code>&#x53C2;&#x6570;&#x5C31;&#x662F;&#x6388;&#x6743;&#x7801;&#x3002;</p>
+<h4 id="&#x7B2C;-4-&#x6B65;&#x9AA4;"><a href="#&#x7B2C;-4-&#x6B65;&#x9AA4;" class="headerlink" title="&#x7B2C; 4 &#x6B65;&#x9AA4;"></a>&#x7B2C; 4 &#x6B65;&#x9AA4;</h4><h5 id="&#x53C2;&#x6570;&#x8BF4;&#x660E;-2"><a href="#&#x53C2;&#x6570;&#x8BF4;&#x660E;-2" class="headerlink" title="&#x53C2;&#x6570;&#x8BF4;&#x660E;"></a>&#x53C2;&#x6570;&#x8BF4;&#x660E;</h5><p>&#x7B2C; 4 &#x6B65;&#x9AA4;&#x4E2D;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x5411;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x7533;&#x8BF7;&#x4EE4;&#x724C;&#x7684;HTTP&#x8BF7;&#x6C42;&#xFF0C;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li><code>grant_type</code>&#xFF1A;&#x8868;&#x793A;&#x4F7F;&#x7528;&#x7684;&#x6388;&#x6743;&#x6A21;&#x5F0F;&#xFF0C;<strong>&#x5FC5;&#x9009;&#x9879;</strong>&#xFF0C;&#x6B64;&#x5904;&#x7684;&#x503C;&#x56FA;&#x5B9A;&#x4E3A;&#x201D;authorization_code&#x201D;&#x3002;</li>
+<li><code>code</code>&#xFF1A;&#x8868;&#x793A;&#x4E0A;&#x4E00;&#x6B65;&#x83B7;&#x5F97;&#x7684;&#x6388;&#x6743;&#x7801;&#xFF0C;<strong>&#x5FC5;&#x9009;&#x9879;</strong>&#x3002;</li>
+<li><code>redirect_uri</code>&#xFF1A;&#x8868;&#x793A;&#x91CD;&#x5B9A;&#x5411;URI&#xFF0C;<strong>&#x5FC5;&#x9009;&#x9879;</strong>&#xFF0C;&#x4E14;&#x5FC5;&#x987B;&#x4E0E;A&#x6B65;&#x9AA4;&#x4E2D;&#x7684;&#x8BE5;&#x53C2;&#x6570;&#x503C;&#x4FDD;&#x6301;&#x4E00;&#x81F4;&#x3002;</li>
+<li><code>client_id</code>&#xFF1A;&#x8868;&#x793A;&#x5BA2;&#x6237;&#x7AEF;ID&#xFF0C;<strong>&#x5FC5;&#x9009;&#x9879;</strong>&#x3002;</li>
+</ul>
+<h5 id="&#x793A;&#x4F8B;-2"><a href="#&#x793A;&#x4F8B;-2" class="headerlink" title="&#x793A;&#x4F8B;"></a>&#x793A;&#x4F8B;</h5><p>&#x5728;&#x7B2C; 3 &#x6B65;&#x9AA4;&#x4E2D;&#xFF0C;A &#x7F51;&#x7AD9;&#x62FF;&#x5230;&#x6388;&#x6743;&#x7801;&#x4EE5;&#x540E;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5728;&#x540E;&#x7AEF;&#xFF0C;&#x5411; B &#x7F51;&#x7AD9;&#x8BF7;&#x6C42;&#x4EE4;&#x724C;&#x3002;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">https://b.com/oauth/token?</span><br><span class="line"> client_id=CLIENT_ID&amp;</span><br><span class="line"> client_secret=CLIENT_SECRET&amp;</span><br><span class="line"> grant_type=authorization_code&amp;</span><br><span class="line"> code=AUTHORIZATION_CODE&amp;</span><br><span class="line"> redirect_uri=CALLBACK_URL</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x9762; URL &#x4E2D;&#xFF1A;</p>
+<p><code>client_id</code>&#x53C2;&#x6570;&#x548C;<code>client_secret</code>&#x53C2;&#x6570;&#x7528;&#x6765;&#x8BA9; B &#x786E;&#x8BA4; A &#x7684;&#x8EAB;&#x4EFD;&#xFF08;<code>client_secret</code>&#x53C2;&#x6570;&#x662F;&#x4FDD;&#x5BC6;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x53EA;&#x80FD;&#x5728;&#x540E;&#x7AEF;&#x53D1;&#x8BF7;&#x6C42;&#xFF09;&#xFF1B;</p>
+<p><code>grant_type</code>&#x53C2;&#x6570;&#x7684;&#x503C;&#x662F;<code>AUTHORIZATION_CODE</code>&#xFF0C;&#x8868;&#x793A;&#x91C7;&#x7528;&#x7684;&#x6388;&#x6743;&#x65B9;&#x5F0F;&#x662F;&#x6388;&#x6743;&#x7801;&#xFF1B;</p>
+<p><code>code</code>&#x53C2;&#x6570;&#x662F;&#x4E0A;&#x4E00;&#x6B65;&#x62FF;&#x5230;&#x7684;&#x6388;&#x6743;&#x7801;&#xFF1B;</p>
+<p><code>redirect_uri</code>&#x53C2;&#x6570;&#x662F;&#x4EE4;&#x724C;&#x9881;&#x53D1;&#x540E;&#x7684;&#x56DE;&#x8C03;&#x7F51;&#x5740;&#x3002;</p>
+<h4 id="&#x7B2C;-5-&#x6B65;&#x9AA4;"><a href="#&#x7B2C;-5-&#x6B65;&#x9AA4;" class="headerlink" title="&#x7B2C; 5 &#x6B65;&#x9AA4;"></a>&#x7B2C; 5 &#x6B65;&#x9AA4;</h4><h5 id="&#x53C2;&#x6570;&#x8BF4;&#x660E;-3"><a href="#&#x53C2;&#x6570;&#x8BF4;&#x660E;-3" class="headerlink" title="&#x53C2;&#x6570;&#x8BF4;&#x660E;"></a>&#x53C2;&#x6570;&#x8BF4;&#x660E;</h5><p>&#x7B2C; 5 &#x6B65;&#x9AA4;&#x4E2D;&#xFF0C;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x9001;&#x7684;HTTP&#x56DE;&#x590D;&#xFF0C;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li><code>access_token</code>&#xFF1A;&#x8868;&#x793A;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#xFF0C;&#x5FC5;&#x9009;&#x9879;&#x3002;</li>
+<li><code>token_type</code>&#xFF1A;&#x8868;&#x793A;&#x4EE4;&#x724C;&#x7C7B;&#x578B;&#xFF0C;&#x8BE5;&#x503C;&#x5927;&#x5C0F;&#x5199;&#x4E0D;&#x654F;&#x611F;&#xFF0C;&#x5FC5;&#x9009;&#x9879;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;bearer&#x7C7B;&#x578B;&#x6216;mac&#x7C7B;&#x578B;&#x3002;</li>
+<li><code>expires_in</code>&#xFF1A;&#x8868;&#x793A;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#xFF0C;&#x5355;&#x4F4D;&#x4E3A;&#x79D2;&#x3002;&#x5982;&#x679C;&#x7701;&#x7565;&#x8BE5;&#x53C2;&#x6570;&#xFF0C;&#x5FC5;&#x987B;&#x5176;&#x4ED6;&#x65B9;&#x5F0F;&#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x3002;</li>
+<li><code>refresh_token</code>&#xFF1A;&#x8868;&#x793A;&#x66F4;&#x65B0;&#x4EE4;&#x724C;&#xFF0C;&#x7528;&#x6765;&#x83B7;&#x53D6;&#x4E0B;&#x4E00;&#x6B21;&#x7684;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#xFF0C;&#x53EF;&#x9009;&#x9879;&#x3002;</li>
+<li><code>scope</code>&#xFF1A;&#x8868;&#x793A;&#x6743;&#x9650;&#x8303;&#x56F4;&#xFF0C;&#x5982;&#x679C;&#x4E0E;&#x5BA2;&#x6237;&#x7AEF;&#x7533;&#x8BF7;&#x7684;&#x8303;&#x56F4;&#x4E00;&#x81F4;&#xFF0C;&#x6B64;&#x9879;&#x53EF;&#x7701;&#x7565;&#x3002;</li>
+</ul>
+<h5 id="&#x793A;&#x4F8B;-3"><a href="#&#x793A;&#x4F8B;-3" class="headerlink" title="&#x793A;&#x4F8B;"></a>&#x793A;&#x4F8B;</h5><p>&#x7B2C; 4 &#x6B65;&#x9AA4;&#x4E2D;&#xFF0C;B &#x7F51;&#x7AD9;&#x6536;&#x5230;&#x8BF7;&#x6C42;&#x4EE5;&#x540E;&#xFF0C;&#x5C31;&#x4F1A;&#x9881;&#x53D1;&#x4EE4;&#x724C;&#x3002;&#x5177;&#x4F53;&#x505A;&#x6CD5;&#x662F;&#x5411;<code>redirect_uri</code>&#x6307;&#x5B9A;&#x7684;&#x7F51;&#x5740;&#xFF0C;&#x53D1;&#x9001;&#x4E00;&#x6BB5; JSON &#x6570;&#x636E;&#xFF1A;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: application/json;charset=UTF-8</span><br><span class="line">Cache-Control: no-store</span><br><span class="line">Pragma: no-cache</span><br><span class="line"></span><br><span class="line">{    </span><br><span class="line">    &quot;access_token&quot;:&quot;ACCESS_TOKEN&quot;,</span><br><span class="line">    &quot;token_type&quot;:&quot;bearer&quot;,</span><br><span class="line">    &quot;expires_in&quot;:2592000,</span><br><span class="line">    &quot;refresh_token&quot;:&quot;REFRESH_TOKEN&quot;,</span><br><span class="line">    &quot;scope&quot;:&quot;read&quot;,</span><br><span class="line">    &quot;uid&quot;:100101,</span><br><span class="line">    &quot;info&quot;:{...}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x9762; JSON &#x6570;&#x636E;&#x4E2D;&#xFF0C;<code>access_token</code>&#x5B57;&#x6BB5;&#x5C31;&#x662F;&#x4EE4;&#x724C;&#xFF0C;A &#x7F51;&#x7AD9;&#x5728;&#x540E;&#x7AEF;&#x62FF;&#x5230;&#x4E86;&#x3002;&#x6CE8;&#x610F;&#xFF1A;HTTP&#x5934;&#x4FE1;&#x606F;&#x4E2D;&#x660E;&#x786E;&#x6307;&#x5B9A;&#x4E0D;&#x5F97;&#x7F13;&#x5B58;&#x3002;</p>
+<h2 id="&#x4E94;&#x3001;&#x4EE4;&#x724C;&#xFF08;Token&#xFF09;&#x4F20;&#x9012;&#x65B9;&#x5F0F;"><a href="#&#x4E94;&#x3001;&#x4EE4;&#x724C;&#xFF08;Token&#xFF09;&#x4F20;&#x9012;&#x65B9;&#x5F0F;" class="headerlink" title="&#x4E94;&#x3001;&#x4EE4;&#x724C;&#xFF08;Token&#xFF09;&#x4F20;&#x9012;&#x65B9;&#x5F0F;"></a>&#x4E94;&#x3001;&#x4EE4;&#x724C;&#xFF08;Token&#xFF09;&#x4F20;&#x9012;&#x65B9;&#x5F0F;</h2><p>&#x5F53;&#x5BA2;&#x6237;&#x7AEF;&#xFF08;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF09;&#x62FF;&#x5230;&#x8BBF;&#x95EE;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x7684;&#x4EE4;&#x724C;&#x65F6;&#xFF0C;&#x4FBF;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x4EE4;&#x724C;&#x8FDB;&#x884C;&#x8D44;&#x6E90;&#x8BBF;&#x95EE;&#x4E86;&#x3002;</p>
+<p>&#x5728;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x62FF;&#x5230;<code>access_token</code>&#x540E;&#xFF0C;&#x5982;&#x4F55;&#x53D1;&#x9001;&#x7ED9;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x5E76;&#x6CA1;&#x6709;&#x5728; RFC6729 &#x6587;&#x4EF6;&#x4E2D;&#x5B9A;&#x4E49;&#xFF0C;&#x800C;&#x662F;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684; <a href="https://www.rfc-editor.org/rfc/rfc6750.txt" target="_blank" rel="noopener">RFC6750</a> &#x6587;&#x4EF6;&#x4E2D;&#x72EC;&#x7ACB;&#x5B9A;&#x4E49;&#x4E86;&#x3002;&#x8FD9;&#x91CC;&#x505A;&#x4EE5;&#x4E0B;&#x7B80;&#x5355;&#x7684;&#x4ECB;&#x7ECD;&#xFF0C;&#x4E3B;&#x8981;&#x6709;&#x4E09;&#x79CD;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>URI Query Parameter</li>
+<li>Authorization Request Header Field</li>
+<li>Form-Encoded Body Parameter</li>
+</ol>
+<h3 id="5-1-&#x8BF7;&#x6C42;&#x5934;&#x53C2;&#x6570;&#x4F20;&#x9012;"><a href="#5-1-&#x8BF7;&#x6C42;&#x5934;&#x53C2;&#x6570;&#x4F20;&#x9012;" class="headerlink" title="5.1 &#x8BF7;&#x6C42;&#x5934;&#x53C2;&#x6570;&#x4F20;&#x9012;"></a>5.1 &#x8BF7;&#x6C42;&#x5934;&#x53C2;&#x6570;&#x4F20;&#x9012;</h3><p>Authorization Request Header Field&#xFF0C;&#x56E0;&#x4E3A;&#x5728;HTTP&#x5E94;&#x7528;&#x5C42;&#x534F;&#x8BAE;&#x4E2D;&#xFF0C;&#x4E13;&#x95E8;&#x6709;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x6388;&#x6743;&#x4F7F;&#x7528;&#x7684;Request Header&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /resource HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Authorization: Bearer mF_9.B5f-4.1JqM</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5176;&#x4E2D;&#x201D;Bearer &#x201C;&#x662F;&#x56FA;&#x5B9A;&#x7684;&#x5728;access_token&#x524D;&#x9762;&#x7684;&#x5934;&#x90E8;&#x4FE1;&#x606F;&#x3002;</p>
+<h3 id="5-2-&#x8868;&#x5355;&#x7F16;&#x7801;&#x4F20;&#x9012;"><a href="#5-2-&#x8868;&#x5355;&#x7F16;&#x7801;&#x4F20;&#x9012;" class="headerlink" title="5.2 &#x8868;&#x5355;&#x7F16;&#x7801;&#x4F20;&#x9012;"></a>5.2 &#x8868;&#x5355;&#x7F16;&#x7801;&#x4F20;&#x9012;</h3><p>&#x4F7F;&#x7528; Request Body &#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x6709;&#x4E00;&#x4E2A;&#x989D;&#x5916;&#x7684;&#x8981;&#x6C42;&#xFF0C;&#x5C31;&#x662F; Request Header &#x7684;<code>Content-Type</code>&#x5FC5;&#x987B;&#x662F;&#x56FA;&#x5B9A;&#x7684;<code>application/x-www-form-urlencoded</code>&#xFF0C;&#x6B64;&#x5916;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x9650;&#x5236;&#x5C31;&#x662F; <strong>&#x4E0D;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; GET</strong>  &#x8BBF;&#x95EE;&#xFF0C;&#x8FD9;&#x4E2A;&#x597D;&#x7406;&#x89E3;&#xFF0C;&#x6BD5;&#x7ADF; GET &#x8BF7;&#x6C42;&#x662F;&#x4E0D;&#x80FD;&#x643A;&#x5E26; Request Body &#x7684;&#x3002;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /resource HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">access_token=mF_9.B5f-4.1JqM</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="5-3-URI-&#x8BF7;&#x6C42;&#x53C2;&#x6570;&#x4F20;&#x9012;"><a href="#5-3-URI-&#x8BF7;&#x6C42;&#x53C2;&#x6570;&#x4F20;&#x9012;" class="headerlink" title="5.3 URI &#x8BF7;&#x6C42;&#x53C2;&#x6570;&#x4F20;&#x9012;"></a>5.3 URI &#x8BF7;&#x6C42;&#x53C2;&#x6570;&#x4F20;&#x9012;</h3><p>URI Query Parameter&#xFF0C;&#x8FD9;&#x79CD;&#x4F7F;&#x7528;&#x9014;&#x5F84;&#x5E94;&#x8BE5;&#x662F;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /resource?access_token=mF_9.B5f-4.1JqM HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5728;&#x6211;&#x4EEC;&#x8BF7;&#x6C42;&#x53D7;&#x4FDD;&#x62A4;&#x7684;&#x8D44;&#x6E90;&#x7684; Url &#x540E;&#x9762;&#x8FFD;&#x52A0;&#x4E00;&#x4E2A; access_token &#x7684;&#x53C2;&#x6570;&#x5373;&#x53EF;&#x3002;&#x53E6;&#x5916;&#x8FD8;&#x6709;&#x4E00;&#x70B9;&#x8981;&#x6C42;&#xFF0C;&#x5C31;&#x662F; Client &#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x4EE5;&#x4E0B; Request Header &#x7684; <strong>Cache-Control:no-store</strong>&#xFF0C;&#x7528;&#x6765;&#x963B;&#x6B62; access_token &#x4E0D;&#x4F1A;&#x88AB; Web &#x4E2D;&#x95F4;&#x4EF6;&#x7ED9; log &#x4E0B;&#x6765;&#xFF0C;&#x5C5E;&#x4E8E;&#x5B89;&#x5168;&#x9632;&#x62A4;&#x65B9;&#x9762;&#x7684;&#x4E00;&#x4E2A;&#x8003;&#x8651;&#x3002;</p>
+<h3 id="5-4-&#x4EE4;&#x724C;&#x7684;&#x5237;&#x65B0;"><a href="#5-4-&#x4EE4;&#x724C;&#x7684;&#x5237;&#x65B0;" class="headerlink" title="5.4 &#x4EE4;&#x724C;&#x7684;&#x5237;&#x65B0;"></a>5.4 &#x4EE4;&#x724C;&#x7684;&#x5237;&#x65B0;</h3><p>&#x4E3A;&#x4E86;&#x9632;&#x6B62;&#x5BA2;&#x6237;&#x7AEF;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x4EE4;&#x724C;&#x65E0;&#x9650;&#x6B21;&#x6570;&#x4F7F;&#x7528;&#xFF0C;&#x4EE4;&#x724C;&#x4E00;&#x822C;&#x4F1A;&#x6709;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x9650;&#x5236;&#xFF0C;&#x5F53;&#x5FEB;&#x8981;&#x5230;&#x671F;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x91CD;&#x65B0;&#x83B7;&#x53D6;&#x4EE4;&#x724C;&#xFF0C;&#x5982;&#x679C;&#x518D;&#x91CD;&#x65B0;&#x8D70;&#x6388;&#x6743;&#x7801;&#x7684;&#x6388;&#x6743;&#x6D41;&#x7A0B;&#xFF0C;&#x5BF9;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x975E;&#x5E38;&#x4E0D;&#x597D;&#xFF0C;&#x4E8E;&#x662F; OAuth 2.0 &#x5141;&#x8BB8;&#x7528;&#x6237;&#x81EA;&#x52A8;&#x66F4;&#x65B0;&#x4EE4;&#x724C;&#x3002;</p>
+<p>&#x5177;&#x4F53;&#x65B9;&#x6CD5;&#x662F;&#xFF0C;B &#x7F51;&#x7AD9;&#x9881;&#x53D1;&#x4EE4;&#x724C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E00;&#x6B21;&#x6027;&#x9881;&#x53D1;&#x4E24;&#x4E2A;&#x4EE4;&#x724C;&#xFF0C;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x83B7;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x83B7;&#x53D6;&#x65B0;&#x7684;&#x4EE4;&#x724C;&#xFF08;refresh token &#x5B57;&#x6BB5;&#xFF09;&#x3002;&#x4EE4;&#x724C;&#x5230;&#x671F;&#x524D;&#xFF0C;&#x7528;&#x6237;&#x4F7F;&#x7528; refresh token &#x53D1;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#xFF0C;&#x53BB;&#x66F4;&#x65B0;&#x4EE4;&#x724C;&#x3002;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://b.com/oauth/token?</span><br><span class="line">  grant_type=refresh_token&amp;</span><br><span class="line">  client_id=CLIENT_ID&amp;</span><br><span class="line">  client_secret=CLIENT_SECRET&amp;</span><br><span class="line">  refresh_token=REFRESH_TOKEN</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x9762; URL &#x4E2D;&#xFF1A;</p>
+<p><code>grant_type</code>&#x53C2;&#x6570;&#x4E3A;<code>refresh_token</code>&#x8868;&#x793A;&#x8981;&#x6C42;&#x66F4;&#x65B0;&#x4EE4;&#x724C;&#xFF0C;&#x6B64;&#x5904;&#x7684;&#x503C;&#x56FA;&#x5B9A;&#x4E3A;<code>refresh_token</code>&#xFF0C;&#x5FC5;&#x9009;&#x9879;&#xFF1B;</p>
+<p><code>client_id</code>&#x53C2;&#x6570;&#x548C;<code>client_secret</code>&#x53C2;&#x6570;&#x7528;&#x4E8E;&#x786E;&#x8BA4;&#x8EAB;&#x4EFD;&#xFF1B;</p>
+<p><code>refresh_token</code>&#x53C2;&#x6570;&#x5C31;&#x662F;&#x7528;&#x4E8E;&#x66F4;&#x65B0;&#x4EE4;&#x724C;&#x7684;&#x4EE4;&#x724C;&#x3002;</p>
+<p>B &#x7F51;&#x7AD9;&#x9A8C;&#x8BC1;&#x901A;&#x8FC7;&#x4EE5;&#x540E;&#xFF0C;&#x5C31;&#x4F1A;&#x9881;&#x53D1;&#x65B0;&#x7684;&#x4EE4;&#x724C;&#x3002;</p>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;</strong> &#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x670D;&#x52A1;&#x5668;&#x62FF;&#x5230;&#x5237;&#x65B0;&#x4EE4;&#x724C;&#x5FC5;&#x987B;&#x5B58;&#x4E8E;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x901A;&#x8FC7;&#x540E;&#x53F0;&#x8FDB;&#x884C;&#x91CD;&#x65B0;&#x83B7;&#x53D6;&#x65B0;&#x7684;&#x4EE4;&#x724C;&#xFF0C;&#x4EE5;&#x4FDD;&#x969C;&#x5237;&#x65B0;&#x4EE4;&#x724C;&#x7684;&#x4FDD;&#x5BC6;&#x6027;&#x3002;</p>
+<h2 id="&#x516D;&#x3001;OAuth2&#x7684;&#x5B89;&#x5168;&#x95EE;&#x9898;"><a href="#&#x516D;&#x3001;OAuth2&#x7684;&#x5B89;&#x5168;&#x95EE;&#x9898;" class="headerlink" title="&#x516D;&#x3001;OAuth2&#x7684;&#x5B89;&#x5168;&#x95EE;&#x9898;"></a>&#x516D;&#x3001;OAuth2&#x7684;&#x5B89;&#x5168;&#x95EE;&#x9898;</h2><h3 id="6-1-CSRF&#x653B;&#x51FB;"><a href="#6-1-CSRF&#x653B;&#x51FB;" class="headerlink" title="6.1 CSRF&#x653B;&#x51FB;"></a>6.1 CSRF&#x653B;&#x51FB;</h3><p>&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5728;&#x65E9;&#x671F;&#x4F7F;&#x7528; OAuth2 &#x7684;&#x65F6;&#x5019;&#x7206;&#x53D1;&#x8FC7;&#x4E0D;&#x5C11;&#x76F8;&#x5173;&#x7684;&#x5B89;&#x5168;&#x65B9;&#x9762;&#x7684;&#x6F0F;&#x6D1E;&#xFF0C;&#x5176;&#x5B9E;&#x4ED4;&#x7EC6;&#x5206;&#x6790;&#x540E;&#x4F1A;&#x53D1;&#x73B0;&#x5927;&#x90FD;&#x90FD;&#x662F;&#x6CA1;&#x6709;&#x4E25;&#x683C;&#x9075;&#x5FAA; OAuth2 &#x7684;&#x5B89;&#x5168;&#x76F8;&#x5173;&#x7684;&#x6307;&#x5BFC;&#x9020;&#x6210;&#x7684;&#xFF0C;&#x76F8;&#x5173;&#x7684;&#x6F0F;&#x6D1E;&#x4E8B;&#x4EF6;&#x81EA;&#x884C;&#x641C;&#x7D22;&#x3002;</p>
+<p>&#x5176;&#x5B9E; OAuth2 &#x5728;&#x8BBE;&#x8BA1;&#x4E4B;&#x521D;&#x662F;&#x5DF2;&#x7ECF;&#x505A;&#x4E86;&#x5F88;&#x591A;&#x5B89;&#x5168;&#x65B9;&#x9762;&#x7684;&#x8003;&#x8651;&#xFF0C;&#x5E76;&#x4E14;&#x5728; RFC6749 &#x4E2D;&#x52A0;&#x5165;&#x4E86;&#x4E00;&#x4E9B;&#x5B89;&#x5168;&#x65B9;&#x9762;&#x7684;&#x89C4;&#x8303;&#x6307;&#x5BFC;&#x3002;&#x6BD4;&#x5982;&#xFF1A;</p>
+<ol>
+<li><p>&#x8981;&#x6C42; Authorization server &#x8FDB;&#x884C;&#x6709;&#x6548;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x9A8C;&#x8BC1;&#xFF1B;</p>
+</li>
+<li><p>client_serect, access_token, refresh_token, code&#x7B49;&#x654F;&#x611F;&#x4FE1;&#x606F;&#x7684;&#x5B89;&#x5168;&#x5B58;&#x50A8;&#xFF08;&#x4E0D;&#x5F97;&#x6CC4;&#x9732;&#x7ED9;&#x7B2C;&#x4E09;&#x65B9;&#xFF09;&#x3001;&#x4F20;&#x8F93;&#x901A;&#x9053;&#x7684;&#x5B89;&#x5168;&#x6027;&#xFF08;TSL&#x7684;&#x8981;&#x6C42;&#xFF09;&#xFF1B;</p>
+</li>
+<li><p>&#x7EF4;&#x6301; refresh_token &#x548C;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7684;&#x7ED1;&#x5B9A;&#xFF0C;&#x5237;&#x65B0;&#x5931;&#x6548;&#x673A;&#x5236;&#xFF1B;</p>
+</li>
+<li><p>&#x7EF4;&#x6301; Authorization Code &#x548C;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7684;&#x7ED1;&#x5B9A;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;state&#x53C2;&#x6570;&#x4E3A;&#x4EC0;&#x4E48;&#x662F;&#x63A8;&#x8350;&#x7684;&#x4E00;&#x70B9;&#xFF0C;&#x4EE5;&#x9632;&#x6B62;CSRF&#x653B;&#x51FB;&#xFF1B;</p>
+</li>
+<li><p>&#x4FDD;&#x8BC1;&#x4E0A;&#x8FF0;&#x5404;&#x79CD;&#x4EE4;&#x724C;&#x4FE1;&#x606F;&#x7684;&#x4E0D;&#x53EF;&#x731C;&#x6D4B;&#x884C;&#xFF0C;&#x4EE5;&#x9632;&#x6B62;&#x88AB;&#x731C;&#x6D4B;&#x5F97;&#x5230;&#xFF1B;</p>
+</li>
+</ol>
+<p>&#x5B89;&#x5168;&#x65E0;&#x5C0F;&#x4E8B;&#xFF0C;&#x8FD9;&#x65B9;&#x9762;&#x662F;&#x8981;&#x9760;&#x5404;&#x65B9;&#x9762;&#xFF08;&#x5F00;&#x653E;&#x5E73;&#x53F0;&#xFF0C;&#x7B2C;&#x4E09;&#x65B9;&#x5F00;&#x53D1;&#x8005;&#xFF09;&#x5171;&#x540C;&#x9632;&#x8303;&#x7684;&#x3002;</p>
+<h3 id="6-2-&#x653B;&#x51FB;&#x6D41;&#x7A0B;"><a href="#6-2-&#x653B;&#x51FB;&#x6D41;&#x7A0B;" class="headerlink" title="6.2 &#x653B;&#x51FB;&#x6D41;&#x7A0B;"></a>6.2 &#x653B;&#x51FB;&#x6D41;&#x7A0B;</h3><p>&#x5047;&#x8BBE;&#x6709;&#x7528;&#x6237;&#x5F20;&#x4E09;&#xFF0C;&#x653B;&#x51FB;&#x8005;&#x674E;&#x56DB;&#xFF0C;&#x7B2C;&#x4E09;&#x65B9;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x5E94;&#x7528;&#xFF08;&#x5B83;&#x96C6;&#x6210;&#x4E86;&#x7B2C;&#x4E09;&#x65B9;&#x793E;&#x4EA4;&#x8D26;&#x53F7;&#x767B;&#x5F55;&#xFF0C;&#x5E76;&#x4E14;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x5C06;&#x793E;&#x4EA4;&#x8D26;&#x53F7;&#x548C;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x4E2D;&#x7684;&#x8D26;&#x53F7;&#x8FDB;&#x884C;&#x7ED1;&#x5B9A;&#xFF09;&#xFF0C;&#x4EE5;&#x53CA; OAuth2 &#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005; Google&#x3002;</p>
+<p><img src="/2019/04/30/031/oauth-3.png" alt=""></p>
+<p><strong>&#x6B65;&#x9AA4;1</strong></p>
+<p>&#x653B;&#x51FB;&#x8005;&#x674E;&#x56DB;&#x767B;&#x5F55;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x7F51;&#x7AD9;&#xFF0C;&#x5E76;&#x4E14;&#x9009;&#x62E9;&#x7ED1;&#x5B9A;&#x81EA;&#x5DF1;&#x7684; Google &#x8D26;&#x53F7;</p>
+<p><strong>&#x6B65;&#x9AA4;2</strong></p>
+<p>&#x201C;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x7F51;&#x7AD9;&#x5C06;&#x674E;&#x56DB;&#x91CD;&#x5B9A;&#x5411;&#x5230; Google&#xFF0C;&#x7531;&#x4E8E;&#x4ED6;&#x4E4B;&#x524D;&#x5DF2;&#x7ECF;&#x767B;&#x5F55;&#x8FC7; Google&#xFF0C;&#x6240;&#x4EE5; Google &#x76F4;&#x63A5;&#x5411;&#x4ED6;&#x663E;&#x793A;&#x662F;&#x5426;&#x6388;&#x6743;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x8BBF;&#x95EE;&#x7684;&#x9875;&#x9762;&#x3002;</p>
+<p><strong>&#x6B65;&#x9AA4;3</strong></p>
+<p>&#x674E;&#x56DB;&#x5728;&#x70B9;&#x51FB;&#x201D;&#x540C;&#x610F;&#x6388;&#x6743;&#x201D;&#x4E4B;&#x540E;&#xFF0C;&#x622A;&#x83B7; Google &#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x7684;&#x542B;&#x6709;<code>Authorization code</code>&#x53C2;&#x6570;&#x7684;HTTP&#x54CD;&#x5E94;&#x3002;</p>
+<p><strong>&#x6B65;&#x9AA4;4</strong></p>
+<p>&#x674E;&#x56DB;&#x7CBE;&#x5FC3;&#x6784;&#x9020;&#x4E00;&#x4E2A; Web &#x9875;&#x9762;&#xFF0C;&#x5B83;&#x4F1A;&#x89E6;&#x53D1;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x7F51;&#x7AD9;&#x5411; Google &#x53D1;&#x8D77;&#x4EE4;&#x724C;&#x7533;&#x8BF7;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x800C;&#x8FD9;&#x4E2A;&#x8BF7;&#x6C42;&#x4E2D;&#x7684;<code>Authorization Code</code>&#x53C2;&#x6570;&#x6B63;&#x662F;&#x4E0A;&#x4E00;&#x6B65;&#x622A;&#x83B7;&#x5230;&#x7684; code&#x3002;</p>
+<p><strong>&#x6B65;&#x9AA4;5</strong></p>
+<p>&#x674E;&#x56DB;&#x5C06;&#x8FD9;&#x4E2A; Web &#x9875;&#x9762;&#x653E;&#x5230;&#x4E92;&#x8054;&#x7F51;&#x4E0A;&#xFF0C;&#x7B49;&#x5F85;&#x6216;&#x8005;&#x8BF1;&#x9A97;&#x53D7;&#x5BB3;&#x8005;&#x5F20;&#x4E09;&#x6765;&#x8BBF;&#x95EE;&#x3002;</p>
+<p><strong>&#x6B65;&#x9AA4;6</strong></p>
+<p>&#x5F20;&#x4E09;&#x4E4B;&#x524D;&#x767B;&#x5F55;&#x4E86;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x7F51;&#x7AD9;&#xFF0C;&#x53EA;&#x662F;&#x6CA1;&#x6709;&#x628A;&#x81EA;&#x5DF1;&#x7684;&#x8D26;&#x53F7;&#x548C;&#x5176;&#x4ED6;&#x793E;&#x4EA4;&#x8D26;&#x53F7;&#x7ED1;&#x5B9A;&#x8D77;&#x6765;&#x3002;&#x5728;&#x5F20;&#x4E09;&#x8BBF;&#x95EE;&#x4E86;&#x674E;&#x56DB;&#x51C6;&#x5907;&#x7684;&#x8FD9;&#x4E2A; Web &#x9875;&#x9762;&#xFF0C;&#x4EE4;&#x724C;&#x7533;&#x8BF7;&#x6D41;&#x7A0B;&#x5728;&#x5F20;&#x4E09;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x91CC;&#x88AB;&#x987A;&#x5229;&#x89E6;&#x53D1;&#xFF0C;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x7F51;&#x7AD9;&#x4ECE; Google &#x90A3;&#x91CC;&#x83B7;&#x53D6;&#x5230;<code>access_token</code>&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x4E2A; token &#x4EE5;&#x53CA;&#x901A;&#x8FC7;&#x5B83;&#x8FDB;&#x4E00;&#x6B65;&#x83B7;&#x53D6;&#x5230;&#x7684;&#x7528;&#x6237;&#x4FE1;&#x606F;&#x5374;&#x90FD;&#x662F;&#x653B;&#x51FB;&#x8005;&#x674E;&#x56DB;&#x7684;&#x3002;</p>
+<p><strong>&#x6B65;&#x9AA4;7</strong></p>
+<p>&#x201C;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x7F51;&#x7AD9;&#x5C06;&#x674E;&#x56DB;&#x7684; Google &#x8D26;&#x53F7;&#x540C;&#x5F20;&#x4E09;&#x7684;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x8D26;&#x53F7;&#x5173;&#x8054;&#x7ED1;&#x5B9A;&#x8D77;&#x6765;&#xFF0C;&#x4ECE;&#x6B64;&#x4EE5;&#x540E;&#xFF0C;&#x674E;&#x56DB;&#x5C31;&#x53EF;&#x4EE5;&#x7528;&#x81EA;&#x5DF1;&#x7684; Google &#x8D26;&#x53F7;&#x901A;&#x8FC7; OAuth &#x767B;&#x5F55;&#x5230;&#x5F20;&#x4E09;&#x5728; &#x201C;&#x4E91;&#x51B2;&#x5370;&#x201D; &#x7F51;&#x7AD9;&#x4E2D;&#x7684;&#x8D26;&#x53F7;&#xFF0C;&#x5802;&#x800C;&#x7687;&#x4E4B;&#x7684;&#x5192;&#x5145;&#x5F20;&#x4E09;&#x7684;&#x8EAB;&#x4EFD;&#x6267;&#x884C;&#x5404;&#x79CD;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x4ECE;&#x6574;&#x4F53;&#x4E0A;&#x6765;&#x770B;&#xFF0C;&#x672C;&#x6B21; CSRF &#x653B;&#x51FB;&#x7684;&#x65F6;&#x5E8F;&#x56FE;&#x5E94;&#x8BE5;&#x662F;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x6837;&#x5B50;&#x7684;&#xFF1A;</p>
+<p><img src="/2019/04/30/031/oauth-4.png" alt=""></p>
+<p>&#x4ECE;&#x4E0A;&#x56FE;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x9020;&#x6210; CSRF &#x653B;&#x51FB;&#x6F0F;&#x6D1E;&#x95EE;&#x9898;&#x7684;&#x5173;&#x952E;&#x70B9;&#x5728;&#x4E8E;&#xFF0C;OAuth2 &#x7684;&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;&#x662F;&#x5206;&#x4E3A;&#x597D;&#x51E0;&#x6B65;&#x6765;&#x5B8C;&#x6210;&#x7684;&#xFF0C;&#x5728;&#x4E0A;&#x4E00;&#x7AE0;&#x8282;&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;&#x4E2D;&#x7684;&#x6D41;&#x7A0B;&#x56FE;&#x4E2D;&#x7684;&#x7B2C; 4&#x6B65;&#x9AA4;&#x4E2D;&#xFF0C;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x5728;&#x6536;&#x5230;&#x4E00;&#x4E2A; GET &#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x9664;&#x4E86;&#x80FD;&#x77E5;&#x9053;&#x5F53;&#x524D;&#x7528;&#x6237;&#x7684; cookie&#xFF0C;&#x4EE5;&#x53CA; URL &#x4E2D;&#x7684;<code>Authorization Code</code>&#x4E4B;&#x5916;&#xFF0C;&#x96BE;&#x4EE5;&#x5206;&#x8FA8;&#x51FA;&#x8FD9;&#x4E2A;&#x8BF7;&#x6C42;&#x5230;&#x5E95;&#x662F;&#x7528;&#x6237;&#x672C;&#x4EBA;&#x7684;&#x610F;&#x613F;&#xFF0C;&#x8FD8;&#x662F;&#x653B;&#x51FB;&#x8005;&#x5229;&#x7528;&#x7528;&#x6237;&#x7684;&#x8EAB;&#x4EFD;&#x4F2A;&#x9020;&#x51FA;&#x6765;&#x7684;&#x8BF7;&#x6C42;&#x3002;</p>
+<p>&#x4E8E;&#x662F;&#xFF0C;&#x653B;&#x51FB;&#x8005;&#x5C31;&#x80FD;&#x4F7F;&#x7528;&#x79FB;&#x82B1;&#x63A5;&#x6728;&#x7684;&#x624B;&#x6BB5;&#xFF0C;&#x63D0;&#x524D;&#x51C6;&#x5907;&#x4E00;&#x4E2A;&#x542B;&#x6709;&#x81EA;&#x5DF1;&#x7684;<code>Authorization Code</code>&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x8BA9;&#x53D7;&#x5BB3;&#x8005;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x6765;&#x63A5;&#x7740;&#x5B8C;&#x6210;&#x540E;&#x7EED;&#x7684;&#x4EE4;&#x724C;&#x7533;&#x8BF7;&#x6D41;&#x7A0B;&#x3002;</p>
+<h3 id="6-3-&#x89E3;&#x51B3;&#x65B9;&#x6848;"><a href="#6-3-&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="6.3 &#x89E3;&#x51B3;&#x65B9;&#x6848;"></a>6.3 &#x89E3;&#x51B3;&#x65B9;&#x6848;</h3><p>&#x8981;&#x9632;&#x6B62;&#x8FD9;&#x6837;&#x7684;&#x653B;&#x51FB;&#x5176;&#x5B9E;&#x5F88;&#x5BB9;&#x6613;&#xFF0C;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7684;&#x5F00;&#x53D1;&#x8005;&#xFF0C;&#x53EA;&#x9700;&#x5728; OAuth &#x8BA4;&#x8BC1;&#x8FC7;&#x7A0B;&#x4E2D;&#x52A0;&#x5165;<code>state</code>&#x53C2;&#x6570;&#xFF0C;&#x5E76;&#x9A8C;&#x8BC1;&#x5B83;&#x7684;&#x53C2;&#x6570;&#x503C;&#x5373;&#x53EF;&#x3002;&#x5177;&#x4F53;&#x7EC6;&#x8282;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li>&#x5728;&#x5C06;&#x7528;&#x6237;&#x91CD;&#x5B9A;&#x5411;&#x5230;&#x8D44;&#x6E90;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x6388;&#x6743;&#x754C;&#x9762;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E3A;&#x5F53;&#x524D;&#x7528;&#x6237;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5E76;&#x4F5C;&#x4E3A;<code>state</code>&#x53C2;&#x6570;&#x52A0;&#x5165;&#x5230;URL&#x4E2D;&#xFF0C;&#x540C;&#x65F6;&#x5B58;&#x50A8;&#x4E00;&#x4EFD;&#x5230; session &#x4E2D;&#x3002;</li>
+<li>&#x5F53;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x6536;&#x5230;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005;&#x8FD4;&#x56DE;&#x7684;<code>Authorization Code</code>&#x8BF7;&#x6C42;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9A8C;&#x8BC1;&#x63A5;&#x6536;&#x5230;&#x7684;<code>state</code>&#x53C2;&#x6570;&#x503C;&#x3002;&#x5982;&#x679C;&#x662F;&#x6B63;&#x786E;&#x5408;&#x6CD5;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x90A3;&#x4E48;&#x6B64;&#x65F6;&#x63A5;&#x6536;&#x5230;&#x7684;&#x53C2;&#x6570;&#x503C;&#x5E94;&#x8BE5;&#x548C;&#x4E0A;&#x4E00;&#x6B65;&#x63D0;&#x5230;&#x7684;&#x4E3A;&#x8BE5;&#x7528;&#x6237;&#x751F;&#x6210;&#x7684;<code>state</code>&#x53C2;&#x6570;&#x503C;&#xFF08;&#x5B58;&#x4E8E;&#x5F53;&#x524D;&#x7528;&#x6237;&#x7684; session &#x4E2D;&#xFF09;&#x5B8C;&#x5168;&#x4E00;&#x81F4;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x662F;&#x5F02;&#x5E38;&#x8BF7;&#x6C42;&#x3002;</li>
+<li><code>state</code>&#x53C2;&#x6570;&#x503C;&#x9700;&#x8981;&#x5177;&#x5907;&#x4E0B;&#x9762;&#x51E0;&#x4E2A;&#x7279;&#x6027;&#xFF1A; <ul>
+<li>&#x4E0D;&#x53EF;&#x9884;&#x6D4B;&#x6027;&#xFF1A;&#x8DB3;&#x591F;&#x7684;&#x968F;&#x673A;&#xFF0C;&#x4F7F;&#x5F97;&#x653B;&#x51FB;&#x8005;&#x96BE;&#x4EE5;&#x731C;&#x5230;&#x6B63;&#x786E;&#x7684;&#x53C2;&#x6570;&#x503C;</li>
+<li>&#x5173;&#x8054;&#x6027;&#xFF1A;<code>state</code>&#x53C2;&#x6570;&#x503C;&#x548C;&#x5F53;&#x524D;&#x7528;&#x6237;&#x4F1A;&#x8BDD;&#xFF08;user session&#xFF09;&#x662F;&#x76F8;&#x4E92;&#x5173;&#x8054;&#x7684;</li>
+<li>&#x552F;&#x4E00;&#x6027;&#xFF1A;&#x6BCF;&#x4E2A;&#x7528;&#x6237;&#xFF0C;&#x751A;&#x81F3;&#x6BCF;&#x6B21;&#x8BF7;&#x6C42;&#x751F;&#x6210;&#x7684;<code>state</code>&#x53C2;&#x6570;&#x503C;&#x90FD;&#x662F;&#x552F;&#x4E00;&#x7684;</li>
+<li>&#x65F6;&#x6548;&#x6027;&#xFF1A;<code>state</code>&#x53C2;&#x6570;&#x4E00;&#x65E6;&#x88AB;&#x4F7F;&#x7528;&#x5219;&#x7ACB;&#x5373;&#x5931;&#x6548;</li>
+</ul>
+</li>
+</ul>
+<p><code>state</code>&#x53C2;&#x6570;&#x5728; OAuth2 &#x8BA4;&#x8BC1;&#x8FC7;&#x7A0B;&#x4E2D;&#x4E0D;&#x662F;&#x5FC5;&#x9009;&#x53C2;&#x6570;&#xFF0C;&#x56E0;&#x6B64;&#x5728;&#x65E9;&#x671F;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x8005;&#x5728;&#x96C6;&#x6210; OAuth2 &#x8BA4;&#x8BC1;&#x7684;&#x65F6;&#x5019;&#x5F88;&#x5BB9;&#x6613;&#x4F1A;&#x5FFD;&#x7565;&#x5B83;&#x7684;&#x5B58;&#x5728;&#xFF0C;&#x5BFC;&#x81F4;&#x5E94;&#x7528;&#x6613;&#x53D7; CSRF &#x653B;&#x51FB;&#x3002;&#x6240;&#x4EE5;&#x5FC5;&#x987B;&#x5BF9;&#x8FD9;&#x4E2A;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x91CD;&#x89C6;&#x8D77;&#x6765;&#x3002;</p>
+<p>&#x5B89;&#x5168;&#x662F;&#x53CC;&#x65B9;&#x7684;&#xFF0C;&#x9700;&#x8981;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x548C;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x5747;&#x8981;&#x4E25;&#x683C;&#x9075;&#x5B88;&#x5B89;&#x5168;&#x89C4;&#x8303;&#x3002;&#x5982; QQ &#x4E92;&#x8054;&#x7684; OAuth2 API &#x4E2D;&#xFF0C;state &#x53C2;&#x6570;&#x662F;&#x5F3A;&#x5236;&#x5FC5;&#x9009;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x6388;&#x6743;&#x63A5;&#x53E3;&#x662F;&#x57FA;&#x4E8E; HTTPS &#x7684;&#x52A0;&#x5BC6;&#x901A;&#x9053;&#x7B49;&#xFF1B;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E09;&#x65B9;&#x5F00;&#x53D1;&#x8005;&#x5728;&#x4F7F;&#x7528;&#x6D88;&#x8D39;&#x8FD9;&#x4E9B;&#x670D;&#x52A1;&#x7684;&#x65F6;&#x5019;&#x4E5F;&#x5E94;&#x8BE5;&#x91CD;&#x89C6;&#x6CE8;&#x610F;&#x5B89;&#x5168;&#x4E2D;&#x5B58;&#x5728;&#x7684;&#x6F0F;&#x6D1E;&#x3002;</p>
+<h2 id="&#x4E03;&#x3001;OAuth2-&#x53C2;&#x8003;&#x8D44;&#x6599;&#x53CA;&#x6848;&#x4F8B;"><a href="#&#x4E03;&#x3001;OAuth2-&#x53C2;&#x8003;&#x8D44;&#x6599;&#x53CA;&#x6848;&#x4F8B;" class="headerlink" title="&#x4E03;&#x3001;OAuth2 &#x53C2;&#x8003;&#x8D44;&#x6599;&#x53CA;&#x6848;&#x4F8B;"></a>&#x4E03;&#x3001;OAuth2 &#x53C2;&#x8003;&#x8D44;&#x6599;&#x53CA;&#x6848;&#x4F8B;</h2><h3 id="7-1-&#x53C2;&#x8003;&#x8D44;&#x6599;"><a href="#7-1-&#x53C2;&#x8003;&#x8D44;&#x6599;" class="headerlink" title="7.1  &#x53C2;&#x8003;&#x8D44;&#x6599;"></a>7.1  &#x53C2;&#x8003;&#x8D44;&#x6599;</h3><p><a href="https://oauth.net/2/" target="_blank" rel="noopener">https://oauth.net/2/</a></p>
+<p><a href="https://tools.ietf.org/wg/oauth/draft-ietf-oauth-v2/" target="_blank" rel="noopener">Oauth Status Pages</a></p>
+<p><a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="noopener">RFC6749 : The OAuth 2.0 Authorization Framework</a></p>
+<p><a href="https://github.com/jeansfish/RFC6749.zh-cn" target="_blank" rel="noopener">RFC6749&#x4E2D;&#x6587;&#x7248;</a></p>
+<h3 id="7-2-&#x6848;&#x4F8B;"><a href="#7-2-&#x6848;&#x4F8B;" class="headerlink" title="7.2  &#x6848;&#x4F8B;"></a>7.2  &#x6848;&#x4F8B;</h3><p><a href="https://developers.douban.com/wiki/?title=oauth2" target="_blank" rel="noopener">&#x8C46;&#x74E3;OAuth2 API&#xFF08;Authorization Code&#xFF09;</a></p>
+<p><a href="http://wiki.connect.qq.com/&#x4F7F;&#x7528;authorization_code&#x83B7;&#x53D6;access_token" target="_blank" rel="noopener">QQ OAuth2 API&#xFF08;Authorization Code&#xFF09;</a></p>
+<p><a href="https://developers.douban.com/wiki/?title=browser" target="_blank" rel="noopener">&#x8C46;&#x74E3;OAuth2 API&#xFF08;Implicit )</a></p>
+<p><a href="http://wiki.connect.qq.com/&#x4F7F;&#x7528;implicit_grant&#x65B9;&#x5F0F;&#x83B7;&#x53D6;access_token" target="_blank" rel="noopener">QQ OAuth2 API&#xFF08;Implicit&#xFF09;</a></p>
+<p><a href="https://mp.weixin.qq.com/wiki?id=mp1421140183&amp;t=0.2731444596120334" target="_blank" rel="noopener">&#x5FAE;&#x4FE1;&#x516C;&#x4F17;&#x53F7;&#x83B7;&#x53D6;access_token&#xFF08;Client Credentials Grant&#xFF09;</a></p>
+<p><a href="https://open.weibo.com/wiki/%E6%8E%88%E6%9D%83%E6%9C%BA%E5%88%B6%E8%AF%B4%E6%98%8E" target="_blank" rel="noopener">&#x5FAE;&#x535A;&#x5F00;&#x53D1;&#x6587;&#x6863;&#xFF1A;&#x6388;&#x6743;&#x673A;&#x5236;</a></p>
+<p>&#x53C2;&#x8003;&#x535A;&#x6587;&#xFF1A;</p>
+<p><a href="http://www.ruanyifeng.com/blog/2019/04/oauth-grant-types.html" target="_blank" rel="noopener">OAuth 2.0 &#x7684;&#x56DB;&#x79CD;&#x65B9;&#x5F0F;</a></p>
+<p><a href="https://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="noopener">&#x7406;&#x89E3;OAuth 2.0</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2019/04/oauth_design.html" target="_blank" rel="noopener">OAuth 2.0 &#x7684;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x89E3;&#x91CA;</a></p>
+<p><a href="https://www.cnblogs.com/linianhui/p/oauth2-authorization.html" target="_blank" rel="noopener">OAuth2&#x8BA4;&#x8BC1;&#x6388;&#x6743;</a></p>
+<p><a href="https://segmentfault.com/a/1190000010540911" target="_blank" rel="noopener">&#x7406;&#x89E3;OAuth2.0&#x8BA4;&#x8BC1;&#x4E0E;&#x5BA2;&#x6237;&#x7AEF;&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x8BE6;&#x89E3;</a></p>
+<p><a href="http://insights.thoughtworkers.org/attack-aim-at-oauth2/" target="_blank" rel="noopener">&#x79FB;&#x82B1;&#x63A5;&#x6728;&#xFF1A;&#x9488;&#x5BF9;OAuth2&#x7684;&#x653B;&#x51FB;</a></p>
+<p><a href="https://www.dangyaming.com/2017/02/09/oauth2-csrf/" target="_blank" rel="noopener">OAuth&#x6388;&#x6743;&#x4E0E;CSRF&#x653B;&#x51FB;</a></p>
+<p><a href="http://www.tasfa.cn/index.php/2016/03/26/note_of_oauth/" target="_blank" rel="noopener">OAuth&#x7814;&#x7A76;&amp;&#x5B66;&#x4E60;&#x7B14;&#x8BB0;</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-05-30</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-05-30</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/04/30/031/">OAuth 2.0 授权认证详解</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2019/04/30/031/" title="OAuth 2.0 授权认证详解">https://woodwhales.github.io/2019/04/30/031/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/04/30/031/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/安全/" rel="tag"><i class="fa fa-tag"></i> 安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/24/030/" rel="next" title="SpringBoot + Spring Security 学习笔记（五）实现短信验证码+登录功能">
+                <i class="fa fa-chevron-left"></i> SpringBoot + Spring Security 学习笔记（五）实现短信验证码+登录功能
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/30/036/" rel="prev" title="数据结构与算法之链表">
+                数据结构与算法之链表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、认识-OAuth-2-0"><span class="nav-text">一、认识 OAuth 2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-OAuth-2-0-应用场景"><span class="nav-text">1.1 OAuth 2.0 应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-名词概念"><span class="nav-text">1.2 名词概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、OAuth-的授权认证流程"><span class="nav-text">二、OAuth 的授权认证流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-认证思路"><span class="nav-text">2.1 认证思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-认证流程"><span class="nav-text">2.2 认证流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、四种授权模式"><span class="nav-text">三、四种授权模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-授权码模式（authorization-code）"><span class="nav-text">3.1 授权码模式（authorization code）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-简化模式（implicit）"><span class="nav-text">3.2 简化模式（implicit）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-密码模式（resource-owner-password-credentials）"><span class="nav-text">3.3 密码模式（resource owner password credentials）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-客户端模式（client-credentials）"><span class="nav-text">3.4 客户端模式（client credentials）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、授权码模式详解"><span class="nav-text">四、授权码模式详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-授权码模式流程"><span class="nav-text">4.1 授权码模式流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-授权码模式流程的五个步骤"><span class="nav-text">4.2 授权码模式流程的五个步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第-1-步骤"><span class="nav-text">第 1 步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参数说明"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第-2-步骤"><span class="nav-text">第 2 步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第-3-步骤"><span class="nav-text">第 3 步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参数说明-1"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-1"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第-4-步骤"><span class="nav-text">第 4 步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参数说明-2"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-2"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第-5-步骤"><span class="nav-text">第 5 步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参数说明-3"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例-3"><span class="nav-text">示例</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、令牌（Token）传递方式"><span class="nav-text">五、令牌（Token）传递方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-请求头参数传递"><span class="nav-text">5.1 请求头参数传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-表单编码传递"><span class="nav-text">5.2 表单编码传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-URI-请求参数传递"><span class="nav-text">5.3 URI 请求参数传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-令牌的刷新"><span class="nav-text">5.4 令牌的刷新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、OAuth2的安全问题"><span class="nav-text">六、OAuth2的安全问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-CSRF攻击"><span class="nav-text">6.1 CSRF攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-攻击流程"><span class="nav-text">6.2 攻击流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-解决方案"><span class="nav-text">6.3 解决方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、OAuth2-参考资料及案例"><span class="nav-text">七、OAuth2 参考资料及案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-参考资料"><span class="nav-text">7.1  参考资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-案例"><span class="nav-text">7.2  案例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>
