@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="java,任务,定时任务,springboot,timer,Schedule">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="如题">
+<meta name="keywords" content="java,任务,定时任务,springboot,timer,Schedule">
+<meta property="og:type" content="article">
+<meta property="og:title" content="定时任务全解">
+<meta property="og:url" content="https://woodwhales.github.io/2018/12/17/005/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="如题">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2018/12/17/005/2018/12/17/005/face.png">
+<meta property="og:updated_time" content="2019-05-30T13:49:21.207Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="定时任务全解">
+<meta name="twitter:description" content="如题">
+<meta name="twitter:image" content="https://woodwhales.github.io/2018/12/17/005/2018/12/17/005/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2018/12/17/005/">
+
+
+
+
+
+  <title>定时任务全解 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2018/12/17/005/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">定时任务全解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T18:03:00+08:00">
+                2018-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/17/005/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/17/005/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/12/17/005/" class="leancloud_visitors" data-flag-title="定时任务全解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  3.7k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  如题
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2018/12/17/005/face.png" rel="gallery_cjzz583i00010lwvg98rx8deu" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2018/12/17/005/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <p>&#x5728;&#x9879;&#x76EE;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7ECF;&#x5E38;&#x9700;&#x8981;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x6765;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x6765;&#x505A;&#x4E00;&#x4E9B;&#x5185;&#x5BB9;&#xFF0C;springboot &#x9ED8;&#x8BA4;&#x5DF2;&#x7ECF;&#x5E2E;&#x6211;&#x4EEC;&#x5B9E;&#x884C;&#x4E86;&#xFF0C;&#x5F00;&#x53D1;&#x8005;&#x53EA;&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x76F8;&#x5E94;&#x7684;&#x6CE8;&#x89E3;&#x5C31;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x3002; </p>
+<h4 id="&#x4E00;&#x3001;Spring-Task-&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;"><a href="#&#x4E00;&#x3001;Spring-Task-&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;" class="headerlink" title="&#x4E00;&#x3001;Spring Task &#x5B9A;&#x65F6;&#x4EFB;&#x52A1;"></a>&#x4E00;&#x3001;Spring Task &#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</h4><h5 id="1-1-&#x9759;&#x6001;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF08;&#x57FA;&#x4E8E;-Scheduled-&#x6CE8;&#x89E3;&#xFF09;"><a href="#1-1-&#x9759;&#x6001;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF08;&#x57FA;&#x4E8E;-Scheduled-&#x6CE8;&#x89E3;&#xFF09;" class="headerlink" title="1.1 &#x9759;&#x6001;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF08;&#x57FA;&#x4E8E; @Scheduled &#x6CE8;&#x89E3;&#xFF09;"></a>1.1 &#x9759;&#x6001;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF08;&#x57FA;&#x4E8E; @Scheduled &#x6CE8;&#x89E3;&#xFF09;</h5><h5 id="1-1-1-pom-&#x914D;&#x7F6E;"><a href="#1-1-1-pom-&#x914D;&#x7F6E;" class="headerlink" title="1.1.1 pom &#x914D;&#x7F6E;"></a>1.1.1 pom &#x914D;&#x7F6E;</h5><p>pom &#x5305;&#x91CC;&#x9762;&#x53EA;&#x9700;&#x8981;&#x5F15;&#x5165;<code>springboot starter</code>&#x5305;&#x5373;&#x53EF;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="1-1-2-&#x542F;&#x52A8;&#x7C7B;&#x542F;&#x7528;&#x5B9A;&#x65F6;"><a href="#1-1-2-&#x542F;&#x52A8;&#x7C7B;&#x542F;&#x7528;&#x5B9A;&#x65F6;" class="headerlink" title="1.1.2 &#x542F;&#x52A8;&#x7C7B;&#x542F;&#x7528;&#x5B9A;&#x65F6;"></a>1.1.2 &#x542F;&#x52A8;&#x7C7B;&#x542F;&#x7528;&#x5B9A;&#x65F6;</h5><p>&#x5728;&#x542F;&#x52A8;&#x7C7B;&#x4E0A;&#x9762;&#x52A0;&#x4E0A;<code>@EnableScheduling</code>&#x5373;&#x53EF;&#x5F00;&#x542F;&#x5B9A;&#x65F6;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableScheduling</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KingApplication</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        SpringApplication.run(KingApplication.class, args);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x8FD9;&#x91CC;&#x7684;<code>@EnableScheduling</code>&#x6CE8;&#x89E3;&#xFF0C;&#x5B83;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x53D1;&#x73B0;&#x6CE8;&#x89E3;<code>@Scheduled</code>&#x7684;&#x4EFB;&#x52A1;&#x5E76;&#x7531;&#x540E;&#x53F0;&#x6267;&#x884C;&#x3002;&#x6CA1;&#x6709;&#x5B83;&#x7684;&#x8BDD;&#x5C06;&#x65E0;&#x6CD5;&#x6267;&#x884C;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x3002; </p>
+<blockquote>
+<p>&#x5F15;&#x7528;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x539F;&#x6587;&#xFF1A;<br><code>@EnableScheduling</code> ensures that a background task executor is created. Without it, nothing gets scheduled.</p>
+<p>&#x5B98;&#x65B9;&#x6587;&#x6863;&#x5730;&#x5740;&#xFF1A;<code>http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#scheduling-enable-annotation-support</code></p>
+</blockquote>
+<h6 id="1-1-3-&#x521B;&#x5EFA;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x5B9E;&#x73B0;&#x7C7B;"><a href="#1-1-3-&#x521B;&#x5EFA;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x5B9E;&#x73B0;&#x7C7B;" class="headerlink" title="1.1.3 &#x521B;&#x5EFA;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x5B9E;&#x73B0;&#x7C7B;"></a>1.1.3 &#x521B;&#x5EFA;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x5B9E;&#x73B0;&#x7C7B;</h6><p>&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;1&#xFF1A;&#x6BCF;&#x8FC7; 6 &#x79D2;&#x6267;&#x884C;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Scheduler1Task</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled</span>(cron=<span class="string">&quot;*/6 * * * * ?&quot;</span>)</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">()</span></span>{</span><br><span class="line">        System.out.println(<span class="string">&quot;this is scheduler task runing  &quot;</span>+(count++));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;2&#xFF1A;&#x6BCF;&#x8FC7; 6 &#x79D2;&#x6267;&#x884C;</p>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;</strong>&#x4E0A;&#x4E00;&#x6B21;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x65F6;&#x95F4;&#x70B9;&#x4E4B;&#x540E; 6 &#x79D2;&#x518D;&#x6267;&#x884C;&#xFF0C;&#x4E0D;&#x4F1A;&#x7B49;&#x5F85;&#x4E0A;&#x4E00;&#x4E2A;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x518D;&#x542F;&#x52A8;&#x4E0B;&#x4E00;&#x4E2A;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF0C;&#x4E0D;&#x8BBA;&#x4E0A;&#x6B21;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x662F;&#x591A;&#x5C11;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Scheduler2Task</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> SimpleDateFormat dateFormat = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;HH:mm:ss&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled</span>(fixedRate = <span class="number">6000</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reportCurrentTime</span><span class="params">()</span> </span>{</span><br><span class="line">        System.out.println(<span class="string">&quot;&#x73B0;&#x5728;&#x65F6;&#x95F4;&#xFF1A;&quot;</span> + dateFormat.format(<span class="keyword">new</span> Date()));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;3&#xFF1A;&#x6BCF;&#x8FC7;&#x4E0A;&#x4E00;&#x4E2A;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x4E4B;&#x540E;&#x7684; 6 &#x79D2;&#x6267;&#x884C;</p>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;</strong>&#x4E0A;&#x4E00;&#x6B21;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x65F6;&#x95F4;&#x70B9;&#x4E4B;&#x540E; 6 &#x79D2;&#x518D;&#x6267;&#x884C;&#xFF0C;&#x7B49;&#x5F85;&#x4E0A;&#x4E00;&#x6B21;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x4E4B;&#x540E;&#x518D;&#x95F4;&#x9694; 6 &#x79D2;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Scheduler3Task</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> SimpleDateFormat dateFormat = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled</span>(fixedDelay = <span class="number">6000</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reportCurrentTime</span><span class="params">()</span> </span>{</span><br><span class="line">        System.out.println(<span class="string">&quot;&#x73B0;&#x5728;&#x65F6;&#x95F4;&#xFF1A;&quot;</span> + dateFormat.format(<span class="keyword">new</span> Date()));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h6 id="1-1-4-&#x53C2;&#x6570;&#x8BF4;&#x660E;"><a href="#1-1-4-&#x53C2;&#x6570;&#x8BF4;&#x660E;" class="headerlink" title="1.1.4 &#x53C2;&#x6570;&#x8BF4;&#x660E;"></a>1.1.4 &#x53C2;&#x6570;&#x8BF4;&#x660E;</h6><p><code>@Scheduled</code> &#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x63A5;&#x53D7;&#x4E24;&#x79CD;&#x5B9A;&#x65F6;&#x7684;&#x8BBE;&#x7F6E;&#x6BCF;&#x9694; 6 &#x79D2;&#x6267;&#x884C;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF1A;</p>
+<p>&#x4E00;&#x79CD;&#x662F;&#x6211;&#x4EEC;&#x5E38;&#x7528;&#x7684;<code>cron=&quot;*/6 * * * * ?&quot;</code>&#xFF0C;&#x53E6;&#x4E00;&#x79CD;&#x662F; <code>fixedRate = 6000</code></p>
+<p><strong>fixedRate &#x8BF4;&#x660E;</strong></p>
+<ul>
+<li><code>fixedRate</code> &#xFF1A;&#x4E0A;&#x4E00;&#x6B21;<strong>&#x5F00;&#x59CB;&#x6267;&#x884C;</strong>&#x65F6;&#x95F4;&#x70B9;&#x4E4B;&#x540E;&#x518D;&#x6267;&#x884C;&#xFF0C;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x4E3A; long&#xFF0C;&#x5355;&#x4F4D; ms&#xFF1B;</li>
+<li><code>fixedRateString</code>&#xFF1A;&#x4E0E;<code>fixedRate</code>&#x7684;&#x542B;&#x4E49;&#x4E00;&#x6837;&#xFF0C;&#x53EA;&#x662F;&#x5C06;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x53D8;&#x4E3A; String&#xFF1B;</li>
+<li><code>fixedDelay</code> &#xFF1A;&#x4E0A;&#x4E00;&#x6B21;<strong>&#x6267;&#x884C;&#x5B8C;&#x6BD5;</strong>&#x65F6;&#x95F4;&#x70B9;&#x4E4B;&#x540E;&#x518D;&#x6267;&#x884C;&#xFF0C;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x4E3A; long&#xFF0C;&#x5355;&#x4F4D; ms&#xFF1B;</li>
+<li><code>fixedDelayString</code>&#xFF1A;&#x4E0E;<code>fixedDelay</code>&#x542B;&#x4E49;&#x4E00;&#x6837;&#xFF0C;&#x53EA;&#x662F;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x53D8;&#x4E3A; String&#xFF1B;</li>
+<li><code>initialDelay</code> &#xFF1A;&#x8868;&#x793A;&#x5EF6;&#x8FDF;&#x591A;&#x4E45;&#x518D;&#x7B2C;&#x4E00;&#x6B21;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#xFF0C;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x4E3A; long&#xFF0C;&#x5355;&#x4F4D; ms&#xFF1B;</li>
+<li><code>initialDelayString</code>&#xFF1A;&#x4E0E;<code>initialDelay</code>&#x7684;&#x542B;&#x4E49;&#x4E00;&#x6837;&#xFF0C;&#x53EA;&#x662F;&#x5C06;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x53D8;&#x4E3A; String&#xFF1B;</li>
+<li><code>zone</code>&#xFF1A;&#x65F6;&#x533A;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;&#x5F53;&#x524D;&#x65F6;&#x533A;&#xFF0C;&#x4E00;&#x822C;&#x6CA1;&#x6709;&#x7528;&#x5230;&#x3002;</li>
+</ul>
+<h6 id="1-1-5-Cron-&#x8868;&#x8FBE;&#x5F0F;"><a href="#1-1-5-Cron-&#x8868;&#x8FBE;&#x5F0F;" class="headerlink" title="1.1.5 Cron &#x8868;&#x8FBE;&#x5F0F;"></a>1.1.5 Cron &#x8868;&#x8FBE;&#x5F0F;</h6><p>Cron &#x8868;&#x8FBE;&#x5F0F;&#x6709;&#x4E13;&#x95E8;&#x7684;&#x8BED;&#x6CD5;&#xFF0C;&#x800C;&#x4E14;&#x611F;&#x89C9;&#x6709;&#x70B9;&#x7ED5;&#x4EBA;&#xFF0C;&#x4E0D;&#x8FC7;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;&#x5927;&#x5BB6;&#x8BB0;&#x4F4F;&#x4E00;&#x4E9B;&#x5E38;&#x7528;&#x7684;&#x7528;&#x6CD5;&#x5373;&#x53EF;&#xFF0C;&#x7279;&#x6B8A;&#x7684;&#x8BED;&#x6CD5;&#x53EF;&#x4EE5;&#x5355;&#x72EC;&#x53BB;&#x67E5;&#x3002;</p>
+<p>Cron &#x8868;&#x8FBE;&#x5F0F;&#x662F;&#x7531;&#x4E00;&#x4E32;&#x5B57;&#x7B26;&#x4E32;&#x8868;&#x793A;&#xFF0C;&#x4F7F;&#x7528;<code>&#x6570;&#x5B57;+&#x7A7A;&#x683C;+&#x7279;&#x6B8A;&#x5B57;&#x7B26;</code>&#x7684;&#x5F62;&#x5F0F;&#x7EC4;&#x5408;&#x6210;&#x5B8C;&#x6574;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;Cron &#x8868;&#x8FBE;&#x5F0F;&#x7531;&#x7A7A;&#x683C;&#x5C06;&#x5176;&#x5212;&#x5206;&#x4E3A; 6 &#x6216; 7 &#x4E2A;&#x57DF;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x57DF;&#x4EE3;&#x8868;&#x4E00;&#x4E2A;&#x542B;&#x4E49;&#x89E3;&#x91CA;&#xFF1A;</p>
+<p><strong>1.1.5.1 &#x57DF;&#x89E3;&#x91CA;</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">* &#x7B2C;&#x4E00;&#x4F4D;&#xFF0C;&#x8868;&#x793A;&#x79D2;&#xFF0C;&#x53D6;&#x503C;&#xFF1A;0-59</span><br><span class="line">* &#x7B2C;&#x4E8C;&#x4F4D;&#xFF0C;&#x8868;&#x793A;&#x5206;&#xFF0C;&#x53D6;&#x503C;&#xFF1A;0-59</span><br><span class="line">* &#x7B2C;&#x4E09;&#x4F4D;&#xFF0C;&#x8868;&#x793A;&#x5C0F;&#x65F6;&#xFF0C;&#x53D6;&#x503C;&#xFF1A;0-23</span><br><span class="line">* &#x7B2C;&#x56DB;&#x4F4D;&#xFF0C;&#x65E5;&#x671F;&#x5929;/&#x65E5;&#xFF0C;&#x53D6;&#x503C;&#xFF1A;1-31</span><br><span class="line">* &#x7B2C;&#x4E94;&#x4F4D;&#xFF0C;&#x65E5;&#x671F;&#x6708;&#x4EFD;&#xFF0C;&#x53D6;&#x503C;&#xFF1A;1-12</span><br><span class="line">* &#x7B2C;&#x516D;&#x4F4D;&#xFF0C;&#x661F;&#x671F;&#xFF0C;&#x53D6;&#x503C;&#xFF1A;1-7</span><br><span class="line">* &#x7B2C;&#x4E03;&#x4F4D;&#xFF0C;&#x5E74;&#x4EFD;&#xFF0C;&#x53EF;&#x4EE5;&#x7559;&#x7A7A;&#xFF0C;&#x53D6;&#x503C;&#xFF1A;1970-2099</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x7B2C;&#x516D;&#x4F4D;&#x7684;&#x53D6;&#x503C;&#xFF1A;1-7 &#x8868;&#x793A;&#x7684;&#x662F;&#x661F;&#x671F;&#x4E00;&#x81F3;&#x661F;&#x671F;&#x65E5; </p>
+<p><strong>1.1.5.2 &#x7279;&#x6B8A;&#x7B26;&#x53F7;&#x89E3;&#x91CA;</strong></p>
+<p><strong>(*)&#x661F;&#x53F7;</strong></p>
+<p>&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x6BCF;&#x7684;&#x610F;&#x601D;&#xFF0C;&#x6BCF;&#x79D2;&#xFF0C;&#x6BCF;&#x5206;&#xFF0C;&#x6BCF;&#x5929;&#xFF0C;&#x6BCF;&#x6708;&#xFF0C;&#x6BCF;&#x5E74;&#xFF1B;</p>
+<p><strong>(?)&#x95EE;&#x53F7;</strong></p>
+<p>&#x53EA;&#x80FD;&#x7528;&#x5728;&#x6BCF;&#x6708;&#x7B2C;&#x51E0;&#x5929;&#x548C;&#x661F;&#x671F;&#x4E24;&#x4E2A;&#x57DF;&#x3002;&#x8868;&#x793A;&#x4E0D;&#x6307;&#x5B9A;&#x503C;&#xFF0C;&#x5F53; 2 &#x4E2A;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#x5176;&#x4E2D;&#x4E4B;&#x4E00;&#x88AB;&#x6307;&#x5B9A;&#x4E86;&#x503C;&#x4EE5;&#x540E;&#xFF0C;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x51B2;&#x7A81;&#xFF0C;&#x9700;&#x8981;&#x5C06;&#x53E6;&#x4E00;&#x4E2A;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x503C;&#x8BBE;&#x4E3A;<code>?</code>&#xFF1B;</p>
+<p><strong>(-)&#x51CF;&#x53F7;</strong></p>
+<p>&#x8868;&#x8FBE;&#x4E00;&#x4E2A;&#x8303;&#x56F4;&#xFF0C;&#x5982;&#x5728;&#x5C0F;&#x65F6;&#x5B57;&#x6BB5;&#x4E2D;&#x4F7F;&#x7528; &#x201C;10-12&#x201D;&#xFF0C;&#x5219;&#x8868;&#x793A;&#x4ECE;10&#x5230;12&#x70B9;&#xFF0C;&#x5373; 10, 11, 12&#xFF1B;</p>
+<p><strong>(,)&#x9017;&#x53F7;</strong></p>
+<p>&#x8868;&#x8FBE;&#x4E00;&#x4E2A;&#x5217;&#x8868;&#x503C;&#xFF0C;&#x5982;&#x5728;&#x661F;&#x671F;&#x5B57;&#x6BB5;&#x4E2D;&#x4F7F;&#x7528; &#x201C;1, 2, 4&#x201D;&#xFF0C;&#x5219;&#x8868;&#x793A;&#x661F;&#x671F;&#x4E00;&#xFF0C;&#x661F;&#x671F;&#x4E8C;&#xFF0C;&#x661F;&#x671F;&#x56DB;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5355;&#x8BCD;&#x7F29;&#x5199;&#x6765;&#x6307;&#x5B9A;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;&#x201D;MON,WED,FRI&#x201D; &#x5728;&#x661F;&#x671F;&#x57DF;&#x91CC;&#x8868;&#x793A; &#x201C;&#x661F;&#x671F;&#x4E00;&#x3001;&#x661F;&#x671F;&#x4E09;&#x3001;&#x661F;&#x671F;&#x4E94;&#xFF1B;</p>
+<p><strong>(/)&#x659C;&#x6760;</strong></p>
+<p>&#x8868;&#x793A;&#x8D77;&#x59CB;&#x65F6;&#x95F4;&#x5F00;&#x59CB;&#x89E6;&#x53D1;&#xFF0C;&#x7136;&#x540E;&#x6BCF;&#x9694;&#x56FA;&#x5B9A;&#x65F6;&#x95F4;&#x89E6;&#x53D1;&#x4E00;&#x6B21;&#xFF0C;&#x4F8B;&#x5982;&#x5728;&#x5206;&#x57DF;&#x4F7F;&#x7528; 5/20 &#xFF0C;&#x5219;&#x610F;&#x5473;&#x7740;5&#x5206;&#xFF0C;25&#x5206;&#xFF0C;45&#x5206;&#xFF0C;&#x5206;&#x522B;&#x89E6;&#x53D1;&#x4E00;&#x6B21;&#xFF0C;&#x53E6;&#x5916;&#xFF1A;<code>*/y</code>&#xFF0C;&#x7B49;&#x540C;&#x4E8E;<code>0/y</code>&#xFF1B;</p>
+<p><strong>(L)&#x5B57;&#x7B26;</strong></p>
+<p>&#x8868;&#x793A;&#x6700;&#x540E;&#xFF0C;&#x53EA;&#x80FD;&#x51FA;&#x73B0;&#x5728;&#x661F;&#x671F;&#x548C;&#x6BCF;&#x6708;&#x7B2C;&#x51E0;&#x5929;&#x57DF;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x661F;&#x671F;&#x57DF;&#x4F7F;&#x7528; 1L&#xFF0C;&#x610F;&#x5473;&#x7740;&#x5728;&#x6700;&#x540E;&#x7684;&#x4E00;&#x4E2A;&#x661F;&#x671F;&#x65E5;&#x89E6;&#x53D1;&#xFF1B;</p>
+<p><strong>(W)&#x5B57;&#x7B26;</strong></p>
+<p>&#x8868;&#x793A;&#x6709;&#x6548;&#x5DE5;&#x4F5C;&#x65E5;&#xFF08;&#x5468;&#x4E00;&#x5230;&#x5468;&#x4E94;&#xFF09;&#xFF0C;&#x53EA;&#x80FD;&#x51FA;&#x73B0;&#x5728;&#x6BCF;&#x6708;&#x7B2C;&#x51E0;&#x65E5;&#x57DF;&#xFF0C;&#x7CFB;&#x7EDF;&#x5C06;&#x5728;&#x79BB;&#x6307;&#x5B9A;&#x65E5;&#x671F;&#x7684;&#x6700;&#x8FD1;&#x7684;&#x6709;&#x6548;&#x5DE5;&#x4F5C;&#x65E5;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;&#x3002;&#x6CE8;&#x610F;&#x4E00;&#x70B9;&#xFF0C;W &#x7684;&#x6700;&#x8FD1;&#x5BFB;&#x627E;&#x4E0D;&#x4F1A;&#x8DE8;&#x8FC7;&#x6708;&#x4EFD;&#xFF1B; LW : &#x8FD9;&#x4E24;&#x4E2A;&#x5B57;&#x7B26;&#x53EF;&#x4EE5;&#x8FDE;&#x7528;&#xFF0C;&#x8868;&#x793A;&#x5728;&#x67D0;&#x4E2A;&#x6708;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5DE5;&#x4F5C;&#x65E5;&#xFF0C;&#x5373;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x661F;&#x671F;&#x4E94;&#x3002;</p>
+<p><strong>(#)&#x5B57;&#x7B26;</strong></p>
+<p>&#x7528;&#x4E8E;&#x786E;&#x5B9A;&#x6BCF;&#x4E2A;&#x6708;&#x7B2C;&#x51E0;&#x4E2A;&#x661F;&#x671F;&#x51E0;&#xFF0C;&#x53EA;&#x80FD;&#x51FA;&#x73B0;&#x5728;&#x6BCF;&#x6708;&#x7B2C;&#x51E0;&#x5929;&#x57DF;&#xFF0C;&#x4F8B;&#x5982;&#x5728;1#3&#xFF0C;&#x8868;&#x793A;&#x67D0;&#x6708;&#x7684;&#x7B2C;&#x4E09;&#x4E2A;&#x661F;&#x671F;&#x65E5;&#x3002;</p>
+<p>&#x5B98;&#x65B9;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;0 0 * * * *&quot;              &#x8868;&#x793A;&#x6BCF;&#x5C0F;&#x65F6;0&#x5206;0&#x79D2;&#x6267;&#x884C;&#x4E00;&#x6B21;</span><br><span class="line"></span><br><span class="line">&quot; */10 * * * * *&quot;          &#x8868;&#x793A;&#x6BCF;10&#x79D2;&#x6267;&#x884C;&#x4E00;&#x6B21;</span><br><span class="line"></span><br><span class="line">&quot;0 0 8-10 * * *&quot;           &#x8868;&#x793A;&#x6BCF;&#x5929;8&#xFF0C;9&#xFF0C;10&#x70B9;&#x6267;&#x884C;</span><br><span class="line"></span><br><span class="line">&quot;0 0/30 8-10 * * *&quot;        &#x8868;&#x793A;&#x6BCF;&#x5929;8&#x70B9;&#x5230;10&#x70B9;&#xFF0C;&#x6BCF;&#x534A;&#x5C0F;&#x65F6;&#x6267;&#x884C;</span><br><span class="line"></span><br><span class="line">&quot;0 0 9-17 * * MON-FRI&quot;     &#x8868;&#x793A;&#x6BCF;&#x5468;&#x4E00;&#x81F3;&#x5468;&#x4E94;&#xFF0C;9&#x70B9;&#x5230;17&#x70B9;&#x7684;0&#x5206;0&#x79D2;&#x6267;&#x884C;</span><br><span class="line"></span><br><span class="line">&quot;0 0 0 25 12 ?&quot;            &#x8868;&#x793A;&#x6BCF;&#x5E74;&#x5723;&#x8BDE;&#x8282;&#xFF08;12&#x6708;25&#x65E5;&#xFF09;0&#x65F6;0&#x5206;0&#x79D2;&#x6267;&#x884C;</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="1-2-&#x52A8;&#x6001;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF08;&#x57FA;&#x4E8E;-SchedulingConfigurer-&#x63A5;&#x53E3;&#xFF09;"><a href="#1-2-&#x52A8;&#x6001;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF08;&#x57FA;&#x4E8E;-SchedulingConfigurer-&#x63A5;&#x53E3;&#xFF09;" class="headerlink" title="1.2 &#x52A8;&#x6001;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF08;&#x57FA;&#x4E8E; SchedulingConfigurer &#x63A5;&#x53E3;&#xFF09;"></a>1.2 &#x52A8;&#x6001;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF08;&#x57FA;&#x4E8E; SchedulingConfigurer &#x63A5;&#x53E3;&#xFF09;</h5><p>&#x4E3A;&#x4E86;&#x6F14;&#x793A;&#x6548;&#x679C;&#xFF0C;&#x8FD9;&#x91CC;&#x9009;&#x7528; Mysql &#x6570;&#x636E;&#x5E93;&#x4FDD;&#x5B58; Cron &#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x4F7F;&#x7528; Mybatis &#x6846;&#x67B6;&#x6765;&#x67E5;&#x8BE2;&#x548C;&#x8C03;&#x6574;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x6267;&#x884C;&#x5468;&#x671F;&#xFF0C;&#x7136;&#x540E;&#x89C2;&#x5BDF;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x6267;&#x884C;&#x60C5;&#x51B5;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x9759;&#x6001;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x5F62;&#x5F0F;&#x914D;&#x7F6E;&#x3002;</p>
+<h6 id="1-2-1-pom-&#x914D;&#x7F6E;"><a href="#1-2-1-pom-&#x914D;&#x7F6E;" class="headerlink" title="1.2.1 pom &#x914D;&#x7F6E;"></a>1.2.1 pom &#x914D;&#x7F6E;</h6><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&#x6DFB;&#x52A0;Mybatis&#x4F9D;&#x8D56; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&#x6DFB;&#x52A0;MySql&#x4F9D;&#x8D56; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h6 id="1-2-2-&#x6DFB;&#x52A0;&#x6570;&#x636E;&#x5E93;&#x8BB0;&#x5F55;"><a href="#1-2-2-&#x6DFB;&#x52A0;&#x6570;&#x636E;&#x5E93;&#x8BB0;&#x5F55;" class="headerlink" title="1.2.2 &#x6DFB;&#x52A0;&#x6570;&#x636E;&#x5E93;&#x8BB0;&#x5F55;"></a>1.2.2 &#x6DFB;&#x52A0;&#x6570;&#x636E;&#x5E93;&#x8BB0;&#x5F55;</h6><p>&#x5728; mysql &#x6570;&#x636E;&#x5E93;&#x4E2D;&#x521B;&#x5EFA;<code>socks</code>&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5E76;&#x521B;&#x5EFA;<code>cron</code>&#x6570;&#x636E;&#x5E93;&#x8868;&#xFF1A;</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`socks`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="string">`socks`</span>;</span><br><span class="line"><span class="keyword">USE</span> <span class="string">`SOCKS`</span>;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`cron`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`cron`</span>  (</span><br><span class="line">  <span class="string">`cron_id`</span> <span class="built_in">varchar</span>(<span class="number">30</span>),</span><br><span class="line">  <span class="string">`cron`</span> <span class="built_in">varchar</span>(<span class="number">30</span>) </span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`cron`</span> <span class="keyword">VALUES</span> (<span class="string">&apos;1&apos;</span>, <span class="string">&apos;0/5 * * * * ?&apos;</span>);</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x7684;<code>application.yml</code>&#x6DFB;&#x52A0;&#x6570;&#x636E;&#x6E90;&#xFF1A; </p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://localhost:3306/socks?useSSL=false</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">root</span></span><br></pre></td></tr></tbody></table></figure>
+<h6 id="1-2-3-&#x521B;&#x5EFA;&#x5B9A;&#x65F6;&#x5668;"><a href="#1-2-3-&#x521B;&#x5EFA;&#x5B9A;&#x65F6;&#x5668;" class="headerlink" title="1.2.3 &#x521B;&#x5EFA;&#x5B9A;&#x65F6;&#x5668;"></a>1.2.3 &#x521B;&#x5EFA;&#x5B9A;&#x65F6;&#x5668;</h6><p>&#x6570;&#x636E;&#x5E93;&#x51C6;&#x5907;&#x597D;&#x6570;&#x636E;&#x4E4B;&#x540E;&#xFF0C;&#x7F16;&#x5199;&#x8981;&#x5B9A;&#x65F6;&#x6267;&#x884C;&#x7684;&#x4EFB;&#x52A1;&#x7C7B;&#xFF0C;&#x5B9E;&#x73B0;<code>SchedulingConfigurer</code>&#x63A5;&#x53E3;&#xFF0C;&#x91CD;&#x5199;<code>configureTasks</code>&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Select;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.EnableScheduling;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.SchedulingConfigurer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.config.ScheduledTaskRegistrar;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.support.CronTrigger;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.StringUtils;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableScheduling</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CompleteScheduleConfig</span> <span class="keyword">implements</span> <span class="title">SchedulingConfigurer</span></span>{</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> SimpleDateFormat dateFormat = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Mapper</span></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CronMapper</span> </span>{</span><br><span class="line">        <span class="meta">@Select</span>(<span class="string">&quot;select cron from cron limit 1&quot;</span>)</span><br><span class="line">        <span class="function">String <span class="title">getCron</span><span class="params">()</span></span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    CronMapper cronMapper;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#x6267;&#x884C;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureTasks</span><span class="params">(ScheduledTaskRegistrar taskRegistrar)</span> </span>{</span><br><span class="line">        taskRegistrar.addTriggerTask(</span><br><span class="line">                <span class="comment">//1.&#x6DFB;&#x52A0;&#x4EFB;&#x52A1;&#x5185;&#x5BB9;(Runnable)</span></span><br><span class="line">                () -&gt; {</span><br><span class="line">                    System.out.println(<span class="string">&quot;&#x6267;&#x884C;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;2: &quot;</span> + getNow());</span><br><span class="line">                    logger.debug(<span class="string">&quot;&#x6267;&#x884C;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;2: &quot;</span> + getNow());</span><br><span class="line">                },</span><br><span class="line">                <span class="comment">//2.&#x8BBE;&#x7F6E;&#x6267;&#x884C;&#x5468;&#x671F;(Trigger)</span></span><br><span class="line">                triggerContext -&gt; {</span><br><span class="line">                    <span class="comment">//2.1 &#x4ECE;&#x6570;&#x636E;&#x5E93;&#x83B7;&#x53D6;&#x6267;&#x884C;&#x5468;&#x671F;</span></span><br><span class="line">                    String cron = cronMapper.getCron();</span><br><span class="line">                    <span class="comment">//2.2 &#x5408;&#x6CD5;&#x6027;&#x6821;&#x9A8C;.</span></span><br><span class="line">                    <span class="keyword">if</span> (StringUtils.isEmpty(cron)) {</span><br><span class="line">                        <span class="comment">// Omitted Code ..</span></span><br><span class="line">                    }</span><br><span class="line">                    <span class="comment">//2.3 &#x8FD4;&#x56DE;&#x6267;&#x884C;&#x5468;&#x671F;(Date)</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> CronTrigger(cron).nextExecutionTime(triggerContext);</span><br><span class="line">                }</span><br><span class="line">        );</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getNow</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> dateFormat.format(<span class="keyword">new</span> Date());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x4E09;&#x3001;Timer-&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;"><a href="#&#x4E09;&#x3001;Timer-&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;" class="headerlink" title="&#x4E09;&#x3001;Timer &#x5B9A;&#x65F6;&#x4EFB;&#x52A1;"></a>&#x4E09;&#x3001;Timer &#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</h4><p>&#x8FD9;&#x4E2A;<code>API</code>&#x76EE;&#x524D;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x5F88;&#x5C11;&#x7528;&#xFF0C;&#x76F4;&#x63A5;&#x7ED9;&#x51FA;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x3002;&#x5177;&#x4F53;&#x7684;&#x4ECB;&#x7ECD;&#x53EF;&#x4EE5;&#x67E5;&#x770B;<code>API</code>&#x3002;<code>Timer</code>&#x7684;&#x5185;&#x90E8;&#x53EA;&#x6709;<strong>&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;</strong>&#xFF0C;&#x5982;&#x679C;<strong>&#x591A;&#x4E2A;&#x4EFB;&#x52A1;</strong>&#x7684;&#x8BDD;&#x5C31;&#x4F1A;<strong>&#x987A;&#x5E8F;&#x6267;&#x884C;</strong>&#xFF0C;&#x8FD9;&#x6837;&#x4EFB;&#x52A1;&#x7684;<strong>&#x5EF6;&#x8FDF;&#x65F6;&#x95F4;</strong>&#x548C;<strong>&#x5FAA;&#x73AF;&#x65F6;&#x95F4;</strong>&#x5C31;&#x4F1A;&#x51FA;&#x73B0;&#x95EE;&#x9898;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Timer;</span><br><span class="line"><span class="keyword">import</span> java.util.TimerTask;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.atomic.AtomicLong;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimerService</span> </span>{</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AtomicLong counter = <span class="keyword">new</span> AtomicLong();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">schedule</span><span class="params">()</span> </span>{</span><br><span class="line">        TimerTask timerTask = <span class="keyword">new</span> TimerTask() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</span><br><span class="line">                <span class="keyword">long</span> count = counter.incrementAndGet();</span><br><span class="line">                logger.info(<span class="string">&quot;Schedule timerTask {} times&quot;</span>, count);</span><br><span class="line">            }</span><br><span class="line">        };</span><br><span class="line">        Timer timer = <span class="keyword">new</span> Timer();</span><br><span class="line">        <span class="comment">// &#x8BBE;&#x7F6E; &#x521D;&#x59CB;&#x5316;&#x5EF6;&#x8FDF;&#x65F6;&#x95F4; &#x4E3A; 1s&#xFF0C;&#x5B9A;&#x65F6;&#x6267;&#x884C;&#x95F4;&#x9694; &#x4E3A; 2s</span></span><br><span class="line">        timer.schedule(timerTask, <span class="number">1000L</span>, <span class="number">2</span> * <span class="number">1000L</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        TimerService timerService = <span class="keyword">new</span> TimerService();</span><br><span class="line">        timerService.schedule();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x89C2;&#x5BDF;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#xFF0C;&#x80FD;&#x591F;&#x53D1;&#x73B0;<code>TimerTask</code>&#x914D;&#x7F6E;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x6BCF;&#x9694;<code>10s</code>&#x88AB;&#x6267;&#x884C;&#x4E86;&#x4E00;&#x6B21;&#xFF0C;&#x6267;&#x884C;&#x7EBF;&#x7A0B;&#x9ED8;&#x8BA4;&#x90FD;&#x662F;<code>Timer-0</code>&#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x542F;&#x52A8;&#x7684;&#x65F6;&#x673A;&#x662F; new &#x51FA; Timer &#x5E76;&#x6267;&#x884C;<code>schedule()</code>&#x65B9;&#x6CD5;&#x7684;&#x65F6;&#x5019;&#x3002; </p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">17:42:48.576 [Timer-0] INFO org.woodwhale.king.service.TimerService - Schedule timerTask 1 times</span><br><span class="line">17:42:50.569 [Timer-0] INFO org.woodwhale.king.service.TimerService - Schedule timerTask 2 times</span><br><span class="line">17:42:52.569 [Timer-0] INFO org.woodwhale.king.service.TimerService - Schedule timerTask 3 times</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x56DB;&#x3001;ScheduledExecutorService-&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;"><a href="#&#x56DB;&#x3001;ScheduledExecutorService-&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;" class="headerlink" title="&#x56DB;&#x3001;ScheduledExecutorService &#x5B9A;&#x65F6;&#x4EFB;&#x52A1;"></a>&#x56DB;&#x3001;ScheduledExecutorService &#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</h4><p><code>ScheduledExecutorService</code> &#x662F; <strong>&#x5EF6;&#x65F6;&#x6267;&#x884C;</strong> &#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x5BF9;&#x4E8E; <strong>&#x591A;&#x7EBF;&#x7A0B;</strong> &#x73AF;&#x5883;&#x4E0B;&#x7684; <strong>&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</strong>&#xFF0C;&#x63A8;&#x8350;&#x7528; <code>ScheduledExecutorService</code> &#x4EE3;&#x66FF; <code>Timer</code> &#x5B9A;&#x65F6;&#x5668;&#x3002;</p>
+<p><strong>4.1 &#x7B49;&#x5F85;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x518D;&#x8FDB;&#x884C;&#x4E0B;&#x4E00;&#x6B21;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</strong></p>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6570;&#x91CF;&#x4E3A;<code>4</code>&#x7684;<strong>&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x6C60;</strong>&#xFF0C;&#x540C;&#x4E00;&#x65F6;&#x523B;&#x5E76;&#x5411;&#x5B83;&#x63D0;&#x4EA4;<code>4</code>&#x4E2A;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF0C;&#x7528;&#x4E8E;&#x6D4B;&#x8BD5;&#x5EF6;&#x65F6;&#x4EFB;&#x52A1;&#x7684;<strong>&#x5E76;&#x53D1;&#x5904;&#x7406;</strong>&#x3002;&#x6267;&#x884C;<code>ScheduledExecutorService</code>&#x7684;<code>scheduleWithFixedDelay()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x8BBE;&#x7F6E;&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;<strong>&#x521D;&#x59CB;&#x4EFB;&#x52A1;&#x5EF6;&#x8FDF;&#x65F6;&#x95F4;</strong>&#x4E3A;<code>2</code>&#x79D2;&#xFF0C;&#x5E76;&#x5728;&#x4E0A;&#x4E00;&#x6B21;<strong>&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x65F6;&#x95F4;&#x70B9;</strong>&#x4E4B;&#x540E;<code>2</code>&#x79D2;&#x518D;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x6B21;&#x4EFB;&#x52A1;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scheduleWithFixedDelay</span><span class="params">()</span> </span>{</span><br><span class="line">    ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(<span class="number">4</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {</span><br><span class="line">        scheduledExecutor.scheduleWithFixedDelay(() -&gt; {</span><br><span class="line">            <span class="comment">// &#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x5EF6;&#x8FDF;&#x5B8C;&#x6210; 2 &#x79D2;</span></span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                TimeUnit.MILLISECONDS.sleep(<span class="number">2</span> * <span class="number">1000L</span>);</span><br><span class="line">            } <span class="keyword">catch</span> (InterruptedException e) {</span><br><span class="line">                LOGGER.error(<span class="string">&quot;Interrupted exception&quot;</span>, e);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">long</span> count = counter.incrementAndGet();</span><br><span class="line">            logger.info(<span class="string">&quot;Schedule executor {} times with fixed delay&quot;</span>, count);</span><br><span class="line">        }, <span class="number">2000L</span>, <span class="number">2</span> * <span class="number">1000L</span>, TimeUnit.MILLISECONDS); </span><br><span class="line">        <span class="comment">// &#x521D;&#x59CB;&#x4EFB;&#x52A1;&#x5EF6;&#x8FDF;&#x65F6;&#x95F4; &#x4E3A; 2 &#x79D2;&#xFF0C;&#x5E76;&#x5728;&#x4E0A;&#x4E00;&#x6B21; &#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x65F6;&#x95F4;&#x70B9; &#x4E4B;&#x540E; 2 &#x79D2;&#x518D;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x6B21;&#x4EFB;&#x52A1;</span></span><br><span class="line">    }</span><br><span class="line">    logger.info(<span class="string">&quot;Start to schedule&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#x6BCF;&#x9694;<code>2</code>&#x79D2;&#x7684;&#x65F6;&#x95F4;&#x95F4;&#x9694;&#xFF0C;&#x5C31;&#x4F1A;&#x6709;<code>4</code>&#x4E2A;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x540C;&#x65F6;&#x6267;&#x884C;&#x3002;&#x56E0;&#x4E3A;&#x5728;&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x6C60;&#x521D;&#x59CB;&#x5316;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x540C;&#x65F6;&#x5411;&#x7EBF;&#x7A0B;&#x6C60;&#x63D0;&#x4EA4;&#x4E86;<code>4</code>&#x4E2A;&#x4EFB;&#x52A1;&#xFF0C;&#x8FD9;<strong>&#x56DB;&#x4E2A;&#x4EFB;&#x52A1;</strong>&#x4F1A;&#x5B8C;&#x5168;&#x5229;&#x7528;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7684;<code>4</code>&#x4E2A;&#x7EBF;&#x7A0B;&#x8FDB;&#x884C;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x3002; </p>
+<p><strong>4.2 &#x56FA;&#x5B9A;&#x65F6;&#x95F4;&#x8FDB;&#x884C;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</strong></p>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6570;&#x91CF;&#x4E3A;<code>4</code>&#x7684;<strong>&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x6C60;</strong>&#xFF0C;&#x540C;&#x4E00;&#x65F6;&#x523B;&#x5E76;&#x5411;&#x5B83;&#x63D0;&#x4EA4;<code>4</code>&#x4E2A;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF0C;&#x7528;&#x4E8E;&#x6D4B;&#x8BD5;&#x5EF6;&#x65F6;&#x4EFB;&#x52A1;&#x7684;<strong>&#x5E76;&#x53D1;&#x5904;&#x7406;</strong>&#x3002;&#x6BCF;&#x4E2A;&#x4EFB;&#x52A1;&#x5206;&#x522B;&#x6267;&#x884C;<code>ScheduledExecutorService</code>&#x7684;<code>scheduleAtFixedRate()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x8BBE;&#x7F6E;&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;<strong>&#x521D;&#x59CB;&#x4EFB;&#x52A1;&#x5EF6;&#x8FDF;&#x65F6;&#x95F4;</strong>&#x4E3A;<code>2</code>&#x79D2;&#xFF0C;&#x5E76;&#x5728;&#x4E0A;&#x4E00;&#x6B21;<strong>&#x5F00;&#x59CB;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x70B9;</strong>&#x4E4B;&#x540E;<code>2</code>&#x79D2;&#x518D;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x6B21;&#x4EFB;&#x52A1;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scheduleAtFixedRate</span><span class="params">()</span> </span>{</span><br><span class="line">    ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(<span class="number">4</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {</span><br><span class="line">        scheduledExecutor.scheduleAtFixedRate(() -&gt; {</span><br><span class="line">            <span class="keyword">long</span> count = counter.incrementAndGet();</span><br><span class="line">            logger.info(<span class="string">&quot;Schedule executor {} times at fixed rate&quot;</span>, count);</span><br><span class="line">        }, <span class="number">2000L</span>, <span class="number">2</span> * <span class="number">1000L</span>, TimeUnit.MILLISECONDS);</span><br><span class="line">        <span class="comment">// &#x521D;&#x59CB;&#x4EFB;&#x52A1;&#x5EF6;&#x8FDF;&#x65F6;&#x95F4; &#x4E3A; 2 &#x79D2;&#xFF0C;&#x5E76;&#x5728;&#x4E0A;&#x4E00;&#x6B21; &#x6267;&#x884C;&#x65F6;&#x95F4;&#x5F00;&#x59CB; &#x4E4B;&#x540E; 2 &#x79D2;&#x518D;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x6B21;&#x4EFB;&#x52A1;</span></span><br><span class="line">    }</span><br><span class="line">    logger.info(<span class="string">&quot;Start to schedule&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#x6BCF;&#x9694; <code>2</code> &#x79D2;&#x7684;&#x65F6;&#x95F4;&#x95F4;&#x9694;&#xFF0C;&#x5C31;&#x4F1A;&#x6709; <code>4</code> &#x4E2A;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x540C;&#x65F6;&#x6267;&#x884C;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x6C60;&#x521D;&#x59CB;&#x5316;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x540C;&#x65F6;&#x5411;&#x7EBF;&#x7A0B;&#x6C60;&#x63D0;&#x4EA4;&#x4E86; <code>4</code> &#x4E2A;&#x4EFB;&#x52A1;&#xFF0C;&#x8FD9; <strong>&#x56DB;&#x4E2A;&#x4EFB;&#x52A1;</strong>&#x4F1A;&#x5B8C;&#x5168;&#x5229;&#x7528;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7684; <code>4</code>&#x4E2A;&#x7EBF;&#x7A0B;&#x8FDB;&#x884C;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x3002; </p>
+<h4 id="&#x4E94;&#x3001;&#x914D;&#x7F6E;&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x6C60;&#xFF08;&#x5B9E;&#x73B0;&#x591A;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x5904;&#x7406;&#xFF09;"><a href="#&#x4E94;&#x3001;&#x914D;&#x7F6E;&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x6C60;&#xFF08;&#x5B9E;&#x73B0;&#x591A;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x5904;&#x7406;&#xFF09;" class="headerlink" title="&#x4E94;&#x3001;&#x914D;&#x7F6E;&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x6C60;&#xFF08;&#x5B9E;&#x73B0;&#x591A;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x5904;&#x7406;&#xFF09;"></a>&#x4E94;&#x3001;&#x914D;&#x7F6E;&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x6C60;&#xFF08;&#x5B9E;&#x73B0;&#x591A;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x5904;&#x7406;&#xFF09;</h4><p>&#x4E0A;&#x8FF0;&#x914D;&#x7F6E;&#x90FD;&#x662F;&#x57FA;&#x4E8E;<strong>&#x5355;&#x7EBF;&#x7A0B;</strong>&#x7684;&#x4EFB;&#x52A1;&#x8C03;&#x5EA6;&#xFF0C;&#x5982;&#x4F55;&#x5F15;&#x5165;<strong>&#x591A;&#x7EBF;&#x7A0B;</strong>&#x63D0;&#x9AD8;<strong>&#x5EF6;&#x65F6;&#x4EFB;&#x52A1;</strong>&#x7684;<strong>&#x5E76;&#x53D1;&#x5904;&#x7406;</strong>&#x80FD;&#x529B;&#xFF1F;</p>
+<p><code>Spring Boot</code>&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;<code>SchedulingConfigurer</code>&#x914D;&#x7F6E;&#x63A5;&#x53E3;&#x3002;&#x6211;&#x4EEC;&#x901A;&#x8FC7; <code>ScheduleConfig</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5B9E;&#x73B0;<code>ScheduleConfiguration</code>&#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x91CD;&#x5199; <code>configureTasks()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5411;<code>ScheduledTaskRegistrar</code>&#x6CE8;&#x518C;&#x4E00;&#x4E2A;<code>ThreadPoolTaskScheduler</code>&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x5BF9;&#x8C61;&#x5373;&#x53EF;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.SchedulingConfigurer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.config.ScheduledTaskRegistrar;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x591A;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</span></span><br><span class="line"><span class="comment"> * &#x6240;&#x6709;&#x7684;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x90FD;&#x653E;&#x5728;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#xFF0C;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x542F;&#x52A8;&#x65F6;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x90FD;&#x7EBF;&#x7A0B;&#x3002;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduleConfiguration</span> <span class="keyword">implements</span> <span class="title">SchedulingConfigurer</span> </span>{</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureTasks</span><span class="params">(ScheduledTaskRegistrar taskRegistrar)</span> </span>{</span><br><span class="line">        taskRegistrar.setTaskScheduler(taskScheduler());</span><br><span class="line">        <span class="comment">// &#x91C7;&#x7528;jdk &#x81EA;&#x5E26;&#x7684;&#x6267;&#x884C;&#x5668;&#x7EBF;&#x7A0B;&#x6C60; java.util.concurrent.Executors</span></span><br><span class="line">        <span class="comment">// taskRegistrar.setScheduler(Executors.newScheduledThreadPool(10));</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ThreadPoolTaskScheduler <span class="title">taskScheduler</span><span class="params">()</span> </span>{</span><br><span class="line">        ThreadPoolTaskScheduler taskScheduler = <span class="keyword">new</span> ThreadPoolTaskScheduler();</span><br><span class="line">        taskScheduler.setPoolSize(<span class="number">4</span>); <span class="comment">//&#x8BBE;&#x5B9A;&#x4E00;&#x4E2A;&#x957F;&#x5EA6;4&#x7684;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x6C60;</span></span><br><span class="line">        taskScheduler.setWaitForTasksToCompleteOnShutdown(<span class="keyword">true</span>);</span><br><span class="line">        taskScheduler.setThreadNamePrefix(<span class="string">&quot;schedule&quot;</span>);</span><br><span class="line">        taskScheduler.setRemoveOnCancelPolicy(<span class="keyword">true</span>);</span><br><span class="line">        taskScheduler.setErrorHandler(t -&gt; logger.error(<span class="string">&quot;Error occurs&quot;</span>, t));</span><br><span class="line">        <span class="keyword">return</span> taskScheduler;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x53C2;&#x8003;&#x535A;&#x6587;&#xFF1A;</strong></p>
+<p>SpringBoot &#x521B;&#x5EFA;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF08;&#x914D;&#x5408;&#x6570;&#x636E;&#x5E93;&#x52A8;&#x6001;&#x6267;&#x884C;&#xFF09;<br><code>https://www.jianshu.com/p/d160f2536de7</code></p>
+<p>springboot(&#x4E5D;)&#xFF1A;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;<br><code>https://www.cnblogs.com/ityouknow/p/6132645.html</code></p>
+<p>spring boot&#x9879;&#x76EE;&#x4E2D;&#x5904;&#x7406;Schedule&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;<br><code>https://www.rjkf.cn/springboot-schedule-cron/</code></p>
+<p>SpringBoot&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x53CA;Cron&#x8868;&#x8FBE;&#x5F0F;&#x8BE6;&#x89E3;<br><code>https://my.oschina.net/jack90john/blog/1506474</code></p>
+<p>&#x5B9E;&#x6218;Spring Boot 2.0&#x7CFB;&#x5217;(&#x516D;) - &#x5355;&#x673A;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x51E0;&#x79CD;&#x5B9E;&#x73B0;<br><code>https://juejin.im/post/5b31b9eff265da598826c200</code></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-05-30</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-05-30</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/17/005/">定时任务全解</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2018/12/17/005/" title="定时任务全解">https://woodwhales.github.io/2018/12/17/005/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2018/12/17/005/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/定时任务/" rel="tag"><i class="fa fa-tag"></i> 定时任务</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/16/006/" rel="next" title="Springboot 瘦身打包">
+                <i class="fa fa-chevron-left"></i> Springboot 瘦身打包
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/18/003/" rel="prev" title="并发编程的艺术 | 学习笔记（一）">
+                并发编程的艺术 | 学习笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、Spring-Task-定时任务"><span class="nav-text">一、Spring Task 定时任务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-静态定时任务（基于-Scheduled-注解）"><span class="nav-text">1.1 静态定时任务（基于 @Scheduled 注解）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-1-pom-配置"><span class="nav-text">1.1.1 pom 配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-2-启动类启用定时"><span class="nav-text">1.1.2 启动类启用定时</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-3-创建定时任务实现类"><span class="nav-text">1.1.3 创建定时任务实现类</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-4-参数说明"><span class="nav-text">1.1.4 参数说明</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-5-Cron-表达式"><span class="nav-text">1.1.5 Cron 表达式</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-动态定时任务（基于-SchedulingConfigurer-接口）"><span class="nav-text">1.2 动态定时任务（基于 SchedulingConfigurer 接口）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-1-pom-配置"><span class="nav-text">1.2.1 pom 配置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-2-添加数据库记录"><span class="nav-text">1.2.2 添加数据库记录</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-2-3-创建定时器"><span class="nav-text">1.2.3 创建定时器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、Timer-定时任务"><span class="nav-text">三、Timer 定时任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、ScheduledExecutorService-定时任务"><span class="nav-text">四、ScheduledExecutorService 定时任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、配置任务线程池（实现多线程并发处理）"><span class="nav-text">五、配置任务线程池（实现多线程并发处理）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

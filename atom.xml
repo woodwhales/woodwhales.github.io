@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>woodwhale&#39;s blog</title>
+  
+  <subtitle>技术改变生活</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://woodwhales.github.io/"/>
+  <updated>2019-05-30T13:48:47.783Z</updated>
+  <id>https://woodwhales.github.io/</id>
+  
+  <author>
+    <name>木鲸鱼</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我的 2018 与 2019</title>
+    <link href="https://woodwhales.github.io/2019/01/09/009/"/>
+    <id>https://woodwhales.github.io/2019/01/09/009/</id>
+    <published>2019-01-09T02:30:00.000Z</published>
+    <updated>2019-05-30T13:48:47.783Z</updated>
+    
+    <summary type="html">
+    
+      古人云，有志者，立长志。
+    
+    </summary>
+    
+      <category term="随笔杂谈" scheme="https://woodwhales.github.io/categories/%E9%9A%8F%E7%AC%94%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="编程随想" scheme="https://woodwhales.github.io/tags/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis 学习笔记 | 安装与启动</title>
+    <link href="https://woodwhales.github.io/2019/01/01/008/"/>
+    <id>https://woodwhales.github.io/2019/01/01/008/</id>
+    <published>2019-01-01T10:03:00.000Z</published>
+    <updated>2018-12-31T16:00:00.000Z</updated>
+    
+    <summary type="html">
+    
+      分布式缓存数据库的典范
+    
+    </summary>
+    
+      <category term="Redis" scheme="https://woodwhales.github.io/categories/Redis/"/>
+    
+    
+      <category term="redis" scheme="https://woodwhales.github.io/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>优秀博客集锦</title>
+    <link href="https://woodwhales.github.io/2018/12/22/002/"/>
+    <id>https://woodwhales.github.io/2018/12/22/002/</id>
+    <published>2018-12-21T19:15:47.000Z</published>
+    <updated>2019-08-04T10:33:50.257Z</updated>
+    
+    <summary type="html">
+    
+      不止于优秀。
+    
+    </summary>
+    
+      <category term="干货推荐" scheme="https://woodwhales.github.io/categories/%E5%B9%B2%E8%B4%A7%E6%8E%A8%E8%8D%90/"/>
+    
+    
+      <category term="博客" scheme="https://woodwhales.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>并发编程的艺术 | 学习笔记（二）</title>
+    <link href="https://woodwhales.github.io/2018/12/20/004/"/>
+    <id>https://woodwhales.github.io/2018/12/20/004/</id>
+    <published>2018-12-20T10:03:00.000Z</published>
+    <updated>2019-07-06T03:03:02.266Z</updated>
+    
+    <summary type="html">
+    
+      并发机制的底层实现原理：volatitle 关键字和锁的机制。
+    
+    </summary>
+    
+      <category term="并发编程" scheme="https://woodwhales.github.io/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="并发编程" scheme="https://woodwhales.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>并发编程的艺术 | 学习笔记（一）</title>
+    <link href="https://woodwhales.github.io/2018/12/18/003/"/>
+    <id>https://woodwhales.github.io/2018/12/18/003/</id>
+    <published>2018-12-17T16:00:00.000Z</published>
+    <updated>2019-07-06T03:02:33.382Z</updated>
+    
+    <summary type="html">
+    
+      并发编程，并非万万能。
+    
+    </summary>
+    
+      <category term="并发编程" scheme="https://woodwhales.github.io/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="并发编程" scheme="https://woodwhales.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>定时任务全解</title>
+    <link href="https://woodwhales.github.io/2018/12/17/005/"/>
+    <id>https://woodwhales.github.io/2018/12/17/005/</id>
+    <published>2018-12-17T10:03:00.000Z</published>
+    <updated>2019-05-30T13:49:21.207Z</updated>
+    
+    <summary type="html">
+    
+      如题
+    
+    </summary>
+    
+      <category term="Java" scheme="https://woodwhales.github.io/categories/Java/"/>
+    
+    
+      <category term="定时任务" scheme="https://woodwhales.github.io/tags/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Springboot 瘦身打包</title>
+    <link href="https://woodwhales.github.io/2018/12/16/006/"/>
+    <id>https://woodwhales.github.io/2018/12/16/006/</id>
+    <published>2018-12-16T10:03:00.000Z</published>
+    <updated>2019-07-06T03:03:22.557Z</updated>
+    
+    <summary type="html">
+    
+      分离 lib 依赖和资源文件
+    
+    </summary>
+    
+      <category term="Springboot" scheme="https://woodwhales.github.io/categories/Springboot/"/>
+    
+    
+      <category term="Spring Boot" scheme="https://woodwhales.github.io/tags/Spring-Boot/"/>
+    
+      <category term="Maven Project" scheme="https://woodwhales.github.io/tags/Maven-Project/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java Web 如何超清无码</title>
+    <link href="https://woodwhales.github.io/2018/11/30/007/"/>
+    <id>https://woodwhales.github.io/2018/11/30/007/</id>
+    <published>2018-11-30T10:00:00.000Z</published>
+    <updated>2018-12-25T16:00:00.000Z</updated>
+    
+    <summary type="html">
+    
+      一定可以解决的乱码问题
+    
+    </summary>
+    
+      <category term="Java" scheme="https://woodwhales.github.io/categories/Java/"/>
+    
+    
+      <category term="JavaWeb" scheme="https://woodwhales.github.io/tags/JavaWeb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解计算机系统 | 学习笔记（一）</title>
+    <link href="https://woodwhales.github.io/2018/10/16/010/"/>
+    <id>https://woodwhales.github.io/2018/10/16/010/</id>
+    <published>2018-10-16T07:30:00.000Z</published>
+    <updated>2019-05-30T13:48:11.154Z</updated>
+    
+    <summary type="html">
+    
+      计算机系统漫游
+    
+    </summary>
+    
+      <category term="深入理解计算机系统" scheme="https://woodwhales.github.io/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="基础原理" scheme="https://woodwhales.github.io/tags/%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>相遇即是缘分</title>
+    <link href="https://woodwhales.github.io/2016/02/29/001/"/>
+    <id>https://woodwhales.github.io/2016/02/29/001/</id>
+    <published>2016-02-29T06:14:56.000Z</published>
+    <updated>2018-12-21T14:28:33.000Z</updated>
+    
+    <summary type="html">
+    
+      茫茫人海，遇见你是我的缘。
+    
+    </summary>
+    
+      <category term="随笔杂谈" scheme="https://woodwhales.github.io/categories/%E9%9A%8F%E7%AC%94%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="编程随想" scheme="https://woodwhales.github.io/tags/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"/>
+    
+  </entry>
+  
+</feed>

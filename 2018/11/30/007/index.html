@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="java,javaweb,乱码,中文,字符,浏览器乱码">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="一定可以解决的乱码问题">
+<meta name="keywords" content="java,javaweb,乱码,中文,字符,浏览器乱码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Web 如何超清无码">
+<meta property="og:url" content="https://woodwhales.github.io/2018/11/30/007/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="一定可以解决的乱码问题">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2018/11/30/007/2018/11/30/007/face.png">
+<meta property="og:updated_time" content="2018-12-25T16:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Web 如何超清无码">
+<meta name="twitter:description" content="一定可以解决的乱码问题">
+<meta name="twitter:image" content="https://woodwhales.github.io/2018/11/30/007/2018/11/30/007/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2018/11/30/007/">
+
+
+
+
+
+  <title>Java Web 如何超清无码 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2018/11/30/007/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java Web 如何超清无码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-30T18:00:00+08:00">
+                2018-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/30/007/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/30/007/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/11/30/007/" class="leancloud_visitors" data-flag-title="Java Web 如何超清无码">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  3.8k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  一定可以解决的乱码问题
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2018/11/30/007/face.png" rel="gallery_cjzz583i60012lwvg1aelw5iy" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2018/11/30/007/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h4 id="&#x4E00;&#x3001;&#x524D;&#x8A00;"><a href="#&#x4E00;&#x3001;&#x524D;&#x8A00;" class="headerlink" title="&#x4E00;&#x3001;&#x524D;&#x8A00;"></a>&#x4E00;&#x3001;&#x524D;&#x8A00;</h4><h5 id="1-&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x901A;&#x7528;&#x8BBE;&#x7F6E;"><a href="#1-&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x901A;&#x7528;&#x8BBE;&#x7F6E;" class="headerlink" title="1. &#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x901A;&#x7528;&#x8BBE;&#x7F6E;"></a>1. &#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x901A;&#x7528;&#x8BBE;&#x7F6E;</h5><p>&#x5728;&#x4F7F;&#x7528; eclipse &#x5F00;&#x53D1;&#x5DE5;&#x5177;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9996;&#x5148;&#x9700;&#x8981;&#x786E;&#x5B9A;&#x5DE5;&#x4F5C;&#x7A7A;&#x95F4;&#x7684;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#xFF1A;</p>
+<p><code>windows</code>&#x83DC;&#x5355; &#x2013;&#xBB; <code>perferences</code>&#x9009;&#x9879; &#x2013;&#xBB; <code>General</code>&#x9009;&#x9879;&#x4E2D;&#x7684;<code>Workspace</code>&#x5DE5;&#x4F5C;&#x7A7A;&#x95F4;&#x9009;&#x9879;&#xFF0C;&#x8BBE;&#x7F6E;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x3002;</p>
+<p><img src="/2018/11/30/007/1.png" alt="&#x8BBE;&#x7F6E;&#x5DE5;&#x4F5C;&#x7A7A;&#x95F4;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F; "></p>
+<h5 id="2-&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x5355;&#x72EC;&#x8BBE;&#x7F6E;"><a href="#2-&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x5355;&#x72EC;&#x8BBE;&#x7F6E;" class="headerlink" title="2. &#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x5355;&#x72EC;&#x8BBE;&#x7F6E;"></a>2. &#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x5355;&#x72EC;&#x8BBE;&#x7F6E;</h5><p>&#x5355;&#x4E2A;&#x9879;&#x76EE;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x8BBE;&#x7F6E;&#xFF1A;<strong>&#x9879;&#x76EE; &#x2013;&#xBB; &#x53F3;&#x952E; &#x2013;&#xBB; Properties &#x2013;&#xBB; Text file encoding</strong></p>
+<p>&#x5355;&#x4E2A;&#x9875;&#x9762;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x8BBE;&#x7F6E;&#xFF1A;<strong>&#x9875;&#x9762; &#x2013;&#xBB; &#x53F3;&#x952E; &#x2013;&#xBB; Properties &#x2013;&#xBB; Text file encoding</strong></p>
+<h4 id="&#x4E00;&#x3001;response-&#x54CD;&#x5E94;&#x4E71;&#x7801;"><a href="#&#x4E00;&#x3001;response-&#x54CD;&#x5E94;&#x4E71;&#x7801;" class="headerlink" title="&#x4E00;&#x3001;response &#x54CD;&#x5E94;&#x4E71;&#x7801;"></a>&#x4E00;&#x3001;response &#x54CD;&#x5E94;&#x4E71;&#x7801;</h4><p>response &#x54CD;&#x5E94;&#x6570;&#x636E;&#x56DE;&#x6D4F;&#x89C8;&#x5668;&#x4E4B;&#x524D;&#xFF0C;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x5C06;&#x6570;&#x636E;&#x8F6C;&#x6362;&#x6210;&#x5B57;&#x8282;&#x6D41;&#x7684;&#x5F62;&#x5F0F;&#x8F93;&#x51FA;&#x5185;&#x5BB9;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5B57;&#x7B26;&#x6D41;&#x7684;&#x5F62;&#x5F0F;&#x8F93;&#x51FA;&#x5185;&#x5BB9;&#xFF0C;&#x4F46;&#x662F;&#x5B57;&#x7B26;&#x6D41;&#x5F62;&#x5F0F;&#x4EC5;&#x9650;&#x4E8E;&#x6587;&#x672C;&#x6570;&#x636E;&#xFF0C;&#x56E0;&#x6B64;&#x524D;&#x8005;&#x5728; web &#x5F00;&#x53D1;&#x4E2D;&#x9700;&#x8981;&#x66F4;&#x8C28;&#x614E;&#x7684;&#x5173;&#x6CE8;&#x548C;&#x7406;&#x89E3;&#x539F;&#x7406;&#x3002;</p>
+<h5 id="1-2-&#x5B57;&#x8282;&#x6D41;&#x54CD;&#x5E94;"><a href="#1-2-&#x5B57;&#x8282;&#x6D41;&#x54CD;&#x5E94;" class="headerlink" title="1.2 &#x5B57;&#x8282;&#x6D41;&#x54CD;&#x5E94;"></a>1.2 &#x5B57;&#x8282;&#x6D41;&#x54CD;&#x5E94;</h5><p>&#x5728; web &#x5DE5;&#x7A0B;&#x4E2D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;<code>servlet</code></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResponseDemo1</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>{</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>{</span><br><span class="line">        String data =<span class="string">&quot;&#x6728;&#x9CB8;&#x9C7C;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        response.getOutputStream().write(data.getBytes());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>{</span><br><span class="line">        doGet(request, response);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x6B64;&#x65F6;&#x7684;&#x6E90;&#x7801;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x7C7B;&#x578B;&#x4E3A;&#xFF1A;<code>UTF-8</code>&#xFF0C;&#x67E5;&#x770B;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x7C7B;&#x578B;&#x53EF;&#x53F3;&#x51FB;&#x6587;&#x4EF6;&#x5C5E;&#x6027;&#xFF0C;&#x5728;<code>Resource</code>&#x9009;&#x9879;&#x4E2D;&#x7684;<code>Text file encoding</code>&#x4E2D;&#x53EF;&#x89C1;&#x3002;</p>
+<p>servlet &#x8D44;&#x6E90;&#x8BBF;&#x95EE;&#x8DEF;&#x5F84;&#x6620;&#x5C04;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">	&lt;description&gt;&lt;/description&gt;</span><br><span class="line">	&lt;servlet-name&gt;responseDemo1&lt;/servlet-name&gt;</span><br><span class="line">	&lt;servlet-class&gt;org.king.response.ResponseDemo1&lt;/servlet-class&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">	&lt;servlet-name&gt;responseDemo1&lt;/servlet-name&gt;</span><br><span class="line">	&lt;url-pattern&gt;/responseDemo1&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4F7F;&#x7528; IE &#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE; web &#x5DE5;&#x7A0B;&#xFF0C;&#x6B64;&#x65F6;&#x6D4F;&#x89C8;&#x5668;&#x663E;&#x793A;&#x4E2D;&#x6587;&#x4E71;&#x7801;&#xFF0C;&#x5E76;&#x4E14;&#x901A;&#x8FC7;&#x67E5;&#x770B;&#x7F51;&#x9875;&#x7F16;&#x7801;&#x53EF;&#x77E5;&#xFF0C;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;<code>GB2312</code>&#x7F16;&#x7801;&#x89E3;&#x6790;&#x54CD;&#x5E94;&#x6587;&#x672C;&#x3002; </p>
+<p><img src="/2018/11/30/007/2.png" alt="&#x663E;&#x793A;&#x4E2D;&#x6587;&#x4E71;&#x7801; "></p>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;<code>GB2312</code>&#x7801;&#x8868;&#x5462;&#xFF1F;&#x56E0;&#x4E3A; windows &#x7CFB;&#x7EDF;&#x672C;&#x5730;&#x7684;&#x65F6;&#x533A;&#x8BED;&#x8A00;&#x662F;&#x4E2D;&#x6587;&#xFF0C;&#x56E0;&#x6B64;&#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;<code>GB2312</code>&#x89E3;&#x7801;&#x54CD;&#x5E94;&#x4F53;&#x3002;&#x5F53;&#x624B;&#x52A8;&#x66F4;&#x6539;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x4E3A;<code>UTF-8</code>&#x65F6;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x663E;&#x793A;&#x6C49;&#x5B57;&#x5185;&#x5BB9;&#x6B63;&#x5E38;&#x3002;</p>
+<p>&#x90A3;&#x4E48;&#x95EE;&#x9898;&#x6765;&#x4E86;&#xFF0C;&#x9ED8;&#x8BA4;&#x7528;&#x6237;&#x90FD;&#x662F;&#x7535;&#x8111;&#x5C0F;&#x767D;&#xFF0C;&#x4E0D;&#x80FD;&#x7B49;&#x7528;&#x6237;&#x770B;&#x5230;&#x7F51;&#x9875;&#x4E71;&#x7801;&#x518D;&#x81EA;&#x5DF1;&#x624B;&#x52A8;&#x4FEE;&#x6539;&#x6D4F;&#x89C8;&#x5668;&#x89E3;&#x7801;&#x683C;&#x5F0F;&#xFF0C;&#x8FD9;&#x4F3C;&#x4E4E;&#x4E0D;&#x662F;&#x96C5;&#x7684; web &#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x51FA;&#x73B0;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<p><strong>&#x89E3;&#x51B3;&#x65B9;&#x6848; 1&#xFF1A;&#x54CD;&#x5E94;&#x5934;&#x8BBE;&#x7F6E;</strong></p>
+<p>&#x4E8E;&#x662F;&#x5728;&#x7A0B;&#x5E8F;&#x54CD;&#x5E94;&#x56DE;&#x6D4F;&#x89C8;&#x5668;&#x4E4B;&#x524D;&#xFF0C;&#x8BBE;&#x7F6E;&#x54CD;&#x5E94;&#x5934;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String data =<span class="string">&quot;&#x6728;&#x9CB8;&#x9C7C;&quot;</span>;</span><br><span class="line">response.setHeader(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;text/html;charset=UTF-8&quot;</span>); <span class="comment">// &#x589E;&#x52A0;&#x54CD;&#x5E94;&#x5934;&#x8BBE;&#x7F6E;</span></span><br><span class="line">response.getOutputStream().write(data.getBytes());</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x901A;&#x8FC7;&#x54CD;&#x5E94;&#x5934;&#x7684;&#x8BBE;&#x7F6E;&#xFF0C;&#x4F7F;&#x5F97;&#x6D4F;&#x89C8;&#x5668;&#x5FC5;&#x987B;&#x4EE5;&#x7A0B;&#x5E8F;&#x8BBE;&#x7F6E;&#x7684;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x89E3;&#x6790; html &#x6587;&#x672C;&#x5185;&#x5BB9;&#xFF1A; </p>
+<p><img src="/2018/11/30/007/3.png" alt="&#x901A;&#x8FC7;&#x54CD;&#x5E94;&#x5934;&#x8BBE;&#x7F6E;&#xFF0C;&#x8981;&#x6C42;&#x6D4F;&#x89C8;&#x5668;&#x4EE5;&#x7279;&#x5B9A;&#x7F16;&#x7801;&#x89E3;&#x6790;&#x54CD;&#x5E94;&#x6587;&#x672C; "></p>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;</strong>&#x5728;&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x5F88;&#x9690;&#x853D;&#x7684;&#x9690;&#x60A3;&#xFF0C;&#x56E0;&#x4E3A;&#x6E90;&#x7801;&#x6587;&#x4EF6;&#x5C31;&#x662F;<code>UTF-8</code>&#x5B57;&#x7B26;&#x96C6;&#x7F16;&#x7801;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5E76;&#x4E14;&#x5DE5;&#x4F5C;&#x7A7A;&#x95F4;&#x8BBE;&#x7F6E;&#x7684;&#x662F;<code>UTF-8</code>&#x7F16;&#x7801;&#xFF0C;&#x56E0;&#x6B64;&#x5728;<code>&#x95EE;&#x9898; 1</code>&#x4E2D;&#x8BBE;&#x7F6E;&#x6D4F;&#x89C8;&#x5668;&#x4E3A;<code>UTF-8</code>&#x7F16;&#x7801;&#x89E3;&#x6790;&#x6587;&#x672C;&#x7684;&#x65F6;&#x5019;&#x624D;&#x80FD;&#x6B63;&#x5E38;&#x663E;&#x793A;&#xFF0C;&#x56E0;&#x6B64;&#x5BF9;&#x4E8E;&#x8F93;&#x51FA;&#x5B57;&#x8282;&#x6D41;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5728;&#x4E0A;&#x8FF0;&#x6E90;&#x7801;&#x4E2D;&#x5BF9;<code>data</code>&#x5B57;&#x7B26;&#x4E32;&#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x6570;&#x7EC4;&#x8F6C;&#x6362;&#x7684;&#x65F6;&#x5019;&#x6307;&#x5B9A;&#x5B57;&#x7B26;&#x96C6;&#x3002; </p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String data =<span class="string">&quot;&#x6728;&#x9CB8;&#x9C7C;&quot;</span>;</span><br><span class="line">response.setHeader(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;text/html;charset=UTF-8&quot;</span>); <span class="comment">// &#x589E;&#x52A0;&#x54CD;&#x5E94;&#x5934;&#x8BBE;&#x7F6E;</span></span><br><span class="line">response.getOutputStream().write(data.getBytes(&#x201C;UTF-<span class="number">8</span>&#x201D;));</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x89E3;&#x51B3;&#x65B9;&#x6848; 2&#xFF1A;&#x6A21;&#x62DF; http &#x5934;&#x6587;&#x4EF6;</strong></p>
+<p>&#x5728; html &#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>meta</code>&#x6807;&#x7B7E;&#x4E2D;&#x7684;<code>http-equiv</code>&#x5C5E;&#x6027;&#x6307;&#x5B9A;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String httpHeader = <span class="string">&quot;&lt;html&gt;&lt;meta http-equiv=&apos;Content-Type&apos; content=&apos;charset=UTF-8&apos;&gt;&lt;body&gt;&quot;</span>;</span><br><span class="line">        response.getOutputStream().write(httpHeader.getBytes());</span><br><span class="line">        response.getOutputStream().write((data).getBytes());</span><br><span class="line">        response.getOutputStream().write(<span class="string">&quot;&lt;/body&gt;&lt;/html&gt;&quot;</span>.getBytes());</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="/2018/11/30/007/4.png" alt="&#x6A21;&#x62DF; http &#x5934;&#x6587;&#x4EF6; "></p>
+<p>&#x67E5;&#x770B;&#x6E90;&#x7801;&#x53EF;&#x77E5;&#xFF0C;html &#x89E3;&#x6790;&#x4E86;<code>meta</code>&#x6807;&#x7B7E;&#x53CA;&#x5176;&#x5C5E;&#x6027;&#x3002;&#x53E6;&#x5916;&#x9700;&#x8981;&#x6CE8;&#x610F;&#xFF1A;&#x5728; W3C &#x6587;&#x6863;&#x4E2D;&#x8BF4;&#x660E;&#x4E86;&#x4F7F;&#x7528; http-equiv &#x5DF2;&#x7ECF;&#x4E0D;&#x662F;&#x89C4;&#x5B9A; HTML &#x6587;&#x6863;&#x7684;&#x5B57;&#x7B26;&#x96C6;&#x7684;&#x552F;&#x4E00;&#x65B9;&#x5F0F;&#xFF1A; </p>
+<blockquote>
+<p>HTML 4.01 &#x4E0E; HTML5&#x4E4B;&#x95F4;&#x7684;&#x5DEE;&#x5F02;&#xFF1A;<br>HTML 4.01&#xFF1A;<code>&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;</code><br>HTML5&#xFF1A;<code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code><br>&#x53C2;&#x8003;&#x5730;&#x5740;&#xFF1A;<a href="http://www.w3school.com.cn/tags/tag_meta.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/tags/tag_meta.asp</a></p>
+</blockquote>
+<h5 id="1-2-&#x5B57;&#x7B26;&#x6D41;&#x54CD;&#x5E94;"><a href="#1-2-&#x5B57;&#x7B26;&#x6D41;&#x54CD;&#x5E94;" class="headerlink" title="1.2 &#x5B57;&#x7B26;&#x6D41;&#x54CD;&#x5E94;"></a>1.2 &#x5B57;&#x7B26;&#x6D41;&#x54CD;&#x5E94;</h5><p>&#x7531;&#x4E8E;&#x5927;&#x591A;&#x6570;&#x6570;&#x636E;&#x90FD;&#x662F;&#x4EE5;&#x5B57;&#x7B26;&#x6587;&#x672C;&#x7684;&#x5F62;&#x5F0F;&#x54CD;&#x5E94;&#x56DE;&#x6D4F;&#x89C8;&#x5668;&#xFF0C;&#x90A3;&#x4E48;&#x53EF;&#x4EE5;&#x5C06;&#x6570;&#x636E;&#x8F6C;&#x6210;&#x5B57;&#x7B26;&#x6D41;&#x4F20;&#x8F93;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String data =<span class="string">&quot;&#x6728;&#x9CB8;&#x9C7C;&quot;</span>;</span><br><span class="line">PrintWriter out = response.getWriter();</span><br><span class="line">out.write(data);</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x5373;&#x4F7F;&#x662F;&#x4F7F;&#x7528;&#x5B57;&#x7B26;&#x6D41;&#x4F20;&#x8F93;&#xFF0C;&#x5728;&#x7F51;&#x7EDC;&#x4F20;&#x8F93;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5747;&#x5C06;&#x5B57;&#x7B26;&#x6570;&#x636E;&#x6309;&#x7167;&#x4E00;&#x5B9A;&#x7684;&#x7801;&#x8868;&#x89E3;&#x6790;&#x6210;&#x673A;&#x5668;&#x7801;&#x8FDB;&#x884C;&#x6570;&#x5B57;&#x4F20;&#x8F93;&#xFF0C;&#x5230;&#x4E86;&#x76EE;&#x7684;&#x5730;&#x518D;&#x901A;&#x8FC7;&#x6307;&#x5B9A;&#x7684;&#x7801;&#x8868;&#x8FDB;&#x884C;&#x7FFB;&#x8BD1;&#x89E3;&#x6790;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x4E0A;&#x9762;&#x7B80;&#x5355;&#x7684;&#x4F7F;&#x7528;&#x5B57;&#x7B26;&#x6D41;&#x6570;&#x636E;&#x54CD;&#x5E94;&#x56DE;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x65F6;&#x5019;&#x4E00;&#x5B9A;&#x662F;&#x6309;&#x7167;&#x67D0;&#x79CD;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x8FDB;&#x884C;&#x89E3;&#x6790;&#x6210;&#x4E8C;&#x8FDB;&#x5236;&#x4FE1;&#x606F;&#x5E76;&#x4F20;&#x8F93;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x9879;&#x76EE;&#x4F7F;&#x7528;&#x7684;&#x662F; Tomcat &#x670D;&#x52A1;&#x5668;&#xFF0C;&#x6240;&#x4EE5;&#x9ED8;&#x8BA4;&#x7684;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x4E3A;<code>ISO8859-1</code>&#xFF0C;&#x5728; Tomcat &#x5B98;&#x65B9;&#x6587;&#x6863;&#x4E2D;&#x7684;&#x8FC7;&#x6EE4;&#x5668;&#x4E00;&#x7AE0;&#x6709;&#x8FD9;&#x6837;&#x4E00;&#x53E5;&#x8BF4;&#x660E;&#xFF0C;&#x610F;&#x601D;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x6307;&#x5B9A;&#x5B57;&#x7B26;&#x96C6;&#x5C31;&#x4F7F;&#x7528; ISO8859-1&#x4F20;&#x8F93;&#x6570;&#x636E;&#xFF1A; </p>
+<blockquote>
+<p>The HTTP specification is clear that if no character set is specified for media sub-types of the &#x201C;text&#x201D; media type, the ISO-8859-1 character set must be used.<br>&#x53C2;&#x8003;&#x5730;&#x5740;&#xFF1A;<a href="`http://tomcat.apache.org/tomcat-7.0-doc/config/filter.html`">http://tomcat.apache.org/tomcat-7.0-doc/config/filter.html</a></p>
+</blockquote>
+<p><strong>&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;&#x8BBE;&#x7F6E; response &#x5B57;&#x7B26;&#x96C6;&#x7F16;&#x7801;&#x53CA;&#x54CD;&#x5E94;&#x5934;</strong></p>
+<p>&#x8BBE;&#x7F6E; response &#x54CD;&#x5E94;&#x5BF9;&#x8C61;&#x4EE5;&#x7279;&#x5B9A;&#x5B57;&#x7B26;&#x96C6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x8BBE;&#x7F6E;&#x54CD;&#x5E94;&#x5934;&#xFF0C;&#x8981;&#x6C42;&#x6D4F;&#x89C8;&#x5668;&#x4EE5;&#x7279;&#x5B9A;&#x683C;&#x5F0F;&#x89E3;&#x6790;&#xFF0C;&#x5373;&#x53EF;&#x4FDD;&#x8BC1;&#x6570;&#x636E;&#x4E0D;&#x4F1A;&#x4E71;&#x7801;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String data =<span class="string">&quot;&#x6728;&#x9CB8;&#x9C7C;&quot;</span>;</span><br><span class="line"><span class="comment">// &#x8981;&#x6C42; response &#x4EE5; UTF-8 &#x5B57;&#x7B26;&#x96C6;&#x8F93;&#x51FA;</span></span><br><span class="line">response.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line"><span class="comment">// &#x901A;&#x77E5;&#x6D4F;&#x89C8;&#x5668;&#x4EE5; UTF-8 &#x5B57;&#x7B26;&#x96C6;&#x89E3;&#x6790;&#x6570;&#x636E;</span></span><br><span class="line"><span class="comment">// response.setHeader(&quot;Content-Type&quot;, &quot;text/html;charset=UTF-8&quot;); // &#x7B49;&#x6548;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;</span></span><br><span class="line">response.setContentType(<span class="string">&quot;text/html;charset=UTF-8&quot;</span>);</span><br><span class="line">PrintWriter out = response.getWriter();</span><br><span class="line">out.write(data);</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF1A;Java &#x8BBE;&#x8BA1;&#x8005;&#x5728;&#x8BBE;&#x8BA1;<code>HttpServletResponse</code>&#x5BF9;&#x8C61;&#x7684;&#x65F6;&#x5019;&#x63D0;&#x4F9B;&#x4E86;<code>setContentType()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5B83;&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x901A;&#x77E5;&#x6D4F;&#x89C8;&#x5668;&#x4EE5;&#x6307;&#x5B9A;&#x5B57;&#x7B26;&#x96C6;&#x89E3;&#x6790;&#x6587;&#x672C;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x8981;&#x6C42; response &#x5BF9;&#x8C61;&#x4EE5;&#x6307;&#x5B9A;&#x5B57;&#x7B26;&#x96C6;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x3002;</p>
+<p><strong>&#x6269;&#x5C55;&#xFF1A;</strong></p>
+<p>&#x54CD;&#x5E94;&#x5934;&#x7684;&#x4FE1;&#x606F;&#x4E2D;&#x4E0D;&#x5141;&#x8BB8;&#x5305;&#x542B;&#x4E2D;&#x6587;&#x7F16;&#x7801;&#xFF0C;&#x53EA;&#x80FD;&#x662F; ASCII &#x7801;&#x5B57;&#x7B26;&#xFF0C;&#x90A3;&#x4E48;&#x5BF9;&#x4E8E;&#x56FE;&#x7247;&#x6587;&#x4EF6;&#x9700;&#x8981;&#x4F20;&#x8F93;&#x6587;&#x4EF6;&#x540D;&#xFF0C;&#x5C31;&#x5FC5;&#x987B;&#x4F7F;&#x7528;<code>URLEncoding</code>&#x7C7B;&#x5BF9;&#x5B57;&#x7B26;&#x4E32;&#x8FDB;&#x884C;&#x8F6C;&#x7801;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(<span class="string">&quot;Content-Disposition&quot;</span>, <span class="string">&quot;attachment;filename=&quot;</span> + URLEncoder.encode(data,<span class="string">&quot;UTF-8&quot;</span>));</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x4E8C;&#x3001;request-&#x8BF7;&#x6C42;&#x4E71;&#x7801;"><a href="#&#x4E8C;&#x3001;request-&#x8BF7;&#x6C42;&#x4E71;&#x7801;" class="headerlink" title="&#x4E8C;&#x3001;request &#x8BF7;&#x6C42;&#x4E71;&#x7801;"></a>&#x4E8C;&#x3001;request &#x8BF7;&#x6C42;&#x4E71;&#x7801;</h4><p>&#x76EE;&#x524D;&#xFF0C;request &#x8BF7;&#x6C42;&#x7684;&#x4E3B;&#x6D41;&#x8BF7;&#x6C42;&#x7C7B;&#x578B;&#x4E3A;<code>GET</code>&#x548C;<code>POST</code>&#xFF0C;&#x5176;&#x4E2D;<code>GET</code>&#x8BF7;&#x6C42;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x5728;&#x8868;&#x5355;&#x4E2D;&#x63D0;&#x4EA4;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x5730;&#x5740;&#x680F;&#x4E2D;&#x663E;&#x793A;&#x8BF7;&#x6C42;&#x3002;</p>
+<h5 id="2-1-&#x8868;&#x5355;&#x4E2D;&#x7684;-POST-&#x8BF7;&#x6C42;"><a href="#2-1-&#x8868;&#x5355;&#x4E2D;&#x7684;-POST-&#x8BF7;&#x6C42;" class="headerlink" title="2.1 &#x8868;&#x5355;&#x4E2D;&#x7684; POST &#x8BF7;&#x6C42;"></a>2.1 &#x8868;&#x5355;&#x4E2D;&#x7684; POST &#x8BF7;&#x6C42;</h5><p>post &#x8BF7;&#x6C42;&#x6570;&#x636E;&#x5728;&#x53D1;&#x9001;&#x65F6;&#x4E00;&#x5B9A;&#x7ECF;&#x8FC7;&#x67D0;&#x79CD;&#x5B57;&#x7B26;&#x96C6;&#x7F16;&#x7801;&#x6210;&#x4E8C;&#x8FDB;&#x5236;&#x4FE1;&#x606F;&#xFF0C;&#x518D;&#x7ECF;&#x8FC7;&#x7F51;&#x7EDC;&#x4F20;&#x8F93;&#x5230;&#x670D;&#x52A1;&#x5668;&#xFF0C;post &#x8BF7;&#x6C42;&#x5728; html &#x9875;&#x9762;&#x548C; jsp &#x9875;&#x9762;&#x4E2D;&#x4F1A;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x8868;&#x73B0;&#x3002;</p>
+<p><strong>[1] post &#x8BF7;&#x6C42;&#x5728;html&#x9875;&#x9762;&#x8868;&#x73B0;&#xFF1A;</strong></p>
+<p>&#x5728; html &#x9875;&#x9762;&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x6709;<code>meta</code>&#x4FE1;&#x606F;&#x6307;&#x5B9A;&#x5B57;&#x7B26;&#x96C6;&#x7F16;&#x7801;&#xFF0C;&#x5219;&#x4F7F;&#x7528;&#x6B64;&#x7F16;&#x7801;&#x4F20;&#x8F93;&#x6570;&#x636E;&#xFF0C;&#x6CA1;&#x6709;&#x5219;&#x4F7F;&#x7528;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x9ED8;&#x8BA4;&#x7F16;&#x7801;&#xFF0C;&#x4E2D;&#x6587;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E00;&#x822C;&#x4F7F;&#x7528;<code>GB2312</code>&#x5B57;&#x7B26;&#x96C6;&#x7F16;&#x7801;&#x3002;</p>
+<p>&#x4E0B;&#x9762; html &#x9875;&#x9762;&#x6307;&#x5B9A;&#x4E86;<code>meta</code>&#x4FE1;&#x606F;&#xFF1A;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html; charset=GBK&quot;</span>&gt;</span> </span><br><span class="line">// &#x6216;&#x8005;</span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;GBK&quot;</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6B64;&#x65F6;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x5230;&#x670D;&#x52A1;&#x5668;&#x662F;&#x7ECF;&#x8FC7;<code>UTF-8</code>&#x7F16;&#x7801;&#x89E3;&#x6790;&#xFF0C;&#x540E;&#x53F0;&#x83B7;&#x53D6;&#x8BF7;&#x6C42;&#x6570;&#x636E; </p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String username = request.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">String password = request.getParameter(<span class="string">&quot;password&quot;</span>);</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6B64;&#x65F6;&#x4E00;&#x5B9A;&#x662F;&#x4F1A;&#x51FA;&#x73B0;&#x4E2D;&#x6587;&#x4E71;&#x7801;&#x95EE;&#x9898;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;<code>request.getParameter()</code>&#x7684;&#x77AC;&#x95F4;&#xFF0C;Tomcat &#x4F1A;&#x5C06;&#x7F51;&#x7EDC;&#x6570;&#x636E;&#x4E2D;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x67E5;&#x8BE2;<code>ISO8859-1</code>&#x5B57;&#x7B26;&#x96C6;&#x8BD5;&#x56FE;&#x89E3;&#x7801;&#x6210;&#x53EF;&#x89C1;&#x5B57;&#x7B26;&#x5E76;&#x8FD4;&#x56DE;&#x3002; </p>
+<p>&#x300C; &#x89E3;&#x51B3;&#x65B9;&#x6848; &#x300D;</p>
+<p>&#x5728;<code>request.getParameter()</code>&#x8C03;&#x7528;&#x4E4B;&#x524D;&#xFF0C;&#x8981;&#x6C42; request &#x5BF9;&#x8C61;&#x83B7;&#x53D6;&#x8BF7;&#x6C42;&#x53C2;&#x6570;&#x7684;&#x65F6;&#x5019;&#x6307;&#x5B9A;&#x5B57;&#x7B26;&#x96C6;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E5F;&#x5C31;&#x662F; request &#x5BF9;&#x8C61;&#x83B7;&#x53D6;&#x8BF7;&#x6C42;&#x53C2;&#x6570;&#x65F6;&#xFF0C;&#x4E0D;&#x8981;&#x4F9D;&#x8D56;&#x670D;&#x52A1;&#x5668;&#x7684; API &#x5B9E;&#x73B0;&#xFF0C;&#x800C;&#x662F;&#x4F7F;&#x7528;&#x7A0B;&#x5E8F;&#x5458;&#x81EA;&#x5DF1;&#x7684;&#x5B57;&#x7B26;&#x96C6;&#x7F16;&#x7801;&#x3002;</p>
+<p>&#x5B8C;&#x7F8E;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">request.setCharacterEncoding(&quot;UTF-8&quot;);</span><br><span class="line">String username = request.getParameter(&quot;username&quot;);</span><br><span class="line">String password = request.getParameter(&quot;password&quot;);</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>[2] post &#x8BF7;&#x6C42;&#x5728; jsp &#x9875;&#x9762;&#x8868;&#x73B0;&#xFF1A;</strong></p>
+<p>&#x5728; jsp &#x9875;&#x9762;&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;<code>@page</code>&#x4E2D;&#x6307;&#x5B9A;<code>&quot;contentType&quot;</code>&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5728; html &#x6587;&#x672C;&#x4E2D;&#x6307;&#x5B9A;<code>meta</code>&#x4FE1;&#x606F;&#xFF0C;&#x5F53;&#x6709;<code>@page</code>&#x6307;&#x5B9A;<code>charset</code>&#x65F6;&#xFF0C;&#x6B64;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#x4F18;&#x4E0E;<code>meta</code>&#x914D;&#x7F6E;&#xFF0C;&#x5C31;&#x662F;&#x8BF4;&#x4E0B;&#x9762; jsp &#x9875;&#x9762;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x663E;&#x793A;&#x7684;&#x9ED8;&#x8BA4;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x4E3A;<code>GBK</code>&#xFF1A;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">&quot;java&quot;</span> <span class="attr">contentType</span>=<span class="string">&quot;text/html; charset=GBK&quot;</span> <span class="attr">pageEncoding</span>=<span class="string">&quot;UTF-8&quot;</span>%&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Insert title here<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/king-world/index&quot;</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span>&gt;</span></span><br><span class="line">        &#x7528;&#x6237;&#x540D;&#xFF1A;<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        &#x5BC6;&amp;nbsp;&amp;nbsp;&amp;nbsp;&#x7801;&#xFF1A;<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;&#x63D0; &#x4EA4;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5BF9;&#x4E8E;&#x670D;&#x52A1;&#x5668;&#x83B7;&#x53D6;&#x53C2;&#x6570;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x548C;&#x5728;&#x4E0A;&#x4E00;&#x5C0F;&#x7ED3;&#x70B9;&#x662F;&#x4E00;&#x81F4;&#x7684;&#x3002; </p>
+<h5 id="2-2-&#x8868;&#x5355;&#x4E2D;&#x53CA;&#x5730;&#x5740;&#x680F;&#x4E2D;&#x7684;-GET-&#x8BF7;&#x6C42;"><a href="#2-2-&#x8868;&#x5355;&#x4E2D;&#x53CA;&#x5730;&#x5740;&#x680F;&#x4E2D;&#x7684;-GET-&#x8BF7;&#x6C42;" class="headerlink" title="2.2 &#x8868;&#x5355;&#x4E2D;&#x53CA;&#x5730;&#x5740;&#x680F;&#x4E2D;&#x7684; GET &#x8BF7;&#x6C42;"></a>2.2 &#x8868;&#x5355;&#x4E2D;&#x53CA;&#x5730;&#x5740;&#x680F;&#x4E2D;&#x7684; GET &#x8BF7;&#x6C42;</h5><p>&#x9875;&#x9762;&#x53CA;&#x5730;&#x5740;&#x680F;&#x4E2D;&#x7684;<code>GET</code>&#x8BF7;&#x6C42;&#xFF0C;&#x5728;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x65F6;&#x4F7F;&#x7528;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x4E0D;&#x4F9D;&#x8D56;&#x4E8E;&#x9875;&#x9762;&#x7684;<code>meta</code>&#x6216;&#x8005;<code>contentType</code>&#x4FE1;&#x606F;&#xFF0C;GET &#x8BF7;&#x6C42;&#x7684;&#x672C;&#x8D28;&#x662F;&#x4F7F;&#x7528;&#x7EDF;&#x4E00;&#x8D44;&#x6E90;&#x6807;&#x5FD7;&#x7B26;&#xFF0C;&#x5F53;&#x8868;&#x5355;&#x4E2D;&#x7684;<code>GET</code>&#x8BF7;&#x6C42;&#x53D1;&#x751F;&#x4E4B;&#x540E;&#xFF0C;&#x5176;&#x8BF7;&#x6C42;&#x5730;&#x5740;&#x4F1A;&#x6253;&#x5370;&#x5230;&#x5730;&#x5740;&#x680F;&#x4E2D;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x5728; IE &#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x4E0D;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4E2D;&#x6587;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x76F4;&#x63A5;&#x53D1;&#x8BF7;&#x6C42;&#xFF0C;&#x800C; chrome &#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x5C06;&#x4E2D;&#x6587;&#x8FDB;&#x884C;<code>URL</code>&#x7F16;&#x7801;&#x518D;&#x53D1;&#x8BF7;&#x6C42;&#xFF0C;&#x81F3;&#x4E8E;&#x5176;&#x4ED6;&#x6D4F;&#x89C8;&#x5668;&#x662F;&#x5426;&#x81EA;&#x52A8;&#x8F6C;&#x7801;&#xFF0C;&#x7B14;&#x8005;&#x6CA1;&#x6D4B;&#x8BD5;&#x4E86;&#x3002;</p>
+<p><code>GET</code>&#x8BF7;&#x6C42;&#x7531; Tomcat &#x670D;&#x52A1;&#x5BB9;&#x5668;&#x63A5;&#x6536;&#xFF0C;&#x4F1A;&#x5C06;&#x8FD9;&#x4E2A;<code>URL</code>&#x4E2D;&#x7684;&#x53C2;&#x6570;&#x5BF9;&#x8FDB;&#x884C;<code>ISO8859-1</code>&#x7F16;&#x7801;&#xFF0C;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4F5C;&#x51FA;&#x4E86;&#x4E0B;&#x9762;&#x7684;&#x89E3;&#x91CA;&#xFF1A;</p>
+<blockquote>
+<p>&#x5728; Tomcat &#x7CFB;&#x7EDF;&#x53C2;&#x6570;&#x914D;&#x7F6E;&#x4E2D;&#x63D0;&#x5230;&#x4E86;&#x5173;&#x4E8E;<code>URIEncoding</code>&#x7684;&#x89E3;&#x91CA;&#xFF1A;<br>This specifies the character encoding used to decode the URI bytes, after %xx decoding the URL. If not specified, ISO-8859-1 will be used.<br>&#x53C2;&#x8003;&#x5730;&#x5740;&#xFF1A;<a href="https://tomcat.apache.org/tomcat-7.0-doc/config/http.html" target="_blank" rel="noopener">https://tomcat.apache.org/tomcat-7.0-doc/config/http.html</a></p>
+</blockquote>
+<p><strong>&#x89E3;&#x51B3;&#x65B9;&#x6848; 1</strong></p>
+<p>&#x4ECE;&#x4E0A;&#x8FF0;&#x63CF;&#x8FF0;&#x4E2D;&#x53EF;&#x77E5;&#xFF0C;&#x5728; Tomcat &#x670D;&#x52A1;&#x5668;&#x7684;<code>conf</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x4E0B;&#x7684;<code>server.xml</code>&#x4E2D;&#x914D;&#x7F6E;&#x4E86;&#x8FDE;&#x63A5;&#x5668;&#x4FE1;&#x606F;&#xFF1A;</p>
+<figure class="highlight xml"><figcaption><span>&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#xFF1A;%tomcat root%\conf\server.xml</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">connectionTimeout</span>=<span class="string">&quot;20000&quot;</span> <span class="attr">port</span>=<span class="string">&quot;8080&quot;</span> <span class="attr">protocol</span>=<span class="string">&quot;HTTP/1.1&quot;</span> <span class="attr">redirectPort</span>=<span class="string">&quot;8443&quot;</span>/&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5728;<code>Connector</code>&#x8FDE;&#x63A5;&#x5668;&#x4E2D;&#x589E;&#x52A0;<code>URIEncoding=&quot;UTF-8&quot;</code>&#x5C5E;&#x6027;&#x914D;&#x7F6E;&#x3002; </p>
+<p><strong>&#x89E3;&#x51B3;&#x65B9;&#x6848; 2</strong></p>
+<p>&#x5728; Tomcat &#x7684;<code>server.xml</code>&#x4E0B;&#x7684;<code>connector</code>&#x5C5E;&#x6027;&#x4E2D;&#x6DFB;&#x52A0;&#x53C2;&#x6570;<code>useBodyEncodingForURI=&quot;true&quot;</code>&#xFF08;&#x6CE8;&#x610F;&#xFF0C;&#x5E76;&#x4E0D;&#x662F;&#x5BF9;&#x6574;&#x4E2A; URI &#x90FD;&#x91C7;&#x7528; BodyEncoding&#xFF0C;&#x53EA;&#x662F;&#x5E94;&#x7528;&#x4E8E; Query String &#x800C;&#x5DF2;&#xFF09;&#x3002;&#x8FD9;&#x6837;&#xFF0C;Tomcat &#x4FBF;&#x4F1A;&#x7528;<code>request.setCharacterEncoding()</code>&#x6307;&#x5B9A;&#x7684;&#x7F16;&#x7801;&#x6765;&#x89E3;&#x6790; GET &#x53C2;&#x6570;&#x4E86;&#x3002;</p>
+<p><strong>&#x89E3;&#x51B3;&#x65B9;&#x6848; 3</strong></p>
+<p>&#x5728; servlet &#x4E2D;&#x624B;&#x52A8;&#x8F6C;&#x7801;&#xFF0C;&#x5728; Tomcat &#x670D;&#x52A1;&#x5668;&#x4E2D;&#xFF0C;&#x5C06;<code>ISO8859-1</code>&#x8F6C;&#x7801;&#x6210;<code>UTF-8</code>&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String username = request.getParameter(<span class="string">&quot;username&quot;</span>);    </span><br><span class="line"><span class="keyword">if</span>(username != <span class="keyword">null</span> &amp;&amp; !username.trim().isEmpty()) {</span><br><span class="line">    username = <span class="keyword">new</span> String(username.getBytes(<span class="string">&quot;ISO8859-1&quot;</span>),<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x89E3;&#x51B3;&#x65B9;&#x6848; 4</strong></p>
+<p>&#x5B9E;&#x73B0;&#x8FC7;&#x6EE4;&#x5668;&#xFF0C;&#x5BF9;&#x6240;&#x6709;&#x7684;&#x8BF7;&#x6C42;&#x8FDB;&#x884C;&#x62E6;&#x622A;&#x8FC7;&#x6EE4;&#xFF0C;&#x5E76;&#x5728;<code>web.xml</code>&#x4E2D;&#x914D;&#x7F6E;<code>filter</code>&#x548C;<code>filter-mapping</code>&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EncodingFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>{</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse resp,</span></span></span><br><span class="line"><span class="function"><span class="params">            FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>{</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x5982;&#x679C;&#x5E0C;&#x671B;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x5728;&#x5916;&#x90E8;&#x5B9A;&#x4E49;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x90A3;&#x4E48;&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x8981;&#x6C42;&#x5176;&#x53C2;&#x6570;&#x5F15;&#x7528;&#x662F;final&#x7684;</span></span><br><span class="line">        <span class="keyword">final</span> HttpServletRequest request = (HttpServletRequest) req;</span><br><span class="line">        HttpServletResponse response = (HttpServletResponse) resp;</span><br><span class="line"></span><br><span class="line">        request.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);<span class="comment">// POST&#x63D0;&#x4EA4;&#x6709;&#x6548;</span></span><br><span class="line">        response.setContentType(<span class="string">&quot;text/html;charset=UTF-8&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x89E3;&#x51B3;&#xFF1A;&#x5BF9;HttpServletRequest&#x63A5;&#x53E3;&#x7684;getParameter&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x529F;&#x80FD;&#x6269;&#x5C55;&#xFF0C;&#x8BC6;&#x522B;GET&#x8BF7;&#x6C42;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x52A8;&#x6001;&#x4EE3;&#x7406;!</span></span><br><span class="line">        HttpServletRequest proxyRequest = (HttpServletRequest) Proxy.newProxyInstance(request.getClass().getClassLoader(),</span><br><span class="line">                <span class="keyword">new</span> Class[] { HttpServletRequest.class },</span><br><span class="line">                <span class="keyword">new</span> InvocationHandler() {</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// args&#x5BF9;&#x8C61;&#x6570;&#x7EC4;&#xFF0C;&#x4EE3;&#x8868;&#x88AB;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method,</span></span></span><br><span class="line"><span class="function"><span class="params">                            Object[] args)</span> <span class="keyword">throws</span> Throwable </span>{</span><br><span class="line">                        String methodName = method.getName();</span><br><span class="line">                        <span class="keyword">if</span> (<span class="string">&quot;getParameter&quot;</span>.equals(methodName)) {</span><br><span class="line">                            String value = request.getParameter(args[<span class="number">0</span>]</span><br><span class="line">                                    .toString());</span><br><span class="line">                            String requestMethodName = request.getMethod();</span><br><span class="line">                            <span class="keyword">if</span> (<span class="string">&quot;GET&quot;</span>.equals(requestMethodName)) {</span><br><span class="line">                                <span class="comment">// &#x6392;&#x9664;&#x7A7A;&#x5BF9;&#x8C61;&#x53CA;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;</span></span><br><span class="line">                                <span class="keyword">if</span> (value != <span class="keyword">null</span> &amp;&amp; !<span class="string">&quot;&quot;</span>.equals(value.trim())) {</span><br><span class="line">                                    value = <span class="keyword">new</span> String(value</span><br><span class="line">                                            .getBytes(<span class="string">&quot;iso-8859-1&quot;</span>), <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">                                }                               </span><br><span class="line">                            }</span><br><span class="line">                            <span class="keyword">return</span> value;</span><br><span class="line">                        } <span class="keyword">else</span> {</span><br><span class="line">                            <span class="keyword">return</span> method.invoke(request, args);</span><br><span class="line">                        }</span><br><span class="line">                    }</span><br><span class="line"></span><br><span class="line">                });</span><br><span class="line">        <span class="comment">//&#x653E;&#x884C; (&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#x8FC7;&#x6EE4;&#x5668;&#x6216;&#x8005;servlet)</span></span><br><span class="line">        chain.doFilter(proxyRequest, response); </span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>{</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x65B9;&#x6848; 4&#x3002; </p>
+<h4 id="&#x4E09;&#x3001;jsp-&#x9875;&#x9762;&#x7684;&#x7F16;&#x7801;&#x539F;&#x7406;"><a href="#&#x4E09;&#x3001;jsp-&#x9875;&#x9762;&#x7684;&#x7F16;&#x7801;&#x539F;&#x7406;" class="headerlink" title="&#x4E09;&#x3001;jsp &#x9875;&#x9762;&#x7684;&#x7F16;&#x7801;&#x539F;&#x7406;"></a>&#x4E09;&#x3001;jsp &#x9875;&#x9762;&#x7684;&#x7F16;&#x7801;&#x539F;&#x7406;</h4><h5 id="3-1-jsp-&#x9875;&#x9762;&#x7684;&#x7F16;&#x7801;&#x4E09;&#x9636;&#x6BB5;"><a href="#3-1-jsp-&#x9875;&#x9762;&#x7684;&#x7F16;&#x7801;&#x4E09;&#x9636;&#x6BB5;" class="headerlink" title="3.1 jsp &#x9875;&#x9762;&#x7684;&#x7F16;&#x7801;&#x4E09;&#x9636;&#x6BB5;"></a>3.1 jsp &#x9875;&#x9762;&#x7684;&#x7F16;&#x7801;&#x4E09;&#x9636;&#x6BB5;</h5><p><code>JSP</code>&#x8981;&#x7ECF;&#x8FC7;&#x4E24;&#x6B21;&#x7684;&#x201D;&#x7F16;&#x7801;&#x201D;&#xFF0C;&#x7B2C;&#x4E00;&#x9636;&#x6BB5;&#x4F1A;&#x7528;<code>pageEncoding</code>&#xFF0C;&#x7B2C;&#x4E8C;&#x9636;&#x6BB5;&#x4F1A;&#x7528;<code>UTF-8</code>&#x81F3;<code>UTF-8</code>&#xFF0C;&#x7B2C;&#x4E09;&#x9636;&#x6BB5;&#x5C31;&#x662F;&#x7531; Tomcat &#x51FA;&#x6765;&#x7684;&#x7F51;&#x9875;&#xFF0C; &#x7528;&#x7684;&#x662F;<code>contentType</code>&#x3002;</p>
+<p>&#x7B2C;&#x4E00;&#x9636;&#x6BB5;&#xFF1A;JVM &#x5C06;<code>.jsp</code>&#x6587;&#x4EF6;&#x7F16;&#x8BD1;&#x4E3A;<code>.java</code>&#x6587;&#x4EF6;&#x3002;JVM &#x5148;&#x8BFB;&#x53D6;<code>pageEncoding</code>&#x7684;&#x503C;&#xFF0C;&#x6839;&#x636E;&#x8BE5;&#x503C;&#x53BB;&#x8BFB;&#x53D6;<code>.jsp</code>&#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x7531;&#x6307;&#x5B9A;&#x7684;&#x7F16;&#x7801;&#x65B9;&#x6848;&#x751F;&#x6210;<code>UTF-8</code>&#x7684;<code>.java</code>&#x6587;&#x4EF6;&#x3002;</p>
+<blockquote>
+<p>&#x8BC1;&#x660E;&#xFF1A;&#x5728; Tomcat &#x670D;&#x52A1;&#x5668;&#x76EE;&#x5F55;&#x4E0B;<code>work</code>&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x7684;<code>Catalina</code>&#x76EE;&#x5F55;&#x4E2D;&#x627E;&#x5230;<code>.java</code>&#x6587;&#x4EF6;&#xFF08;&#x7531;<code>jsp</code>&#x6E90;&#x7801;&#x6587;&#x4EF6;&#x751F;&#x6210;&#xFF09;&#xFF0C;&#x5176;&#x6587;&#x4EF6;&#x7684;&#x7F16;&#x7801;&#x662F;<code>UTF-8</code>&#x683C;&#x5F0F;&#xFF0C;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x6587;&#x672C;&#x5185;&#x5BB9;&#x662F;&#x6839;&#x636E;<code>pageEncoding</code>&#x7684;&#x5B57;&#x7B26;&#x96C6;&#x8FDB;&#x884C;&#x8BB0;&#x5F55;&#x3002; </p>
+</blockquote>
+<p>&#x7B2C;&#x4E8C;&#x9636;&#x6BB5;&#xFF1A;JVM &#x5C06;<code>java</code>&#x6587;&#x4EF6;&#x8F6C;&#x6362;&#x4E3A;<code>class</code>&#x6587;&#x4EF6;&#xFF0C;&#x4ECE;<code>UTF-8</code>&#x81F3;<code>UTF-8</code>&#x3002;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x5C31;&#x4E0E;&#x4EFB;&#x4F55;&#x7F16;&#x7801;&#x7684;&#x8BBE;&#x7F6E;&#x90FD;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#x4E86;&#xFF0C;&#x7ECF;&#x8FC7;&#x8FD9;&#x4E2A;&#x9636;&#x6BB5;&#x540E;<code>.java</code>&#x6587;&#x4EF6;&#x5C31;&#x8F6C;&#x6362;&#x6210;&#x4E86;&#x7EDF;&#x4E00;&#x7684;<code>UTF-8</code>&#x7F16;&#x7801;&#x7684;<code>class</code>&#x6587;&#x4EF6;&#x4E86;&#x3002;</p>
+<p>&#x7B2C;&#x4E09;&#x9636;&#x6BB5;&#xFF1A;&#x670D;&#x52A1;&#x5668;&#x5C06;&#x5904;&#x7406;&#x7684;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x7ED9;&#x6D4F;&#x89C8;&#x5668;&#xFF0C;&#x8FD9;&#x4E2A;&#x9636;&#x6BB5;&#x5219;&#x4F9D;&#x9760;<code>contentType</code>&#x7684;<code>charset</code>&#xFF0C;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E86;<code>charset</code>&#x5219;&#x6D4F;&#x89C8;&#x5668;&#x5C31;&#x4F1A;&#x4F7F;&#x7528;&#x6307;&#x5B9A;&#x7684;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x8FDB;&#x884C;&#x89E3;&#x7801;&#xFF0C;&#x5426;&#x5219;&#x91C7;&#x7528;&#x9ED8;&#x8BA4;&#x7684;<code>ISO-8859-1</code>&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x8FDB;&#x884C;&#x89E3;&#x7801;&#x5904;&#x7406;&#x3002;</p>
+<blockquote>
+<p>&#x8BC1;&#x660E;&#xFF1A;&#x5728;<code>jsp</code>&#x5BF9;&#x5E94;&#x7684;<code>.java</code>&#x6587;&#x4EF6;&#x6E90;&#x7801;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x5230; response &#x54CD;&#x5E94;&#x5DF2;&#x7ECF;&#x6307;&#x5B9A;&#x4E86;<code>Content-Type</code>&#xFF1A;<br>response.setContentType(&#x201C;text/html; charset=UTF-8&#x201D;);</p>
+</blockquote>
+<h5 id="3-2-jsp-&#x9875;&#x9762;&#x4E2D;&#x8BBE;&#x7F6E;&#x5B57;&#x7B26;&#x96C6;"><a href="#3-2-jsp-&#x9875;&#x9762;&#x4E2D;&#x8BBE;&#x7F6E;&#x5B57;&#x7B26;&#x96C6;" class="headerlink" title="3.2 jsp &#x9875;&#x9762;&#x4E2D;&#x8BBE;&#x7F6E;&#x5B57;&#x7B26;&#x96C6;"></a>3.2 jsp &#x9875;&#x9762;&#x4E2D;&#x8BBE;&#x7F6E;&#x5B57;&#x7B26;&#x96C6;</h5><p><strong>1. pageEncoding</strong></p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">pageEncoding</span>=<span class="string">&quot;UTF-8&quot;</span>%&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x6587;&#x4E2D;&#x7B2C;&#x4E00;&#x9636;&#x6BB5;&#xFF0C;&#x4F7F;&#x7528;&#x8BE5;&#x503C;&#x53BB;&#x8BFB;&#x53D6;<code>jsp</code>&#x6587;&#x4EF6;&#xFF0C;&#x4E3A;&#x907F;&#x514D;&#x4E2D;&#x6587;&#x4E71;&#x7801;&#xFF0C;&#x8DDF;<code>jsp</code>&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x4E00;&#x81F4;&#xFF1B;&#x5BF9;&#x670D;&#x52A1;&#x5668;&#x54CD;&#x5E94;&#x8FDB;&#x884C;&#x91CD;&#x65B0;&#x7F16;&#x7801;&#xFF0C;&#x5373;<code>jsp</code>&#x7684;&#x8F93;&#x51FA;&#x6D41;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x663E;&#x793A;&#x7684;&#x7F16;&#x7801;&#xFF08;&#x4E0D;&#x662F;&#x4E3B;&#x8981;&#x4F5C;&#x7528;&#xFF09;&#x3002; </p>
+<p><strong>2. contentType</strong> </p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">&quot;text/html;charset=UTF-8&quot;</span>%&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4F7F;&#x7528;&#x8BE5;&#x503C;&#x5BF9;&#x670D;&#x52A1;&#x5668;&#x54CD;&#x5E94;&#x8FDB;&#x884C;&#x91CD;&#x65B0;&#x7F16;&#x7801;&#xFF0C;&#x5373;<code>jsp</code>&#x7684;&#x8F93;&#x51FA;&#x6D41;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x663E;&#x793A;&#x7684;&#x7F16;&#x7801;&#xFF1B;&#x5BF9;&#x8868;&#x5355;<code>get</code>&#x548C;<code>post</code>&#x8BF7;&#x6C42;&#x6570;&#x636E;&#x7F16;&#x7801;&#xFF1B;&#x4E0A;&#x6587;&#x4E2D;&#x7B2C;&#x4E00;&#x9636;&#x6BB5;&#xFF0C;&#x4F7F;&#x7528;&#x8BE5;&#x503C;&#x53BB;&#x8BFB;&#x53D6;<code>jsp</code>&#x6587;&#x4EF6;&#xFF08;&#x4E0D;&#x662F;&#x4E3B;&#x8981;&#x4F5C;&#x7528;&#xFF09;&#x3002; </p>
+<p><strong>3. META</strong> </p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">META</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html;charset=UTF-8&quot;</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7F51;&#x9875;&#x7684;&#x7F16;&#x7801;&#x4FE1;&#x606F; &#xFF0C;&#x8BF4;&#x660E;&#x9875;&#x9762;&#x5236;&#x4F5C;&#x6240;&#x4F7F;&#x7528;&#x7684;&#x7F16;&#x7801;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#x7F16;&#x5199;<code>jsp</code>&#x9875;&#x9762;&#x7684;<strong>&#x6700;&#x4F73;&#x5B9E;&#x8DF5;</strong>&#x662F;&#x7EDF;&#x4E00;&#x914D;&#x7F6E;&#x6210;<code>UTF-8</code>&#x7F16;&#x7801;&#xFF1A;</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">&#x201D;text/html;charset</span>=<span class="string">UTF-8&#x201D;</span> <span class="attr">pageEncoding</span>=<span class="string">&quot;UTF-8&quot;</span>%&gt;</span></span><br><span class="line">&#x2026;</span><br><span class="line"><span class="tag">&lt; <span class="attr">META</span> <span class="attr">http-equiv</span>=<span class="string">&#x201D;Content-Type&#x201D;</span> <span class="attr">content</span>=<span class="string">&#x201D;text/html;charset</span>=<span class="string">UTF-8&#x201D;</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2018-12-26</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2018-12-26</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/11/30/007/">Java Web 如何超清无码</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2018/11/30/007/" title="Java Web 如何超清无码">https://woodwhales.github.io/2018/11/30/007/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2018/11/30/007/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaWeb/" rel="tag"><i class="fa fa-tag"></i> JavaWeb</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/16/010/" rel="next" title="深入理解计算机系统 | 学习笔记（一）">
+                <i class="fa fa-chevron-left"></i> 深入理解计算机系统 | 学习笔记（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/16/006/" rel="prev" title="Springboot 瘦身打包">
+                Springboot 瘦身打包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、前言"><span class="nav-text">一、前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-文件编码格式通用设置"><span class="nav-text">1. 文件编码格式通用设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-文件编码格式单独设置"><span class="nav-text">2. 文件编码格式单独设置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一、response-响应乱码"><span class="nav-text">一、response 响应乱码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-字节流响应"><span class="nav-text">1.2 字节流响应</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-字符流响应"><span class="nav-text">1.2 字符流响应</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、request-请求乱码"><span class="nav-text">二、request 请求乱码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-表单中的-POST-请求"><span class="nav-text">2.1 表单中的 POST 请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-表单中及地址栏中的-GET-请求"><span class="nav-text">2.2 表单中及地址栏中的 GET 请求</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、jsp-页面的编码原理"><span class="nav-text">三、jsp 页面的编码原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-jsp-页面的编码三阶段"><span class="nav-text">3.1 jsp 页面的编码三阶段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-jsp-页面中设置字符集"><span class="nav-text">3.2 jsp 页面中设置字符集</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>
