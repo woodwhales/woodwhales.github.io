@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.github.io/"/>
-  <updated>2019-05-30T13:48:47.783Z</updated>
+  <updated>2019-05-30T13:54:22.723Z</updated>
   <id>https://woodwhales.github.io/</id>
   
   <author>
@@ -15,6 +15,66 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>领域驱动设计中国峰会2018</title>
+    <link href="https://woodwhales.github.io/2019/01/22/020/"/>
+    <id>https://woodwhales.github.io/2019/01/22/020/</id>
+    <published>2019-01-22T14:58:00.000Z</published>
+    <updated>2019-05-30T13:54:22.723Z</updated>
+    
+    <summary type="html">
+    
+      领域驱动设计中国峰会2018
+    
+    </summary>
+    
+      <category term="软件架构" scheme="https://woodwhales.github.io/categories/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84/"/>
+    
+    
+      <category term="DDD" scheme="https://woodwhales.github.io/tags/DDD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PlantUML 语法之时序图</title>
+    <link href="https://woodwhales.github.io/2019/01/13/017/"/>
+    <id>https://woodwhales.github.io/2019/01/13/017/</id>
+    <published>2019-01-13T14:58:00.000Z</published>
+    <updated>2019-08-30T16:46:02.501Z</updated>
+    
+    <summary type="html">
+    
+      快速高效生成时序图
+    
+    </summary>
+    
+      <category term="UML" scheme="https://woodwhales.github.io/categories/UML/"/>
+    
+    
+      <category term="PlantUML" scheme="https://woodwhales.github.io/tags/PlantUML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ndoe.js安装及环境配置(for windows)</title>
+    <link href="https://woodwhales.github.io/2019/01/13/016/"/>
+    <id>https://woodwhales.github.io/2019/01/13/016/</id>
+    <published>2019-01-13T05:58:00.000Z</published>
+    <updated>2019-05-30T13:52:50.136Z</updated>
+    
+    <summary type="html">
+    
+      安装 node.js
+    
+    </summary>
+    
+      <category term="前端" scheme="https://woodwhales.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Ndoe.js" scheme="https://woodwhales.github.io/tags/Ndoe-js/"/>
+    
+  </entry>
   
   <entry>
     <title>我的 2018 与 2019</title>
@@ -179,6 +239,108 @@
   </entry>
   
   <entry>
+    <title>深入理解计算机系统 | 学习笔记（五）</title>
+    <link href="https://woodwhales.github.io/2018/10/29/014/"/>
+    <id>https://woodwhales.github.io/2018/10/29/014/</id>
+    <published>2018-10-29T07:30:00.000Z</published>
+    <updated>2019-05-30T13:51:59.085Z</updated>
+    
+    <summary type="html">
+    
+      数学概念的数字化实现
+    
+    </summary>
+    
+      <category term="深入理解计算机系统" scheme="https://woodwhales.github.io/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="基础原理" scheme="https://woodwhales.github.io/tags/%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis Generator 逆向工程详解</title>
+    <link href="https://woodwhales.github.io/2018/10/29/015/"/>
+    <id>https://woodwhales.github.io/2018/10/29/015/</id>
+    <published>2018-10-29T07:30:00.000Z</published>
+    <updated>2019-07-06T03:01:58.794Z</updated>
+    
+    <summary type="html">
+    
+      轻松搞定数据对象实例化
+    
+    </summary>
+    
+      <category term="Mybatis" scheme="https://woodwhales.github.io/categories/Mybatis/"/>
+    
+    
+      <category term="Spring Boot" scheme="https://woodwhales.github.io/tags/Spring-Boot/"/>
+    
+      <category term="MyBatis" scheme="https://woodwhales.github.io/tags/MyBatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解计算机系统 | 学习笔记（四）</title>
+    <link href="https://woodwhales.github.io/2018/10/22/013/"/>
+    <id>https://woodwhales.github.io/2018/10/22/013/</id>
+    <published>2018-10-22T07:30:00.000Z</published>
+    <updated>2019-05-30T13:51:43.486Z</updated>
+    
+    <summary type="html">
+    
+      电信号的信息化表示
+    
+    </summary>
+    
+      <category term="深入理解计算机系统" scheme="https://woodwhales.github.io/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="基础原理" scheme="https://woodwhales.github.io/tags/%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解计算机系统 | 学习笔记（三）</title>
+    <link href="https://woodwhales.github.io/2018/10/19/012/"/>
+    <id>https://woodwhales.github.io/2018/10/19/012/</id>
+    <published>2018-10-19T07:30:00.000Z</published>
+    <updated>2019-05-30T13:51:27.708Z</updated>
+    
+    <summary type="html">
+    
+      抽象的世界，不简单
+    
+    </summary>
+    
+      <category term="深入理解计算机系统" scheme="https://woodwhales.github.io/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="基础原理" scheme="https://woodwhales.github.io/tags/%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解计算机系统 | 学习笔记（二）</title>
+    <link href="https://woodwhales.github.io/2018/10/17/011/"/>
+    <id>https://woodwhales.github.io/2018/10/17/011/</id>
+    <published>2018-10-17T07:30:00.000Z</published>
+    <updated>2019-05-30T13:51:11.806Z</updated>
+    
+    <summary type="html">
+    
+      程序跑起来
+    
+    </summary>
+    
+      <category term="深入理解计算机系统" scheme="https://woodwhales.github.io/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="基础原理" scheme="https://woodwhales.github.io/tags/%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入理解计算机系统 | 学习笔记（一）</title>
     <link href="https://woodwhales.github.io/2018/10/16/010/"/>
     <id>https://woodwhales.github.io/2018/10/16/010/</id>
@@ -195,6 +357,46 @@
     
     
       <category term="基础原理" scheme="https://woodwhales.github.io/tags/%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>人生苦短，转行程序员要趁早(中)</title>
+    <link href="https://woodwhales.github.io/2018/08/13/019/"/>
+    <id>https://woodwhales.github.io/2018/08/13/019/</id>
+    <published>2018-08-13T14:58:00.000Z</published>
+    <updated>2019-05-30T13:53:57.116Z</updated>
+    
+    <summary type="html">
+    
+      人生苦短，程序员转行也得趁早。
+    
+    </summary>
+    
+      <category term="随笔杂谈" scheme="https://woodwhales.github.io/categories/%E9%9A%8F%E7%AC%94%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="转行" scheme="https://woodwhales.github.io/tags/%E8%BD%AC%E8%A1%8C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>人生苦短，转行程序员要趁早(上)</title>
+    <link href="https://woodwhales.github.io/2018/06/17/018/"/>
+    <id>https://woodwhales.github.io/2018/06/17/018/</id>
+    <published>2018-06-17T14:58:00.000Z</published>
+    <updated>2019-05-30T13:53:31.991Z</updated>
+    
+    <summary type="html">
+    
+      把生命浪费在美好的事物上
+    
+    </summary>
+    
+      <category term="随笔杂谈" scheme="https://woodwhales.github.io/categories/%E9%9A%8F%E7%AC%94%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="转行" scheme="https://woodwhales.github.io/tags/%E8%BD%AC%E8%A1%8C/"/>
     
   </entry>
   

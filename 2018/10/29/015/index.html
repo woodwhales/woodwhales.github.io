@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="mybatis, MyBatis Generator, 逆向工程, springboot, 逆向, 自动化生成">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="轻松搞定数据对象实例化">
+<meta name="keywords" content="mybatis, MyBatis Generator, 逆向工程, springboot, 逆向, 自动化生成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis Generator 逆向工程详解">
+<meta property="og:url" content="https://woodwhales.github.io/2018/10/29/015/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="轻松搞定数据对象实例化">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2018/10/29/015/2018/10/29/015/face.png">
+<meta property="og:updated_time" content="2019-07-06T03:01:58.794Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MyBatis Generator 逆向工程详解">
+<meta name="twitter:description" content="轻松搞定数据对象实例化">
+<meta name="twitter:image" content="https://woodwhales.github.io/2018/10/29/015/2018/10/29/015/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2018/10/29/015/">
+
+
+
+
+
+  <title>MyBatis Generator 逆向工程详解 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2018/10/29/015/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MyBatis Generator 逆向工程详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T15:30:00+08:00">
+                2018-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mybatis/" itemprop="url" rel="index">
+                    <span itemprop="name">Mybatis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/29/015/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/29/015/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/10/29/015/" class="leancloud_visitors" data-flag-title="MyBatis Generator 逆向工程详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  9k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  轻松搞定数据对象实例化
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2018/10/29/015/face.png" rel="gallery_cjzz5b76x002hm8vgk4faenv3" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2018/10/29/015/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h4 id="&#x4E00;&#x3001;Mysql-&#x6570;&#x636E;&#x5E93;&#x6570;&#x636E;&#x51C6;&#x5907;"><a href="#&#x4E00;&#x3001;Mysql-&#x6570;&#x636E;&#x5E93;&#x6570;&#x636E;&#x51C6;&#x5907;" class="headerlink" title="&#x4E00;&#x3001;Mysql &#x6570;&#x636E;&#x5E93;&#x6570;&#x636E;&#x51C6;&#x5907;"></a>&#x4E00;&#x3001;Mysql &#x6570;&#x636E;&#x5E93;&#x6570;&#x636E;&#x51C6;&#x5907;</h4><h6 id="1-1-&#x521B;&#x5EFA;&#x6570;&#x636E;&#x5E93;"><a href="#1-1-&#x521B;&#x5EFA;&#x6570;&#x636E;&#x5E93;" class="headerlink" title="1.1 &#x521B;&#x5EFA;&#x6570;&#x636E;&#x5E93;"></a>1.1 &#x521B;&#x5EFA;&#x6570;&#x636E;&#x5E93;</h6><figure class="highlight sql"><figcaption><span>&#x521B;&#x5EFA;&#x6570;&#x636E;&#x5E93;</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="string">`my_test_db`</span> <span class="comment">/*!40100 COLLATE &apos;utf8mb4_unicode_ci&apos; */</span>;</span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">DATABASES</span>;</span><br></pre></td></tr></tbody></table></figure>
+<h6 id="2-2-&#x521B;&#x5EFA;&#x7528;&#x6237;&#x8868;"><a href="#2-2-&#x521B;&#x5EFA;&#x7528;&#x6237;&#x8868;" class="headerlink" title="2.2 &#x521B;&#x5EFA;&#x7528;&#x6237;&#x8868;"></a>2.2 &#x521B;&#x5EFA;&#x7528;&#x6237;&#x8868;</h6><figure class="highlight sql"><figcaption><span>&#x521B;&#x5EFA;&#x6570;&#x636E;&#x5E93;&#x8868;</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`User`</span> (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`username`</span> <span class="built_in">VARCHAR</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`password`</span> <span class="built_in">VARCHAR</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`gender`</span> <span class="built_in">BIT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`email`</span> <span class="built_in">VARCHAR</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`born`</span> <span class="built_in">TIMESTAMP</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`extraInfo`</span> <span class="built_in">VARCHAR</span>(<span class="number">500</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">COLLATE</span>=<span class="string">&apos;utf8mb4_unicode_ci&apos;</span></span><br><span class="line"><span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="3-3-&#x521B;&#x5EFA;&#x8D2D;&#x7269;&#x8F66;&#x8868;"><a href="#3-3-&#x521B;&#x5EFA;&#x8D2D;&#x7269;&#x8F66;&#x8868;" class="headerlink" title="3.3 &#x521B;&#x5EFA;&#x8D2D;&#x7269;&#x8F66;&#x8868;"></a>3.3 &#x521B;&#x5EFA;&#x8D2D;&#x7269;&#x8F66;&#x8868;</h5><figure class="highlight sql"><figcaption><span>&#x521B;&#x5EFA;&#x6570;&#x636E;&#x5E93;&#x8868;</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`Cart`</span> (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`logisticId`</span> <span class="built_in">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`number`</span> <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`discount`</span> <span class="keyword">DOUBLE</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`total`</span> <span class="keyword">DOUBLE</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`extrainfo`</span> <span class="built_in">VARCHAR</span>(<span class="number">500</span>) <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">    <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> <span class="string">`logisticId`</span> (<span class="string">`logisticId`</span>)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">COLLATE</span>=<span class="string">&apos;utf8mb4_unicode_ci&apos;</span></span><br><span class="line"><span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x4E8C;&#x3001;&#x9006;&#x5411;&#x5DE5;&#x7A0B;&#x751F;&#x6210;"><a href="#&#x4E8C;&#x3001;&#x9006;&#x5411;&#x5DE5;&#x7A0B;&#x751F;&#x6210;" class="headerlink" title="&#x4E8C;&#x3001;&#x9006;&#x5411;&#x5DE5;&#x7A0B;&#x751F;&#x6210;"></a>&#x4E8C;&#x3001;&#x9006;&#x5411;&#x5DE5;&#x7A0B;&#x751F;&#x6210;</h4><h5 id="2-1-pom-&#x4F9D;&#x8D56;&#x914D;&#x7F6E;"><a href="#2-1-pom-&#x4F9D;&#x8D56;&#x914D;&#x7F6E;" class="headerlink" title="2.1 pom &#x4F9D;&#x8D56;&#x914D;&#x7F6E;"></a>2.1 pom &#x4F9D;&#x8D56;&#x914D;&#x7F6E;</h5><p>&#x5728; pom.xml &#x4F9D;&#x8D56;&#x6587;&#x4EF6;&#x4E2D;&#x589E;&#x52A0; mybatis generator &#x63D2;&#x4EF6;&#x4F9D;&#x8D56;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-generator-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.46<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-generator-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>Generate MyBatis Artifacts<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>generate<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&#x5141;&#x8BB8;&#x79FB;&#x52A8;&#x751F;&#x6210;&#x7684;&#x6587;&#x4EF6; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">verbose</span>&gt;</span>true<span class="tag">&lt;/<span class="name">verbose</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &#x662F;&#x5426;&#x8986;&#x76D6; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">overwrite</span>&gt;</span>true<span class="tag">&lt;/<span class="name">overwrite</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &#x81EA;&#x52A8;&#x751F;&#x6210;&#x7684;&#x914D;&#x7F6E; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">configurationFile</span>&gt;</span>${basedir}/src/main/resources/generator/generatorConfig.xml<span class="tag">&lt;/<span class="name">configurationFile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p><img src="/2018/10/29/015/1.png" alt="pom &#x4F9D;&#x8D56;&#x914D;&#x7F6E;"></p>
+<h5 id="2-2-&#x914D;&#x7F6E;&#x6620;&#x5C04;&#x6587;&#x4EF6;"><a href="#2-2-&#x914D;&#x7F6E;&#x6620;&#x5C04;&#x6587;&#x4EF6;" class="headerlink" title="2.2 &#x914D;&#x7F6E;&#x6620;&#x5C04;&#x6587;&#x4EF6;"></a>2.2 &#x914D;&#x7F6E;&#x6620;&#x5C04;&#x6587;&#x4EF6;</h5><p>&#x5728;<code>&lt;configurationFile&gt;</code>&#x914D;&#x7F6E;&#x7684;&#x5BF9;&#x5E94;&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x521B;&#x5EFA;&#x5BF9;&#x5E94;&#x7684;&#x9006;&#x5411;&#x751F;&#x6210;&#x5DE5;&#x7A0B;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x5C06;&#x4E0B;&#x5217;&#x914D;&#x7F6E;&#x7C98;&#x8D34;&#x5230;&#x5176;&#x4E2D;&#xFF1A;</p>
+<figure class="highlight xml"><figcaption><span>mybatis &#x9006;&#x5411;&#x5DE5;&#x7A0B;&#x914D;&#x7F6E;&#x6620;&#x5C04;</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE generatorConfiguration</span></span><br><span class="line"><span class="meta">        PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span></span><br><span class="line"><span class="meta">        &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">generatorConfiguration</span>&gt;</span></span><br><span class="line">		</span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">&quot;generator/mybatisGeneratorinit.properties&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- &#x6570;&#x636E;&#x5E93;&#x9A71;&#x52A8;:&#x9009;&#x62E9;&#x4F60;&#x7684;&#x672C;&#x5730;&#x786C;&#x76D8;&#x4E0A;&#x9762;&#x7684;&#x6570;&#x636E;&#x5E93;&#x9A71;&#x52A8;&#x5305;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">classPathEntry</span> <span class="attr">location</span>=<span class="string">&quot;${classPathEntry.location}&quot;</span>/&gt;</span> --&gt;</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">context</span> <span class="attr">id</span>=<span class="string">&quot;MysqlContext&quot;</span>  <span class="attr">targetRuntime</span>=<span class="string">&quot;MyBatis3&quot;</span>  <span class="attr">defaultModelType</span>=<span class="string">&quot;flat&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suppressDate&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span> </span><br><span class="line">            <span class="comment">&lt;!-- &#x662F;&#x5426;&#x53BB;&#x9664;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x7684;&#x6CE8;&#x91CA; true&#xFF1A;&#x662F; &#xFF1A; false:&#x5426; --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suppressAllComments&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!--&#x6570;&#x636E;&#x5E93;&#x94FE;&#x63A5;URL&#xFF0C;&#x7528;&#x6237;&#x540D;&#x3001;&#x5BC6;&#x7801; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdbcConnection</span> <span class="attr">driverClass</span>=<span class="string">&quot;${jdbc.driverClass}&quot;</span> </span></span><br><span class="line"><span class="tag">            <span class="attr">connectionURL</span>=<span class="string">&quot;${jdbc.connectionURL}&quot;</span> </span></span><br><span class="line"><span class="tag">            <span class="attr">userId</span>=<span class="string">&quot;${jdbc.userId}&quot;</span> </span></span><br><span class="line"><span class="tag">            <span class="attr">password</span>=<span class="string">&quot;${jdbc.password}&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">jdbcConnection</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaTypeResolver</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;forceBigDecimals&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaTypeResolver</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- &#x751F;&#x6210;&#x6A21;&#x578B;&#x7684;&#x5305;&#x540D;&#x548C;&#x4F4D;&#x7F6E;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaModelGenerator</span> <span class="attr">targetPackage</span>=<span class="string">&quot;${javaModelGenerator.targetPackage}&quot;</span> </span></span><br><span class="line"><span class="tag">            <span class="attr">targetProject</span>=<span class="string">&quot;${javaModelGenerator.targetProject}&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;trimStrings&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaModelGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- &#x751F;&#x6210;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x7684;&#x5305;&#x540D;&#x548C;&#x4F4D;&#x7F6E;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sqlMapGenerator</span> <span class="attr">targetPackage</span>=<span class="string">&quot;${sqlMapGenerator.targetPackage}&quot;</span> </span></span><br><span class="line"><span class="tag">            <span class="attr">targetProject</span>=<span class="string">&quot;${sqlMapGenerator.targetProject}&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">sqlMapGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- &#x751F;&#x6210;DAO&#x7684;&#x5305;&#x540D;&#x548C;&#x4F4D;&#x7F6E;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaClientGenerator</span> <span class="attr">type</span>=<span class="string">&quot;XMLMAPPER&quot;</span> <span class="attr">targetPackage</span>=<span class="string">&quot;${javaClientGenerator.targetPackage}&quot;</span> </span></span><br><span class="line"><span class="tag">            <span class="attr">targetProject</span>=<span class="string">&quot;${javaClientGenerator.targetProject}&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaClientGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!-- &#x8981;&#x751F;&#x6210;&#x7684;&#x8868; tableName&#x662F;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x8868;&#x540D;&#x6216;&#x89C6;&#x56FE;&#x540D; domainObjectName&#x662F;&#x5B9E;&#x4F53;&#x7C7B;&#x540D;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">tableName</span>=<span class="string">&quot;%&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">enableCountByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">enableDeleteByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">enableSelectByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">enableUpdateByExample</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">           <span class="comment">&lt;!-- &lt;generatedKey column=&quot;id&quot; sqlStatement=&quot;Mysql&quot; identity=&quot;true&quot;/&gt; --&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="2-3-&#x914D;&#x7F6E;&#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#x6587;&#x4EF6;"><a href="#2-3-&#x914D;&#x7F6E;&#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#x6587;&#x4EF6;" class="headerlink" title="2.3 &#x914D;&#x7F6E;&#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#x6587;&#x4EF6;"></a>2.3 &#x914D;&#x7F6E;&#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</h5><p>&#x5728;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x914D;&#x7F6E;&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF1A;<code>&lt;properties&gt;</code>&#x5143;&#x7D20;&#x6307;&#x5B9A;&#x4E86;<code>generator/mybatisGeneratorinit.properties</code>&#xFF0C;&#x56E0;&#x6B64;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x5BF9;&#x5E94;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;</p>
+<figure class="highlight shell"><figcaption><span>mybatis &#x9006;&#x5411;&#x5DE5;&#x7A0B;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>Mybatis Generator configuration</span><br><span class="line"><span class="meta">#</span>mysql-driver</span><br><span class="line">classPathEntry.location=C://mysql-connector-java-5.1.46.jar</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> JDBC config</span><br><span class="line">jdbc.driverClass=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.connectionURL=jdbc:mysql://localhost:3306/my_test_db</span><br><span class="line">jdbc.userId=root</span><br><span class="line">jdbc.password=root</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>JavaBean location</span><br><span class="line">javaModelGenerator.targetProject=src/main/java</span><br><span class="line">javaModelGenerator.targetPackage=org.woodwhales.king.entity</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>interface location</span><br><span class="line">javaClientGenerator.targetProject=src/main/java</span><br><span class="line">javaClientGenerator.targetPackage=org.woodwhales.king.mapper</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>mapping location</span><br><span class="line">sqlMapGenerator.targetProject=src/main/resources</span><br><span class="line">sqlMapGenerator.targetPackage=org.woodwhales.king.mapper</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x914D;&#x7F6E;&#x7684;&#x76EE;&#x5F55;&#x9700;&#x8981;&#x63D0;&#x524D;&#x624B;&#x52A8;&#x521B;&#x5EFA;&#x51FA;&#x6765;&#x3002;</p>
+<h5 id="2-4-&#x8FD0;&#x884C;-mybatis-&#x9006;&#x5411;&#x5DE5;&#x7A0B;"><a href="#2-4-&#x8FD0;&#x884C;-mybatis-&#x9006;&#x5411;&#x5DE5;&#x7A0B;" class="headerlink" title="2.4 &#x8FD0;&#x884C; mybatis &#x9006;&#x5411;&#x5DE5;&#x7A0B;"></a>2.4 &#x8FD0;&#x884C; mybatis &#x9006;&#x5411;&#x5DE5;&#x7A0B;</h5><p>&#x5728;&#x9879;&#x76EE;&#x6839;&#x76EE;&#x5F55;&#x53F3;&#x51FB;&#x9009;&#x62E9;<code>&quot;Show in&quot;</code>&#x4E2D;&#x7684;<code>&quot;Terminal&quot;</code>&#x9009;&#x9879;&#xFF0C;&#x8FDB;&#x5165; dos &#x7A97;&#x53E3;&#xFF0C;&#x6267;&#x884C;&#x9006;&#x5411;&#x751F;&#x6210;&#x547D;&#x4EE4;&#xFF1A;<code>mvn mybatis-generator:generate</code></p>
+<p>&#x9879;&#x76EE;&#x751F;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x9700;&#x8981;&#x5237;&#x65B0;&#x9879;&#x76EE;&#x3002;</p>
+<h5 id="2-5-mapper-&#x63A5;&#x53E3;&#x65E2;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x6CE8;&#x518C;&#x914D;&#x7F6E;"><a href="#2-5-mapper-&#x63A5;&#x53E3;&#x65E2;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x6CE8;&#x518C;&#x914D;&#x7F6E;" class="headerlink" title="2.5 mapper &#x63A5;&#x53E3;&#x65E2;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x6CE8;&#x518C;&#x914D;&#x7F6E;"></a>2.5 mapper &#x63A5;&#x53E3;&#x65E2;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x6CE8;&#x518C;&#x914D;&#x7F6E;</h5><p>&#x5C06; mapper &#x63A5;&#x53E3;&#x6CE8;&#x518C;&#x5230; springboot &#x4E2D;&#xFF0C;&#x5728;&#x8981;&#x6CE8;&#x518C;&#x7684;&#x7C7B;&#x4E0A;&#x589E;&#x52A0;<code>@Mapper</code>&#x6CE8;&#x89E3;&#xFF0C;&#x6216;&#x8005;&#x4F7F;&#x7528;&#x5305;&#x626B;&#x63CF;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x6CE8;&#x518C;&#xFF1A;&#x5728;&#x542F;&#x52A8;&#x7C7B;&#x4E0A;&#x589E;&#x52A0;<code>@MapperScan(basePackages=&quot;org.woodwhale.demo.mapper&quot;)</code>&#xFF0C;&#x5F3A;&#x70C8;&#x63A8;&#x8350;&#x7B2C;&#x4E8C;&#x79CD;&#x3002;</p>
+<p>&#x5C06; mapper &#x6620;&#x5C04;&#x7684; xml &#x6587;&#x4EF6;&#x6CE8;&#x518C;&#x5230; springboot&#xFF1A;&#x5728;<code>application.yml</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x589E;&#x52A0;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x626B;&#x63CF;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mybatis:</span><br><span class="line">  mapper-locations: classpath:org/woodwhale/demo/mapper/*Mapper.xml</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x4E09;&#x3001;MyBatis-Generator-&#x8BE6;&#x89E3;"><a href="#&#x4E09;&#x3001;MyBatis-Generator-&#x8BE6;&#x89E3;" class="headerlink" title="&#x4E09;&#x3001;MyBatis Generator &#x8BE6;&#x89E3;"></a>&#x4E09;&#x3001;MyBatis Generator &#x8BE6;&#x89E3;</h4><p>MyBatis Generator&#x4E2D;&#x6587;&#x6587;&#x6863;&#x5730;&#x5740;&#xFF1A;<code>mbg.cndocs.ml</code></p>
+<p>&#x6CE8;&#xFF1A;&#x672C;&#x6587;&#x540E;&#x9762;&#x63D0;&#x5230;&#x7684;<strong>MBG</strong>&#x5168;&#x90E8;&#x6307;&#x4EE3;<code>MyBatis Generator</code>&#x3002;</p>
+<h5 id="3-1-XML-&#x914D;&#x7F6E;&#x8BE6;&#x89E3;"><a href="#3-1-XML-&#x914D;&#x7F6E;&#x8BE6;&#x89E3;" class="headerlink" title="3.1 XML &#x914D;&#x7F6E;&#x8BE6;&#x89E3;"></a>3.1 XML &#x914D;&#x7F6E;&#x8BE6;&#x89E3;</h5><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE generatorConfiguration</span></span><br><span class="line"><span class="meta">        PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span></span><br><span class="line"><span class="meta">        &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="3-2-&#x6839;&#x8282;&#x70B9;"><a href="#3-2-&#x6839;&#x8282;&#x70B9;" class="headerlink" title="3.2 &#x6839;&#x8282;&#x70B9;"></a>3.2 &#x6839;&#x8282;&#x70B9;<generatorconfiguration></generatorconfiguration></h5><p><code>&lt;generatorConfiguration&gt;</code>&#x8282;&#x70B9;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x5C5E;&#x6027;&#xFF0C;&#x76F4;&#x63A5;&#x5199;&#x8282;&#x70B9;&#x5373;&#x53EF;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">    &lt;!-- &#x5177;&#x4F53;&#x914D;&#x7F6E;&#x5185;&#x5BB9; --&gt;</span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p><code>&lt;generatorConfiguration&gt;</code>&#x5143;&#x7D20;&#x7684;&#x5B50;&#x5143;&#x7D20;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x5B50;&#x5143;&#x7D20;&#xFF08;&#x6709;&#x4E25;&#x683C;&#x7684;&#x987A;&#x5E8F;&#xFF09;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;&#xFF08;0 &#x4E2A;&#x6216; 1 &#x4E2A;&#xFF09;</span><br><span class="line">&lt;classPathEntry&gt;&#xFF08;0 &#x4E2A;&#x6216; 1 &#x4E2A;&#xFF09;</span><br><span class="line">&lt;context&gt;&#xFF08;1 &#x4E2A;&#x6216;&#x591A;&#x4E2A;&#xFF09;</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x56DB;&#x3001;&#x5143;&#x7D20;"><a href="#&#x56DB;&#x3001;&#x5143;&#x7D20;" class="headerlink" title="&#x56DB;&#x3001;&#x5143;&#x7D20;"></a>&#x56DB;&#x3001;<properties>&#x5143;&#x7D20;</properties></h4><p>&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x7528;&#x6765;&#x6307;&#x5B9A;&#x5916;&#x90E8;&#x7684;&#x5C5E;&#x6027;&#x5143;&#x7D20;&#xFF0C;&#x4E0D;&#x662F;&#x5FC5;&#x987B;&#x7684;&#x5143;&#x7D20;&#x3002;</p>
+<p>&#x5143;&#x7D20;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x9700;&#x8981;&#x5728;&#x914D;&#x7F6E;&#x4E2D;&#x89E3;&#x6790;&#x4F7F;&#x7528;&#x7684;&#x5916;&#x90E8;&#x5C5E;&#x6027;&#x6587;&#x4EF6;&#xFF0C;&#x5F15;&#x5165;&#x5C5E;&#x6027;&#x6587;&#x4EF6;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x914D;&#x7F6E;&#x4E2D;&#x4F7F;&#x7528;<code>${property}</code>&#x8FD9;&#x79CD;&#x5F62;&#x5F0F;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5F15;&#x7528;&#x5C5E;&#x6027;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x503C;&#xFF0C;&#x5982;&#x914D;&#x7F6E;<code>jdbc &#x4FE1;&#x606F;</code>&#x548C;<code>targetProject &#x5C5E;&#x6027;</code>&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x7684;&#x5C5E;&#x6027;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>resource</code>&#x6216;&#x8005;<code>url</code>&#x6765;&#x6307;&#x5B9A;&#x5C5E;&#x6027;&#x6587;&#x4EF6;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x5C5E;&#x6027;&#x53EA;&#x80FD;&#x4F7F;&#x7528;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x6765;&#x6307;&#x5B9A;&#xFF0C;&#x5982;&#x679C;&#x540C;&#x65F6;&#x4F7F;&#x7528;&#x5C31;&#x4F1A;&#x62A5;&#x9519;&#x3002;</p>
+<ul>
+<li><code>resource</code>&#xFF1A;&#x6307;&#x5B9A; <strong>classpath</strong> &#x4E0B;&#x7684;&#x5C5E;&#x6027;&#x6587;&#x4EF6;&#xFF0C;&#x4F7F;&#x7528;&#x7C7B;&#x4F3C;<code>com/myproject/generatorConfig.properties</code>&#x8FD9;&#x6837;&#x7684;&#x5C5E;&#x6027;&#x503C;&#x3002;</li>
+<li><code>url</code>&#xFF1A;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E0A;&#x7684;&#x7279;&#x5B9A;&#x4F4D;&#x7F6E;&#xFF0C;&#x4F8B;&#x5982;<code>file://C:/myfolder/generatorConfig.properties</code>&#x3002;</li>
+</ul>
+<h4 id="&#x4E94;&#x3001;&#x5143;&#x7D20;"><a href="#&#x4E94;&#x3001;&#x5143;&#x7D20;" class="headerlink" title="&#x4E94;&#x3001;&#x5143;&#x7D20;"></a>&#x4E94;&#x3001;<classpathentry>&#x5143;&#x7D20;</classpathentry></h4><p>&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x53EF;&#x4EE5;&#x662F; 0 &#x6216;&#x591A;&#x4E2A;&#x3002;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x7528;&#x6CD5;&#x662F;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x6307;&#x5B9A;&#x9A71;&#x52A8;&#x7684;&#x8DEF;&#x5F84;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;classPathEntry location=&quot;C:\mysql-connector-java-5.1.42.jar&quot;/&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x5982;&#x679C;&#x4F60;&#x9700;&#x8981;&#x52A0;&#x8F7D;&#x5176;&#x4ED6;&#x7528;&#x9014;&#x7684; jar &#x5305;&#xFF0C;<strong>classPathEntry &#x8D77;&#x4E0D;&#x5230;&#x4F5C;&#x7528;</strong>&#xFF0C;&#x89E3;&#x51B3;&#x7684;&#x529E;&#x6CD5;&#x5C31;&#x662F;&#x5C06;&#x4F60;&#x7528;&#x7684; jar &#x5305;&#x6DFB;&#x52A0;&#x5230;&#x7C7B;&#x8DEF;&#x5F84;&#x4E2D;&#xFF0C;&#x5728; Eclipse &#x7B49; IDE &#x4E2D;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6DFB;&#x52A0;jar&#x5305;&#x6BD4;&#x8F83;&#x5BB9;&#x6613;&#x3002;&#x5F53;&#x4ECE;&#x547D;&#x4EE4;&#x884C;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9700;&#x8981;&#x7528;<code>java -cp xx.jar,xx2.jar xxxMainClass</code>&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5728;<code>-cp</code>&#x540E;&#x9762;&#x6307;&#x5B9A;&#x6765;&#x4F7F;&#x7528;&#xFF08;&#x6CE8;&#x610F;<code>-jar</code>&#x4F1A;&#x5BFC;&#x81F4;<code>-cp</code>&#x65E0;&#x6548;&#xFF09;&#x3002;</p>
+<h4 id="&#x516D;&#x3001;&#x5143;&#x7D20;"><a href="#&#x516D;&#x3001;&#x5143;&#x7D20;" class="headerlink" title="&#x516D;&#x3001;&#x5143;&#x7D20;"></a>&#x516D;&#x3001;<context>&#x5143;&#x7D20;</context></h4><p>&#x5728; MBG &#x7684;&#x914D;&#x7F6E;&#x4E2D;&#xFF0C;&#x81F3;&#x5C11;&#x9700;&#x8981;&#x6709;&#x4E00;&#x4E2A;<code>&lt;context&gt;</code>&#x5143;&#x7D20;&#x3002;</p>
+<p><code>&lt;context&gt;</code>&#x5143;&#x7D20;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x751F;&#x6210;&#x4E00;&#x7EC4;&#x5BF9;&#x8C61;&#x7684;&#x73AF;&#x5883;&#x3002;&#x4F8B;&#x5982;&#x6307;&#x5B9A;&#x8981;&#x8FDE;&#x63A5;&#x7684;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x8981;&#x751F;&#x6210;&#x5BF9;&#x8C61;&#x7684;&#x7C7B;&#x578B;&#x548C;&#x8981;&#x5904;&#x7406;&#x7684;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x8868;&#x3002;&#x8FD0;&#x884C;MBG&#x7684;&#x65F6;&#x5019;&#x8FD8;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x8981;&#x8FD0;&#x884C;&#x7684;<code>&lt;context&gt;</code>&#x3002;</p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x53EA;&#x6709;&#x4E00;&#x4E2A;<strong>&#x5FC5;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><code>id</code>&#xFF1A;&#x7528;&#x6765;&#x552F;&#x4E00;&#x786E;&#x5B9A;&#x4E00;&#x4E2A;<code>&lt;context&gt;</code>&#x5143;&#x7D20;&#xFF0C;&#x8BE5;<code>id</code>&#x5C5E;&#x6027;&#x53EF;&#x4EE5;&#x5728;&#x8FD0;&#x884C; MBG &#x7684;&#x4F7F;&#x7528;&#x3002;</li>
+</ul>
+<p>&#x6B64;&#x5916;&#x8FD8;&#x6709;&#x51E0;&#x4E2A;<strong>&#x53EF;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><p><code>defaultModelType</code></p>
+<p><strong>&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x5F88;&#x91CD;&#x8981;</strong>&#xFF0C;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x5B9A;&#x4E49;&#x4E86; MBG &#x5982;&#x4F55;&#x751F;&#x6210;<strong>&#x5B9E;&#x4F53;&#x7C7B;</strong>&#x3002;</p>
+</li>
+<li><p><code>conditional</code>&#xFF1A;&#x9ED8;&#x8BA4;&#x503C;&#xFF0C;&#x8FD9;&#x4E2A;&#x6A21;&#x578B;&#x548C;&#x4E0B;&#x9762;&#x7684;<code>hierarchical</code>&#x7C7B;&#x4F3C;&#xFF0C;&#x9664;&#x4E86;&#x5982;&#x679C;&#x90A3;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x7C7B;&#x5C06;&#x53EA;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#xFF0C;&#x5C06;&#x4E0D;&#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x7C7B;&#x3002; &#x56E0;&#x6B64;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x8868;&#x7684;&#x4E3B;&#x952E;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x5B57;&#x6BB5;&#xFF0C;&#x90A3;&#x4E48;&#x4E0D;&#x4F1A;&#x4E3A;&#x8BE5;&#x5B57;&#x6BB5;&#x751F;&#x6210;&#x5355;&#x72EC;&#x7684;&#x5B9E;&#x4F53;&#x7C7B;&#xFF0C;&#x4F1A;&#x5C06;&#x8BE5;&#x5B57;&#x6BB5;&#x5408;&#x5E76;&#x5230;&#x57FA;&#x672C;&#x5B9E;&#x4F53;&#x7C7B;&#x4E2D;&#x3002;</p>
+</li>
+<li><p><code>flat</code>&#xFF1A;&#x8BE5;&#x6A21;&#x578B;&#x4E3A;&#x6BCF;&#x4E00;&#x5F20;&#x8868;&#x53EA;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5B9E;&#x4F53;&#x7C7B;&#x3002;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F53;&#x7C7B;&#x5305;&#x542B;&#x8868;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x5B57;&#x6BB5;&#x3002;<strong>&#x8FD9;&#x79CD;&#x6A21;&#x578B;&#x6700;&#x7B80;&#x5355;&#xFF0C;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x3002;</strong></p>
+</li>
+<li><p><code>hierarchical</code>&#xFF1A;&#x5982;&#x679C;&#x8868;&#x6709;&#x4E3B;&#x952E;&#xFF0C;&#x90A3;&#x4E48;&#x8BE5;&#x6A21;&#x578B;&#x4F1A;&#x4EA7;&#x751F;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x4E3B;&#x952E;&#x5B9E;&#x4F53;&#x7C7B;&#xFF0C;&#x5982;&#x679C;&#x8868;&#x8FD8;&#x6709; BLOB &#x5B57;&#x6BB5;&#xFF0C;&#x5219;&#x4F1A;&#x4E3A;&#x8868;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5305;&#x542B;&#x6240;&#x6709; BLOB &#x5B57;&#x6BB5;&#x7684;&#x5355;&#x72EC;&#x7684;&#x5B9E;&#x4F53;&#x7C7B;&#xFF0C;&#x7136;&#x540E;&#x4E3A;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x7684;&#x5B57;&#x6BB5;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5355;&#x72EC;&#x7684;&#x5B9E;&#x4F53;&#x7C7B;&#x3002;MBG &#x4F1A;&#x5728;&#x6240;&#x6709;&#x751F;&#x6210;&#x7684;&#x5B9E;&#x4F53;&#x7C7B;&#x4E4B;&#x95F4;&#x7EF4;&#x62A4;&#x4E00;&#x4E2A;&#x7EE7;&#x627F;&#x5173;&#x7CFB;&#x3002;</p>
+</li>
+<li><p><code>targetRuntime</code>&#xFF1A;&#x6B64;&#x5C5E;&#x6027;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x7684;&#x8FD0;&#x884C;&#x65F6;&#x73AF;&#x5883;&#x3002;&#x8BE5;&#x5C5E;&#x6027;&#x652F;&#x6301;&#x4EE5;&#x4E0B;&#x53EF;&#x9009;&#x503C;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MyBatis3&#xFF1A;&#x9ED8;&#x8BA4;&#x503C;</span><br><span class="line">MyBatis3Simple</span><br><span class="line">Ibatis2Java2</span><br><span class="line">Ibatis2Java5&#xFF1A;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x503C;&#x5373;&#x53EF;&#xFF0C;&#x6709;&#x5173;&#x8FD9;&#x4E9B;&#x503C;&#x7684;&#x5177;&#x4F53;&#x4F5C;&#x7528;&#x4EE5;&#x53CA;&#x533A;&#x522B;&#x8BF7;&#x67E5;&#x770B;&#x4E2D;&#x6587;&#x6587;&#x6863;&#x7684;&#x8BE6;&#x7EC6;&#x5185;&#x5BB9;&#x3002;</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><code>introspectedColumnImpl</code>&#xFF1A;&#x8BE5;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x6269;&#x5C55;<code>org.mybatis.generator.api.IntrospectedColumn</code>&#x8BE5;&#x7C7B;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x3002;&#x8BE5;&#x5C5E;&#x6027;&#x7684;&#x4F5C;&#x7528;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x6269;&#x5C55; MyBatis Generator&#x3002;</p>
+</li>
+</ul>
+<blockquote>
+<p>&#x6269;&#x5C55; MyBatis Generator&#xFF1A;<br><code>http://mbg.cndocs.ml/reference/extending.html</code></p>
+</blockquote>
+<p>&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#x7684;&#x914D;&#x7F6E;&#x5373;&#x53EF;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context id=&quot;Mysql&quot; defaultModelType=&quot;flat&quot;&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5982;&#x679C;&#x4F60;&#x5E0C;&#x671B;&#x4E0D;&#x751F;&#x6210;&#x548C;<code>Example</code>&#x67E5;&#x8BE2;&#x6709;&#x5173;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x90A3;&#x4E48;&#x53EF;&#x4EE5;&#x6309;&#x7167;&#x5982;&#x4E0B;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context id=&quot;Mysql&quot; targetRuntime=&quot;MyBatis3Simple&quot; defaultModelType=&quot;flat&quot;&gt;</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x4F7F;&#x7528;<code>MyBatis3Simple</code>&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x5728;&#x540E;&#x9762;&#x7684;<code>&lt;table&gt;</code>&#x4E2D;&#x9010;&#x4E2A;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#xFF08;&#x540E;&#x9762;&#x4F1A;&#x63D0;&#x5230;&#xFF09;&#x3002;</p>
+</blockquote>
+<p><strong><context>&#x5143;&#x7D20;&#x7684;&#x5B50;&#x5143;&#x7D20;</context></strong></p>
+<p>MBG &#x914D;&#x7F6E;&#x4E2D;&#x7684;&#x5176;&#x4ED6;&#x51E0;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x57FA;&#x672C;&#x4E0A;&#x90FD;&#x662F;<code>&lt;context&gt;</code>&#x7684;&#x5B50;&#x5143;&#x7D20;&#xFF0C;&#x8FD9;&#x4E9B;&#x5B50;&#x5143;&#x7D20;&#xFF08;<strong>&#x6709;&#x4E25;&#x683C;&#x7684;&#x914D;&#x7F6E;&#x987A;&#x5E8F;</strong>&#xFF09;&#x5305;&#x62EC;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;&#xFF08;0 &#x4E2A;&#x6216;&#x591A;&#x4E2A;&#xFF09;</span><br><span class="line">&lt;plugin&gt;&#xFF08;0 &#x4E2A;&#x6216;&#x591A;&#x4E2A;&#xFF09;</span><br><span class="line">&lt;commentGenerator&gt;&#xFF08;0 &#x4E2A;&#x6216; 1 &#x4E2A;&#xFF09;</span><br><span class="line">&lt;jdbcConnection&gt;&#xFF08;1 &#x4E2A;&#xFF09;</span><br><span class="line">&lt;javaTypeResolver&gt;&#xFF08;0 &#x4E2A;&#x6216; 1 &#x4E2A;&#xFF09;</span><br><span class="line">&lt;javaModelGenerator&gt;&#xFF08;1 &#x4E2A;&#xFF09;</span><br><span class="line">&lt;sqlMapGenerator&gt;&#xFF08;0 &#x4E2A;&#x6216; 1 &#x4E2A;&#xFF09;</span><br><span class="line">&lt;javaClientGenerator&gt;&#xFF08;0 &#x4E2A;&#x6216; 1 &#x4E2A;&#xFF09;</span><br><span class="line">&lt;table&gt;&#xFF08;1 &#x4E2A;&#x6216;&#x591A;&#x4E2A;&#xFF09;</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="6-1-&#x5C5E;&#x6027;"><a href="#6-1-&#x5C5E;&#x6027;" class="headerlink" title="6.1 &#x5C5E;&#x6027;"></a>6.1 <property>&#x5C5E;&#x6027;</property></h5><p><code>&lt;property&gt;</code>&#x5C5E;&#x6027;&#x6BD4;&#x8F83;&#x7279;&#x6B8A;&#xFF0C;&#x540E;&#x9762;&#x8BB2;&#x89E3;&#x7684;&#x65F6;&#x5019;&#x90FD;&#x4F1A;&#x548C;&#x7236;&#x5143;&#x7D20;&#x4E00;&#x8D77;&#x8FDB;&#x884C;&#x8BB2;&#x89E3;&#x3002;</p>
+<blockquote>
+<p>&#x5728;&#x8BB2;&#x89E3;<code>&lt;property&gt;</code>&#x5C5E;&#x6027;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x770B;&#x770B;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x6982;&#x5FF5;&#xFF1A;<strong>&#x5206;&#x9694;&#x7B26;</strong></p>
+<p>&#x8FD9;&#x91CC;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#x8BF4;&#x660E;&#x3002;&#x5047;&#x8BBE;&#x5728; Mysql &#x6570;&#x636E;&#x5E93;&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x8868;&#x540D;&#x4E3A;<code>user info</code>&#xFF0C;&#x4F60;&#x6CA1;&#x6709;&#x770B;&#x9519;&#xFF0C;&#x4E2D;&#x95F4;&#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x683C;&#xFF0C;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x5982;&#x679C;&#x5199;&#x51FA;<code>select * from user info</code>&#x8FD9;&#x6837;&#x7684;&#x8BED;&#x53E5;&#xFF0C;&#x80AF;&#x5B9A;&#x662F;&#x8981;&#x62A5;&#x9519;&#x7684;&#xFF0C;&#x5728; Mysql &#x4E2D;&#x7684;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x4E00;&#x822C;&#x4F1A;&#x5199;&#x6210;&#x5982;&#x4E0B;&#x7684;&#x6837;&#x5B50;&#xFF1A;</p>
+<p>select * from `user info`</p>
+<p>&#x8FD9;&#x91CC;&#x7684;&#x4F7F;&#x7528;&#x7684;<strong>&#x53CD;&#x5355;&#x5F15;&#x53F7;( ` )</strong>&#x5C31;&#x662F;<strong>&#x5206;&#x9694;&#x7B26;</strong>&#xFF0C;<strong>&#x5206;&#x9694;&#x7B26;</strong>&#x53EF;&#x4EE5;&#x7528;&#x4E8E;<strong>&#x8868;&#x540D;</strong>&#x6216;&#x8005;<strong>&#x5217;&#x540D;</strong>&#x3002;</p>
+</blockquote>
+<p>&#x4E0B;&#x9762;&#x7EE7;&#x7EED;&#x770B;<code>&lt;property&gt;</code>&#x652F;&#x6301;&#x7684;&#x5C5E;&#x6027;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">autoDelimitKeywords</span><br><span class="line">beginningDelimiter</span><br><span class="line">endingDelimiter</span><br><span class="line">javaFileEncoding</span><br><span class="line">javaFormatter</span><br><span class="line">xmlFormatter</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x9996;&#x5148;&#x662F;<code>autoDelimitKeywords</code>&#xFF0C;&#x5F53;&#x8868;&#x540D;&#x6216;&#x8005;&#x5B57;&#x6BB5;&#x540D;&#x4E3A; SQL &#x5173;&#x952E;&#x5B57;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x8BE5;&#x5C5E;&#x6027;&#x4E3A; true&#xFF0C;MBG &#x4F1A;&#x81EA;&#x52A8;&#x7ED9;&#x8868;&#x540D;&#x6216;&#x5B57;&#x6BB5;&#x540D;&#x6DFB;&#x52A0;<strong>&#x5206;&#x9694;&#x7B26;</strong>&#x3002;</p>
+<p>&#x7531;&#x4E8E;<code>beginningDelimiter</code>&#x548C;<code>endingDelimiter</code>&#x7684;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;&#x53CC;&#x5F15;&#x53F7;&#xFF08;&#x201D;&#xFF09;&#xFF0C;&#x5728; Mysql &#x4E2D;&#x4E0D;&#x80FD;&#x8FD9;&#x4E48;&#x5199;&#xFF0C;&#x6240;&#x4EE5;&#x8FD8;&#x8981;&#x5C06;&#x8FD9;&#x4E24;&#x4E2A;&#x9ED8;&#x8BA4;&#x503C;&#x6539;&#x4E3A;&#x53CD;&#x5355;&#x5F15;&#x53F7;&#xFF08;`&#xFF09;&#xFF0C;&#x914D;&#x7F6E;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;property name=&quot;beginningDelimiter&quot; value=&quot;`&quot;/&gt;</span><br><span class="line">&lt;property name=&quot;endingDelimiter&quot; value=&quot;`&quot;/&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5C5E;&#x6027;<code>javaFileEncoding</code>&#x8BBE;&#x7F6E;&#x8981;&#x4F7F;&#x7528;&#x7684; Java &#x6587;&#x4EF6;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;&#x5F53;&#x524D;&#x5E73;&#x53F0;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x53EA;&#x6709;&#x5F53;&#x751F;&#x4EA7;&#x7684;&#x7F16;&#x7801;&#x9700;&#x8981;&#x7279;&#x6B8A;&#x6307;&#x5B9A;&#x65F6;&#x624D;&#x9700;&#x8981;&#x4F7F;&#x7528;&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x4E0D;&#x5230;&#x3002;</p>
+<p>&#x6700;&#x540E;&#x4E24;&#x4E2A;<code>javaFormatter</code>&#x548C;<code>xmlFormatter</code>&#x5C5E;&#x6027;<strong>&#x53EF;&#x80FD;&#x4F1A;</strong>&#x5F88;&#x6709;&#x7528;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x60F3;&#x4F7F;&#x7528;&#x6A21;&#x677F;&#x6765;&#x5B9A;&#x5236;&#x751F;&#x6210;&#x7684; Java &#x6587;&#x4EF6;&#x548C; xml &#x6587;&#x4EF6;&#x7684;&#x6837;&#x5F0F;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6307;&#x5B9A;&#x8FD9;&#x4E24;&#x4E2A;&#x5C5E;&#x6027;&#x7684;&#x503C;&#x6765;&#x5B9E;&#x73B0;&#x3002;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x5206;&#x8282;&#x5BF9;&#x5176;&#x4ED6;&#x7684;&#x5B50;&#x5143;&#x7D20;&#x9010;&#x4E2A;&#x8FDB;&#x884C;&#x4ECB;&#x7ECD;&#x3002;</p>
+<h5 id="6-2-&#x5143;&#x7D20;"><a href="#6-2-&#x5143;&#x7D20;" class="headerlink" title="6.2 &#x5143;&#x7D20;"></a>6.2 <plugin>&#x5143;&#x7D20;</plugin></h5><p>&#x8BE5;&#x5143;&#x7D20;&#x53EF;&#x4EE5;&#x914D;&#x7F6E; 0 &#x4E2A;&#x6216;&#x8005;&#x591A;&#x4E2A;&#x3002;<code>&lt;plugin&gt;</code>&#x5143;&#x7D20;&#x7528;&#x6765;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x63D2;&#x4EF6;&#x3002;&#x63D2;&#x4EF6;&#x7528;&#x4E8E;&#x6269;&#x5C55;&#x6216;&#x4FEE;&#x6539;&#x901A;&#x8FC7; MyBatis Generator (MBG) &#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;&#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x3002;&#x63D2;&#x4EF6;&#x5C06;&#x6309;&#x5728;&#x914D;&#x7F6E;&#x4E2D;&#x914D;&#x7F6E;&#x7684;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x3002;</p>
+<blockquote>
+<p>&#x6709;&#x5173;&#x63D2;&#x4EF6;&#x7684;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#x53EF;&#x4EE5;&#x53C2;&#x8003;&#x5F00;&#x53D1;&#x63D2;&#x4EF6;&#x548C;&#x63D0;&#x4F9B;&#x7684;&#x63D2;&#x4EF6;&#x4E86;&#x89E3;&#x66F4;&#x591A;&#x3002;<br>&#x5F00;&#x53D1;&#x63D2;&#x4EF6;&#xFF1A;<code>http://mbg.cndocs.ml/reference/pluggingIn.html</code><br>&#x63D0;&#x4F9B;&#x7684;&#x63D2;&#x4EF6;&#xFF1A;<code>http://mbg.cndocs.ml/reference/plugins.html</code></p>
+</blockquote>
+<h5 id="6-3-&#x5143;&#x7D20;"><a href="#6-3-&#x5143;&#x7D20;" class="headerlink" title="6.3 &#x5143;&#x7D20;"></a>6.3 <commentgenerator>&#x5143;&#x7D20;</commentgenerator></h5><p>&#x8BE5;&#x5143;&#x7D20;&#x6700;&#x591A;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;1&#x4E2A;&#x3002;&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x975E;&#x5E38;&#x6709;&#x7528;&#xFF0C;&#x76F8;&#x4FE1;&#x5F88;&#x591A;&#x4EBA;&#x90FD;&#x6709;&#x8FC7;&#x8FD9;&#x6837;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x5C31;&#x662F;&#x5E0C;&#x671B; MBG &#x751F;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#x53EF;&#x4EE5;&#x5305;&#x542B;<strong>&#x6CE8;&#x91CA;&#x4FE1;&#x606F;</strong>&#xFF0C;&#x5177;&#x4F53;&#x5C31;&#x662F;&#x751F;&#x6210;&#x8868;&#x6216;&#x5B57;&#x6BB5;&#x7684;&#x5907;&#x6CE8;&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x5C31;&#x80FD;&#x5F88;&#x7B80;&#x5355;&#x7684;&#x5B9E;&#x73B0;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x7684;&#x529F;&#x80FD;&#x3002;&#x8FD9;&#x91CC;&#x5148;&#x4ECB;&#x7ECD;&#x8BE5;&#x5143;&#x7D20;&#xFF0C;&#x4ECB;&#x7ECD;&#x5B8C;&#x540E;&#x4F1A;&#x4E3E;&#x4F8B;&#x5982;&#x4F55;&#x6269;&#x5C55;&#x5B9E;&#x73B0;&#x8BE5;&#x529F;&#x80FD;&#x3002;</p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x6709;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x5C5E;&#x6027; type&#xFF0C;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x7528;&#x6237;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#xFF0C;&#x8BE5;&#x7C7B;&#x9700;&#x8981;&#x5B9E;&#x73B0;<code>org.mybatis.generator.api.CommentGenerator</code>&#x63A5;&#x53E3;&#x3002;&#x800C;&#x4E14;&#x5FC5;&#x6709;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x3002;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x63A5;&#x6536;&#x9ED8;&#x8BA4;&#x7684;&#x7279;&#x6B8A;&#x503C; DEFAULT&#xFF0C;&#x4F1A;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;<code>org.mybatis.generator.internal.DefaultCommentGenerator</code>&#x3002;</p>
+<p>&#x9ED8;&#x8BA4;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x4E2D;&#x63D0;&#x4F9B;&#x4E86;&#x4E24;&#x4E2A;&#x53EF;&#x9009;&#x5C5E;&#x6027;&#xFF0C;&#x9700;&#x8981;&#x901A;&#x8FC7;<code>&lt;property&gt;</code>&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x3002;</p>
+<p><code>suppressAllComments</code>&#xFF1A;<strong>&#x963B;&#x6B62;</strong>&#x751F;&#x6210;&#x6CE8;&#x91CA;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A; false</p>
+<p><code>suppressDate</code>&#xFF1A;<strong>&#x963B;&#x6B62;</strong>&#x751F;&#x6210;&#x7684;&#x6CE8;&#x91CA;&#x5305;&#x542B;&#x65F6;&#x95F4;&#x6233;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A; false</p>
+<p>&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x7531;&#x4E8E; MBG &#x751F;&#x6210;&#x7684;&#x6CE8;&#x91CA;&#x4FE1;&#x606F;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x4EF7;&#x503C;&#xFF0C;&#x800C;&#x4E14;&#x6709;&#x65F6;&#x95F4;&#x6233;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x6BCF;&#x6B21;&#x751F;&#x6210;&#x7684;&#x6CE8;&#x91CA;&#x90FD;&#x4E0D;&#x4E00;&#x6837;&#xFF0C;&#x4F7F;&#x7528;<strong>&#x7248;&#x672C;&#x63A7;&#x5236;</strong>&#x7684;&#x65F6;&#x5019;&#x6BCF;&#x6B21;&#x90FD;&#x4F1A;&#x63D0;&#x4EA4;&#xFF0C;&#x56E0;&#x800C;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x6211;&#x4EEC;&#x90FD;&#x4F1A;&#x5C4F;&#x853D;&#x6CE8;&#x91CA;&#x4FE1;&#x606F;&#xFF0C;&#x53EF;&#x4EE5;&#x5982;&#x4E0B;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;commentGenerator&gt;</span><br><span class="line">    &lt;property name=&quot;suppressAllComments&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;suppressDate&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">&lt;/commentGenerator&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x63A5;&#x4E0B;&#x6765;&#x6211;&#x4EEC;&#x7B80;&#x5355;&#x4E3E;&#x4F8B;&#x5B9E;&#x73B0;&#x751F;&#x6210;&#x5305;&#x542B;&#x8868;&#x5B57;&#x6BB5;&#x6CE8;&#x91CA;&#x4FE1;&#x606F;&#x7684;&#x6CE8;&#x91CA;&#xFF1A;</p>
+<p>&#x56E0;&#x4E3A;&#x7CFB;&#x7EDF;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#xFF0C;&#x6240;&#x4EE5;&#x5BF9;&#x6211;&#x4EEC;&#x6765;&#x8BF4;&#xFF0C;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x4F1A;&#x5F88;&#x5BB9;&#x6613;&#xFF0C;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x590D;&#x5236;&#x9ED8;&#x8BA4;&#x5B9E;&#x73B0;&#x7C7B;&#x4EE3;&#x7801;&#x5230;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x4FEE;&#x6539;&#x7C7B;&#x540D;&#x5982;<code>MyCommentGenerator</code>&#xFF0C;&#x5728;&#x4F60;&#x81EA;&#x5DF1;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x4E2D;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x662F;&#x5426;&#x7EE7;&#x7EED;&#x652F;&#x6301;&#x4E0A;&#x9762;&#x7684;&#x4E24;&#x4E2A;&#x5C5E;&#x6027;&#xFF0C;&#x4F60;&#x8FD8;&#x53EF;&#x4EE5;&#x589E;&#x52A0;&#x5BF9;&#x5176;&#x4ED6;&#x5C5E;&#x6027;&#x7684;&#x652F;&#x6301;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x4E0B;&#x9762;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x4FEE;&#x6539;&#x6765;&#x4E86;&#x89E3;&#xFF0C;&#x5176;&#x4ED6;&#x51E0;&#x4E2A;&#x65B9;&#x6CD5;&#x8BF7;&#x81EA;&#x884C;&#x4FEE;&#x6539;(&#x5199;&#x672C;&#x7AE0;&#x7684;&#x65F6;&#x5019;&#x6211;&#x4E5F;&#x6CA1;&#x6709;&#x5B8C;&#x5168;&#x5B9E;&#x73B0;&#x8BE5;&#x7C7B;&#xFF0C;&#x6240;&#x4EE5;&#x4E0D;&#x63D0;&#x4F9B;&#x5B8C;&#x6574;&#x6E90;&#x7801;&#x4E86;)&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addFieldComment</span><span class="params">(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (introspectedColumn.getRemarks() != <span class="keyword">null</span> &amp;&amp; !introspectedColumn.getRemarks().equals(<span class="string">&quot;&quot;</span>)) {</span><br><span class="line">        field.addJavaDocLine(<span class="string">&quot;/**&quot;</span>);</span><br><span class="line">        field.addJavaDocLine(<span class="string">&quot; * &quot;</span> + introspectedColumn.getRemarks());</span><br><span class="line">        addJavadocTag(field, <span class="keyword">false</span>);</span><br><span class="line">        field.addJavaDocLine(<span class="string">&quot; */&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;&#x7ED9;&#x5B57;&#x6BB5;&#x6DFB;&#x52A0;&#x6CE8;&#x91CA;&#x4FE1;&#x606F;&#x7684;&#xFF0C;&#x5176;&#x4E2D;<code>IntrospectedColumn</code>&#x5305;&#x542B;&#x4E86;&#x5B57;&#x6BB5;&#x7684;&#x5B8C;&#x6574;&#x4FE1;&#x606F;&#xFF0C;&#x901A;&#x8FC7;<code>getRemarks</code>&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5B57;&#x6BB5;&#x7684;&#x6CE8;&#x91CA;&#x4FE1;&#x606F;&#x3002;&#x4E0A;&#x9762;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4FEE;&#x6539;&#x8D77;&#x6765;&#x8FD8;&#x662F;&#x5F88;&#x5BB9;&#x6613;&#x7684;&#x3002;&#x9664;&#x4E86;&#x5B57;&#x6BB5;&#x7684;&#x6CE8;&#x91CA;&#x5916;&#x8FD8;&#x6709; Getter &#x548C; Setter&#xFF0C;&#x4EE5;&#x53CA;&#x7C7B;&#x7684;&#x6CE8;&#x91CA;&#x3002;&#x6B64;&#x5916;&#x8FD8;&#x6709;&#x751F;&#x6210; XML &#x7684;&#x6CE8;&#x91CA;&#xFF0C;&#x5927;&#x5BB6;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x9ED8;&#x8BA4;&#x7684;&#x5B9E;&#x73B0;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x3002;</p>
+<p>&#x5B8C;&#x6210;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x505A;<code>&lt;commentGenerator&gt;</code>&#x5143;&#x7D20;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;commentGenerator type=&quot;com.github.abel533.mybatis.generator.MyCommentGenerator&quot;/&gt;</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="6-4-&#x5143;&#x7D20;"><a href="#6-4-&#x5143;&#x7D20;" class="headerlink" title="6.4 &#x5143;&#x7D20;"></a>6.4 <jdbcconnection>&#x5143;&#x7D20;</jdbcconnection></h5><p><code>&lt;jdbcConnection&gt;</code>&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x4FE1;&#x606F;&#xFF0C;<strong>&#x8BE5;&#x5143;&#x7D20;&#x5FC5;&#x9009;&#xFF0C;&#x4E14;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;</strong>&#x3002;</p>
+<p>&#x914D;&#x7F6E;&#x8BE5;&#x5143;&#x7D20;&#x53EA;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x5982;&#x679C; JDBC &#x9A71;&#x52A8;&#x4E0D;&#x5728; classpath &#x4E0B;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x901A;&#x8FC7;<code>&lt;classPathEntry&gt;</code>&#x5143;&#x7D20;&#x5F15;&#x5165; jar &#x5305;&#xFF0C;&#x8FD9;&#x91CC;&#x63A8;&#x8350;&#x5C06; jar &#x5305;&#x653E;&#x5230; classpath &#x4E0B;&#x3002;</p>
+<p>&#x8BE5;&#x5143;&#x7D20;<strong>&#x6709;&#x4E24;&#x4E2A;&#x5FC5;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><code>driverClass</code>&#xFF1A;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x5E93;&#x7684; JDBC &#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#x7684;&#x5B8C;&#x5168;&#x9650;&#x5B9A;&#x7C7B;&#x540D;</li>
+<li><code>connectionURL</code>&#xFF1A;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x5E93;&#x7684; JDBC &#x8FDE;&#x63A5; URL</li>
+</ul>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x8FD8;&#x6709;<strong>&#x4E24;&#x4E2A;&#x53EF;&#x9009;&#x5C5E;&#x6027;</strong>:</p>
+<ul>
+<li><code>userId</code>&#xFF1A;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x5E93;&#x7684;&#x7528;&#x6237; ID</li>
+<li><code>password</code>&#xFF1A;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x5E93;&#x7684;&#x5BC6;&#x7801;</li>
+</ul>
+<p>&#x6B64;&#x5916;&#x8BE5;&#x5143;&#x7D20;&#x8FD8;&#x53EF;&#x4EE5;&#x63A5;&#x53D7;&#x591A;&#x4E2A;<code>&lt;property&gt;</code>&#x5B50;&#x5143;&#x7D20;&#xFF0C;&#x8FD9;&#x91CC;&#x914D;&#x7F6E;&#x7684;<code>&lt;property&gt;</code>&#x5C5E;&#x6027;&#x90FD;&#x4F1A;&#x6DFB;&#x52A0;&#x5230; JDBC &#x9A71;&#x52A8;&#x7684;&#x5C5E;&#x6027;&#x4E2D;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x914D;&#x7F6E;&#x8D77;&#x6765;&#x6700;&#x5BB9;&#x6613;&#xFF0C;&#x8FD9;&#x91CC;&#x4E3E;&#x4E2A;&#x7B80;&#x5355;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;jdbcConnection driverClass=&quot;com.mysql.jdbc.Driver&quot;</span><br><span class="line">                connectionURL=&quot;jdbc:mysql://localhost:3306/test&quot;</span><br><span class="line">                userId=&quot;root&quot;</span><br><span class="line">                password=&quot;root&quot;&gt;</span><br><span class="line">&lt;/jdbcConnection&gt;</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="6-5-&#x5143;&#x7D20;"><a href="#6-5-&#x5143;&#x7D20;" class="headerlink" title="6.5 &#x5143;&#x7D20;"></a>6.5 <javatyperesolver>&#x5143;&#x7D20;</javatyperesolver></h5><p>&#x8BE5;&#x5143;&#x7D20;&#x6700;&#x591A;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#x3002;&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x7684;&#x914D;&#x7F6E;&#x7528;&#x6765;&#x6307;&#x5B9A; JDBC &#x7C7B;&#x578B;&#x548C; Java &#x7C7B;&#x578B;&#x5982;&#x4F55;&#x8F6C;&#x6362;&#x3002;</p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;&#x5C5E;<code>type</code>&#x548C;<code>&lt;commentGenerator&gt;</code>&#x6BD4;&#x8F83;&#x7C7B;&#x578B;&#xFF0C;&#x63D0;&#x4F9B;&#x4E86;&#x9ED8;&#x8BA4;&#x7684;&#x5B9E;&#x73B0; DEFAULT&#xFF0C;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x5373;&#x53EF;&#xFF0C;&#x9700;&#x8981;&#x7279;&#x6B8A;&#x5904;&#x7406;&#x7684;&#x60C5;&#x51B5;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5176;&#x4ED6;&#x5143;&#x7D20;&#x914D;&#x7F6E;&#x6765;&#x89E3;&#x51B3;&#xFF0C;&#x4E0D;&#x5EFA;&#x8BAE;&#x4FEE;&#x6539;&#x8BE5;&#x5C5E;&#x6027;&#x3002;</p>
+<p>&#x8BE5;&#x5C5E;&#x6027;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x7684;<code>&lt;property&gt;</code>&#x5143;&#x7D20;&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x7684;&#x5C5E;&#x6027;&#x4E3A;<code>forceBigDecimals</code>&#xFF0C;&#x8BE5;&#x5C5E;&#x6027;&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x662F;&#x5426;&#x5F3A;&#x5236; DECIMAL &#x548C; NUMERIC &#x7C7B;&#x578B;&#x7684;&#x5B57;&#x6BB5;&#x8F6C;&#x6362;&#x4E3A; Java &#x7C7B;&#x578B;&#x7684;<code>java.math.BigDecimal</code>&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A; false&#xFF0C;&#x4E00;&#x822C;&#x4E0D;&#x9700;&#x8981;&#x914D;&#x7F6E;&#x3002;</p>
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x7684;&#x8F6C;&#x6362;&#x89C4;&#x5219;&#x4E3A;&#xFF1A;</p>
+<p>&#x5982;&#x679C;&#x7CBE;&#x5EA6; &gt; 0 &#x6216;&#x8005;&#x957F;&#x5EA6; &gt; 18&#xFF0C;&#x5C31;&#x4F1A;&#x4F7F;&#x7528;<code>java.math.BigDecimal</code><br>&#x5982;&#x679C;&#x7CBE;&#x5EA6; = 0 &#x5E76;&#x4E14; 10 &lt;= &#x957F;&#x5EA6; &lt;= 18&#xFF0C;&#x5C31;&#x4F1A;&#x4F7F;&#x7528;<code>java.lang.Long</code><br>&#x5982;&#x679C;&#x7CBE;&#x5EA6; = 0 &#x5E76;&#x4E14;5 &lt;= &#x957F;&#x5EA6; &lt;= 9&#xFF0C;&#x5C31;&#x4F1A;&#x4F7F;&#x7528;<code>java.lang.Integer</code><br>&#x5982;&#x679C;&#x7CBE;&#x5EA6; = 0 &#x5E76;&#x4E14; &#x957F;&#x5EA6; &lt; 5&#xFF0C;&#x5C31;&#x4F1A;&#x4F7F;&#x7528;<code>java.lang.Short</code></p>
+<p>&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E3A; true&#xFF0C;&#x90A3;&#x4E48;&#x4E00;&#x5B9A;&#x4F1A;&#x4F7F;&#x7528;<code>java.math.BigDecimal</code>&#xFF0C;</p>
+<p><code>&lt;javaTypeResolver&gt;</code>&#x5143;&#x7D20;&#x914D;&#x7F6E;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;javaTypeResolver &gt;</span><br><span class="line">    &lt;property name=&quot;forceBigDecimals&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">&lt;/javaTypeResolver&gt;</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="6-6-&#x5143;&#x7D20;"><a href="#6-6-&#x5143;&#x7D20;" class="headerlink" title="6.6 &#x5143;&#x7D20;"></a>6.6 <javamodelgenerator>&#x5143;&#x7D20;</javamodelgenerator></h5><p>&#x8BE5;&#x5143;&#x7D20;&#x5FC5;&#x987B;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#xFF0C;&#x5E76;&#x4E14;&#x6700;&#x591A;&#x4E00;&#x4E2A;&#x3002;&#x8BE5;&#x5143;&#x7D20;&#x7528;&#x6765;&#x63A7;&#x5236;&#x751F;&#x6210;&#x7684;&#x5B9E;&#x4F53;&#x7C7B;&#xFF0C;&#x6839;&#x636E;<code>&lt;context&gt;</code>&#x4E2D;&#x914D;&#x7F6E;&#x7684;<code>defaultModelType</code>&#xFF0C;&#x4E00;&#x4E2A;&#x8868;&#x53EF;&#x80FD;&#x4F1A;&#x5BF9;&#x5E94;&#x751F;&#x6210;&#x591A;&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x5B9E;&#x4F53;&#x7C7B;&#x3002;&#x4E00;&#x4E2A;&#x8868;&#x5BF9;&#x5E94;&#x591A;&#x4E2A;&#x7C7B;&#x5B9E;&#x9645;&#x4E0A;&#x5E76;&#x4E0D;&#x65B9;&#x4FBF;&#xFF0C;&#x6240;&#x4EE5;&#x524D;&#x9762;&#x4E5F;&#x63A8;&#x8350;&#x4F7F;&#x7528; flat&#xFF0C;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x4E00;&#x4E2A;&#x8868;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x5B9E;&#x4F53;&#x7C7B;&#x3002;</p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x53EA;&#x6709;<strong>&#x4E24;&#x4E2A;&#x5FC5;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><code>targetPackage</code>&#xFF1A;&#x751F;&#x6210;&#x5B9E;&#x4F53;&#x7C7B;&#x5B58;&#x653E;&#x7684;&#x5305;&#x540D;&#xFF0C;&#x4E00;&#x822C;&#x5C31;&#x662F;&#x653E;&#x5728;&#x8BE5;&#x5305;&#x4E0B;&#x3002;&#x5B9E;&#x9645;&#x8FD8;&#x4F1A;&#x53D7;&#x5230;&#x5176;&#x4ED6;&#x914D;&#x7F6E;&#x7684;&#x5F71;&#x54CD;&#xFF08; &#x4E2D;&#x4F1A;&#x63D0;&#x5230;&#xFF09;&#x3002;<table></table></li>
+<li><code>targetProject</code>&#xFF1A;&#x6307;&#x5B9A;&#x76EE;&#x6807;&#x9879;&#x76EE;&#x8DEF;&#x5F84;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#x6216;&#x76F8;&#x5BF9;&#x8DEF;&#x5F84;&#xFF08;&#x5982;<code>targetProject=&quot;src/main/java&quot;</code>&#xFF09;&#x3002;</li>
+</ul>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x652F;&#x6301;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;<strong><property>&#x5B50;&#x5143;&#x7D20;&#x5C5E;&#x6027;</property></strong>&#xFF1A;</p>
+<ul>
+<li><p><code>constructorBased</code>&#xFF1A;&#x8BE5;&#x5C5E;&#x6027;&#x53EA;&#x5BF9; MyBatis3 &#x6709;&#x6548;&#xFF0C;&#x5982;&#x679C; true &#x5C31;&#x4F1A;&#x4F7F;&#x7528;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x5165;&#x53C2;&#xFF0C;&#x5982;&#x679C; false &#x5C31;&#x4F1A;&#x4F7F;&#x7528; setter&#x65B9;&#x5F0F;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; false&#x3002;</p>
+</li>
+<li><p><code>enableSubPackages</code>&#xFF1A;&#x5982;&#x679C; true&#xFF0C;MBG &#x4F1A;&#x6839;&#x636E; catalog &#x548C; schema &#x6765;&#x751F;&#x6210;&#x5B50;&#x5305;&#x3002;&#x5982;&#x679C; false &#x5C31;&#x4F1A;&#x76F4;&#x63A5;&#x7528; targetPackage &#x5C5E;&#x6027;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A;false&#x3002;</p>
+</li>
+<li><p><code>immutable</code>&#xFF1A;&#x8BE5;&#x5C5E;&#x6027;&#x7528;&#x6765;&#x914D;&#x7F6E;&#x5B9E;&#x4F53;&#x7C7B;&#x5C5E;&#x6027;&#x662F;&#x5426;&#x53EF;&#x53D8;&#xFF0C;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E3A; true&#xFF0C;&#x90A3;&#x4E48; constructorBased &#x4E0D;&#x7BA1;&#x8BBE;&#x7F6E;&#x6210;&#x4EC0;&#x4E48;&#xFF0C;&#x90FD;&#x4F1A;&#x4F7F;&#x7528;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x5165;&#x53C2;&#xFF0C;&#x5E76;&#x4E14;&#x4E0D;&#x4F1A;&#x751F;&#x6210; setter &#x65B9;&#x6CD5;&#x3002;&#x5982;&#x679C;&#x4E3A; false&#xFF0C;&#x5B9E;&#x4F53;&#x7C7B;&#x5C5E;&#x6027;&#x5C31;&#x53EF;&#x4EE5;&#x6539;&#x53D8;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; false&#x3002;</p>
+</li>
+<li><p><code>rootClass</code>&#xFF1A;&#x8BBE;&#x7F6E;&#x6240;&#x6709;&#x5B9E;&#x4F53;&#x7C7B;&#x7684;&#x57FA;&#x7C7B;&#x3002;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x7C7B;&#x7684;&#x5168;&#x9650;&#x5B9A;&#x540D;&#x79F0;&#x3002;&#x5E76;&#x4E14;&#x5982;&#x679C; MBG &#x80FD;&#x591F;&#x52A0;&#x8F7D;rootClass&#xFF0C;&#x90A3;&#x4E48; MBG &#x4E0D;&#x4F1A;&#x8986;&#x76D6;&#x548C;&#x7236;&#x7C7B;&#x4E2D;&#x5B8C;&#x5168;&#x5339;&#x914D;&#x7684;&#x5C5E;&#x6027;&#x3002;&#x5339;&#x914D;&#x89C4;&#x5219;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x5C5E;&#x6027;&#x540D;&#x5B8C;&#x5168;&#x76F8;&#x540C;</span><br><span class="line">&#x5C5E;&#x6027;&#x7C7B;&#x578B;&#x76F8;&#x540C;</span><br><span class="line">&#x5C5E;&#x6027;&#x6709;getter&#x65B9;&#x6CD5;</span><br><span class="line">&#x5C5E;&#x6027;&#x6709;setter&#x65B9;&#x6CD5;</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><code>trimStrings</code>&#xFF1A;&#x662F;&#x5426;&#x5BF9;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x8FDB;&#x884C; trim &#x64CD;&#x4F5C;&#xFF0C;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E3A; true &#x5C31;&#x4F1A;&#x751F;&#x6210;&#x7C7B;&#x4F3C;&#x8FD9;&#x6837;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void setUsername(String username) {</span><br><span class="line">  this.username = username == null ? null : username.trim();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7684; setter &#x65B9;&#x6CD5;&#x3002;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A; false&#x3002;</p>
+</li>
+</ul>
+<p><code>&lt;javaModelGenerator&gt;</code>&#x5143;&#x7D20;&#x914D;&#x7F6E;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;src\main\java&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">&lt;/javaModelGenerator&gt;</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="6-7-&#x5143;&#x7D20;"><a href="#6-7-&#x5143;&#x7D20;" class="headerlink" title="6.7 &#x5143;&#x7D20;"></a>6.7 <sqlmapgenerator>&#x5143;&#x7D20;</sqlmapgenerator></h5><p>&#x8BE5;&#x5143;&#x7D20;&#x53EF;&#x9009;&#xFF0C;&#x6700;&#x591A;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#x3002;&#x4F46;&#x662F;&#x6709;&#x5982;&#x4E0B;&#x4E24;&#x79CD;&#x5FC5;&#x9009;&#x7684;&#x7279;&#x6B8A;&#x60C5;&#x51B5;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C;<code>targetRuntime</code>&#x76EE;&#x6807;&#x662F; <strong>iBATIS2</strong>&#xFF0C;&#x8BE5;&#x5143;&#x7D20;&#x5FC5;&#x987B;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#x3002;&#x5982;&#x679C;<code>targetRuntime</code>&#x76EE;&#x6807;&#x662F; <strong>MyBatis3</strong>&#xFF0C;&#x53EA;&#x6709;&#x5F53;<code>&lt;javaClientGenerator&gt;</code>&#x9700;&#x8981;XML&#x65F6;&#xFF0C;&#x8BE5;&#x5143;&#x7D20;&#x5FC5;&#x987B;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x914D;&#x7F6E; <javaclientgenerator>&#xFF0C;&#x5219;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x7684;&#x89C4;&#x5219;&#xFF1A;<br>&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86;&#x4E00;&#x4E2A; <sqlmapgenerator>&#xFF0C;&#x90A3;&#x4E48; MBG &#x5C06;&#x53EA;&#x751F;&#x6210; XML &#x7684; SQL &#x6620;&#x5C04;&#x6587;&#x4EF6;&#x548C;&#x5B9E;&#x4F53;&#x7C7B;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A; <sqlmapgenerator>&#xFF0C;&#x90A3;&#x4E48; MBG &#x5C06;&#x53EA;&#x751F;&#x6210;&#x5B9E;&#x4F53;&#x7C7B;&#x3002;</sqlmapgenerator></sqlmapgenerator></javaclientgenerator></li>
+</ul>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x53EA;&#x6709;<strong>&#x4E24;&#x4E2A;&#x5FC5;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF08;&#x548C;&#x524D;&#x9762;&#x63D0;&#x8FC7;&#x7684;<code>&lt;javaModelGenerator&gt;</code>&#x7684;&#x5C5E;&#x6027;&#x542B;&#x4E49;&#x4E00;&#x6837;&#xFF09;&#xFF1A;</p>
+<ul>
+<li><code>targetPackage</code>&#xFF1A;&#x751F;&#x6210;&#x5B9E;&#x4F53;&#x7C7B;&#x5B58;&#x653E;&#x7684;&#x5305;&#x540D;&#xFF0C;&#x4E00;&#x822C;&#x5C31;&#x662F;&#x653E;&#x5728;&#x8BE5;&#x5305;&#x4E0B;&#x3002;&#x5B9E;&#x9645;&#x8FD8;&#x4F1A;&#x53D7;&#x5230;&#x5176;&#x4ED6;&#x914D;&#x7F6E;&#x7684;&#x5F71;&#x54CD;(&#x4E2D;&#x4F1A;&#x63D0;&#x5230;)&#x3002;<table></table></li>
+<li><code>targetProject</code>&#xFF1A;&#x6307;&#x5B9A;&#x76EE;&#x6807;&#x9879;&#x76EE;&#x8DEF;&#x5F84;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#x6216;&#x76F8;&#x5BF9;&#x8DEF;&#x5F84;&#xFF08;&#x5982;&#xFF1A;<code>targetProject=&quot;src/main/resources&quot;</code>&#xFF09;&#x3002;</li>
+</ul>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x652F;&#x6301;<code>&lt;property&gt;</code>&#x5B50;&#x5143;&#x7D20;&#xFF0C;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x7684;&#x5C5E;&#x6027;&#xFF1A;</p>
+<ul>
+<li><code>enableSubPackages</code>&#xFF1A;&#x5982;&#x679C; true&#xFF0C;MBG &#x4F1A;&#x6839;&#x636E; catalog &#x548C; schema &#x6765;&#x751F;&#x6210;&#x5B50;&#x5305;&#x3002;&#x5982;&#x679C; false &#x5C31;&#x4F1A;&#x76F4;&#x63A5;&#x7528; targetPackage &#x5C5E;&#x6027;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A; false&#x3002;</li>
+</ul>
+<p><code>&lt;sqlMapGenerator&gt;</code>&#x5143;&#x7D20;&#x914D;&#x7F6E;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;src\main\resources&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">&lt;/sqlMapGenerator&gt;</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="6-8-&#x5143;&#x7D20;"><a href="#6-8-&#x5143;&#x7D20;" class="headerlink" title="6.8 &#x5143;&#x7D20;"></a>6.8 <javaclientgenerator>&#x5143;&#x7D20;</javaclientgenerator></h5><p>&#x8BE5;&#x5143;&#x7D20;&#x53EF;&#x9009;&#xFF0C;&#x6700;&#x591A;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x914D;&#x7F6E;&#x8BE5;&#x5143;&#x7D20;&#xFF0C;&#x5C31;&#x4E0D;&#x4F1A;&#x751F;&#x6210; Mapper &#x63A5;&#x53E3;&#x3002;</p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x6709; <strong>3 &#x4E2A;&#x5FC5;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ol>
+<li><p><code>type</code>&#xFF1A;&#x8BE5;&#x5C5E;&#x6027;&#x7528;&#x4E8E;&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x9884;&#x5B9A;&#x4E49;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x4EE3;&#x7801;&#xFF08;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A; Mapper &#x63A5;&#x53E3;&#xFF09;&#x751F;&#x6210;&#x5668;&#xFF0C;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;&#x5B9E;&#x73B0;&#xFF0C;&#x9700;&#x8981;&#x7EE7;&#x627F;<code>org.mybatis.generator.codegen.AbstractJavaClientGenerator</code>&#x7C7B;&#xFF0C;&#x5FC5;&#x9009;&#x6709;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x3002; &#x8BE5;&#x5C5E;&#x6027;&#x63D0;&#x4F9B;&#x4E86;&#x4EE5;&#x4E0B;&#x9884;&#x5B9A;&#x7684;&#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;&#xFF0C;&#x9996;&#x5148;&#x6839;&#x636E;<code>&lt;context&gt;</code>&#x7684; targetRuntime &#x5206;&#x6210;&#x4E09;&#x7C7B;&#xFF1A;</p>
+<p><strong>1. MyBatis3&#x7C7B;&#xFF1A;</strong><br><code>ANNOTATEDMAPPER</code>&#xFF1A;&#x57FA;&#x4E8E;&#x6CE8;&#x89E3;&#x7684; Mapper &#x63A5;&#x53E3;&#xFF0C;&#x4E0D;&#x4F1A;&#x6709;&#x5BF9;&#x5E94;&#x7684; XML &#x6620;&#x5C04;&#x6587;&#x4EF6;&#x3002;<br><code>MIXEDMAPPER</code>&#xFF1A;XML &#x548C;&#x6CE8;&#x89E3;&#x7684;&#x6DF7;&#x5408;&#x5F62;&#x5F0F;&#xFF0C;&#xFF08;&#x4E0A;&#x9762;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E2D;&#x7684;&#xFF09;SqlProvider &#x6CE8;&#x89E3;&#x65B9;&#x6CD5;&#x4F1A;&#x88AB; XML &#x66FF;&#x4EE3;&#x3002;<br><code>XMLMAPPER</code>&#xFF1A;&#x6240;&#x6709;&#x7684;&#x65B9;&#x6CD5;&#x90FD;&#x5728; XML &#x4E2D;&#xFF0C;&#x63A5;&#x53E3;&#x8C03;&#x7528;&#x4F9D;&#x8D56; XML &#x6587;&#x4EF6;&#x3002;</p>
+<p><strong>2. MyBatis3Simple&#x7C7B;&#xFF1A;</strong><br><code>ANNOTATEDMAPPER</code>&#xFF1A;&#x57FA;&#x4E8E;&#x6CE8;&#x89E3;&#x7684; Mapper &#x63A5;&#x53E3;&#xFF0C;&#x4E0D;&#x4F1A;&#x6709;&#x5BF9;&#x5E94;&#x7684; XML &#x6620;&#x5C04;&#x6587;&#x4EF6;&#x3002;<br><code>XMLMAPPER</code>&#xFF1A;&#x6240;&#x6709;&#x7684;&#x65B9;&#x6CD5;&#x90FD;&#x5728; XML &#x4E2D;&#xFF0C;&#x63A5;&#x53E3;&#x8C03;&#x7528;&#x4F9D;&#x8D56; XML &#x6587;&#x4EF6;&#x3002;</p>
+<p><strong>3. Ibatis2Java2&#x6216;Ibatis2Java5&#x7C7B;&#xFF1A;</strong><br><code>IBATIS</code>&#xFF1A;&#x751F;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#x7B26;&#x5408;iBATIS&#x7684;DAO&#x6846;&#x67B6;&#xFF08;&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#xFF09;&#x3002;<br><code>GENERIC-CI</code>&#xFF1A;&#x751F;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#x5C06;&#x53EA;&#x4F9D;&#x8D56;&#x4E8E;SqlMapClient&#xFF0C;&#x901A;&#x8FC7;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x6CE8;&#x5165;&#x3002;<br><code>GENERIC-SI</code>&#xFF1A;&#x751F;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#x5C06;&#x53EA;&#x4F9D;&#x8D56;&#x4E8E;SqlMapClient&#xFF0C;&#x901A;&#x8FC7;setter&#x65B9;&#x6CD5;&#x6CE8;&#x5165;&#x3002;<br><code>SPRING</code>&#xFF1A;&#x751F;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#x7B26;&#x5408;Spring&#x7684;DAO&#x63A5;&#x53E3;&#x3002;</p>
+</li>
+<li><p><code>targetPackage</code>&#xFF1A;&#x751F;&#x6210;&#x5B9E;&#x4F53;&#x7C7B;&#x5B58;&#x653E;&#x7684;&#x5305;&#x540D;&#xFF0C;&#x4E00;&#x822C;&#x5C31;&#x662F;&#x653E;&#x5728;&#x8BE5;&#x5305;&#x4E0B;&#x3002;&#x5B9E;&#x9645;&#x8FD8;&#x4F1A;&#x53D7;&#x5230;&#x5176;&#x4ED6;&#x914D;&#x7F6E;&#x7684;&#x5F71;&#x54CD;&#xFF08;&#x4E2D;&#x4F1A;&#x63D0;&#x5230;&#xFF09;&#x3002;<table></table></p>
+</li>
+<li><p><code>targetProject</code>&#xFF1A;&#x6307;&#x5B9A;&#x76EE;&#x6807;&#x9879;&#x76EE;&#x8DEF;&#x5F84;&#xFF0C;&#x53EF;&#x4EE5;&#x662F;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#x6216;&#x76F8;&#x5BF9;&#x8DEF;&#x5F84;&#xFF08;&#x5982;&#xFF1A;<code>targetProject=&quot;src/main/java&quot;</code>&#xFF09;&#x3002;</p>
+</li>
+</ol>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x8FD8;&#x6709;<strong>&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><p><code>implementationPackage</code>&#xFF1A;&#x5982;&#x679C;&#x6307;&#x5B9A;&#x4E86;&#x8BE5;&#x5C5E;&#x6027;&#xFF0C;&#x5B9E;&#x73B0;&#x7C7B;&#x5C31;&#x4F1A;&#x751F;&#x6210;&#x5728;&#x8FD9;&#x4E2A;&#x5305;&#x4E2D;&#x3002;</p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x652F;&#x6301;<code>&lt;property&gt;</code>&#x5B50;&#x5143;&#x7D20;&#x8BBE;&#x7F6E;&#x7684;&#x5C5E;&#x6027;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enableSubPackages</span><br><span class="line">exampleMethodVisibility</span><br><span class="line">methodNameCalculator</span><br><span class="line">rootInterface</span><br><span class="line">useLegacyBuilder</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<p>&#x8FD9;&#x51E0;&#x4E2A;<code>&lt;property&gt;</code>&#x5B50;&#x5143;&#x7D20;&#x5C5E;&#x6027;&#x4E0D;&#x592A;&#x5E38;&#x7528;&#xFF0C;&#x5177;&#x4F53;&#x4F5C;&#x7528;&#x8BF7;&#x770B;&#x5B8C;&#x6574;&#x7684;&#x6587;&#x6863;&#xFF0C;&#x8FD9;&#x91CC;&#x5BF9;<code>rootInterface</code>&#x505A;&#x4E2A;&#x7B80;&#x5355;&#x4ECB;&#x7ECD;&#xFF1A;</p>
+<ul>
+<li><code>rootInterface</code>&#xFF1A;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x6240;&#x6709;&#x751F;&#x6210;&#x7684;&#x63A5;&#x53E3;&#x90FD;&#x7EE7;&#x627F;&#x7684;&#x7236;&#x63A5;&#x53E3;&#x3002; &#x8FD9;&#x4E2A;&#x503C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>&amp;lt;table\&amp;gt;</code>&#x914D;&#x7F6E;&#x7684;<code>rootInterface</code>&#x5C5E;&#x6027;&#x8986;&#x76D6;&#x3002;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x5BF9;&#x4E8E;&#x901A;&#x7528; Mapper &#x6765;&#x8BF4;&#xFF0C;&#x53EF;&#x4EE5;&#x8BA9;&#x751F;&#x6210;&#x7684;&#x6240;&#x6709;&#x63A5;&#x53E3;&#x90FD;&#x7EE7;&#x627F;&#x8BE5;&#x63A5;&#x53E3;&#x3002;</li>
+</ul>
+<p><code>&lt;javaClientGenerator&gt;</code>&#x5143;&#x7D20;&#x914D;&#x7F6E;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot; targetProject=&quot;src\main\java&quot;/&gt;</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="6-9-&#x5143;&#x7D20;"><a href="#6-9-&#x5143;&#x7D20;" class="headerlink" title="6.9 &#x5143;&#x7D20;"></a>6.9 &#x5143;&#x7D20;<table></table></h5><p>&#x8BE5;&#x5143;&#x7D20;&#x81F3;&#x5C11;&#x8981;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#x3002;&#x8BE5;&#x5143;&#x7D20;&#x7528;&#x6765;&#x914D;&#x7F6E;&#x8981;&#x901A;&#x8FC7;&#x5185;&#x7701;&#x7684;&#x8868;&#x3002;&#x53EA;&#x6709;&#x914D;&#x7F6E;&#x7684;&#x624D;&#x4F1A;&#x751F;&#x6210;&#x5B9E;&#x4F53;&#x7C7B;&#x548C;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x6709;&#x4E00;&#x4E2A;<strong>&#x5FC5;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><p><code>tableName</code>&#xFF1A;&#x6307;&#x5B9A;&#x8981;&#x751F;&#x6210;&#x7684;&#x8868;&#x540D;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; SQL &#x901A;&#x914D;&#x7B26;&#x5339;&#x914D;&#x591A;&#x4E2A;&#x8868;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#x8981;&#x751F;&#x6210;&#x5168;&#x90E8;&#x7684;&#x8868;&#xFF0C;&#x53EF;&#x4EE5;&#x6309;&#x5982;&#x4E0B;&#x914D;&#x7F6E;&#xFF1A;<code>&lt;table tableName=&quot;%&quot; /&gt;</code></p>
+</li>
+</ul>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x5305;&#x542B;&#x591A;&#x4E2A;<strong>&#x53EF;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><code>schema</code>&#xFF1A;&#x6570;&#x636E;&#x5E93;&#x7684; schema&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; SQL &#x901A;&#x914D;&#x7B26;&#x5339;&#x914D;&#x3002;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E86;&#x8BE5;&#x503C;&#xFF0C;&#x751F;&#x6210; SQL &#x7684;&#x8868;&#x540D;&#x4F1A;&#x53D8;&#x6210;&#x5982; schema.tableName &#x7684;&#x5F62;&#x5F0F;&#x3002;</li>
+<li><code>catalog</code>&#xFF1A;&#x6570;&#x636E;&#x5E93;&#x7684; catalog&#xFF0C;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E86;&#x8BE5;&#x503C;&#xFF0C;&#x751F;&#x6210; SQL &#x7684;&#x8868;&#x540D;&#x4F1A;&#x53D8;&#x6210;&#x5982; catalog.tableName &#x7684;&#x5F62;&#x5F0F;&#x3002;</li>
+<li><code>alias</code>&#xFF1A;&#x5982;&#x679C;&#x6307;&#x5B9A;&#xFF0C;&#x8FD9;&#x4E2A;&#x503C;&#x4F1A;&#x7528;&#x5728;&#x751F;&#x6210;&#x7684; select &#x67E5;&#x8BE2; SQL &#x7684;&#x8868;&#x7684;&#x522B;&#x540D;&#x548C;&#x5217;&#x540D;&#x4E0A;&#x3002; &#x5217;&#x540D;&#x4F1A;&#x88AB;&#x522B;&#x540D;&#x4E3A; alias_actualColumnName&#xFF08;&#x522B;&#x540D;_&#x5B9E;&#x9645;&#x5217;&#x540D;&#xFF09;&#x8FD9;&#x79CD;&#x6A21;&#x5F0F;&#x3002;</li>
+<li><code>domainObjectName</code>&#xFF1A;&#x751F;&#x6210;&#x5BF9;&#x8C61;&#x7684;&#x57FA;&#x672C;&#x540D;&#x79F0;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#xFF0C;MBG &#x4F1A;&#x81EA;&#x52A8;&#x6839;&#x636E;&#x8868;&#x540D;&#x6765;&#x751F;&#x6210;&#x540D;&#x79F0;&#x3002;</li>
+<li><code>enableXXX</code>&#xFF1A;XXX &#x4EE3;&#x8868;&#x591A;&#x79CD; SQL &#x65B9;&#x6CD5;&#xFF0C;&#x8BE5;&#x5C5E;&#x6027;&#x7528;&#x6765;&#x6307;&#x5B9A;&#x662F;&#x5426;&#x751F;&#x6210;&#x5BF9;&#x5E94;&#x7684; XXX &#x8BED;&#x53E5;&#x3002;</li>
+<li><code>selectByPrimaryKeyQueryId</code>&#xFF1A;DBA &#x8DDF;&#x8E2A;&#x5DE5;&#x5177;&#x4F1A;&#x7528;&#x5230;&#xFF0C;&#x5177;&#x4F53;&#x8BF7;&#x770B;&#x8BE6;&#x7EC6;&#x6587;&#x6863;&#x3002;</li>
+<li><code>selectByExampleQueryId</code>&#xFF1A;DBA &#x8DDF;&#x8E2A;&#x5DE5;&#x5177;&#x4F1A;&#x7528;&#x5230;&#xFF0C;&#x5177;&#x4F53;&#x8BF7;&#x770B;&#x8BE6;&#x7EC6;&#x6587;&#x6863;&#x3002;</li>
+<li><code>modelType</code>&#xFF1A;&#x548C;<code>&lt;context&gt;</code>&#x7684;<code>defaultModelType</code>&#x542B;&#x4E49;&#x4E00;&#x6837;&#xFF0C;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x9488;&#x5BF9;&#x8868;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;&#x914D;&#x7F6E;&#x4F1A;&#x8986;&#x76D6;<code>&lt;context&gt;</code>&#x7684;<code>defaultModelType</code>&#x914D;&#x7F6E;&#x3002;</li>
+<li><code>escapeWildcards</code>&#xFF1A;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x8868;&#x793A;&#x5F53;&#x67E5;&#x8BE2;&#x5217;&#xFF0C;&#x662F;&#x5426;&#x5BF9; schema &#x548C;&#x8868;&#x540D;&#x4E2D;&#x7684; SQL &#x901A;&#x914D;&#x7B26; &#xFF08;&#x2019;_&#x2019; and &#x2018;%&#x2019;&#xFF09;&#x8FDB;&#x884C;&#x8F6C;&#x4E49;&#x3002; &#x5BF9;&#x4E8E;&#x67D0;&#x4E9B;&#x9A71;&#x52A8;&#x5F53; schema &#x6216;&#x8868;&#x540D;&#x4E2D;&#x5305;&#x542B; SQL &#x901A;&#x914D;&#x7B26;&#x65F6;&#xFF08;&#x4F8B;&#x5982;&#xFF0C;&#x4E00;&#x4E2A;&#x8868;&#x540D;&#x662F; MY_TABLE&#xFF0C;&#x6709;&#x4E00;&#x4E9B;&#x9A71;&#x52A8;&#x9700;&#x8981;&#x5C06;&#x4E0B;&#x5212;&#x7EBF;&#x8FDB;&#x884C;&#x8F6C;&#x4E49;&#xFF09;&#x662F;&#x5FC5;&#x987B;&#x7684;&#x3002;&#x9ED8;&#x8BA4;&#x503C;&#x662F; false&#x3002;</li>
+<li><code>delimitIdentifiers</code>&#xFF1A;&#x662F;&#x5426;&#x7ED9;&#x6807;&#x8BC6;&#x7B26;&#x589E;&#x52A0;<strong>&#x5206;&#x9694;&#x7B26;</strong>&#x3002;&#x9ED8;&#x8BA4; false&#x3002;&#x5F53; catalog&#xFF0C;schema &#x6216; tableName &#x4E2D;&#x5305;&#x542B;&#x7A7A;&#x767D;&#x65F6;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;true&#x3002;</li>
+<li><code>delimitAllColumns</code>&#xFF1A;&#x662F;&#x5426;&#x5BF9;&#x6240;&#x6709;&#x5217;&#x6DFB;&#x52A0;<strong>&#x5206;&#x9694;&#x7B26;</strong>&#x3002;&#x9ED8;&#x8BA4; false&#x3002;</li>
+</ul>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x5305;&#x542B;&#x591A;&#x4E2A;&#x53EF;&#x7528;&#x7684;<code>&lt;property&gt;</code>&#x5B50;&#x5143;&#x7D20;&#xFF0C;<strong>&#x53EF;&#x9009;&#x5C5E;&#x6027;</strong>&#x4E3A;&#xFF1A;</p>
+<ul>
+<li><code>constructorBased</code>&#xFF1A;&#x548C;<javamodelgenerator>&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x542B;&#x4E49;&#x4E00;&#x6837;&#x3002;</javamodelgenerator></li>
+<li><code>ignoreQualifiersAtRuntime</code>&#xFF1A;&#x751F;&#x6210;&#x7684; SQL &#x4E2D;&#x7684;&#x8868;&#x540D;&#x5C06;&#x4E0D;&#x4F1A;&#x5305;&#x542B; schema &#x548C; catalog &#x524D;&#x7F00;&#x3002;</li>
+<li><code>immutable</code>&#xFF1A;&#x548C;<javamodelgenerator>&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x542B;&#x4E49;&#x4E00;&#x6837;&#x3002;</javamodelgenerator></li>
+<li><code>modelOnly</code>&#xFF1A;&#x6B64;&#x5C5E;&#x6027;&#x7528;&#x4E8E;&#x914D;&#x7F6E;&#x662F;&#x5426;&#x4E3A;&#x8868;&#x53EA;&#x751F;&#x6210;&#x5B9E;&#x4F53;&#x7C7B;&#x3002;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E3A; true &#x5C31;&#x4E0D;&#x4F1A;&#x6709; Mapper &#x63A5;&#x53E3;&#x3002;&#x5982;&#x679C;&#x914D;&#x7F6E;&#x4E86;<sqlmapgenerator>&#xFF0C;&#x5E76;&#x4E14; modelOnly &#x4E3A; true&#xFF0C;&#x90A3;&#x4E48; XML &#x6620;&#x5C04;&#x6587;&#x4EF6;&#x4E2D;&#x53EA;&#x6709;&#x5B9E;&#x4F53;&#x5BF9;&#x8C61;&#x7684;&#x6620;&#x5C04;&#x5143;&#x7D20;&#xFF08; <resultmap>&#xFF09;&#x3002;&#x5982;&#x679C;&#x4E3A; true &#x8FD8;&#x4F1A;&#x8986;&#x76D6;&#x5C5E;&#x6027;&#x4E2D;&#x7684; enableXXX &#x65B9;&#x6CD5;&#xFF0C;&#x5C06;&#x4E0D;&#x4F1A;&#x751F;&#x6210;&#x4EFB;&#x4F55; CRUD &#x65B9;&#x6CD5;&#x3002;</resultmap></sqlmapgenerator></li>
+<li><code>rootClass</code>&#xFF1A;&#x548C;<javamodelgenerator>&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x542B;&#x4E49;&#x4E00;&#x6837;&#x3002;</javamodelgenerator></li>
+<li><code>rootInterface</code>&#xFF1A;&#x548C;<javaclientgenerator>&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x542B;&#x4E49;&#x4E00;&#x6837;&#x3002;</javaclientgenerator></li>
+<li><code>runtimeCatalog</code>&#xFF1A;&#x8FD0;&#x884C;&#x65F6;&#x7684; catalog&#xFF0C;&#x5F53;&#x751F;&#x6210;&#x8868;&#x548C;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x7684;&#x8868;&#x7684; catalog &#x4E0D;&#x4E00;&#x6837;&#x7684;&#x65F6;&#x5019;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8BE5;&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x3002;</li>
+<li><code>runtimeSchema</code>&#xFF1A;&#x8FD0;&#x884C;&#x65F6;&#x7684; schema&#xFF0C;&#x5F53;&#x751F;&#x6210;&#x8868;&#x548C;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x7684;&#x8868;&#x7684; schema &#x4E0D;&#x4E00;&#x6837;&#x7684;&#x65F6;&#x5019;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8BE5;&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x3002;</li>
+<li><code>runtimeTableName</code>&#xFF1A;&#x8FD0;&#x884C;&#x65F6;&#x7684; tableName&#xFF0C;&#x5F53;&#x751F;&#x6210;&#x8868;&#x548C;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x7684;&#x8868;&#x7684; tableName &#x4E0D;&#x4E00;&#x6837;&#x7684;&#x65F6;&#x5019;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8BE5;&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x3002;</li>
+<li><code>selectAllOrderByClause</code>&#xFF1A;&#x8BE5;&#x5C5E;&#x6027;&#x503C;&#x4F1A;&#x8FFD;&#x52A0;&#x5230; selectAll &#x65B9;&#x6CD5;&#x540E;&#x7684; SQL &#x4E2D;&#xFF0C;&#x4F1A;&#x76F4;&#x63A5;&#x8DDF; order by &#x62FC;&#x63A5;&#x540E;&#x6DFB;&#x52A0;&#x5230; SQL &#x672B;&#x5C3E;&#x3002;</li>
+<li><code>useActualColumnNames</code>&#xFF1A;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E3A; true&#xFF0C;&#x90A3;&#x4E48; MBG &#x4F1A;&#x4F7F;&#x7528;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x5143;&#x6570;&#x636E;&#x83B7;&#x53D6;&#x7684;&#x5217;&#x540D;&#x4F5C;&#x4E3A;&#x751F;&#x6210;&#x7684;&#x5B9E;&#x4F53;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x3002; &#x5982;&#x679C;&#x4E3A; false&#xFF08;&#x9ED8;&#x8BA4;&#x503C;&#xFF09;&#xFF0C;MGB &#x5C06;&#x4F1A;&#x5C1D;&#x8BD5;&#x5C06;&#x8FD4;&#x56DE;&#x7684;&#x540D;&#x79F0;&#x8F6C;&#x6362;&#x4E3A;&#x9A7C;&#x5CF0;&#x5F62;&#x5F0F;&#x3002; &#x5728;&#x8FD9;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; &#x5143;&#x7D20;&#x663E;&#x793A;&#x6307;&#x5B9A;&#xFF0C;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x5C06;&#x4F1A;&#x5FFD;&#x7565;&#x8FD9;&#x4E2A;&#xFF08;useActualColumnNames&#xFF09;&#x5C5E;&#x6027;&#x3002;</li>
+<li><code>useColumnIndexes</code>&#xFF1A;&#x5982;&#x679C;&#x662F; true&#xFF0C;MBG &#x751F;&#x6210; resultMaps &#x7684;&#x65F6;&#x5019;&#x4F1A;&#x4F7F;&#x7528;&#x5217;&#x7684;&#x7D22;&#x5F15;,&#x800C;&#x4E0D;&#x662F;&#x7ED3;&#x679C;&#x4E2D;&#x5217;&#x540D;&#x7684;&#x987A;&#x5E8F;&#x3002;</li>
+<li><code>useCompoundPropertyNames</code>&#xFF1A;&#x5982;&#x679C;&#x662F; true&#xFF0C;&#x90A3;&#x4E48; MBG &#x751F;&#x6210;&#x5C5E;&#x6027;&#x540D;&#x7684;&#x65F6;&#x5019;&#x4F1A;&#x5C06;&#x5217;&#x540D;&#x548C;&#x5217;&#x5907;&#x6CE8;&#x63A5;&#x8D77;&#x6765;&#x3002;&#x8FD9;&#x5BF9;&#x4E8E;&#x90A3;&#x4E9B;&#x901A;&#x8FC7;&#x7B2C;&#x56DB;&#x4EE3;&#x8BED;&#x8A00;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x5217;&#xFF08;&#x4F8B;&#x5982;&#xFF1A;FLD22237&#xFF09;&#xFF0C;&#x4F46;&#x662F;&#x5907;&#x6CE8;&#x5305;&#x542B;&#x6709;&#x7528;&#x4FE1;&#x606F;&#xFF08;&#x4F8B;&#x5982;&#xFF1A;&#x201D;customer id&#x201D;&#xFF09;&#x7684;&#x6570;&#x636E;&#x5E93;&#x6765;&#x8BF4;&#x5F88;&#x6709;&#x7528;&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;MBG &#x4F1A;&#x751F;&#x6210;&#x5C5E;&#x6027;&#x540D; FLD2237_CustomerId&#x3002;</li>
+</ul>
+<h5 id="6-10-&#x5B50;&#x5143;&#x7D20;"><a href="#6-10-&#x5B50;&#x5143;&#x7D20;" class="headerlink" title="6.10 &#x5B50;&#x5143;&#x7D20;"></a>6.10 &#x5B50;&#x5143;&#x7D20;<table></table></h5><p>&#x9664;&#x4E86;<code>&lt;property&gt;</code>&#x5B50;&#x5143;&#x7D20;&#x5916;&#xFF0C;<code>&lt;table&gt;</code>&#x8FD8;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x5B50;&#x5143;&#x7D20;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;generatedKey&gt; (0 &#x4E2A;&#x6216; 1 &#x4E2A;)</span><br><span class="line">&lt;columnRenamingRule&gt; (0 &#x4E2A;&#x6216; 1 &#x4E2A;)</span><br><span class="line">&lt;columnOverride&gt; (0 &#x4E2A;&#x6216;&#x591A;&#x4E2A;)</span><br><span class="line">&lt;ignoreColumn&gt; (0 &#x4E2A;&#x6216;&#x591A;&#x4E2A;)</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0B;&#x9762;&#x5BF9;&#x8FD9; 4 &#x4E2A;&#x5143;&#x7D20;&#x8FDB;&#x884C;&#x8BE6;&#x7EC6;&#x8BB2;&#x89E3;&#x3002;</p>
+<p><strong>6.10.1 <generatedkey> &#x5143;&#x7D20;</generatedkey></strong></p>
+<p>&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x6700;&#x591A;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#x3002;&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x7528;&#x6765;&#x6307;&#x5B9A;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x4E3B;&#x952E;&#x7684;&#x5C5E;&#x6027;&#xFF08;identity &#x5B57;&#x6BB5;&#x6216;&#x8005; sequences &#x5E8F;&#x5217;&#xFF09;&#x3002;&#x5982;&#x679C;&#x6307;&#x5B9A;&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;MBG &#x5728;&#x751F;&#x6210; insert &#x7684; SQL &#x6620;&#x5C04;&#x6587;&#x4EF6;&#x4E2D;&#x63D2;&#x5165;&#x4E00;&#x4E2A;<code>&lt;selectKey&gt;</code>&#x5143;&#x7D20;&#x3002; &#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x5305;&#x542B;&#x4E0B;&#x9762;<strong>&#x4E24;&#x4E2A;&#x5FC5;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><p><code>column</code>&#xFF1A;&#x751F;&#x6210;&#x5217;&#x7684;&#x5217;&#x540D;&#x3002;</p>
+</li>
+<li><p><code>sqlStatement</code>&#xFF1A;&#x5C06;&#x8FD4;&#x56DE;&#x65B0;&#x503C;&#x7684; SQL &#x8BED;&#x53E5;&#x3002;&#x5982;&#x679C;&#x8FD9;&#x662F;&#x4E00;&#x4E2A; identity &#x5217;&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x9884;&#x5B9A;&#x4E49;&#x7684;&#x7684;&#x7279;&#x6B8A;&#x503C;&#x3002;&#x9884;&#x5B9A;&#x4E49;&#x503C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Cloudscape</span><br><span class="line">DB2</span><br><span class="line">DB2_MF</span><br><span class="line">Derby</span><br><span class="line">HSQLDB</span><br><span class="line">Informix</span><br><span class="line">MySql</span><br><span class="line">SqlServer</span><br><span class="line">SYBASE</span><br><span class="line">JDBC</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>JDBC&#xFF1A;&#x8FD9;&#x4F1A;&#x914D;&#x7F6E; MBG &#x4F7F;&#x7528; MyBatis3 &#x652F;&#x6301;&#x7684; JDBC &#x6807;&#x51C6;&#x7684;&#x751F;&#x6210; key &#x6765;&#x751F;&#x6210;&#x4EE3;&#x7801;&#x3002; &#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x4E8E;&#x6570;&#x636E;&#x5E93;&#x83B7;&#x53D6;&#x6807;&#x8BC6;&#x5217;&#x4E2D;&#x7684;&#x503C;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x91CD;&#x8981;&#xFF1A;&#x53EA;&#x6709;&#x5F53;&#x76EE;&#x6807;&#x8FD0;&#x884C;&#x4E3A; MyBatis3 &#x65F6;&#x624D;&#x4F1A;&#x4EA7;&#x751F;&#x6B63;&#x786E;&#x7684;&#x4EE3;&#x7801;&#x3002;&#x5982;&#x679C;&#x4E0E; iBATIS2 &#x4E00;&#x8D77;&#x4F7F;&#x7528;&#x76EE;&#x6807;&#x8FD0;&#x884C;&#x65F6;&#x4F1A;&#x4EA7;&#x751F;&#x8FD0;&#x884C;&#x65F6;&#x9519;&#x8BEF;&#x7684;&#x4EE3;&#x7801;&#x3002;</p>
+</blockquote>
+<p>&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x8FD8;&#x5305;&#x542B;<strong>&#x4E24;&#x4E2A;&#x53EF;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><code>identity</code>&#xFF1A;&#x5F53;&#x8BBE;&#x7F6E;&#x4E3A;true&#x65F6;,&#x8BE5;&#x5217;&#x4F1A;&#x88AB;&#x6807;&#x8BB0; &#x4E3A;identity &#x5217;&#xFF0C; &#x5E76;&#x4E14;<code>&lt;selectKey&gt;</code>&#x5143;&#x7D20;&#x4F1A;&#x88AB;&#x63D2;&#x5165;&#x5728; insert &#x540E;&#x9762;&#x3002; &#x5F53;&#x8BBE;&#x7F6E;&#x4E3A;false&#x65F6;&#xFF0C;<code>&lt;selectKey&gt;</code>&#x4F1A;&#x63D2;&#x5165;&#x5230; insert &#x4E4B;&#x524D;&#xFF08;&#x901A;&#x5E38;&#x662F;&#x5E8F;&#x5217;&#xFF09;&#x3002;<strong>&#x91CD;&#x8981;</strong>&#xFF1A;&#x5373;&#x4F7F;&#x60A8; type &#x5C5E;&#x6027;&#x6307;&#x5B9A;&#x4E3A; post&#xFF0C;&#x60A8;&#x4ECD;&#x7136;&#x9700;&#x8981;&#x4E3A; identity &#x5217;&#x5C06;&#x8BE5;&#x53C2;&#x6570;&#x8BBE;&#x7F6E;&#x4E3A; true&#x3002; &#x8FD9;&#x5C06;&#x6807;&#x5FD7; MBG &#x4ECE;&#x63D2;&#x5165;&#x5217;&#x8868;&#x4E2D;&#x5220;&#x9664;&#x8BE5;&#x5217;&#x3002;&#x9ED8;&#x8BA4;&#x503C;&#x662F; false&#x3002;</li>
+<li><code>type</code>&#xFF1A;type = post and identity = true &#x7684;&#x65F6;&#x5019;&#x751F;&#x6210;&#x7684;<code>&#x4E2D;&#x7684; order=AFTER&#xFF0C;&#x5F53; type=pre &#x7684;&#x65F6;&#x5019;&#xFF0C;identity &#x53EA;&#x80FD;&#x4E3A; false&#xFF0C;&#x751F;&#x6210;&#x7684;</code>&#x4E2D;&#x7684; order = BEFORE&#x3002;&#x53EF;&#x4EE5;&#x8FD9;&#x4E48;&#x7406;&#x89E3;&#xFF0C;&#x81EA;&#x52A8;&#x589E;&#x957F;&#x7684;&#x5217;&#x53EA;&#x6709;&#x63D2;&#x5165;&#x5230;&#x6570;&#x636E;&#x5E93;&#x540E;&#x624D;&#x80FD;&#x5F97;&#x5230; ID&#xFF0C;&#x6240;&#x4EE5;&#x662F; AFTER&#xFF0C;&#x4F7F;&#x7528;&#x5E8F;&#x5217;&#x65F6;&#xFF0C;&#x53EA;&#x6709;&#x5148;&#x83B7;&#x53D6;&#x5E8F;&#x5217;&#x4E4B;&#x540E;&#xFF0C;&#x624D;&#x80FD;&#x63D2;&#x5165;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x6240;&#x4EE5;&#x662F;&#xFF1A;BEFORE&#x3002;</li>
+</ul>
+<p> &#x5143;&#x7D20;&#x914D;&#x7F6E;&#x793A;&#x4F8B;&#x4E00;&#xFF1A;<table></table></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;table tableName=&quot;user login info&quot; domainObjectName=&quot;UserLoginInfo&quot;&gt;</span><br><span class="line">    &lt;generatedKey column=&quot;id&quot; sqlStatement=&quot;Mysql&quot;/&gt;</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5BF9;&#x5E94;&#x7684;&#x751F;&#x6210;&#x7684;&#x7ED3;&#x679C;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insert&quot; parameterType=&quot;test.model.UserLoginInfo&quot;&gt;</span><br><span class="line">    &lt;selectKey keyProperty=&quot;id&quot; order=&quot;AFTER&quot; resultType=&quot;java.lang.Integer&quot;&gt;</span><br><span class="line">        SELECT LAST_INSERT_ID()</span><br><span class="line">    &lt;/selectKey&gt;</span><br><span class="line">    insert into `user login info` (Id, username, logindate, loginip)</span><br><span class="line">    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{logindate,jdbcType=TIMESTAMP}, #{loginip,jdbcType=VARCHAR})</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p> &#x5143;&#x7D20;&#x914D;&#x7F6E;&#x793A;&#x4F8B;&#x4E8C;&#xFF1A;<table></table></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;table tableName=&quot;user login info&quot; domainObjectName=&quot;UserLoginInfo&quot;&gt;</span><br><span class="line">    &lt;generatedKey column=&quot;id&quot; sqlStatement=&quot;select SEQ_ID.nextval from dual&quot;/&gt;</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5BF9;&#x5E94;&#x7684;&#x751F;&#x6210;&#x7ED3;&#x679C;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insert&quot; parameterType=&quot;test.model.UserLoginInfo&quot;&gt;</span><br><span class="line">    &lt;selectKey keyProperty=&quot;id&quot; order=&quot;BEFORE&quot; resultType=&quot;java.lang.Integer&quot;&gt;</span><br><span class="line">        select SEQ_ID.nextval from dual</span><br><span class="line">    &lt;/selectKey&gt;</span><br><span class="line">    insert into `user login info` (Id, username, logindate, loginip)</span><br><span class="line">    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{logindate,jdbcType=TIMESTAMP},#{loginip,jdbcType=VARCHAR})</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>6.10.2 <columnrenamingrule> &#x5143;&#x7D20;</columnrenamingrule></strong></p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x6700;&#x591A;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#xFF0C;&#x4F7F;&#x7528;&#x8BE5;&#x5143;&#x7D20;&#x53EF;&#x4EE5;&#x5728;&#x751F;&#x6210;&#x5217;&#x4E4B;&#x524D;&#xFF0C;&#x5BF9;&#x5217;&#x8FDB;&#x884C;&#x91CD;&#x547D;&#x540D;&#x3002;&#x8FD9;&#x5BF9;&#x90A3;&#x4E9B;&#x5B58;&#x5728;&#x540C;&#x4E00;&#x524D;&#x7F00;&#x7684;&#x5B57;&#x6BB5;&#x60F3;&#x5728;&#x751F;&#x6210;&#x5C5E;&#x6027;&#x540D;&#x65F6;&#x53BB;&#x9664;&#x524D;&#x7F00;&#x7684;&#x8868;&#x975E;&#x5E38;&#x6709;&#x7528;&#x3002; &#x4F8B;&#x5982;&#x5047;&#x8BBE;&#x4E00;&#x4E2A;&#x8868;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x7684;&#x5217;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CUST_BUSINESS_NAME</span><br><span class="line">CUST_STREET_ADDRESS</span><br><span class="line">CUST_CITY</span><br><span class="line">CUST_STATE</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x751F;&#x6210;&#x7684;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x540D;&#x4E2D;&#x5982;&#x679C;&#x90FD;&#x5305;&#x542B;<code>CUST</code>&#x7684;&#x524D;&#x7F00;&#x53EF;&#x80FD;&#x4F1A;&#x8BA9;&#x4EBA;&#x4E0D;&#x723D;&#x3002;&#x8FD9;&#x4E9B;&#x524D;&#x7F00;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5982;&#x4E0B;&#x65B9;&#x5F0F;&#x5B9A;&#x4E49;&#x91CD;&#x547D;&#x540D;&#x89C4;&#x5219;:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;columnRenamingRule searchString=&quot;^CUST_&quot; replaceString=&quot;&quot; /&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x5728;&#x5185;&#x90E8;&#xFF0C;MBG &#x4F7F;&#x7528;<code>java.util.regex.Matcher.replaceAll</code>&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x529F;&#x80FD;&#x3002;&#x8BF7;&#x53C2;&#x9605;&#x6709;&#x5173;&#x8BE5;&#x65B9;&#x6CD5;&#x7684;&#x6587;&#x6863;&#x548C;&#x5728; Java &#x4E2D;&#x4F7F;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x4F8B;&#x5B50;&#x3002;</p>
+<p>&#x5F53;<code>&lt;columnOverride&gt;</code>&#x5339;&#x914D;&#x4E00;&#x5217;&#x65F6;&#xFF0C;&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#xFF08;<code>&lt;columnRenamingRule&gt;</code>&#xFF09;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;<code>&lt;columnOverride&gt;</code>&#x4F18;&#x5148;&#x4E8E;&#x91CD;&#x547D;&#x540D;&#x7684;&#x89C4;&#x5219;&#x3002;</p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x6709;&#x4E00;&#x4E2A;<strong>&#x5FC5;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><code>searchString</code>&#xFF1A;&#x5B9A;&#x4E49;&#x5C06;&#x88AB;&#x66FF;&#x6362;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x3002;</li>
+</ul>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x6709;&#x4E00;&#x4E2A;<strong>&#x53EF;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><code>replaceString</code>&#xFF1A;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x7528;&#x6765;&#x66FF;&#x6362;&#x641C;&#x7D22;&#x5B57;&#x7B26;&#x4E32;&#x5217;&#x6BCF;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x9879;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#xFF0C;&#x5C31;&#x4F1A;&#x4F7F;&#x7528;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#x3002;</li>
+</ul>
+<blockquote>
+<p>&#x5173;&#x4E8E;<code>&lt;table&gt;</code>&#x7684;<code>&lt;property&gt;</code>&#x5C5E;&#x6027;<code>useActualColumnNames</code>&#x5BF9;&#x6B64;&#x7684;&#x5F71;&#x54CD;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x5B8C;&#x6574;&#x6587;&#x6863;&#x3002;</p>
+</blockquote>
+<p><strong>6.10.3 <columnoverride> &#x5143;&#x7D20;</columnoverride></strong></p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x53EF;&#x9009;&#xFF0C;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x591A;&#x4E2A;&#x3002;&#x8BE5;&#x5143;&#x7D20;&#x4ECE;&#x5C06;&#x67D0;&#x4E9B;&#x5C5E;&#x6027;&#x9ED8;&#x8BA4;&#x8BA1;&#x7B97;&#x7684;&#x503C;&#x66F4;&#x6539;&#x4E3A;&#x6307;&#x5B9A;&#x7684;&#x503C;&#x3002;</p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x6709;&#x4E00;&#x4E2A;<strong>&#x5FC5;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><code>column</code>&#xFF1A;&#x8981;&#x91CD;&#x5199;&#x7684;&#x5217;&#x540D;&#x3002;</li>
+</ul>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x6709;&#x591A;&#x4E2A;<strong>&#x53EF;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><code>property</code>&#xFF1A;&#x8981;&#x4F7F;&#x7528;&#x7684; Java &#x5C5E;&#x6027;&#x7684;&#x540D;&#x79F0;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#xFF0C;MBG &#x4F1A;&#x6839;&#x636E;&#x5217;&#x540D;&#x751F;&#x6210;&#x3002; &#x4F8B;&#x5982;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x8868;&#x7684;&#x4E00;&#x5217;&#x540D;&#x4E3A;STRT_DTE&#xFF0C;MBG&#x4F1A;&#x6839;&#x636E;  &#x7684; useActualColumnNames &#x5C5E;&#x6027;&#x751F;&#x6210; STRT_DTE &#x6216; strtDte&#x3002;<table></table></li>
+<li><code>javaType</code>&#xFF1A;&#x8BE5;&#x5217;&#x5C5E;&#x6027;&#x503C;&#x4E3A;&#x5B8C;&#x5168;&#x9650;&#x5B9A;&#x7684; Java &#x7C7B;&#x578B;&#x3002;&#x5982;&#x679C;&#x9700;&#x8981;&#xFF0C;&#x8FD9;&#x53EF;&#x4EE5;&#x8986;&#x76D6;&#x7531;JavaTypeResolver&#x8BA1;&#x7B97;&#x51FA;&#x7684;&#x7C7B;&#x578B;&#x3002; &#x5BF9;&#x67D0;&#x4E9B;&#x6570;&#x636E;&#x5E93;&#x6765;&#x8BF4;&#xFF0C;&#x8FD9;&#x662F;&#x5FC5;&#x8981;&#x7684;&#x7528;&#x6765;&#x5904;&#x7406;<strong>&#x201C;&#x5947;&#x602A;&#x7684;&#x201D;</strong>&#x6570;&#x636E;&#x5E93;&#x7C7B;&#x578B;&#xFF08;&#x4F8B;&#x5982; MySql &#x7684; unsigned bigint &#x7C7B;&#x578B;&#x9700;&#x8981;&#x6620;&#x5C04;&#x4E3A;<code>java.lang.Object</code>)&#x3002;</li>
+<li><code>jdbcType</code>&#xFF1A;&#x8BE5;&#x5217;&#x7684; JDBC &#x7C7B;&#x578B;&#xFF08;INTEGER, DECIMAL, NUMERIC, VARCHAR &#x7B49;&#x7B49;&#xFF09;&#x3002; &#x5982;&#x679C;&#x9700;&#x8981;&#xFF0C;&#x8FD9;&#x53EF;&#x4EE5;&#x8986;&#x76D6;&#x7531; JavaTypeResolver &#x8BA1;&#x7B97;&#x51FA;&#x7684;&#x7C7B;&#x578B;&#x3002; &#x5BF9;&#x67D0;&#x4E9B;&#x6570;&#x636E;&#x5E93;&#x6765;&#x8BF4;&#xFF0C;&#x8FD9;&#x662F;&#x5FC5;&#x8981;&#x7684;&#x7528;&#x6765;&#x5904;&#x7406;&#x602A;&#x5F02;&#x7684; JDBC &#x9A71;&#x52A8; (&#x4F8B;&#x5982; DB2 &#x7684;LONGVARCHAR &#x7C7B;&#x578B;&#x9700;&#x8981;&#x4E3A; iBATIS &#x6620;&#x5C04;&#x4E3A; VARCHAR)&#x3002;</li>
+<li><code>typeHandler</code>&#xFF1A;&#x7528;&#x6237;&#x5B9A;&#x4E49;&#x7684;&#x9700;&#x8981;&#x7528;&#x6765;&#x5904;&#x7406;&#x8FD9;&#x5217;&#x7684;&#x7C7B;&#x578B;&#x5904;&#x7406;&#x5668;&#x3002;&#x5B83;&#x5FC5;&#x987B;&#x662F;&#x4E00;&#x4E2A;&#x7EE7;&#x627F; iBATIS &#x7684; TypeHandler &#x7C7B;&#x6216; TypeHandlerCallback &#x63A5;&#x53E3;&#xFF08;&#x8BE5;&#x63A5;&#x53E3;&#x5F88;&#x5BB9;&#x6613;&#x7EE7;&#x627F;&#xFF09;&#x7684;&#x5168;&#x9650;&#x5B9A;&#x7684;&#x7C7B;&#x540D;&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x6216;&#x8005;&#x662F;&#x7A7A;&#x767D;&#xFF0C;iBATIS&#x4F1A;&#x7528;&#x9ED8;&#x8BA4;&#x7684;&#x7C7B;&#x578B;&#x5904;&#x7406;&#x5668;&#x6765;&#x5904;&#x7406;&#x7C7B;&#x578B;&#x3002;<strong>&#x91CD;&#x8981;</strong>&#xFF1A;MBG &#x4E0D;&#x4F1A;&#x6821;&#x9A8C;&#x8FD9;&#x4E2A;&#x7C7B;&#x578B;&#x5904;&#x7406;&#x5668;&#x662F;&#x5426;&#x5B58;&#x5728;&#x6216;&#x8005;&#x53EF;&#x7528;&#x3002; MGB &#x53EA;&#x662F;&#x7B80;&#x5355;&#x7684;&#x5C06;&#x8FD9;&#x4E2A;&#x503C;&#x63D2;&#x5165;&#x5230;&#x751F;&#x6210;&#x7684; SQL &#x6620;&#x5C04;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x3002;</li>
+<li><code>delimitedColumnName</code>&#xFF1A;&#x6307;&#x5B9A;&#x662F;&#x5426;&#x5E94;&#x5728;&#x751F;&#x6210;&#x7684; SQL &#x7684;&#x5217;&#x540D;&#x79F0;&#x4E0A;&#x589E;&#x52A0;<strong>&#x5206;&#x9694;&#x7B26;</strong>&#x3002; &#x5982;&#x679C;&#x5217;&#x7684;&#x540D;&#x79F0;&#x4E2D;&#x5305;&#x542B;&#x7A7A;&#x683C;&#xFF0C;MGB &#x4F1A;&#x81EA;&#x52A8;&#x6DFB;&#x52A0;<strong>&#x5206;&#x9694;&#x7B26;</strong>&#xFF0C; &#x6240;&#x4EE5;&#x8FD9;&#x4E2A;&#x91CD;&#x5199;&#x53EA;&#x6709;&#x5F53;&#x5217;&#x540D;&#x9700;&#x8981;&#x5F3A;&#x5236;&#x4E3A;&#x4E00;&#x4E2A;&#x5408;&#x9002;&#x7684;&#x540D;&#x5B57;&#x6216;&#x8005;&#x5217;&#x540D;&#x662F;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x4FDD;&#x7559;&#x5B57;&#x65F6;&#x662F;&#x5FC5;&#x8981;&#x7684;&#x3002;</li>
+</ul>
+<p><code>&lt;columnOverride&gt;</code> &#x5143;&#x7D20;&#x914D;&#x7F6E;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; &gt;</span><br><span class="line">    &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; javaType=&quot;java.lang.String&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>6.10.4 <ignorecolumn> &#x5143;&#x7D20;</ignorecolumn></strong></p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x53EF;&#x9009;&#xFF0C;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;&#x591A;&#x4E2A;&#x3002;&#x8BE5;&#x5143;&#x7D20;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5C4F;&#x853D;&#x4E0D;&#x9700;&#x8981;&#x751F;&#x6210;&#x7684;&#x5217;&#x3002;</p>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x6709;&#x4E00;&#x4E2A;<strong>&#x5FC5;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><code>column</code>&#xFF1A;&#x8981;&#x5FFD;&#x7565;&#x7684;&#x5217;&#x540D;&#x3002;</li>
+</ul>
+<p>&#x8BE5;&#x5143;&#x7D20;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;<strong>&#x53EF;&#x9009;&#x5C5E;&#x6027;</strong>&#xFF1A;</p>
+<ul>
+<li><code>delimitedColumnName</code>&#xFF1A;&#x5339;&#x914D;&#x5217;&#x540D;&#x7684;&#x65F6;&#x5019;&#x662F;&#x5426;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;&#x3002;&#x5982;&#x679C;&#x4E3A; true &#x5219;&#x533A;&#x5206;&#x3002;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;false&#xFF0C;&#x4E0D;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;&#x3002;</li>
+</ul>
+<h5 id="&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;"><a href="#&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;" class="headerlink" title="&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;"></a>&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;</h5><p><a href="https://blog.csdn.net/isea533/article/details/42102297" target="_blank" rel="noopener">MyBatis Generator &#x8BE6;&#x89E3;</a></p>
+<p><a href="http://www.mybatis.org/generator/configreference/xmlconfig.html" target="_blank" rel="noopener">MyBatis GeneratorXML Configuration File Reference</a></p>
+<p><a href="http://mbg.cndocs.ml/configreference/xmlconfig.html" target="_blank" rel="noopener">MyBatis Generator XML &#x914D;&#x7F6E;&#x53C2;&#x8003;</a>(&#x4E2D;&#x6587;&#x6587;&#x6863;&#x7F51;&#x5740;&#x5931;&#x6548;&#x4E86;&#xFF0C;&#x76F4;&#x63A5;&#x770B;&#x4E0A;&#x9762;&#x5B98;&#x65B9;&#x6587;&#x6863;)</p>
+<p><a href="http://mbg.cndocs.ml/reference/extending.html" target="_blank" rel="noopener">&#x6269;&#x5C55; MyBatis Generator</a></p>
+<p><a href="https://www.kancloud.cn/wizardforcel/java-opensource-doc/153024" target="_blank" rel="noopener">&#x4ECE;&#x6E90;&#x7801;&#x6784;&#x5EFA;</a></p>
+<p><a href="http://www.claredai.win/Mybatis-Generator.html" target="_blank" rel="noopener">Mybatis Generator&#x5B9E;&#x73B0;&#x4EE3;&#x7801;&#x81EA;&#x52A8;&#x751F;&#x6210;</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-07-06</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-07-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/10/29/015/">MyBatis Generator 逆向工程详解</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2018/10/29/015/" title="MyBatis Generator 逆向工程详解">https://woodwhales.github.io/2018/10/29/015/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2018/10/29/015/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring-Boot/" rel="tag"><i class="fa fa-tag"></i> Spring Boot</a>
+          
+            <a href="/tags/MyBatis/" rel="tag"><i class="fa fa-tag"></i> MyBatis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/22/013/" rel="next" title="深入理解计算机系统 | 学习笔记（四）">
+                <i class="fa fa-chevron-left"></i> 深入理解计算机系统 | 学习笔记（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/29/014/" rel="prev" title="深入理解计算机系统 | 学习笔记（五）">
+                深入理解计算机系统 | 学习笔记（五） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、Mysql-数据库数据准备"><span class="nav-text">一、Mysql 数据库数据准备</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-创建数据库"><span class="nav-text">1.1 创建数据库</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-创建用户表"><span class="nav-text">2.2 创建用户表</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-创建购物车表"><span class="nav-text">3.3 创建购物车表</span></a></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#二、逆向工程生成"><span class="nav-text">二、逆向工程生成</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-pom-依赖配置"><span class="nav-text">2.1 pom 依赖配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-配置映射文件"><span class="nav-text">2.2 配置映射文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-配置自定义配置文件"><span class="nav-text">2.3 配置自定义配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-运行-mybatis-逆向工程"><span class="nav-text">2.4 运行 mybatis 逆向工程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-mapper-接口既映射文件注册配置"><span class="nav-text">2.5 mapper 接口既映射文件注册配置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、MyBatis-Generator-详解"><span class="nav-text">三、MyBatis Generator 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-XML-配置详解"><span class="nav-text">3.1 XML 配置详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-根节点"><span class="nav-text">3.2 根节点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、元素"><span class="nav-text">四、元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、元素"><span class="nav-text">五、元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#六、元素"><span class="nav-text">六、元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-属性"><span class="nav-text">6.1 属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-元素"><span class="nav-text">6.2 元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-元素"><span class="nav-text">6.3 元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-元素"><span class="nav-text">6.4 元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-5-元素"><span class="nav-text">6.5 元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-6-元素"><span class="nav-text">6.6 元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-7-元素"><span class="nav-text">6.7 元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-8-元素"><span class="nav-text">6.8 元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-9-元素"><span class="nav-text">6.9 元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-10-子元素"><span class="nav-text">6.10 子元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考资料："><span class="nav-text">参考资料：</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="DDD, Domain-Driven Design, 领域驱动设计, 领域驱动, 设计模式, 架构, 软件设计, 编程, 软件开发, 架构师">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="领域驱动设计中国峰会2018">
+<meta name="keywords" content="DDD, Domain-Driven Design, 领域驱动设计, 领域驱动, 设计模式, 架构, 软件设计, 编程, 软件开发, 架构师">
+<meta property="og:type" content="article">
+<meta property="og:title" content="领域驱动设计中国峰会2018">
+<meta property="og:url" content="https://woodwhales.github.io/2019/01/22/020/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="领域驱动设计中国峰会2018">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2019/01/22/020/2019/01/22/020/face.png">
+<meta property="og:updated_time" content="2019-05-30T13:54:22.723Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="领域驱动设计中国峰会2018">
+<meta name="twitter:description" content="领域驱动设计中国峰会2018">
+<meta name="twitter:image" content="https://woodwhales.github.io/2019/01/22/020/2019/01/22/020/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2019/01/22/020/">
+
+
+
+
+
+  <title>领域驱动设计中国峰会2018 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/01/22/020/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">领域驱动设计中国峰会2018</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-22T22:58:00+08:00">
+                2019-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件架构/" itemprop="url" rel="index">
+                    <span itemprop="name">软件架构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/22/020/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/22/020/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/01/22/020/" class="leancloud_visitors" data-flag-title="领域驱动设计中国峰会2018">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  2.6k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  领域驱动设计中国峰会2018
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2019/01/22/020/face.png" rel="gallery_cjzz5b71f001fm8vg8ftarv7r" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2019/01/22/020/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <blockquote>
+<p>&#x4F7F;&#x7528;&#x89C6;&#x9891;&#x64AD;&#x653E;&#x5668;&#xFF1A;<a href="https://mp.weixin.qq.com/s/odVBTkMlCvhjUKNW3krjNw" target="_blank" rel="noopener">Pot Player &#x89C6;&#x9891;&#x64AD;&#x653E;&#x5668;</a>&#xFF0C;<code>Ctrl+U</code>&#x6253;&#x5F00;&#x94FE;&#x63A5;&#x5373;&#x53EF;&#x64AD;&#x653E;&#x3002;</p>
+</blockquote>
+<h3 id="TRACK1-&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#x4E0E;&#x4F01;&#x4E1A;&#x5E94;&#x7528;&#x67B6;&#x6784;"><a href="#TRACK1-&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#x4E0E;&#x4F01;&#x4E1A;&#x5E94;&#x7528;&#x67B6;&#x6784;" class="headerlink" title="TRACK1 &#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#x4E0E;&#x4F01;&#x4E1A;&#x5E94;&#x7528;&#x67B6;&#x6784;"></a>TRACK1 &#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#x4E0E;&#x4F01;&#x4E1A;&#x5E94;&#x7528;&#x67B6;&#x6784;</h3><h4 id="1-&#x76D2;&#x9A6C;&#x6838;&#x5FC3;&#x7CFB;&#x7EDF;&#x67B6;&#x6784;&#x6F14;&#x8FDB;"><a href="#1-&#x76D2;&#x9A6C;&#x6838;&#x5FC3;&#x7CFB;&#x7EDF;&#x67B6;&#x6784;&#x6F14;&#x8FDB;" class="headerlink" title="1. &#x76D2;&#x9A6C;&#x6838;&#x5FC3;&#x7CFB;&#x7EDF;&#x67B6;&#x6784;&#x6F14;&#x8FDB;"></a>1. &#x76D2;&#x9A6C;&#x6838;&#x5FC3;&#x7CFB;&#x7EDF;&#x67B6;&#x6784;&#x6F14;&#x8FDB;</h4><p>&#x5F20;&#x7FA4;&#x8F89;</p>
+<p>&#x963F;&#x91CC;&#x76D2;&#x9A6C;&#x67B6;&#x6784;&#x603B;&#x76D1;</p>
+<p>&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#x56FD;&#x5185;&#x6700;&#x65E9;&#x7684;&#x4E00;&#x6279;&#x5B9E;&#x8DF5;&#x8005; 15 + &#x5E74;&#x6280;&#x672F;&#x53CA;&#x7BA1;&#x7406;&#x5B9E;&#x6218;&#x7ECF;&#x9A8C;&#xFF0C;&#x524D;&#x963F;&#x91CC;&#x57FA;&#x7840;&#x673A;&#x6784;&#x4E8B;&#x4E1A;&#x90E8;&#x5DE5;&#x7A0B;&#x6548;&#x7387;&#x603B;&#x76D1;&#xFF0C;&#x957F;&#x671F;&#x4E00;&#x7EBF;&#x6307;&#x5BFC;&#x5927;&#x578B;&#x590D;&#x6742;&#x7CFB;&#x7EDF;&#x7684;&#x67B6;&#x6784;&#x8BBE;&#x8BA1;&#xFF0C;DevOps&#x3001;&#x5FAE;&#x670D;&#x52A1;&#x67B6;&#x6784;&#x53CA;&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#x56FD;&#x5185;&#x6700;&#x65E9;&#x7684;&#x4E00;&#x6279;&#x5B9E;&#x8DF5;&#x8005;&#x3002;&#x5D07;&#x5C1A;&#x5B9E;&#x8DF5;&#x51FA;&#x771F;&#x77E5;&#xFF0C;&#x4E00;&#x76F4;&#x594B;&#x6597;&#x5728;&#x6280;&#x672F;&#x4E00;&#x7EBF;&#x3002;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp2fzke2tde4dp/mda-imcp2fzke2tde4dp.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp2fzke2tde4dp/mda-imcp2fzke2tde4dp.m3u8</a></p>
+<h4 id="2-&#x5728;&#x4E00;&#x4E2A;&#x5B9E;&#x9645;&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x4E2D;&#x843D;&#x5730;DDD&#x65B9;&#x6CD5;&#x4E0E;&#x76F8;&#x5173;&#x67B6;&#x6784;"><a href="#2-&#x5728;&#x4E00;&#x4E2A;&#x5B9E;&#x9645;&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x4E2D;&#x843D;&#x5730;DDD&#x65B9;&#x6CD5;&#x4E0E;&#x76F8;&#x5173;&#x67B6;&#x6784;" class="headerlink" title="2. &#x5728;&#x4E00;&#x4E2A;&#x5B9E;&#x9645;&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x4E2D;&#x843D;&#x5730;DDD&#x65B9;&#x6CD5;&#x4E0E;&#x76F8;&#x5173;&#x67B6;&#x6784;"></a>2. &#x5728;&#x4E00;&#x4E2A;&#x5B9E;&#x9645;&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x4E2D;&#x843D;&#x5730;DDD&#x65B9;&#x6CD5;&#x4E0E;&#x76F8;&#x5173;&#x67B6;&#x6784;</h4><p>&#x66F9;&#x5251;</p>
+<p>&#x56DB;&#x5DDD;&#x597D;&#x533B;&#x751F;&#x836F;&#x4E1A;&#x96C6;&#x56E2;CTO</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp4c2uwe61yxzg/mda-imcp4c2uwe61yxzg.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp4c2uwe61yxzg/mda-imcp4c2uwe61yxzg.m3u8</a></p>
+<h4 id="3-&#x7528;&#x72B6;&#x6001;&#x673A;&#x5C01;&#x88C5;&#x9886;&#x57DF;&#x903B;&#x8F91;"><a href="#3-&#x7528;&#x72B6;&#x6001;&#x673A;&#x5C01;&#x88C5;&#x9886;&#x57DF;&#x903B;&#x8F91;" class="headerlink" title="3. &#x7528;&#x72B6;&#x6001;&#x673A;&#x5C01;&#x88C5;&#x9886;&#x57DF;&#x903B;&#x8F91;"></a>3. &#x7528;&#x72B6;&#x6001;&#x673A;&#x5C01;&#x88C5;&#x9886;&#x57DF;&#x903B;&#x8F91;</h4><p>&#x6F58;&#x52A0;&#x5B87;</p>
+<p>UMLChina &#x9996;&#x5E2D;&#x4E13;&#x5BB6;&amp;&#x521B;&#x59CB;&#x4EBA;</p>
+<p>UMLChina&#x521B;&#x59CB;&#x4EBA;&#xFF0C;&#x6F5C;&#x5FC3;&#x7814;&#x7A76;&#x9700;&#x6C42;&#x548C;&#x8BBE;&#x8BA1;&#x6280;&#x80FD;&#x3002;2002&#x5E74;&#x5F00;&#x59CB;&#x5BF9;&#x5916;&#x63D0;&#x4F9B;UML&#x9700;&#x6C42;&#x548C;&#x8BBE;&#x8BA1;&#x7684;&#x6280;&#x672F;&#x6307;&#x5BFC;&#x548C;&#x8BAD;&#x7EC3;&#x670D;&#x52A1;&#x3002;&#x5230;&#x73B0;&#x5728;&#x4E3A;&#x6B62;&#xFF0C;&#x5DF2;&#x7ECF;&#x4E0A;&#x95E8;&#x4E3A;&#x8D85;&#x8FC7;260&#x5BB6;&#x7684;&#x7EC4;&#x7EC7;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#xFF0C;&#x8986;&#x76D6;&#x4E86;&#x56FD;&#x5185;&#x5404;&#x4E2A;&#x9886;&#x57DF;&#x7684;&#x9886;&#x8896;&#x4F01;&#x4E1A;&#xFF0C;&#x5305;&#x62EC;&#x901A;&#x4FE1;&#x3001;&#x4F01;&#x4E1A;&#x7BA1;&#x7406;&#x3001;&#x7535;&#x5B50;&#x5546;&#x52A1;&#x3001;&#x623F;&#x5730;&#x4EA7;&#x3001;&#x7F51;&#x7EDC;&#x6E38;&#x620F;&#x3001;&#x5730;&#x7406;&#x4FE1;&#x606F;&#x3001;&#x7269;&#x6D41;&#x3001;&#x6570;&#x7801;&#x8BBE;&#x5907;&#x3001;&#x533B;&#x7597;&#x8BBE;&#x5907;&#x3001;&#x5DE5;&#x4E1A;&#x63A7;&#x5236;&#x2026;..&#x7B49;&#x9886;&#x57DF;&#x3002;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp4whpze2prmmz/mda-imcp4whpze2prmmz.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp4whpze2prmmz/mda-imcp4whpze2prmmz.m3u8</a></p>
+<h4 id="4-&#x5F53;&#x6211;&#x4EEC;&#x5728;&#x8C08;&#x8BBA;&#x4E1A;&#x52A1;&#x67B6;&#x6784;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x5230;&#x5E95;&#x5728;&#x8C08;&#x8BBA;&#x4EC0;&#x4E48;"><a href="#4-&#x5F53;&#x6211;&#x4EEC;&#x5728;&#x8C08;&#x8BBA;&#x4E1A;&#x52A1;&#x67B6;&#x6784;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x5230;&#x5E95;&#x5728;&#x8C08;&#x8BBA;&#x4EC0;&#x4E48;" class="headerlink" title="4. &#x5F53;&#x6211;&#x4EEC;&#x5728;&#x8C08;&#x8BBA;&#x4E1A;&#x52A1;&#x67B6;&#x6784;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x5230;&#x5E95;&#x5728;&#x8C08;&#x8BBA;&#x4EC0;&#x4E48;"></a>4. &#x5F53;&#x6211;&#x4EEC;&#x5728;&#x8C08;&#x8BBA;&#x4E1A;&#x52A1;&#x67B6;&#x6784;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x5230;&#x5E95;&#x5728;&#x8C08;&#x8BBA;&#x4EC0;&#x4E48;</h4><p>&#x4EA2;&#x6C5F;&#x59B9;</p>
+<p>ThoughtWorks&#x9996;&#x5E2D;&#x4E1A;&#x52A1;&#x5206;&#x6790;&#x5E08;</p>
+<p>&#x4E2D;&#x56FD;&#x533A;&#x4E1A;&#x52A1;&#x5206;&#x6790;&#x5B9E;&#x8DF5;&#x8D1F;&#x8D23;&#x4EBA; &#x5728;&#x654F;&#x6377;/&#x7CBE;&#x76CA;&#x4EA7;&#x54C1;&#x9700;&#x6C42;&#x5206;&#x6790;&#x3001;&#x5927;&#x4F01;&#x4E1A;&#x9700;&#x6C42;&#x7BA1;&#x7406;&#x3001;&#x884C;&#x4E1A;&#x7814;&#x7A76;&#x7B49;&#x65B9;&#x9762;&#xFF0C;&#x6709;&#x4E30;&#x5BCC;&#x7684;&#x5B9E;&#x6218;&#x548C;&#x6559;&#x7EC3;&#x7ECF;&#x9A8C;&#xFF1B;&#x5979;&#x4E5F;&#x662F;&#x4E1A;&#x52A1;&#x5206;&#x6790;&#x5E08;(IIBA)&#x3001;&#x4EA7;&#x54C1;&#x7ECF;&#x7406;&#x7684;&#x6D3B;&#x8DC3;&#x53C2;&#x4E0E;&#x8005;&#xFF0C;&#x662F;DnA(Design and Analysis)&#x793E;&#x533A;&#x3001;ThoughtWorks&#x4E2D;&#x56FD;&#x884C;&#x4E1A;&#x7814;&#x7A76;&#x793E;&#x533A;&#x7684;&#x53D1;&#x8D77;&#x4EBA;&#xFF0C;&#x4E5F;&#x662F;ThoughtWorks&#x5546;&#x4E1A;&#x6D1E;&#x89C1;&#x7684;&#x4E3B;&#x7F16;&#x3002;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnuy9dsj93enst/mda-imcnuy9dsj93enst.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnuy9dsj93enst/mda-imcnuy9dsj93enst.m3u8</a></p>
+<h4 id="5-&#x53EF;&#x89C6;&#x5316;&#x7684;&#x9057;&#x7559;&#x7CFB;&#x7EDF;&#x5FAE;&#x670D;&#x52A1;&#x6539;&#x9020;"><a href="#5-&#x53EF;&#x89C6;&#x5316;&#x7684;&#x9057;&#x7559;&#x7CFB;&#x7EDF;&#x5FAE;&#x670D;&#x52A1;&#x6539;&#x9020;" class="headerlink" title="5. &#x53EF;&#x89C6;&#x5316;&#x7684;&#x9057;&#x7559;&#x7CFB;&#x7EDF;&#x5FAE;&#x670D;&#x52A1;&#x6539;&#x9020;"></a>5. &#x53EF;&#x89C6;&#x5316;&#x7684;&#x9057;&#x7559;&#x7CFB;&#x7EDF;&#x5FAE;&#x670D;&#x52A1;&#x6539;&#x9020;</h4><p>&#x6BDB;&#x8D85;</p>
+<p>ThoughtWorks &#x5DE5;&#x7A0B;&#x5E08;&#x3001;&#x4E13;&#x6CE8;&#x9057;&#x7559;&#x7CFB;&#x7EDF;&#x6539;&#x9020;&#x3001;&#x5FAE;&#x670D;&#x52A1;&#x76F8;&#x5173;&#x6280;&#x672F;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnxyh50hxazpcg/mda-imcnxyh50hxazpcg.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnxyh50hxazpcg/mda-imcnxyh50hxazpcg.m3u8</a></p>
+<h3 id="TRACK2-&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x7684;&#x4E1A;&#x52A1;&#x4E2D;&#x53F0;"><a href="#TRACK2-&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x7684;&#x4E1A;&#x52A1;&#x4E2D;&#x53F0;" class="headerlink" title="TRACK2 &#x9886;&#x57DF;&#x9A71;&#x52A8;&#x7684;&#x4E1A;&#x52A1;&#x4E2D;&#x53F0;"></a>TRACK2 &#x9886;&#x57DF;&#x9A71;&#x52A8;&#x7684;&#x4E1A;&#x52A1;&#x4E2D;&#x53F0;</h3><h4 id="1-&#x5F53;&#x6211;&#x4EEC;&#x8C08;&#x4E2D;&#x53F0;&#x65F6;&#x6211;&#x4EEC;&#x5728;&#x8C08;&#x4E9B;&#x4EC0;&#x4E48;&#xFF1F;"><a href="#1-&#x5F53;&#x6211;&#x4EEC;&#x8C08;&#x4E2D;&#x53F0;&#x65F6;&#x6211;&#x4EEC;&#x5728;&#x8C08;&#x4E9B;&#x4EC0;&#x4E48;&#xFF1F;" class="headerlink" title="1. &#x5F53;&#x6211;&#x4EEC;&#x8C08;&#x4E2D;&#x53F0;&#x65F6;&#x6211;&#x4EEC;&#x5728;&#x8C08;&#x4E9B;&#x4EC0;&#x4E48;&#xFF1F;"></a>1. &#x5F53;&#x6211;&#x4EEC;&#x8C08;&#x4E2D;&#x53F0;&#x65F6;&#x6211;&#x4EEC;&#x5728;&#x8C08;&#x4E9B;&#x4EC0;&#x4E48;&#xFF1F;</h4><p>&#x738B;&#x5065;</p>
+<p>ThoughtWorks&#x9996;&#x5E2D;&#x54A8;&#x8BE2;&#x5E08;</p>
+<p>&#x4E00;&#x76F4;&#x4ECE;&#x4E8B;&#x56FD;&#x5185;&#x5916;&#x5927;&#x578B;&#x4F01;&#x4E1A;&#x7EA7;&#x8F6F;&#x4EF6;&#x7684;&#x8BBE;&#x8BA1;&#x4E0E;&#x5F00;&#x53D1;&#xFF0C;&#x65F6;&#x523B;&#x4FDD;&#x6301;&#x7740;&#x5BF9;&#x6280;&#x672F;&#x7684;&#x70ED;&#x7231;&#xFF0C;&#x4EAB;&#x53D7;&#x7740;&#x7F16;&#x7801;&#x7684;&#x5FEB;&#x4E50;&#xFF0C;&#x70ED;&#x8877;&#x4E8E;&#x6280;&#x672F;&#x5206;&#x4EAB;&#x3002;&#x76EE;&#x524D;&#x4E13;&#x6CE8;&#x4E8E;&#x4E3A;&#x670D;&#x52A1;&#x67B6;&#x6784;&#xFF0C;&#x7CFB;&#x7EDF;&#x8D28;&#x91CF;&#x4FDD;&#x969C;&#x548C;&#x6301;&#x7EED;&#x4EA4;&#x4ED8;&#x76F8;&#x5173;&#x9886;&#x57DF;&#x7684;&#x5B66;&#x4E60;&#x4E0E;&#x5206;&#x4EAB;&#x3002;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnt08v3ga8hipv/mda-imcnt08v3ga8hipv.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnt08v3ga8hipv/mda-imcnt08v3ga8hipv.m3u8</a></p>
+<h4 id="2-&#x6F14;&#x8FDB;&#x5F0F;&#x67B6;&#x6784;&#x7684;&#x5E73;&#x53F0;&#x5316;&#x843D;&#x5730;"><a href="#2-&#x6F14;&#x8FDB;&#x5F0F;&#x67B6;&#x6784;&#x7684;&#x5E73;&#x53F0;&#x5316;&#x843D;&#x5730;" class="headerlink" title="2. &#x6F14;&#x8FDB;&#x5F0F;&#x67B6;&#x6784;&#x7684;&#x5E73;&#x53F0;&#x5316;&#x843D;&#x5730;"></a>2. &#x6F14;&#x8FDB;&#x5F0F;&#x67B6;&#x6784;&#x7684;&#x5E73;&#x53F0;&#x5316;&#x843D;&#x5730;</h4><p>&#x59DA;&#x5B89;&#x5CF0;</p>
+<p>ThoughtWorks&#x8D44;&#x6DF1;&#x7CBE;&#x76CA;&#x654F;&#x6377;&#x987E;&#x95EE;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnwi8h17gxbzuv/mda-imcnwi8h17gxbzuv.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnwi8h17gxbzuv/mda-imcnwi8h17gxbzuv.m3u8</a></p>
+<h3 id="TRACK3-&#x9886;&#x57DF;&#x7EDF;&#x4E00;&#x8BED;&#x8A00;&#x7684;&#x5B9E;&#x8DF5;&#x6A21;&#x5F0F;"><a href="#TRACK3-&#x9886;&#x57DF;&#x7EDF;&#x4E00;&#x8BED;&#x8A00;&#x7684;&#x5B9E;&#x8DF5;&#x6A21;&#x5F0F;" class="headerlink" title="TRACK3 &#x9886;&#x57DF;&#x7EDF;&#x4E00;&#x8BED;&#x8A00;&#x7684;&#x5B9E;&#x8DF5;&#x6A21;&#x5F0F;"></a>TRACK3 &#x9886;&#x57DF;&#x7EDF;&#x4E00;&#x8BED;&#x8A00;&#x7684;&#x5B9E;&#x8DF5;&#x6A21;&#x5F0F;</h3><h4 id="1-&#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x7684;&#x6613;&#x4E0E;&#x96BE;"><a href="#1-&#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x7684;&#x6613;&#x4E0E;&#x96BE;" class="headerlink" title="1. &#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x7684;&#x6613;&#x4E0E;&#x96BE;"></a>1. &#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x7684;&#x6613;&#x4E0E;&#x96BE;</h4><p>&#x738B;&#x9E4F;</p>
+<p>&#x534E;&#x4E3A;&#x516C;&#x53F8; LS&#x4E91;&#x8BA1;&#x7B97;&#x57F9;&#x8BAD;&#x65B9;&#x6848;&#x67B6;&#x6784;&#x5E08;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imqk8qnrx6t2hifa/mda-imqk8qnrx6t2hifa.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imqk8qnrx6t2hifa/mda-imqk8qnrx6t2hifa.m3u8</a></p>
+<h4 id="2-&#x5982;&#x4F55;&#x8BA9;DDD&#x843D;&#x5730;"><a href="#2-&#x5982;&#x4F55;&#x8BA9;DDD&#x843D;&#x5730;" class="headerlink" title="2. &#x5982;&#x4F55;&#x8BA9;DDD&#x843D;&#x5730;"></a>2. &#x5982;&#x4F55;&#x8BA9;DDD&#x843D;&#x5730;</h4><p>&#x548C;&#x575A;</p>
+<p>ThoughtWorks&#x9AD8;&#x7EA7;&#x54A8;&#x8BE2;&#x5E08;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp0ppb8j04i05k/mda-imcp0ppb8j04i05k.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp0ppb8j04i05k/mda-imcp0ppb8j04i05k.m3u8</a></p>
+<h4 id="3-&#x9886;&#x57DF;&#x6A21;&#x578B;&#x4E0E;&#x5F62;&#x5F0F;&#x5316;&#x9A8C;&#x8BC1;&#x6280;&#x672F;"><a href="#3-&#x9886;&#x57DF;&#x6A21;&#x578B;&#x4E0E;&#x5F62;&#x5F0F;&#x5316;&#x9A8C;&#x8BC1;&#x6280;&#x672F;" class="headerlink" title="3. &#x9886;&#x57DF;&#x6A21;&#x578B;&#x4E0E;&#x5F62;&#x5F0F;&#x5316;&#x9A8C;&#x8BC1;&#x6280;&#x672F;"></a>3. &#x9886;&#x57DF;&#x6A21;&#x578B;&#x4E0E;&#x5F62;&#x5F0F;&#x5316;&#x9A8C;&#x8BC1;&#x6280;&#x672F;</h4><p>&#x674E;&#x51EF;&#x822A;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnwym2ufz5cex3/mda-imcnwym2ufz5cex3.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnwym2ufz5cex3/mda-imcnwym2ufz5cex3.m3u8</a></p>
+<h4 id="4-&#x7CFB;&#x7EDF;&#x5206;&#x5C42;&#x6A21;&#x578B;&#x9002;&#x914D;&#x5B9E;&#x8DF5;"><a href="#4-&#x7CFB;&#x7EDF;&#x5206;&#x5C42;&#x6A21;&#x578B;&#x9002;&#x914D;&#x5B9E;&#x8DF5;" class="headerlink" title="4. &#x7CFB;&#x7EDF;&#x5206;&#x5C42;&#x6A21;&#x578B;&#x9002;&#x914D;&#x5B9E;&#x8DF5;"></a>4. &#x7CFB;&#x7EDF;&#x5206;&#x5C42;&#x6A21;&#x578B;&#x9002;&#x914D;&#x5B9E;&#x8DF5;</h4><p> &#x5434;&#x96EA;&#x5CF0;</p>
+<p>ThoughtWorks&#x8F6F;&#x4EF6;&#x67B6;&#x6784;&#x5E08;</p>
+<p>&#x4E3B;&#x8981;&#x8D1F;&#x8D23;&#x654F;&#x6377;&#x8F6F;&#x4EF6;&#x5F00;&#x53D1;&#x4E0E;&#x8F6F;&#x4EF6;&#x67B6;&#x6784;&#x8BBE;&#x8BA1;&#x3002;&#x4ED6;&#x5177;&#x6709;10+&#x5E74;&#x8F6F;&#x4EF6;&#x67B6;&#x6784;&#x8BBE;&#x8BA1;&#x7ECF;&#x9A8C;&#xFF0C;&#x4ECE;&#x4E8B;&#x4E8E;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x3001;&#x7535;&#x5B50;&#x5546;&#x52A1;&#x3001;&#x533B;&#x7597;&#x3001;&#x7535;&#x4FE1;&#x884C;&#x4E1A;&#x7684;&#x8F6F;&#x4EF6;&#x5F00;&#x53D1;&#x3001;&#x67B6;&#x6784;&#x8BBE;&#x8BA1;&#x53CA;&#x654F;&#x6377;&#x5B9E;&#x8DF5;&#x3002;&#x64C5;&#x957F;Java/Scala&#x6280;&#x672F;&#xFF0C;DDD&#x3001;&#x5FAE;&#x670D;&#x52A1;&#x67B6;&#x6784;&#x3001;Reactive&#x5206;&#x5E03;&#x5F0F;&#x8F6F;&#x4EF6;&#x67B6;&#x6784;&#x3001;DevOps&#x4EE5;&#x53CA;&#x7CBE;&#x76CA;&#x5B9E;&#x8DF5;&#x3002;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp34g5xy8tz6k8/mda-imcp34g5xy8tz6k8.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp34g5xy8tz6k8/mda-imcp34g5xy8tz6k8.m3u8</a></p>
+<h3 id="TRACK4-&#x9886;&#x57DF;&#x7EDF;&#x8BBE;&#x8BA1;&#x4E0E;&#x67B6;&#x6784;&#x5E08;"><a href="#TRACK4-&#x9886;&#x57DF;&#x7EDF;&#x8BBE;&#x8BA1;&#x4E0E;&#x67B6;&#x6784;&#x5E08;" class="headerlink" title="TRACK4 &#x9886;&#x57DF;&#x7EDF;&#x8BBE;&#x8BA1;&#x4E0E;&#x67B6;&#x6784;&#x5E08;"></a>TRACK4 &#x9886;&#x57DF;&#x7EDF;&#x8BBE;&#x8BA1;&#x4E0E;&#x67B6;&#x6784;&#x5E08;</h3><h4 id="1-&#x57FA;&#x4E8E;DDD&#x7684;&#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x4E2D;&#x7684;&#x6A21;&#x7248;&#x548C;&#x5DE5;&#x5177;&#x5B9E;&#x8DF5;"><a href="#1-&#x57FA;&#x4E8E;DDD&#x7684;&#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x4E2D;&#x7684;&#x6A21;&#x7248;&#x548C;&#x5DE5;&#x5177;&#x5B9E;&#x8DF5;" class="headerlink" title="1. &#x57FA;&#x4E8E;DDD&#x7684;&#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x4E2D;&#x7684;&#x6A21;&#x7248;&#x548C;&#x5DE5;&#x5177;&#x5B9E;&#x8DF5;"></a>1. &#x57FA;&#x4E8E;DDD&#x7684;&#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x4E2D;&#x7684;&#x6A21;&#x7248;&#x548C;&#x5DE5;&#x5177;&#x5B9E;&#x8DF5;</h4><p>&#x738B;&#x6D77;&#x6587;</p>
+<p>&#x7528;&#x53CB;&#x7F51;&#x7EDC;&#x79D1;&#x6280;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;&#x9AD8;&#x7EA7;&#x6280;&#x672F;&#x67B6;&#x6784;&#x5E08;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnsmrb9xutkzfw/mda-imcnsmrb9xutkzfw.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnsmrb9xutkzfw/mda-imcnsmrb9xutkzfw.m3u8</a></p>
+<h4 id="2-&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x4E0B;&#x7684;&#x4E1A;&#x52A1;&#x67B6;&#x6784;&#x68B3;&#x7406;&#x5230;&#x6280;&#x672F;&#x67B6;&#x6784;&#x8BBE;&#x8BA1;-UX&#x4E0E;&#x67B6;&#x6784;&#x5E08;&#x7684;&#x5B8C;&#x7F8E;&#x7ED3;&#x5BF9;"><a href="#2-&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x4E0B;&#x7684;&#x4E1A;&#x52A1;&#x67B6;&#x6784;&#x68B3;&#x7406;&#x5230;&#x6280;&#x672F;&#x67B6;&#x6784;&#x8BBE;&#x8BA1;-UX&#x4E0E;&#x67B6;&#x6784;&#x5E08;&#x7684;&#x5B8C;&#x7F8E;&#x7ED3;&#x5BF9;" class="headerlink" title="2. &#x590D;&#x6742;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x4E0B;&#x7684;&#x4E1A;&#x52A1;&#x67B6;&#x6784;&#x68B3;&#x7406;&#x5230;&#x6280;&#x672F;&#x67B6;&#x6784;&#x8BBE;&#x8BA1; - UX&#x4E0E;&#x67B6;&#x6784;&#x5E08;&#x7684;&#x5B8C;&#x7F8E;&#x7ED3;&#x5BF9;"></a>2. &#x590D;&#x6742;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x4E0B;&#x7684;&#x4E1A;&#x52A1;&#x67B6;&#x6784;&#x68B3;&#x7406;&#x5230;&#x6280;&#x672F;&#x67B6;&#x6784;&#x8BBE;&#x8BA1; - UX&#x4E0E;&#x67B6;&#x6784;&#x5E08;&#x7684;&#x5B8C;&#x7F8E;&#x7ED3;&#x5BF9;</h4><p>&#x5B63;&#x709C;</p>
+<p>ThoughtWorks&#x9AD8;&#x7EA7;&#x54A8;&#x8BE2;&#x5E08;</p>
+<p>&#x6731;&#x50B2;</p>
+<p>&#x6234;&#x59C6;&#x52D2;&#x5927;&#x4E2D;&#x534E;&#x533A;&#x9AD8;&#x7EA7;&#x67B6;&#x6784;&#x5E08;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnugm94qm2h7qu/mda-imcnugm94qm2h7qu.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnugm94qm2h7qu/mda-imcnugm94qm2h7qu.m3u8</a></p>
+<h4 id="3-DDD&#x5B9E;&#x8DF5;&#x4E2D;&#x7684;&#x90A3;&#x4E9B;&#x5751;"><a href="#3-DDD&#x5B9E;&#x8DF5;&#x4E2D;&#x7684;&#x90A3;&#x4E9B;&#x5751;" class="headerlink" title="3. DDD&#x5B9E;&#x8DF5;&#x4E2D;&#x7684;&#x90A3;&#x4E9B;&#x5751;"></a>3. DDD&#x5B9E;&#x8DF5;&#x4E2D;&#x7684;&#x90A3;&#x4E9B;&#x5751;</h4><p>&#x738B;&#x7ACB;</p>
+<p>&#x53A6;&#x95E8;&#x4E91;&#x96FE;&#x79D1;&#x6280;&#x6709;&#x9650;&#x516C;&#x53F8;&#x521B;&#x59CB;&#x4EBA;/&#x603B;&#x7ECF;&#x7406;</p>
+<p>&#x524D;&#x963F;&#x91CC;&#x8D44;&#x6DF1;&#x5DE5;&#x7A0B;&#x5E08;&#xFF0C;&#x56FD;&#x5185;&#x6700;&#x65E9;&#x4E00;&#x6279;&#x5B9E;&#x8DF5;&#x548C;&#x63A8;&#x5E7F;DDD&#x7684;&#x8DF5;&#x884C;&#x8005;&#xFF0C;&#x5EFA;&#x7ACB;&#x4E86;&#x4E00;&#x5957;&#x9002;&#x7528;&#x4E8E;DDD&#x7684;&#x654F;&#x6377;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#xFF0C;&#x957F;&#x671F;&#x805A;&#x7126;&#x4E8E;&#x9886;&#x57DF;&#x5206;&#x6790;&#x3001;&#x5F69;&#x8272;UML&#x5EFA;&#x6A21;&#xFF0C;&#x64C5;&#x957F;&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x7684;&#x6A21;&#x578B;&#x63D0;&#x70BC;&#x4E0E;&#x67B6;&#x6784;&#x8BBE;&#x8BA1;&#xFF0C;&#x4E3B;&#x5F20;&#x5728;&#x805A;&#x5408;&#x7684;&#x5B9E;&#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x91C7;&#x7528;&#x5FAE;&#x5355;&#x4F53;&#x65F6;&#x5C31;&#x5C3D;&#x91CF;&#x4E0D;&#x8981;&#x91C7;&#x7528;&#x5FAE;&#x670D;&#x52A1;&#xFF0C;&#x73B0;&#x4EFB;&#x53A6;&#x95E8;&#x4E91;&#x96FE;&#x79D1;&#x6280;&#x6709;&#x9650;&#x516C;&#x53F8;&#x521B;&#x59CB;&#x4EBA;/&#x603B;&#x7ECF;&#x7406;&#x3002;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnzedq0t27x236/mda-imcnzedq0t27x236.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnzedq0t27x236/mda-imcnzedq0t27x236.m3u8</a></p>
+<h4 id="4-&#x91D1;&#x878D;&#x652F;&#x4ED8;&#x7CFB;&#x7EDF;&#x7684;&#x6539;&#x9020;&#x4E4B;&#x8DEF;"><a href="#4-&#x91D1;&#x878D;&#x652F;&#x4ED8;&#x7CFB;&#x7EDF;&#x7684;&#x6539;&#x9020;&#x4E4B;&#x8DEF;" class="headerlink" title="4. &#x91D1;&#x878D;&#x652F;&#x4ED8;&#x7CFB;&#x7EDF;&#x7684;&#x6539;&#x9020;&#x4E4B;&#x8DEF;"></a>4. &#x91D1;&#x878D;&#x652F;&#x4ED8;&#x7CFB;&#x7EDF;&#x7684;&#x6539;&#x9020;&#x4E4B;&#x8DEF;</h4><p>&#x91D1;&#x660E;</p>
+<p>Video++&#x6781;&#x94FE;&#x79D1;&#x6280;&#x96C6;&#x56E2;&#x521B;&#x59CB;&#x4EBA;/CEO</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp1dy2wa8irznt/mda-imcp1dy2wa8irznt.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp1dy2wa8irznt/mda-imcp1dy2wa8irznt.m3u8</a></p>
+<h3 id="TRACK5-&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#x4E0E;&#x6F14;&#x8FDB;&#x5F0F;&#x67B6;&#x6784;"><a href="#TRACK5-&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#x4E0E;&#x6F14;&#x8FDB;&#x5F0F;&#x67B6;&#x6784;" class="headerlink" title="TRACK5 &#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#x4E0E;&#x6F14;&#x8FDB;&#x5F0F;&#x67B6;&#x6784;"></a>TRACK5 &#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#x4E0E;&#x6F14;&#x8FDB;&#x5F0F;&#x67B6;&#x6784;</h3><h4 id="1-DDD&#x5728;&#x65C5;&#x6E38;&#x7535;&#x5546;&#x67B6;&#x6784;&#x6F14;&#x8FDB;&#x4E2D;&#x7684;&#x5B9E;&#x8DF5;"><a href="#1-DDD&#x5728;&#x65C5;&#x6E38;&#x7535;&#x5546;&#x67B6;&#x6784;&#x6F14;&#x8FDB;&#x4E2D;&#x7684;&#x5B9E;&#x8DF5;" class="headerlink" title="1. DDD&#x5728;&#x65C5;&#x6E38;&#x7535;&#x5546;&#x67B6;&#x6784;&#x6F14;&#x8FDB;&#x4E2D;&#x7684;&#x5B9E;&#x8DF5;"></a>1. DDD&#x5728;&#x65C5;&#x6E38;&#x7535;&#x5546;&#x67B6;&#x6784;&#x6F14;&#x8FDB;&#x4E2D;&#x7684;&#x5B9E;&#x8DF5;</h4><p>&#x5F90;&#x6CFC;</p>
+<p>&#x7F8E;&#x56E2;&#x9152;&#x65C5;&#x7814;&#x53D1;&#x4E2D;&#x5FC3;&#x9AD8;&#x7EA7;&#x6280;&#x672F;&#x4E13;&#x5BB6;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnvwik58npernt/mda-imcnvwik58npernt.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnvwik58npernt/mda-imcnvwik58npernt.m3u8</a></p>
+<h4 id="2-&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x67B6;&#x6784;&#x900F;&#x6790;&#x4E0E;&#x67B6;&#x6784;&#x89E3;&#x8026;"><a href="#2-&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x67B6;&#x6784;&#x900F;&#x6790;&#x4E0E;&#x67B6;&#x6784;&#x89E3;&#x8026;" class="headerlink" title="2. &#x9886;&#x57DF;&#x9A71;&#x52A8;&#x67B6;&#x6784;&#x900F;&#x6790;&#x4E0E;&#x67B6;&#x6784;&#x89E3;&#x8026;"></a>2. &#x9886;&#x57DF;&#x9A71;&#x52A8;&#x67B6;&#x6784;&#x900F;&#x6790;&#x4E0E;&#x67B6;&#x6784;&#x89E3;&#x8026;</h4><p>&#x5F20;&#x9038;</p>
+<p>&#x6C11;&#x822A;&#x6210;&#x90FD;&#x4FE1;&#x606F;&#x6280;&#x672F;&#x603B;&#x76D1;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnyaici9v4mz3j/mda-imcnyaici9v4mz3j.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnyaici9v4mz3j/mda-imcnyaici9v4mz3j.m3u8</a></p>
+<h4 id="3-&#x5316;&#x7E41;&#x4E3A;&#x7B80;&#x2013;DDD&#x9A71;&#x52A8;&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x8F6F;&#x4EF6;&#x67B6;&#x6784;&#x7684;&#x6F14;&#x8FDB;"><a href="#3-&#x5316;&#x7E41;&#x4E3A;&#x7B80;&#x2013;DDD&#x9A71;&#x52A8;&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x8F6F;&#x4EF6;&#x67B6;&#x6784;&#x7684;&#x6F14;&#x8FDB;" class="headerlink" title="3. &#x5316;&#x7E41;&#x4E3A;&#x7B80;&#x2013;DDD&#x9A71;&#x52A8;&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x8F6F;&#x4EF6;&#x67B6;&#x6784;&#x7684;&#x6F14;&#x8FDB;"></a>3. &#x5316;&#x7E41;&#x4E3A;&#x7B80;&#x2013;DDD&#x9A71;&#x52A8;&#x590D;&#x6742;&#x4E1A;&#x52A1;&#x8F6F;&#x4EF6;&#x67B6;&#x6784;&#x7684;&#x6F14;&#x8FDB;</h4><p>&#x767D;&#x5F66;&#x78CA;</p>
+<p>&#x5E7F;&#x8054;&#x8FBE;&#x79D1;&#x6280;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;&#x6280;&#x672F;&#x67B6;&#x6784;&#x90E8;&#x7ECF;&#x7406;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp0e9mfgjp62x7/mda-imcp0e9mfgjp62x7.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp0e9mfgjp62x7/mda-imcp0e9mfgjp62x7.m3u8</a></p>
+<h4 id="4-&#x7AEF;&#x53E3;&#x548C;&#x9002;&#x914D;&#x5668;&#x67B6;&#x6784;&#xFF1A;DDD&#x597D;&#x5E2E;&#x624B;"><a href="#4-&#x7AEF;&#x53E3;&#x548C;&#x9002;&#x914D;&#x5668;&#x67B6;&#x6784;&#xFF1A;DDD&#x597D;&#x5E2E;&#x624B;" class="headerlink" title="4. &#x7AEF;&#x53E3;&#x548C;&#x9002;&#x914D;&#x5668;&#x67B6;&#x6784;&#xFF1A;DDD&#x597D;&#x5E2E;&#x624B;"></a>4. &#x7AEF;&#x53E3;&#x548C;&#x9002;&#x914D;&#x5668;&#x67B6;&#x6784;&#xFF1A;DDD&#x597D;&#x5E2E;&#x624B;</h4><p>&#x5468;&#x5B87;&#x521A;</p>
+<p>ThoughtWorks&#x9AD8;&#x7EA7;&#x54A8;&#x8BE2;&#x5E08;</p>
+<p>ThoughtWorks&#x9AD8;&#x7EA7;&#x54A8;&#x8BE2;&#x5E08;&#xFF0C;DDD&#x5B9E;&#x8DF5;&#x5BB6; 10&#x5E74;&#x4F01;&#x4E1A;&#x7EA7;&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x7ECF;&#x9A8C;&#xFF0C;&#x4E3B;&#x8981;&#x8D1F;&#x8D23;&#x8F6F;&#x4EF6;&#x4EA4;&#x4ED8;&#x548C;&#x6301;&#x7EED;&#x4EA4;&#x4ED8;&#x54A8;&#x8BE2;&#x3002;&#x4ECE;09&#x5E74;&#x5F00;&#x59CB;&#x5173;&#x6CE8;&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x8BBE;&#x8BA1;&#xFF0C;&#x662F;Stack Overflow DDD&#x6807;&#x7B7E; All Time Top Answerer &#x4E4B;&#x4E00;&#xFF0C;&#x66FE;&#x5728;&#x591A;&#x4E2A;&#x884C;&#x4E1A;&#x9886;&#x57DF;&#x4E2D;&#x5B9E;&#x6218;&#x8FC7;DDD&#x3002;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnxkq5rnuu777y/mda-imcnxkq5rnuu777y.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnxkq5rnuu777y/mda-imcnxkq5rnuu777y.m3u8</a></p>
+<h4 id="5-DDD&#x4FC3;&#x8FDB;&#x4F20;&#x7EDF;&#x67B6;&#x6784;&#x5FAE;&#x670D;&#x52A1;&#x8F6C;&#x578B;"><a href="#5-DDD&#x4FC3;&#x8FDB;&#x4F20;&#x7EDF;&#x67B6;&#x6784;&#x5FAE;&#x670D;&#x52A1;&#x8F6C;&#x578B;" class="headerlink" title="5. DDD&#x4FC3;&#x8FDB;&#x4F20;&#x7EDF;&#x67B6;&#x6784;&#x5FAE;&#x670D;&#x52A1;&#x8F6C;&#x578B;"></a>5. DDD&#x4FC3;&#x8FDB;&#x4F20;&#x7EDF;&#x67B6;&#x6784;&#x5FAE;&#x670D;&#x52A1;&#x8F6C;&#x578B;</h4><p>&#x8303;&#x94A2;</p>
+<p>&#x822A;&#x5929;&#x4FE1;&#x606F;&#x91D1;&#x7A0E;&#x672C;&#x90E8;&#x9996;&#x5E2D;&#x67B6;&#x6784;&#x5E08;</p>
+<p>&#x822A;&#x5929;&#x4FE1;&#x606F;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;&#x9996;&#x5E2D;&#x67B6;&#x6784;&#x5E08;&#xFF0C;&#x300A;&#x5927;&#x8BDD;&#x91CD;&#x6784;&#x300B;&#x4F5C;&#x8005;&#xFF0C;&#x54C8;&#x5DE5;&#x5927;&#x8F6F;&#x4EF6;&#x5DE5;&#x7A0B;&#x7855;&#x58EB;&#xFF0C;&#x8F6F;&#x4EF6;&#x67B6;&#x6784;&#x53CA;&#x91CD;&#x6784;&#x7684;&#x5BA2;&#x5EA7;&#x8BB2;&#x5E08;&#x3002;&#x4ECE;&#x9700;&#x6C42;&#x5206;&#x6790;&#x3001;&#x8F6F;&#x4EF6;&#x5F00;&#x53D1;&#x5230;&#x9879;&#x76EE;&#x7BA1;&#x7406;&#x3001;&#x67B6;&#x6784;&#x8BBE;&#x8BA1;&#x90FD;&#x6709;&#x4E30;&#x5BCC;&#x7684;&#x4ECE;&#x4E1A;&#x7ECF;&#x9A8C;&#x3002;&#x5927;&#x578B;&#x9057;&#x7559;&#x7CFB;&#x7EDF;&#x6539;&#x9020;&#x4E13;&#x4E1A;&#x6237;&#xFF0C;&#x957F;&#x671F;&#x5173;&#x6CE8;&#x5927;&#x578B;&#x4E1A;&#x52A1;&#x7CFB;&#x7EDF;&#x7684;&#x54C1;&#x8D28;&#x4FDD;&#x8BC1;&#x3001;&#x9632;&#x6B62;&#x8150;&#x5316;&#x4EE5;&#x53CA;&#x6280;&#x672F;&#x6539;&#x9020;&#x7B49;&#x56F0;&#x6270;&#x8F6F;&#x4EF6;&#x4F01;&#x4E1A;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x8FDB;&#x800C;&#x63D0;&#x51FA;&#x4E86;&#x8BB8;&#x591A;&#x5B9E;&#x7528;&#x800C;&#x6709;&#x6548;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x5728;&#x9057;&#x7559;&#x7CFB;&#x7EDF;&#x4F18;&#x5316;&#x4E0E;&#x6539;&#x9020;&#x65B9;&#x9762;&#x6709;&#x4E30;&#x5BCC;&#x7684;&#x7ECF;&#x9A8C;&#x3002;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnzzecrtsjtgar/mda-imcnzzecrtsjtgar.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnzzecrtsjtgar/mda-imcnzzecrtsjtgar.m3u8</a></p>
+<h3 id="TRACK6-&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x4E0E;&#x53CD;&#x5E94;&#x5F0F;&#x67B6;&#x6784;"><a href="#TRACK6-&#x9886;&#x57DF;&#x9A71;&#x52A8;&#x4E0E;&#x53CD;&#x5E94;&#x5F0F;&#x67B6;&#x6784;" class="headerlink" title="TRACK6 &#x9886;&#x57DF;&#x9A71;&#x52A8;&#x4E0E;&#x53CD;&#x5E94;&#x5F0F;&#x67B6;&#x6784;"></a>TRACK6 &#x9886;&#x57DF;&#x9A71;&#x52A8;&#x4E0E;&#x53CD;&#x5E94;&#x5F0F;&#x67B6;&#x6784;</h3><h4 id="1-&#x57FA;&#x4E8E;-FP-&#x7684;-DDD-&#x5B9E;&#x8DF5;"><a href="#1-&#x57FA;&#x4E8E;-FP-&#x7684;-DDD-&#x5B9E;&#x8DF5;" class="headerlink" title="1. &#x57FA;&#x4E8E; FP &#x7684; DDD &#x5B9E;&#x8DF5;"></a>1. &#x57FA;&#x4E8E; FP &#x7684; DDD &#x5B9E;&#x8DF5;</h4><p>&#x5F20;&#x6653;&#x9F99;</p>
+<p>&#x4E2D;&#x5174;&#x901A;&#x8BAF;&#x865A;&#x62DF;&#x5316;&#x67B6;&#x6784;&#x5E08;</p>
+<p>2008&#x5E74;&#x6BD5;&#x4E1A;&#x4E8E;&#x54C8;&#x5C14;&#x6EE8;&#x5DE5;&#x7A0B;&#x5927;&#x5B66;&#x8BA1;&#x7B97;&#x673A;&#x5E94;&#x7528;&#x4E13;&#x4E1A;&#xFF0C;&#x7231;&#x597D;&#x7F16;&#x7A0B;&#xFF0C;&#x4E1A;&#x4F59;&#x65F6;&#x95F4;&#x559C;&#x6B22;&#x5199;&#x4E00;&#x4E9B;&#x6280;&#x672F;&#x7C7B;&#x6587;&#x7AE0;&#x3002;2008&#x5E74;&#x5C31;&#x804C;&#x4E8E;ZTE&#xFF0C;&#x53C2;&#x4E0E;&#x8FC7;&#x5927;&#x578B;&#x901A;&#x4FE1;&#x8F6F;&#x4EF6;&#x7684;&#x5F00;&#x53D1;&#xFF0C;&#x64C5;&#x957F;TDD&#x548C;&#x91CD;&#x6784;&#x7B49;XP&#x5B9E;&#x8DF5;&#x3002;&#x8FD1;&#x5E74;&#x6765;&#x53C2;&#x4E0E;&#x865A;&#x62DF;&#x5316;&#x4EA7;&#x54C1;&#x7684;&#x7814;&#x53D1;&#xFF0C;&#x540C;&#x65F6;&#x8D1F;&#x8D23;&#x63D0;&#x5347;&#x5168;&#x5458;&#x7684;DDD&#x80FD;&#x529B;&#xFF0C;&#x4ECE;DDD&#x5BFC;&#x5165;&#x5230;DDD&#x8BAD;&#x7EC3;&#x8425;&#xFF0C;&#x4E0D;&#x65AD;&#x7684;&#x7ED9;&#x5B66;&#x5458;&#x4F20;&#x9012;DDD&#x7684;&#x601D;&#x60F3;&#x548C;&#x5B9E;&#x8DF5;&#x6280;&#x80FD;&#xFF0C;&#x76EE;&#x524D;DDD&#x5DF2;&#x5728;&#x591A;&#x4E2A;&#x56E2;&#x961F;&#x6709;&#x6548;&#x843D;&#x5730;&#xFF0C;&#x5E76;&#x5F97;&#x5230;&#x5927;&#x5BB6;&#x7684;&#x4E00;&#x81F4;&#x8BA4;&#x53EF;&#x3002;&#x9664;&#x8FC7;&#x7A0B;&#x5E8F;&#x5458;&#xFF0C;&#x4E2A;&#x4EBA;&#x5728;&#x7EC4;&#x7EC7;&#x4E2D;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x5176;&#x5B83;&#x6807;&#x7B7E;&#xFF0C;&#x6BD4;&#x5982;&#x67B6;&#x6784;&#x5E08;&#x3001;&#x54A8;&#x8BE2;&#x5E08;&#x548C;&#x6280;&#x672F;&#x6559;&#x7EC3;&#x7B49;&#x3002;&#x4E2A;&#x4EBA;&#x7684;&#x7B80;&#x4E66;&#x5730;&#x5740;&#xFF1A;<a href="http://www.jianshu.com/u/1381dc29fed9" target="_blank" rel="noopener">http://www.jianshu.com/u/1381dc29fed9</a>&#x3002;</p>
+<p>&#x719F;&#x7EC3;&#x638C;&#x63E1;C++/Golang/Python/Java&#x7B49;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#xFF0C;&#x8FD9;&#x4E00;&#x5E74;&#x4E3B;&#x8981;&#x4F7F;&#x7528;&#x7684;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x662F;Golang&#xFF0C;&#x540C;&#x65F6;Golang&#x4E5F;&#x6210;&#x4E86;DDD&#x843D;&#x5730;&#x7684;&#x4E3B;&#x8981;&#x8BED;&#x8A00;&#x3002;&#x8FD9;&#x4E00;&#x5E74;&#x5728;&#x7B80;&#x4E66;&#x4E0A;&#x4E5F;&#x5199;&#x4E86;&#x591A;&#x7BC7;&#x4E0E;DDD&#x76F8;&#x5173;&#x7684;&#x6280;&#x672F;&#x6587;&#x7AE0;&#xFF0C;&#x6BD4;&#x5982;&#x300A;&#x8F6F;&#x4EF6;&#x8BBE;&#x8BA1;&#x7684;&#x6F14;&#x53D8;&#x8FC7;&#x7A0B;&#x300B;&#xFF0C;&#x300A;Golang&#x4E8B;&#x52A1;&#x6A21;&#x578B;&#x300B;&#xFF0C;&#x300A;DDD&#x5206;&#x5C42;&#x67B6;&#x6784;&#x7684;&#x4E09;&#x79CD;&#x6A21;&#x5F0F;&#x300B;&#xFF0C;&#x300A;Implement Domain Object in Golang&#x300B;&#xFF0C;&#x300A;FizzBuzzWhizz in Python from OO and FP&#x300B;&#x3002;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnvki9wv6qcezu/mda-imcnvki9wv6qcezu.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnvki9wv6qcezu/mda-imcnvki9wv6qcezu.m3u8</a></p>
+<h4 id="2-&#x6DD8;&#x5B9D;&#x5E94;&#x7528;&#x67B6;&#x6784;&#x5347;&#x7EA7;&#x2014;&#x2014;&#x53CD;&#x5E94;&#x5F0F;&#x67B6;&#x6784;&#x7684;&#x63A2;&#x7D22;&#x4E0E;&#x5B9E;&#x8DF5;"><a href="#2-&#x6DD8;&#x5B9D;&#x5E94;&#x7528;&#x67B6;&#x6784;&#x5347;&#x7EA7;&#x2014;&#x2014;&#x53CD;&#x5E94;&#x5F0F;&#x67B6;&#x6784;&#x7684;&#x63A2;&#x7D22;&#x4E0E;&#x5B9E;&#x8DF5;" class="headerlink" title="2. &#x6DD8;&#x5B9D;&#x5E94;&#x7528;&#x67B6;&#x6784;&#x5347;&#x7EA7;&#x2014;&#x2014;&#x53CD;&#x5E94;&#x5F0F;&#x67B6;&#x6784;&#x7684;&#x63A2;&#x7D22;&#x4E0E;&#x5B9E;&#x8DF5;"></a>2. &#x6DD8;&#x5B9D;&#x5E94;&#x7528;&#x67B6;&#x6784;&#x5347;&#x7EA7;&#x2014;&#x2014;&#x53CD;&#x5E94;&#x5F0F;&#x67B6;&#x6784;&#x7684;&#x63A2;&#x7D22;&#x4E0E;&#x5B9E;&#x8DF5;</h4><p>&#x8BB8;&#x6CFD;&#x5F6C;</p>
+<p>&#x963F;&#x91CC;&#x5DF4;&#x5DF4;&#x6DD8;&#x5B9D;&#x6280;&#x672F;&#x4E13;&#x5BB6;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnyvvf7666vxh7/mda-imcnyvvf7666vxh7.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnyvvf7666vxh7/mda-imcnyvvf7666vxh7.m3u8</a></p>
+<h4 id="2-Every-Entity-as-A-Microservice"><a href="#2-Every-Entity-as-A-Microservice" class="headerlink" title="2. Every Entity as A Microservice"></a>2. Every Entity as A Microservice</h4><p>&#x9676;&#x6587;</p>
+<p>&#x6EF4;&#x6EF4;&#x51FA;&#x884C;&#x5E73;&#x53F0;&#x6280;&#x672F;&#x90E8;&#x9996;&#x5E2D;&#x67B6;&#x6784;&#x5E08;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnu2patj7nwe7z/mda-imcnu2patj7nwe7z.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnu2patj7nwe7z/mda-imcnu2patj7nwe7z.m3u8</a></p>
+<h4 id="3-&#x4ECE;&#x5FAE;&#x670D;&#x52A1;&#x5230;-FaaS"><a href="#3-&#x4ECE;&#x5FAE;&#x670D;&#x52A1;&#x5230;-FaaS" class="headerlink" title="3. &#x4ECE;&#x5FAE;&#x670D;&#x52A1;&#x5230; FaaS"></a>3. &#x4ECE;&#x5FAE;&#x670D;&#x52A1;&#x5230; FaaS</h4><p>&#x8BB8;&#x6653;&#x658C;</p>
+<p>&#x963F;&#x91CC;&#x5DF4;&#x5DF4;-AliExpress&#x9AD8;&#x7EA7;&#x6280;&#x672F;&#x4E13;&#x5BB6;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp3dqu9gwxz3uk/mda-imcp3dqu9gwxz3uk.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp3dqu9gwxz3uk/mda-imcp3dqu9gwxz3uk.m3u8</a></p>
+<h4 id="4-&#x7269;&#x8054;&#x7F51;&#x5E73;&#x53F0;&#x7684;&#x53CD;&#x5E94;&#x5F0F;&#x8BBE;&#x8BA1;"><a href="#4-&#x7269;&#x8054;&#x7F51;&#x5E73;&#x53F0;&#x7684;&#x53CD;&#x5E94;&#x5F0F;&#x8BBE;&#x8BA1;" class="headerlink" title="4. &#x7269;&#x8054;&#x7F51;&#x5E73;&#x53F0;&#x7684;&#x53CD;&#x5E94;&#x5F0F;&#x8BBE;&#x8BA1;"></a>4. &#x7269;&#x8054;&#x7F51;&#x5E73;&#x53F0;&#x7684;&#x53CD;&#x5E94;&#x5F0F;&#x8BBE;&#x8BA1;</h4><p>&#x5510;&#x6210;</p>
+<p>ThoughtWorks IoT&#x9996;&#x5E2D;&#x54A8;&#x8BE2;&#x5E08;</p>
+<p>ThoughtWorks&#x4E2D;&#x56FD;&#x533A;loT&#x56E2;&#x961F;&#x7684;&#x6280;&#x672F;&#x4E13;&#x5BB6;&#xFF0C;&#x66FE;&#x5148;&#x540E;&#x4E3A;&#x56FD;&#x5185;&#x5916;&#x822A;&#x7A7A;&#x4EA7;&#x4E1A;&#x3002;&#x6C7D;&#x8F66;&#x5236;&#x9020;&#x3001;&#x7535;&#x5668;&#x5236;&#x9020;&#x7B49;&#x9886;&#x57DF;&#x7684;&#x9886;&#x519B;&#x4F01;&#x4E1A;&#x63D0;&#x4F9B;&#x8F6F;&#x786C;&#x4EF6;&#x67B6;&#x6784;&#x54A8;&#x8BE2;&#x3001;&#x5927;&#x578B;&#x9057;&#x7559;&#x7CFB;&#x7EDF;&#x91CD;&#x6784;&#x89C4;&#x5212;&#x3001;&#x5FAE;&#x670D;&#x52A1;&#x67B6;&#x6784;&#x8F6C;&#x578B;&#x89C4;&#x5212;&#x3001;&#x8F6F;&#x786C;&#x4EF6;&#x7CFB;&#x7EDF;&#x4EA4;&#x4ED8;&#x7B49;&#x670D;&#x52A1;&#x3002;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp106wczcqn9i4/mda-imcp106wczcqn9i4.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp106wczcqn9i4/mda-imcp106wczcqn9i4.m3u8</a></p>
+<h3 id="OTHER"><a href="#OTHER" class="headerlink" title="OTHER"></a>OTHER</h3><h4 id="1-&#x5FAE;&#x670D;&#x52A1;&#x7684;&#x5BB9;&#x5668;&#x5316;&#x5B9E;&#x8DF5;"><a href="#1-&#x5FAE;&#x670D;&#x52A1;&#x7684;&#x5BB9;&#x5668;&#x5316;&#x5B9E;&#x8DF5;" class="headerlink" title="1. &#x5FAE;&#x670D;&#x52A1;&#x7684;&#x5BB9;&#x5668;&#x5316;&#x5B9E;&#x8DF5;"></a>1. &#x5FAE;&#x670D;&#x52A1;&#x7684;&#x5BB9;&#x5668;&#x5316;&#x5B9E;&#x8DF5;</h4><p>&#x90A2;&#x6D77;&#x6D9B;</p>
+<p>&#x7075;&#x96C0;&#x4E91; &#x5FAE;&#x670D;&#x52A1;&#x9996;&#x5E2D;&#x4E13;&#x5BB6;</p>
+<p>&#x8BA1;&#x7B97;&#x673A;&#x5E94;&#x7528;&#x7855;&#x58EB;(&#x82F1;&#x56FD;)&#xFF0C;&#x7075;&#x96C0;&#x4E91;&#x5FAE;&#x670D;&#x52A1;&#x9996;&#x5E2D;&#x4E13;&#x5BB6;&#xFF0C;&#x8FD1;20&#x5E74;&#x8F6F;&#x4EF6;&#x5F00;&#x53D1;&#x7ECF;&#x9A8C;&#xFF0C;8&#x5E74;&#x4E9A;&#x9A6C;&#x900A;&#x9AD8;&#x7EA7;&#x8F6F;&#x4EF6;&#x5DE5;&#x7A0B;&#x5E08;&#x3002;&#x4E2A;&#x4EBA;&#x4E13;&#x6CE8;PaaS&#x5E94;&#x7528;&#x548C;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x67B6;&#x6784;&#x8BBE;&#x8BA1;&#x3002;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnthqs324ai79y/mda-imcnthqs324ai79y.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcnthqs324ai79y/mda-imcnthqs324ai79y.m3u8</a></p>
+<h4 id="2-Complex-Adaptive-Systems"><a href="#2-Complex-Adaptive-Systems" class="headerlink" title="2. Complex Adaptive Systems"></a>2. Complex Adaptive Systems</h4><p>Dave Snowden</p>
+<p>Cognitive Edge&#x7BA1;&#x7406;&#x54A8;&#x8BE2;&#x516C;&#x53F8; &#x521B;&#x59CB;&#x4EBA;&#x517C;&#x9996;&#x5E2D;&#x79D1;&#x5B66;&#x5B98;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp1zupqgrc52e5/mda-imcp1zupqgrc52e5.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp1zupqgrc52e5/mda-imcp1zupqgrc52e5.m3u8</a></p>
+<h4 id="3-Readable-Code-Laura-Savino"><a href="#3-Readable-Code-Laura-Savino" class="headerlink" title="3. Readable Code-Laura Savino"></a>3. Readable Code-Laura Savino</h4><p>Laura Savino</p>
+<p>DDD Europe &#x4E3B;&#x8981;&#x8BB2;&#x5E08;&#x4E4B;&#x4E00;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp3xy24ggcm42y/mda-imcp3xy24ggcm42y.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcp3xy24ggcm42y/mda-imcp3xy24ggcm42y.m3u8</a></p>
+<h4 id="4-Beyond-Uncertainty-Design-from-Domain-Perspective"><a href="#4-Beyond-Uncertainty-Design-from-Domain-Perspective" class="headerlink" title="4. Beyond Uncertainty, Design from Domain Perspective"></a>4. Beyond Uncertainty, Design from Domain Perspective</h4><p>&#x738B;&#x5A01;</p>
+<p>DDD China &#x8054;&#x5408;&#x53D1;&#x8D77;&#x4EBA;&#x3001;ThoughtWorks&#x8D44;&#x6DF1;&#x67B6;&#x6784;&#x5E08;</p>
+<p><a href="http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcntnep3xr4hbmq/mda-imcntnep3xr4hbmq.m3u8" target="_blank" rel="noopener">http://ik4pfm2ryuf70bxxd8f.exp.bcevod.com/mda-imcntnep3xr4hbmq/mda-imcntnep3xr4hbmq.m3u8</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-05-30</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-05-30</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/01/22/020/">领域驱动设计中国峰会2018</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2019/01/22/020/" title="领域驱动设计中国峰会2018">https://woodwhales.github.io/2019/01/22/020/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/01/22/020/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DDD/" rel="tag"><i class="fa fa-tag"></i> DDD</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/13/017/" rel="next" title="PlantUML 语法之时序图">
+                <i class="fa fa-chevron-left"></i> PlantUML 语法之时序图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TRACK1-领域驱动设计与企业应用架构"><span class="nav-text">TRACK1 领域驱动设计与企业应用架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-盒马核心系统架构演进"><span class="nav-text">1. 盒马核心系统架构演进</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-在一个实际复杂业务中落地DDD方法与相关架构"><span class="nav-text">2. 在一个实际复杂业务中落地DDD方法与相关架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-用状态机封装领域逻辑"><span class="nav-text">3. 用状态机封装领域逻辑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-当我们在谈论业务架构时，我们到底在谈论什么"><span class="nav-text">4. 当我们在谈论业务架构时，我们到底在谈论什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-可视化的遗留系统微服务改造"><span class="nav-text">5. 可视化的遗留系统微服务改造</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TRACK2-领域驱动的业务中台"><span class="nav-text">TRACK2 领域驱动的业务中台</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-当我们谈中台时我们在谈些什么？"><span class="nav-text">1. 当我们谈中台时我们在谈些什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-演进式架构的平台化落地"><span class="nav-text">2. 演进式架构的平台化落地</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TRACK3-领域统一语言的实践模式"><span class="nav-text">TRACK3 领域统一语言的实践模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-领域建模的易与难"><span class="nav-text">1. 领域建模的易与难</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-如何让DDD落地"><span class="nav-text">2. 如何让DDD落地</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-领域模型与形式化验证技术"><span class="nav-text">3. 领域模型与形式化验证技术</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-系统分层模型适配实践"><span class="nav-text">4. 系统分层模型适配实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TRACK4-领域统设计与架构师"><span class="nav-text">TRACK4 领域统设计与架构师</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-基于DDD的领域建模中的模版和工具实践"><span class="nav-text">1. 基于DDD的领域建模中的模版和工具实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-复杂业务场景下的业务架构梳理到技术架构设计-UX与架构师的完美结对"><span class="nav-text">2. 复杂业务场景下的业务架构梳理到技术架构设计 - UX与架构师的完美结对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-DDD实践中的那些坑"><span class="nav-text">3. DDD实践中的那些坑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-金融支付系统的改造之路"><span class="nav-text">4. 金融支付系统的改造之路</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TRACK5-领域驱动设计与演进式架构"><span class="nav-text">TRACK5 领域驱动设计与演进式架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-DDD在旅游电商架构演进中的实践"><span class="nav-text">1. DDD在旅游电商架构演进中的实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-领域驱动架构透析与架构解耦"><span class="nav-text">2. 领域驱动架构透析与架构解耦</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-化繁为简–DDD驱动复杂业务软件架构的演进"><span class="nav-text">3. 化繁为简–DDD驱动复杂业务软件架构的演进</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-端口和适配器架构：DDD好帮手"><span class="nav-text">4. 端口和适配器架构：DDD好帮手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-DDD促进传统架构微服务转型"><span class="nav-text">5. DDD促进传统架构微服务转型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TRACK6-领域驱动与反应式架构"><span class="nav-text">TRACK6 领域驱动与反应式架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-基于-FP-的-DDD-实践"><span class="nav-text">1. 基于 FP 的 DDD 实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-淘宝应用架构升级——反应式架构的探索与实践"><span class="nav-text">2. 淘宝应用架构升级——反应式架构的探索与实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Every-Entity-as-A-Microservice"><span class="nav-text">2. Every Entity as A Microservice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-从微服务到-FaaS"><span class="nav-text">3. 从微服务到 FaaS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-物联网平台的反应式设计"><span class="nav-text">4. 物联网平台的反应式设计</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OTHER"><span class="nav-text">OTHER</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-微服务的容器化实践"><span class="nav-text">1. 微服务的容器化实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Complex-Adaptive-Systems"><span class="nav-text">2. Complex Adaptive Systems</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Readable-Code-Laura-Savino"><span class="nav-text">3. Readable Code-Laura Savino</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Beyond-Uncertainty-Design-from-Domain-Perspective"><span class="nav-text">4. Beyond Uncertainty, Design from Domain Perspective</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>
