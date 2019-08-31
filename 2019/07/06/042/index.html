@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="spring注解驱动, @Bean, 组件注册, 包扫描, @Conditional, 条件注册">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Java EE 核心知识梳理 | Spring 注解驱动开发之组件注册">
+<meta name="keywords" content="spring注解驱动, @Bean, 组件注册, 包扫描, @Conditional, 条件注册">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring 注解驱动开发之组件注册">
+<meta property="og:url" content="https://woodwhales.github.io/2019/07/06/042/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="Java EE 核心知识梳理 | Spring 注解驱动开发之组件注册">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2019/07/06/042/2019/07/06/042/face.png">
+<meta property="og:updated_time" content="2019-07-06T03:01:01.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring 注解驱动开发之组件注册">
+<meta name="twitter:description" content="Java EE 核心知识梳理 | Spring 注解驱动开发之组件注册">
+<meta name="twitter:image" content="https://woodwhales.github.io/2019/07/06/042/2019/07/06/042/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2019/07/06/042/">
+
+
+
+
+
+  <title>Spring 注解驱动开发之组件注册 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/07/06/042/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring 注解驱动开发之组件注册</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-06T10:52:14+08:00">
+                2019-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/06/042/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/06/042/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/07/06/042/" class="leancloud_visitors" data-flag-title="Spring 注解驱动开发之组件注册">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  4.2k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Java EE 核心知识梳理 | Spring 注解驱动开发之组件注册
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2019/07/06/042/face.png" rel="gallery_cjzz5uwn1003uawvgqpliqtvq" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2019/07/06/042/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="1-&#x6CE8;&#x89E3;&#x9A71;&#x52A8;&#x5F00;&#x53D1;"><a href="#1-&#x6CE8;&#x89E3;&#x9A71;&#x52A8;&#x5F00;&#x53D1;" class="headerlink" title="1. &#x6CE8;&#x89E3;&#x9A71;&#x52A8;&#x5F00;&#x53D1;"></a>1. &#x6CE8;&#x89E3;&#x9A71;&#x52A8;&#x5F00;&#x53D1;</h1><p>&#x5F53;&#x6211;&#x4EEC;&#x8FD8;&#x5728;&#x4F7F;&#x7528;Spring&#x3001;SpringMVC&#x3001;Mybatis&#x4E09;&#x5927;&#x6846;&#x67B6;&#x6765;&#x6574;&#x5408;&#x5F00;&#x53D1;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x5199;&#x5927;&#x91CF;&#x7684;xml&#x6587;&#x4EF6;&#x6765;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x3002;&#x7136;&#x800C;&#x5728;Springboot&#x548C;SpringCloud&#x5174;&#x8D77;&#x4E4B;&#x540E;&#xFF0C;&#x5B66;&#x4E60;Spring&#x7684;&#x6CE8;&#x89E3;&#x9A71;&#x52A8;&#x53CA;&#x5176;&#x539F;&#x7406;&#x90A3;&#x5C06;&#x4F1A;&#x662F;&#x975E;&#x5E38;&#x6709;&#x5FC5;&#x8981;&#x7684;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;Springboot&#x548C;SpringCloud&#x91CC;&#x9762;&#x4F1A;&#x4F7F;&#x7528;&#x5230;&#x5927;&#x91CF;&#x7684;&#x6CE8;&#x89E3;&#x6765;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#xFF1B;&#x5F53;&#x6211;&#x4EEC;&#x719F;&#x7EC3;&#x638C;&#x63E1;&#x4E86;Spring&#x7684;&#x6CE8;&#x89E3;&#x9A71;&#x52A8;&#xFF0C;&#x90A3;&#x5F53;&#x6211;&#x4EEC;&#x5728;&#x5B66;&#x4E60;Springboot&#x548C;SpringCloud&#x6846;&#x67B6;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x90A3;&#x5C06;&#x4F1A;&#x66F4;&#x52A0;&#x7684;&#x8F7B;&#x677E;&#x81EA;&#x5982;&#x3002;</p>
+<h2 id="1-1-&#x73AF;&#x5883;&#x51C6;&#x5907;"><a href="#1-1-&#x73AF;&#x5883;&#x51C6;&#x5907;" class="headerlink" title="1.1 &#x73AF;&#x5883;&#x51C6;&#x5907;"></a>1.1 &#x73AF;&#x5883;&#x51C6;&#x5907;</h2><p>&#x8FD9;&#x91CC;&#x4F7F;&#x7528;<code>spring-context</code>&#x6765;&#x6F14;&#x793A;&#x5DE5;&#x7A0B;demo&#xFF0C;pom &#x4F9D;&#x8D56;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.8.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.inject<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.inject<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h1 id="2-&#x7EC4;&#x4EF6;&#x6CE8;&#x518C;"><a href="#2-&#x7EC4;&#x4EF6;&#x6CE8;&#x518C;" class="headerlink" title="2. &#x7EC4;&#x4EF6;&#x6CE8;&#x518C;"></a>2. &#x7EC4;&#x4EF6;&#x6CE8;&#x518C;</h1><p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;<code>Person</code>&#x7C7B;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Integer age;	</span><br><span class="line">	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="2-1-xml&#x65B9;&#x5F0F;&#x6CE8;&#x518C;"><a href="#2-1-xml&#x65B9;&#x5F0F;&#x6CE8;&#x518C;" class="headerlink" title="2.1 xml&#x65B9;&#x5F0F;&#x6CE8;&#x518C;"></a>2.1 xml&#x65B9;&#x5F0F;&#x6CE8;&#x518C;</h2><p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A; xml &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x7528;&#x4E8E;&#x6CE8;&#x518C;&#x8FD9;&#x4E2A; Person &#x5BF9;&#x8C61;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:aop</span>=<span class="string">&quot;http://www.springframework.org/schema/aop&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:tx</span>=<span class="string">&quot;http://www.springframework.org/schema/tx&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;person&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.woodwhale.king.code01.Person&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> <span class="attr">value</span>=<span class="string">&quot;20&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;zhangsan&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4F7F;&#x7528;<code>ClassPathXmlApplicationContext</code>&#x52A0;&#x8F7D;&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoadXml</span><span class="params">()</span> </span>{</span><br><span class="line">    ApplicationContext applicationContext = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;beans.xml&quot;</span>);</span><br><span class="line">    Person person = (Person) applicationContext.getBean(<span class="string">&quot;person&quot;</span>);</span><br><span class="line">    System.out.println(person);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>Person(name=zhangsan, age=20)</p>
+</blockquote>
+<h2 id="2-2-&#x6CE8;&#x89E3;&#x65B9;&#x5F0F;&#x6CE8;&#x518C;"><a href="#2-2-&#x6CE8;&#x89E3;&#x65B9;&#x5F0F;&#x6CE8;&#x518C;" class="headerlink" title="2.2 &#x6CE8;&#x89E3;&#x65B9;&#x5F0F;&#x6CE8;&#x518C;"></a>2.2 &#x6CE8;&#x89E3;&#x65B9;&#x5F0F;&#x6CE8;&#x518C;</h2><p>&#x4F7F;&#x7528;&#x6CE8;&#x89E3;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x52A0;&#x8F7D; bean&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x7F16;&#x5199;&#x4E00;&#x4E2A;&#x914D;&#x7F6E;&#x7C7B;&#xFF0C;&#x7B49;&#x540C;&#x4E8E; xml &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;</p>
+<ul>
+<li><p><code>@Bean</code>&#xFF1A;&#x76F8;&#x5F53;&#x4E8E;xml&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;<code>&lt;bean&gt;</code>&#x6807;&#x7B7E;&#xFF0C;&#x544A;&#x8BC9;&#x5BB9;&#x5668;&#x6CE8;&#x518C;&#x4E00;&#x4E2A;bean</p>
+</li>
+<li><p>&#x4E4B;&#x524D;xml&#x6587;&#x4EF6;&#x4E2D;<code>&lt;bean&gt;</code>&#x6807;&#x7B7E;&#x6709;bean&#x7684;class&#x7C7B;&#x578B;&#xFF0C;&#x90A3;&#x4E48;&#x73B0;&#x5728;&#x6CE8;&#x89E3;&#x65B9;&#x5F0F;&#x7684;&#x7C7B;&#x578B;&#x5F53;&#x7136;&#x4E5F;&#x5C31;&#x662F;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x7C7B;&#x578B;</p>
+</li>
+<li><p>&#x4E4B;&#x524D;xml&#x6587;&#x4EF6;&#x4E2D;<code>&lt;bean&gt;</code>&#x6807;&#x7B7E;&#x6709;bean&#x7684;id&#xFF0C;&#x73B0;&#x5728;&#x6CE8;&#x89E3;&#x7684;&#x65B9;&#x5F0F;&#x9ED8;&#x8BA4;&#x7528;&#x7684;&#x662F;&#x65B9;&#x6CD5;&#x540D;&#x6765;&#x4F5C;&#x4E3A;bean&#x7684;id&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5F53;&#x524D;&#x6CE8;&#x89E3;&#x7684;&#x65B9;&#x6CD5;&#x540D;&#x662F;<code>person()</code>&#xFF0C;&#x90A3;&#x4E48;id &#x5C31;&#x662F;<code>person</code>&#xFF0C;&#x5982;&#x679C;&#x65B9;&#x6CD5;&#x540D;&#x662F;<code>person01()</code>&#xFF0C;&#x90A3;&#x4E48;id &#x5C31;&#x662F;<code>person01</code></p>
+</li>
+</ul>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Person <span class="title">person</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Person(<span class="string">&quot;lisi&quot;</span>, <span class="number">20</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5982;&#x679C;&#x901A;&#x8FC7;<code>@Bean</code>&#x6CE8;&#x89E3;&#x7684;<code>value</code>&#x5C5E;&#x6027;&#x663E;&#x5F0F;&#x6307;&#x5B9A; bean &#x5728; IOC &#x5BB9;&#x5668;&#x7684;id&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4F1A;&#x4EE5;&#x8FD9;&#x4E2A;&#x6307;&#x5B9A;&#x7684;id &#x4E3A;&#x51C6;&#x6CE8;&#x5165;&#x5BB9;&#x5668;&#x4E2D;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span>(<span class="string">&quot;person&quot;</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Person <span class="title">person01</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Person(<span class="string">&quot;king&quot;</span>, <span class="number">22</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4F7F;&#x7528;<code>AnnotationConfigApplicationContext</code>&#x52A0;&#x8F7D;&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#x7C7B;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLoadAnnotation</span><span class="params">()</span> </span>{</span><br><span class="line">    ApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig.class);</span><br><span class="line">    Person person = applicationContext.getBean(Person.class);</span><br><span class="line">    System.out.println(person);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x904D;&#x5386;&#x6240;&#x6709; Person &#x7C7B;&#x578B;&#x7684; bean &#x7684;id</span></span><br><span class="line">    printBeanName(applicationContext, Person.class);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">printBeanName</span><span class="params">(ApplicationContext applicationContext, Class clazz)</span> </span>{</span><br><span class="line">    String[] beanNames = applicationContext.getBeanDefinitionNames();</span><br><span class="line">    <span class="keyword">for</span> (String beanName : beanNames) {</span><br><span class="line">        System.out.println(beanName);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>Person(name=king, age=22)<br>org.springframework.context.annotation.internalConfigurationAnnotationProcessor<br>org.springframework.context.annotation.internalAutowiredAnnotationProcessor<br>org.springframework.context.annotation.internalCommonAnnotationProcessor<br>org.springframework.context.event.internalEventListenerProcessor<br>org.springframework.context.event.internalEventListenerFactory<br>appConfig<br>person</p>
+</blockquote>
+<p>&#x4ECE;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF1A;&#x914D;&#x7F6E;&#x7C7B;&#x4E5F;&#x4F5C;&#x4E3A;&#x4E86; bean &#x6CE8;&#x5165;&#x5BB9;&#x5668;&#x4E2D;&#xFF0C;&#x5F53;&#x4F7F;&#x7528;@Bean &#x6CE8;&#x89E3;&#x663E;&#x793A;&#x6307;&#x5B9A;id &#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6CE8;&#x518C;&#x5230;&#x5BB9;&#x5668;&#x4E2D;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x6307;&#x5B9A;&#x7684;id&#x3002;</p>
+<h2 id="2-3-&#x7EC4;&#x4EF6;&#x81EA;&#x52A8;&#x626B;&#x63CF;&#x7EC4;&#x4EF6;"><a href="#2-3-&#x7EC4;&#x4EF6;&#x81EA;&#x52A8;&#x626B;&#x63CF;&#x7EC4;&#x4EF6;" class="headerlink" title="2.3 &#x7EC4;&#x4EF6;&#x81EA;&#x52A8;&#x626B;&#x63CF;&#x7EC4;&#x4EF6;"></a>2.3 &#x7EC4;&#x4EF6;&#x81EA;&#x52A8;&#x626B;&#x63CF;&#x7EC4;&#x4EF6;</h2><p>&#x5728;xml&#x6587;&#x4EF6;&#x914D;&#x7F6E;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x6765;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- &#x5305;&#x626B;&#x63CF;&#x3001;&#x53EA;&#x8981;&#x6807;&#x6CE8;&#x4E86;@Controller&#x3001;@Service&#x3001;@Repository&#xFF0C;@Component --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;org.woodwhale.king.code01&quot;</span>/&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4EE5;&#x524D;&#x662F;&#x5728;xml&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x9762;&#x5199;&#x5305;&#x626B;&#x63CF;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x914D;&#x7F6E;&#x7C7B;&#x91CC;&#x9762;&#x5199;&#x5305;&#x626B;&#x63CF;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(basePackages = {<span class="string">&quot;org.woodwhale.king.code01&quot;</span>})</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig2</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><code>@ComponentScan</code>&#x6CE8;&#x89E3;&#x4F1A;&#x626B;&#x63CF;&#x5F53;&#x524D;&#x5305;&#x53CA;&#x5176;&#x5B50;&#x5305;&#x7684;&#x6240;&#x6709;&#x5E26;<code>@Component</code>&#x3001;<code>@Controller</code>&#x3001;<code>@Service</code>&#x3001;<code>@Repository</code>&#x6CE8;&#x89E3;&#x7684;&#x7EC4;&#x4EF6;&#x3002;</p>
+<p><img src="/2019/07/06/042/images/01.png" alt=""></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testComponentScan</span><span class="params">()</span> </span>{</span><br><span class="line">    ApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig2.class);</span><br><span class="line">    String[] definitionNames = applicationContext.getBeanDefinitionNames();</span><br><span class="line">    <span class="keyword">for</span> (String name : definitionNames) {</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>appConfig2<br>appConfig<br>book<br>bookController<br>bookDao<br>bookService<br>person</p>
+</blockquote>
+<p>&#x5728; <code>@ComponentScan</code> &#x8FD9;&#x4E2A;&#x6CE8;&#x89E3;&#x4E0A;&#xFF0C;&#x4E5F;&#x662F;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x8981;&#x6392;&#x9664;&#x54EA;&#x4E9B;&#x5305;&#x6216;&#x8005;&#x662F;&#x53EA;&#x5305;&#x542B;&#x54EA;&#x4E9B;&#x5305;&#x6765;&#x8FDB;&#x884C;&#x7BA1;&#x7406;&#xFF1A;&#x91CC;&#x9762;&#x4F20;&#x662F;&#x4E00;&#x4E2A;Filter[]&#x6570;&#x7EC4;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @ComponentScan &#x6E90;&#x7801;</span></span><br><span class="line">Filter[] includeFilters() <span class="keyword">default</span> {};</span><br><span class="line">Filter[] excludeFilters() <span class="keyword">default</span> {};</span><br></pre></td></tr></tbody></table></figure>
+<p>xml &#x7248;&#x672C;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--&#x5305;&#x626B;&#x63CF;&#xFF0C;&#x53EA;&#x8981;&#x6CE8;&#x89E3;&#x4E86;@Component&#xFF0C;@Controller&#x7B49;&#x4F1A;&#x88AB;&#x626B;&#x63CF;--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;org.woodwhale.king.code01&quot;</span> <span class="attr">use-default-filters</span>=<span class="string">&quot;false&quot;</span> &gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&#x6392;&#x9664;&#x67D0;&#x4E2A;&#x6CE8;&#x89E3;,&#x9664;&#x4E86;Controller&#x5176;&#x4ED6;&#x7C7B;&#x90FD;&#x4F1A;&#x88AB;&#x626B;&#x63CF;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:exclude-filter</span> <span class="attr">type</span>=<span class="string">&quot;annotation&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;org.springframework.stereotype.Controller&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&#x53EA;&#x5305;&#x542B;&#x67D0;&#x4E2A;&#x6CE8;&#x89E3;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">&quot;annotation&quot;</span> <span class="attr">expression</span>=<span class="string">&quot;org.springframework.stereotype.Controller&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6CE8;&#x89E3;&#x7248;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(basePackages = {<span class="string">&quot;org.woodwhale.king.code01.*&quot;</span>},</span><br><span class="line">					excludeFilters = { </span><br><span class="line">							<span class="meta">@Filter</span>(type = FilterType.ANNOTATION, classes = {Controller.class, Service.class})</span><br><span class="line">					})</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig2</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5176;&#x4E2D;Filter&#x7684;type&#x7684;&#x7C7B;&#x578B;&#x6709;:</p>
+<ol>
+<li><p>FilterType.ANNOTATION &#x6309;&#x7167;&#x6CE8;&#x89E3;</p>
+</li>
+<li><p>FilterType.ASSIGNABLE_TYPE &#x6309;&#x7167;&#x7C7B;&#x578B;  FilterType.REGEX &#x6309;&#x7167;&#x6B63;&#x5219;</p>
+</li>
+<li><p>FilterType.ASPECTJ &#x6309;&#x7167;ASPECJ&#x8868;&#x8FBE;&#x5F0F;&#x89C4;&#x5219;</p>
+</li>
+<li><p>FilterType.CUSTOM &#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;</p>
+</li>
+</ol>
+<blockquote>
+<p>excludeFilters = Filter[]    &#x6307;&#x5B9A;&#x5728;&#x626B;&#x63CF;&#x7684;&#x65F6;&#x5019;&#x6309;&#x7167;&#x4EC0;&#x4E48;&#x89C4;&#x5219;&#x6765;&#x6392;&#x9664;&#x8111;&#x54EA;&#x4E9B;&#x7EC4;&#x4EF6;</p>
+<p>includeFilters = Filter[]    &#x6307;&#x5B9A;&#x5728;&#x626B;&#x63CF;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5305;&#x542B;&#x54EA;&#x4E9B;&#x7EC4;&#x4EF6;</p>
+</blockquote>
+<p>&#x5176;&#x4E2D;&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#x7C7B;&#x578B;&#x8FC7;&#x6EE4;&#x5668;&#x9700;&#x8981;&#x5B9E;&#x73B0;TypeFilter&#x63A5;&#x53E3;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTypeFilter</span> <span class="keyword">implements</span> <span class="title">TypeFilter</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * metadataReader:&#x8BFB;&#x53D6;&#x5230;&#x7684;&#x5F53;&#x524D;&#x6B63;&#x5728;&#x626B;&#x63CF;&#x7684;&#x7C7B;&#x7684;&#x4FE1;&#x606F;</span></span><br><span class="line"><span class="comment">	 * metadataReaderFactory:&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5230;&#x5176;&#x4ED6;&#x4EFB;&#x4F55;&#x7C7B;&#x4FE1;&#x606F;&#x7684;</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">match</span><span class="params">(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> IOException </span>{</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7C7B;&#x6CE8;&#x89E3;&#x7684;&#x4FE1;&#x606F;</span></span><br><span class="line">		AnnotationMetadata annotationMetadata = metadataReader.getAnnotationMetadata();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x6B63;&#x5728;&#x626B;&#x63CF;&#x7684;&#x7C7B;&#x7684;&#x7C7B;&#x4FE1;&#x606F;</span></span><br><span class="line">		ClassMetadata classMetadata = metadataReader.getClassMetadata();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7C7B;&#x8D44;&#x6E90;&#xFF08;&#x7C7B;&#x7684;&#x8DEF;&#x5F84;&#xFF09;</span></span><br><span class="line">		Resource resource = metadataReader.getResource();</span><br><span class="line">		</span><br><span class="line">		String className = classMetadata.getClassName();</span><br><span class="line">		<span class="keyword">if</span>(className.contains(<span class="string">&quot;Dao&quot;</span>)){</span><br><span class="line">			System.out.println(<span class="string">&quot;---&gt;&quot;</span>+className);</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><code>FilterType.CUSTOM</code>&#x8FC7;&#x6EE4;&#x5668;&#x8FC7;&#x6EE4;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(basePackages = {<span class="string">&quot;org.woodwhale.king.code02&quot;</span>},</span><br><span class="line">					includeFilters = {</span><br><span class="line">							<span class="meta">@Filter</span>( type=FilterType.CUSTOM, classes= { MyTypeFilter.class })</span><br><span class="line">					}, useDefaultFilters = <span class="keyword">false</span>)</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig2</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>&#x2014;&gt;org.woodwhale.king.code01.dao.BookDao<br>org.springframework.context.annotation.internalConfigurationAnnotationProcessor<br>org.springframework.context.annotation.internalAutowiredAnnotationProcessor<br>org.springframework.context.annotation.internalCommonAnnotationProcessor<br>org.springframework.context.event.internalEventListenerProcessor<br>org.springframework.context.event.internalEventListenerFactory<br>appConfig2<br>bookDao</p>
+</blockquote>
+<p><code>FilterType.ANNOTATION</code>&#x6CE8;&#x89E3;&#x8FC7;&#x6EE4;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(basePackages = {<span class="string">&quot;org.woodwhale.king.code02&quot;</span>},</span><br><span class="line">					includeFilters = {</span><br><span class="line">							<span class="meta">@Filter</span>( type=FilterType.ANNOTATION, classes= { Service.class })</span><br><span class="line">					}, useDefaultFilters = <span class="keyword">false</span>)</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig2</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>org.springframework.context.annotation.internalConfigurationAnnotationProcessor<br>org.springframework.context.annotation.internalAutowiredAnnotationProcessor<br>org.springframework.context.annotation.internalCommonAnnotationProcessor<br>org.springframework.context.event.internalEventListenerProcessor<br>org.springframework.context.event.internalEventListenerFactory<br>appConfig2<br>bookService</p>
+</blockquote>
+<p>&#x6211;&#x4EEC;&#x8FD8;&#x53EF;&#x4EE5;&#x7528; <code>@ComponentScans</code>&#x6765;&#x5B9A;&#x4E49;&#x591A;&#x4E2A;&#x626B;&#x63CF;&#x89C4;&#x5219;&#xFF1A;&#x91CC;&#x9762;&#x662F;<code>@ComponentScan</code>&#x89C4;&#x5219;&#x7684;&#x6570;&#x7EC4;&#xFF08;&#x4F46;&#x662F;&#x8FD9;&#x6837;&#x5199;&#x7684;&#x8BDD;&#xFF0C;&#x5C31;&#x5FC5;&#x987B;&#x8981; java8 &#x53CA;&#x4EE5;&#x4E0A;&#x7684;&#x652F;&#x6301;&#xFF09;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScans</span>({<span class="meta">@ComponentScan</span>(<span class="string">&quot;org.woodwhale.king.code01&quot;</span>),</span><br><span class="line">		<span class="meta">@ComponentScan</span>(<span class="string">&quot;org.woodwhale.king.code03&quot;</span>)</span><br><span class="line">})</span><br><span class="line"><span class="meta">@ComponentScan</span>(basePackages = {<span class="string">&quot;org.woodwhale.king.code02&quot;</span>},</span><br><span class="line">					includeFilters = {</span><br><span class="line">							<span class="meta">@Filter</span>( type=FilterType.ANNOTATION, classes= { Service.class })</span><br><span class="line">					}, useDefaultFilters = <span class="keyword">false</span>)</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig2</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="2-4-bean-&#x7684;&#x4F5C;&#x7528;&#x57DF;"><a href="#2-4-bean-&#x7684;&#x4F5C;&#x7528;&#x57DF;" class="headerlink" title="2.4 bean &#x7684;&#x4F5C;&#x7528;&#x57DF;"></a>2.4 bean &#x7684;&#x4F5C;&#x7528;&#x57DF;</h2><p>spring  &#x9ED8;&#x8BA4;&#x5C06;&#x6240;&#x6709;&#x7684;bean &#x4EE5;&#x5355;&#x4F8B;&#x7684;&#x5F62;&#x5F0F;&#x6CE8;&#x5165;&#xFF0C;&#x5728;&#x5BB9;&#x5668;&#x521D;&#x59CB;&#x5316;&#x4E4B;&#x524D;&#x5C31;&#x4F1A;&#x521B;&#x5EFA;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;&#xFF0C;&#x76F4;&#x5230;&#x5BB9;&#x5668;&#x5173;&#x95ED;&#xFF0C;&#x4F1A;&#x4E00;&#x76F4;&#x5B58;&#x5728;&#x8FD9;&#x4E2A;&#x552F;&#x4E00;&#x7684;&#x5BF9;&#x8C61;&#x3002;</p>
+<blockquote>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x5F53;&#x4F5C;&#x7528;&#x57DF;&#x4E3A;&#x5355;&#x4F8B;&#x7684;&#x65F6;&#x5019;&#xFF0C;IOC&#x5BB9;&#x5668;&#x5728;&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x4F1A;&#x5C06;&#x5BB9;&#x5668;&#x4E2D;&#x6240;&#x6709;&#x4F5C;&#x7528;&#x57DF;&#x4E3A;&#x5355;&#x4F8B;&#x7684;bean&#x7684;&#x5B9E;&#x4F8B;&#x7ED9;&#x521B;&#x5EFA;&#x51FA;&#x6765;&#xFF1B;&#x4EE5;&#x540E;&#x7684;&#x6BCF;&#x6B21;&#x83B7;&#x53D6;&#xFF0C;&#x5C31;&#x76F4;&#x63A5;&#x4ECE;IOC&#x5BB9;&#x5668;&#x4E2D;&#x6765;&#x83B7;&#x53D6;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x662F;&#x4ECE;map.get()&#x7684;&#x4E00;&#x4E2A;&#x8FC7;&#x7A0B;&#xFF1B;&#x4E5F;&#x5C31;&#x662F; spring &#x5728;&#x4EFB;&#x4F55;&#x4EBA;&#x6CA1;&#x6709;&#x83B7;&#x53D6; bean &#x7684;&#x65F6;&#x5019;&#x5C31;&#x7F13;&#x5B58;&#x4E00;&#x4EFD;&#x5B9E;&#x4F8B;&#x3002;</p>
+</blockquote>
+<p>&#x914D;&#x7F6E;&#x7C7B;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(basePackages= {<span class="string">&quot;org.woodwhale.king.code03&quot;</span>})</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig3</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A; bean &#x5BF9;&#x8C61;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x591A;&#x6B21;&#x4ECE;&#x5BB9;&#x5668;&#x83B7;&#x53D6; bean &#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCode03</span> </span>{</span><br><span class="line"></span><br><span class="line">	ApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig3.class);</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testScopes</span><span class="params">()</span> </span>{</span><br><span class="line">		Student student1 = applicationContext.getBean(Student.class);</span><br><span class="line">		Student student2 = applicationContext.getBean(Student.class);</span><br><span class="line">		System.out.println(student1);</span><br><span class="line">		System.out.println(student2);</span><br><span class="line">        System.out.println(student1 == student2);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>org.woodwhale.king.code03.Student@b62fe6d<br>org.woodwhale.king.code03.Student@b62fe6d<br>true</p>
+</blockquote>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;<code>@Scope</code>&#x8FD9;&#x4E2A;&#x6CE8;&#x89E3;&#x6765;&#x6307;&#x5B9A;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x8303;&#x56F4;&#xFF1A;&#x8FD9;&#x4E2A;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x5728;xml&#x6587;&#x4EF6;&#x4E2D;&#x914D;&#x7F6E;&#x7684;<code>&lt;bean&gt;</code>&#x6807;&#x7B7E;&#x91CC;&#x9762;&#x6307;&#x5B9A;<code>prototype</code>&#x5C5E;&#x6027;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment"> 	* Specifies the name of the scope to use for the annotated component/bean.</span></span><br><span class="line"><span class="comment">	 * &lt;p&gt;Defaults to an empty string ({<span class="doctag">@code</span> &quot;&quot;}) which implies</span></span><br><span class="line"><span class="comment">	 * {<span class="doctag">@link</span> ConfigurableBeanFactory#SCOPE_SINGLETON SCOPE_SINGLETON}.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@since</span> 4.2</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> ConfigurableBeanFactory#SCOPE_PROTOTYPE</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> ConfigurableBeanFactory#SCOPE_SINGLETON</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> org.springframework.web.context.WebApplicationContext#SCOPE_REQUEST</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> org.springframework.web.context.WebApplicationContext#SCOPE_SESSION</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> #value</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line"><span class="meta">@AliasFor</span>(<span class="string">&quot;value&quot;</span>)</span><br><span class="line"><span class="function">String <span class="title">scopeName</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4ECE;&#x6E90;&#x7801;&#x7684;&#x6CE8;&#x91CA;&#x4E0A;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x77E5;&#x9053;scopeName&#x53EF;&#x4EE5;&#x53D6;&#x4E0B;&#x9762;&#x8FD9;&#x4E9B;&#x503C;&#xFF1A;</p>
+<ul>
+<li><p>ConfigurableBeanFactory#SCOPE_PROTOTYPE</p>
+<p>&#x5355;&#x5B9E;&#x4F8B;&#x7684;&#xFF08;&#x9ED8;&#x8BA4;&#x503C;&#xFF09;&#xFF1A;ioc&#x5BB9;&#x5668;&#x542F;&#x52A8;&#x4F1A;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x653E;&#x5230;ioc&#x5BB9;&#x5668;&#x4E2D;&#x3002;&#x4EE5;&#x540E;&#x6BCF;&#x6B21;&#x83B7;&#x53D6;&#x5C31;&#x662F;&#x76F4;&#x63A5;&#x4ECE;&#x5BB9;&#x5668;&#xFF08;map.get()&#xFF09;&#x4E2D;&#x62FF;&#x3002;</p>
+</li>
+<li><p>ConfigurableBeanFactory#SCOPE_SINGLETON</p>
+<p>&#x591A;&#x5B9E;&#x4F8B;&#x7684;&#xFF1A;ioc&#x5BB9;&#x5668;&#x542F;&#x52A8;&#x5E76;&#x4E0D;&#x4F1A;&#x53BB;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x653E;&#x5728;&#x5BB9;&#x5668;&#x4E2D;&#x3002;&#x6BCF;&#x6B21;&#x83B7;&#x53D6;&#x7684;&#x65F6;&#x5019;&#x624D;&#x4F1A;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x3002;</p>
+</li>
+<li><p>org.springframework.web.context.WebApplicationContext#SCOPE_REQUEST</p>
+<p>&#x540C;&#x4E00;&#x6B21;&#x8BF7;&#x6C42;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;</p>
+</li>
+<li><p>org.springframework.web.context.WebApplicationContext#SCOPE_SESSION</p>
+<p>&#x540C;&#x4E00;&#x4E2A;session&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;</p>
+</li>
+</ul>
+<p>&#x914D;&#x7F6E;&#x539F;&#x578B;&#x6A21;&#x5F0F;&#xFF08;ConfigurableBeanFactory#SCOPE_PROTOTYPE&#xFF09;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(basePackages= {<span class="string">&quot;org.woodwhale.king.code03&quot;</span>})</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig3</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Scope</span>(ConfigurableBeanFactory.SCOPE_PROTOTYPE)</span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Student <span class="title">student</span><span class="params">()</span> </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;drop student into Spring IOC ...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Student();</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6D4B;&#x8BD5;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>drop student into Spring IOC &#x2026;<br>drop student into Spring IOC &#x2026;<br>org.woodwhale.king.code03.Student@78047b92<br>org.woodwhale.king.code03.Student@8909f18<br>false</p>
+</blockquote>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF0C;&#x6211;&#x4EEC;&#x7528;<code>getBean()</code>&#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x51E0;&#x6B21;&#xFF0C;&#x5C31;&#x521B;&#x5EFA;&#x51E0;&#x6B21;bean&#x7684;&#x5B9E;&#x4F8B;&#xFF1B;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5F53;bean&#x662F;&#x4F5C;&#x7528;&#x57DF;&#x4E3A;&#x591A;&#x4F8B;&#x7684;&#x65F6;&#x5019;&#xFF0C;IOC&#x5BB9;&#x5668;&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x4E0D;&#x4F1A;&#x53BB;&#x521B;&#x5EFA;bean&#x7684;&#x5B9E;&#x4F8B;&#x7684;&#xFF0C;&#x800C;&#x662F;&#x5F53;&#x6211;&#x4EEC;&#x8C03;&#x7528;<code>getBean()</code>&#x83B7;&#x53D6;&#x7684;&#x65F6;&#x5019;&#x53BB;&#x521B;&#x5EFA;bean&#x7684;&#x5B9E;&#x4F8B;&#xFF1B;&#x800C;&#x4E14;&#x6BCF;&#x6B21;&#x8C03;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;bean&#x7684;&#x5B9E;&#x4F8B;&#xFF1B;</p>
+<h2 id="2-5-&#x61D2;&#x52A0;&#x8F7D;"><a href="#2-5-&#x61D2;&#x52A0;&#x8F7D;" class="headerlink" title="2.5 &#x61D2;&#x52A0;&#x8F7D;"></a>2.5 &#x61D2;&#x52A0;&#x8F7D;</h2><p><code>@Lazy</code>&#x6CE8;&#x89E3;&#x53EF;&#x4EE5;&#x5728;&#x5BB9;&#x5668;&#x542F;&#x52A8;&#x4E0D;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x3002;&#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528;(&#x83B7;&#x53D6;)Bean&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x521D;&#x59CB;&#x5316;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Lazy</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Student <span class="title">student</span><span class="params">()</span> </span>{</span><br><span class="line">    System.out.println(<span class="string">&quot;drop student into Spring IOC ...&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Student();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="2-6-Conditional-&#x6309;&#x7167;&#x6761;&#x4EF6;&#x6CE8;&#x518C;bean"><a href="#2-6-Conditional-&#x6309;&#x7167;&#x6761;&#x4EF6;&#x6CE8;&#x518C;bean" class="headerlink" title="2.6 @Conditional &#x6309;&#x7167;&#x6761;&#x4EF6;&#x6CE8;&#x518C;bean"></a>2.6 @Conditional &#x6309;&#x7167;&#x6761;&#x4EF6;&#x6CE8;&#x518C;bean</h2><p><code>@Conditional</code>&#xFF1A;&#x6309;&#x7167;&#x4E00;&#x5B9A;&#x7684;&#x6761;&#x4EF6;&#x8FDB;&#x884C;&#x5224;&#x65AD;&#xFF0C;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x7ED9;&#x5BB9;&#x5668;&#x4E2D;&#x6CE8;&#x518C;bean</p>
+<p>&#x4E3E;&#x4F8B;&#xFF1A;&#x8981;&#x6C42;&#x5BB9;&#x5668;&#x6839;&#x636E;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x6CE8;&#x5165;&#x4E0D;&#x540C;&#x7684;bean&#xFF0C;&#x5982;&#x679C;&#x7CFB;&#x7EDF;&#x662F; windows&#xFF0C;&#x7ED9;&#x5BB9;&#x5668;&#x4E2D;&#x6CE8;&#x518C;(&#x201C;bill&#x201D;)&#xFF0C;&#x5982;&#x679C;&#x662F;linux&#x7CFB;&#x7EDF;&#xFF0C;&#x7ED9;&#x5BB9;&#x5668;&#x4E2D;&#x6CE8;&#x518C;(&#x201C;linus&#x201D;)&#x3002;</p>
+<p>&#x5B9E;&#x73B0;<code>Condition</code>&#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x91CD;&#x5199;&#x5339;&#x914D;&#x6761;&#x4EF6;&#x903B;&#x8F91;&#xFF1A;</p>
+<p>windows &#x6761;&#x4EF6;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowsCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext context, AnnotatedTypeMetadata metadata)</span> </span>{</span><br><span class="line">		<span class="comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x5BB9;&#x5668;&#x7684;&#x73AF;&#x5883;&#x4FE1;&#x606F;</span></span><br><span class="line">		Environment environment = context.getEnvironment();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// &#x83B7;&#x53D6;&#x7CFB;&#x7EDF;&#x7684;&#x540D;&#x79F0;</span></span><br><span class="line">		String osName = environment.getProperty(<span class="string">&quot;os.name&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span>(osName.contains(<span class="string">&quot;Windows&quot;</span>)){</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>linux &#x6761;&#x4EF6;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinuxCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext context, AnnotatedTypeMetadata metadata)</span> </span>{</span><br><span class="line">		<span class="comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x5BB9;&#x5668;&#x7684;&#x73AF;&#x5883;&#x4FE1;&#x606F;</span></span><br><span class="line">		Environment environment = context.getEnvironment();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// &#x83B7;&#x53D6;&#x7CFB;&#x7EDF;&#x7684;&#x540D;&#x79F0;</span></span><br><span class="line">		String osName = environment.getProperty(<span class="string">&quot;os.name&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;osName --&gt; &quot;</span> + osName);</span><br><span class="line">		<span class="keyword">if</span>(osName.contains(<span class="string">&quot;Linux&quot;</span>)){</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><code>@Conditional</code>&#x6309;&#x7167;&#x4E00;&#x5B9A;&#x6761;&#x4EF6;&#x8FDB;&#x884C;&#x5224;&#x65AD;&#xFF0C;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x5BB9;&#x5668;&#x4E2D;&#x6CE8;&#x518C;bean&#xFF0C;&#x82E5;&#x653E;&#x5728;&#x7C7B;&#x4E2D;&#xFF0C;&#x6574;&#x4E2A;&#x914D;&#x7F6E;&#x7C7B;&#x4E2D;&#x7684;bean&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x624D;&#x4F1A;&#x88AB;&#x52A0;&#x8F7D;&#x5230;&#x5BB9;&#x5668;&#x4E2D;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig4</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Conditional</span>(WindowsCondition.class)</span><br><span class="line">	<span class="meta">@Bean</span>(<span class="string">&quot;bill&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Boss <span class="title">boss1</span><span class="params">()</span></span>{</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Boss(<span class="string">&quot;Bill Gates&quot;</span>, <span class="number">62</span>);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Conditional</span>(LinuxCondition.class)</span><br><span class="line">	<span class="meta">@Bean</span>(<span class="string">&quot;linus&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Boss <span class="title">boss2</span><span class="params">()</span></span>{</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Boss(<span class="string">&quot;linus&quot;</span>, <span class="number">48</span>);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6D4B;&#x8BD5;&#x4E00;&#x4E0B;&#x6CE8;&#x5165;&#x5BB9;&#x5668;&#x7684; id &#x662F;&#x8C01;&#xFF1A;</p>
+<p>&#x8FD0;&#x884C;&#x6D4B;&#x8BD5;&#x4F1A;&#x53D1;&#x73B0;&#xFF0C;spring &#x53EA;&#x6CE8;&#x5165;&#x4E86; id &#x4E3A; linus &#x7684; bean &#x5BF9;&#x8C61;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCode04</span> </span>{</span><br><span class="line">	</span><br><span class="line">	ApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig4.class);</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testCondition</span><span class="params">()</span> </span>{</span><br><span class="line">		String[] definitionNames = applicationContext.getBeanDefinitionNames();</span><br><span class="line">        <span class="keyword">for</span> (String name : definitionNames) {</span><br><span class="line">            System.out.println(name);</span><br><span class="line">        }</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5728; windows &#x7CFB;&#x7EDF;&#x8FD0;&#x884C;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x53EA;&#x8F93;&#x51FA;&#x4E86; id &#x4E3A; bill &#x7684; bean&#xFF0C;&#x53EF;&#x4EE5;&#x5728; JVM &#x8FD0;&#x884C;&#x53C2;&#x6570;&#x4E2D;&#x624B;&#x52A8;&#x8BBE;&#x7F6E;&#x7CFB;&#x7EDF;&#x73AF;&#x5883;&#x53C2;&#x6570;&#xFF1A;<code>-Dos.name=Linux</code>&#xFF0C;&#x518D;&#x6B21;&#x8FD0;&#x884C;&#xFF0C;&#x5219;&#x8F93;&#x51FA;&#x4E86; id &#x4E3A; linus &#x7684; bean</p>
+<h2 id="2-7-Import-&#x5BFC;&#x5165;&#x7EC4;&#x4EF6;"><a href="#2-7-Import-&#x5BFC;&#x5165;&#x7EC4;&#x4EF6;" class="headerlink" title="2.7 @Import &#x5BFC;&#x5165;&#x7EC4;&#x4EF6;"></a>2.7 @Import &#x5BFC;&#x5165;&#x7EC4;&#x4EF6;</h2><h3 id="2-7-1-&#x5BFC;&#x5165;-bean-&#x7684;&#x7C7B;&#x5BF9;&#x8C61;"><a href="#2-7-1-&#x5BFC;&#x5165;-bean-&#x7684;&#x7C7B;&#x5BF9;&#x8C61;" class="headerlink" title="2.7.1 &#x5BFC;&#x5165; bean &#x7684;&#x7C7B;&#x5BF9;&#x8C61;"></a>2.7.1 &#x5BFC;&#x5165; bean &#x7684;&#x7C7B;&#x5BF9;&#x8C61;</h3><p><code>@Import(bean&#x7684;&#x7C7B;&#x5BF9;&#x8C61;)</code>&#x53EF;&#x4EE5;&#x5FEB;&#x901F;&#x5BFC;&#x5165;&#x4E00;&#x4E2A; bean &#xFF0C;&#x800C;&#x4E0D;&#x9700;&#x8981;&#x4F7F;&#x7528;<code>@Bean</code>&#x6CE8;&#x89E3;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x5F62;&#x5F0F;&#xFF1A;&#x53EA;&#x8981;&#x5C06;&#x8981;&#x6CE8;&#x518C;bean &#x7684;&#x7C7B;&#x5BF9;&#x8C61;&#x4F20;&#x8FDB;&#x53BB;&#xFF0C;&#x5BB9;&#x5668;&#x5C31;&#x80FD;&#x81EA;&#x52A8;&#x6CE8;&#x518C;&#x8FD9;&#x4E2A;&#x7EC4;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import</span>(Color.class)</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig5</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6D4B;&#x8BD5;&#x662F;&#x5426;&#x5BFC;&#x5165;&#x6210;&#x529F;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCode05</span> </span>{</span><br><span class="line">	ApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig5.class);</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testImport</span><span class="params">()</span> </span>{</span><br><span class="line">		String[] definitionNames = applicationContext.getBeanDefinitionNames();</span><br><span class="line">        <span class="keyword">for</span> (String name : definitionNames) {</span><br><span class="line">            System.out.println(name);</span><br><span class="line">        }</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>appConfig5<br>org.woodwhale.king.code05.Color</p>
+</blockquote>
+<p>&#x4ECE;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF1A;<code>@Import(bean&#x7684;&#x7C7B;&#x5BF9;&#x8C61;)</code>&#x6CE8;&#x518C;&#x7684; id &#x9ED8;&#x8BA4;&#x662F;&#x5168;&#x7C7B;&#x540D;&#x3002;</p>
+<h3 id="2-7-2-&#x5BFC;&#x5165;-ImportSelector-&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x7C7B;&#x5BF9;&#x8C61;"><a href="#2-7-2-&#x5BFC;&#x5165;-ImportSelector-&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x7C7B;&#x5BF9;&#x8C61;" class="headerlink" title="2.7.2 &#x5BFC;&#x5165; ImportSelector &#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x7C7B;&#x5BF9;&#x8C61;"></a>2.7.2 &#x5BFC;&#x5165; ImportSelector &#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x7C7B;&#x5BF9;&#x8C61;</h3><p>&#x5B9E;&#x73B0;<code>ImportSelector</code>&#x63A5;&#x53E3;&#xFF0C;&#x91CD;&#x5199;<code>selectImports()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x8FD4;&#x56DE;&#x8981;&#x6CE8;&#x518C;&#x7684; bean &#x5BF9;&#x8C61;&#x7684;&#x5168;&#x7C7B;&#x540D;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyImportSelector</span> <span class="keyword">implements</span> <span class="title">ImportSelector</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> String[] selectImports(AnnotationMetadata importingClassMetadata) {</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> String[]{<span class="string">&quot;org.woodwhale.king.code05.Blue&quot;</span>};</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5BFC;&#x5165; &#x5B9E;&#x73B0;&#x7C7B;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import</span>({Color.class, MyImportSelector.class})</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig5</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="2-7-3-&#x624B;&#x52A8;&#x6CE8;&#x518C;-bean"><a href="#2-7-3-&#x624B;&#x52A8;&#x6CE8;&#x518C;-bean" class="headerlink" title="2.7.3 &#x624B;&#x52A8;&#x6CE8;&#x518C; bean"></a>2.7.3 &#x624B;&#x52A8;&#x6CE8;&#x518C; bean</h3><p>&#x5B9E;&#x73B0;<code>ImportBeanDefinitionRegistrar</code>&#x63A5;&#x53E3;&#xFF0C;&#x91CD;&#x5199;&#x6CE8;&#x518C; bean &#x7684;&#x6CE8;&#x518C;&#x65B9;&#x6CD5;&#xFF0C;&#x5C06;&#x6240;&#x6709;&#x8981;&#x6CE8;&#x518C;&#x7684; bean &#x624B;&#x52A8;&#x6CE8;&#x518C; &#x8FDB;&#x5BB9;&#x5668;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * AnnotationMetadata:&#x5F53;&#x524D;&#x7C7B;&#x7684;&#x6CE8;&#x89E3;&#x4FE1;&#x606F;</span></span><br><span class="line"><span class="comment"> * BeanDefinitionRegistry:BeanDefinition&#x6CE8;&#x518C;&#x7C7B;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)</span> </span>{</span><br><span class="line"></span><br><span class="line">    String[] beanNames = registry.getBeanDefinitionNames();</span><br><span class="line">    <span class="keyword">for</span> (String beanName : beanNames) {</span><br><span class="line">        System.out.println(<span class="string">&quot;registerBeanDefinitions --&gt; &quot;</span> + beanName);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">boolean</span> blue = registry.containsBeanDefinition(<span class="string">&quot;org.woodwhale.king.code05.Blue&quot;</span>);</span><br><span class="line">    <span class="keyword">boolean</span> color = registry.containsBeanDefinition(<span class="string">&quot;org.woodwhale.king.code05.Color&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(color &amp;&amp; blue) {</span><br><span class="line">        <span class="comment">// &#x624B;&#x52A8;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; BeanDefinition &#x5E76;&#x6CE8;&#x518C;&#x5230;&#x5BB9;&#x5668;&#x4E2D;</span></span><br><span class="line">        RootBeanDefinition rootBeanDefinition = <span class="keyword">new</span> RootBeanDefinition(RainBow.class);</span><br><span class="line">        registry.registerBeanDefinition(<span class="string">&quot;rainBow&quot;</span>, rootBeanDefinition);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5C06;&#x8FD9;&#x4E2A;&#x5B9E;&#x73B0;&#x7C7B;&#x5BFC;&#x5165;&#x5230;&#x5BB9;&#x5668;&#x4E2D;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import</span>({Color.class, MyImportSelector.class, MyImportBeanDefinitionRegistrar.class})</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig5</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>appConfig5<br>org.woodwhale.king.code05.Color<br>org.woodwhale.king.code05.Blue<br>rainBow</p>
+</blockquote>
+<p><strong>&#x6CE8;&#x610F;</strong>&#xFF1A;&#x5F53;&#x6240;&#x6709;&#x7EC4;&#x4EF6;&#x90FD;&#x6CE8;&#x518C;&#x6210;&#x529F;&#x4E4B;&#x540E;&#xFF0C;&#x624D;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x5B9E;&#x73B0;&#x7C7B;&#x7684;&#x6CE8;&#x518C;&#x65B9;&#x6CD5;&#x3002;</p>
+<h2 id="2-8-&#x4F7F;&#x7528;FactoryBean&#x6CE8;&#x518C;&#x7EC4;&#x4EF6;"><a href="#2-8-&#x4F7F;&#x7528;FactoryBean&#x6CE8;&#x518C;&#x7EC4;&#x4EF6;" class="headerlink" title="2.8 &#x4F7F;&#x7528;FactoryBean&#x6CE8;&#x518C;&#x7EC4;&#x4EF6;"></a>2.8 &#x4F7F;&#x7528;FactoryBean&#x6CE8;&#x518C;&#x7EC4;&#x4EF6;</h2><p>&#x9996;&#x5148;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x7C7B;&#x5B9E;&#x73B0;<code>FactoryBean&lt;T&gt;</code>&#x63A5;&#x53E3;&#xFF0C;&#x5176;&#x4E2D;T&#x662F;&#x8981;&#x6CE8;&#x518C;&#x7684;Bean&#x7684;&#x7C7B;&#x578B;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ColorFactoryBean</span> <span class="keyword">implements</span> <span class="title">FactoryBean</span>&lt;<span class="title">Color</span>&gt; </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Color <span class="title">getObject</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;getObject --&gt; new Color()&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Color();</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> Class&lt;?&gt; getObjectType() {</span><br><span class="line">		<span class="keyword">return</span> Color.class;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 	&#x63A5;&#x53E3;&#x7684;&#x9ED8;&#x8BA4;&#x65B9;&#x6CD5;&#xFF0C;&#x9ED8;&#x8BA4;&#x8FD4;&#x56DE;true&#xFF0C;&#x8868;&#x793A;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;</span></span><br><span class="line"><span class="comment">	 * 	&#x8FD4;&#x56DE; false &#x8868;&#x793A;&#x6BCF;&#x6B21;&#x83B7;&#x53D6; bean &#x7684;&#x65F6;&#x5019;&#x5C31;&#x4F1A;&#x8C03;&#x7528;getObject()&#x65B9;&#x6CD5;</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSingleton</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5C06;&#x5DE5;&#x5382;&#x7C7B;&#x6CE8;&#x518C;&#x5230;&#x914D;&#x7F6E;&#x7C7B;&#x4E2D;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig5</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ColorFactoryBean <span class="title">colorFactoryBean</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ColorFactoryBean();</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7F16;&#x5199;&#x6D4B;&#x8BD5;&#x7C7B;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFactoryBean</span><span class="params">()</span> </span>{</span><br><span class="line">    Color colorFactoryBean1 = (Color)applicationContext.getBean(<span class="string">&quot;colorFactoryBean&quot;</span>);</span><br><span class="line">    Color colorFactoryBean2 = (Color)applicationContext.getBean(<span class="string">&quot;colorFactoryBean&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;bean class type --&gt; &quot;</span> + colorFactoryBean1.getClass());</span><br><span class="line"></span><br><span class="line">    System.out.println(colorFactoryBean1 == colorFactoryBean2);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x5728;id&#x524D;&#x9762;&#x589E;&#x52A0; &amp;&#xFF0C;&#x83B7;&#x53D6;&#x5DE5;&#x5382;&#x5BF9;&#x8C61;&#x672C;&#x8EAB;</span></span><br><span class="line">    Object bean = applicationContext.getBean(<span class="string">&quot;&amp;colorFactoryBean&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;bean class type --&gt; &quot;</span> + bean.getClass());</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>getObject &#x2013;&gt; new Color()<br>getObject &#x2013;&gt; new Color()<br>bean class type &#x2013;&gt; class org.woodwhale.king.code05.Color<br>false<br>bean class type &#x2013;&gt; class org.woodwhale.king.code05.ColorFactoryBean</p>
+</blockquote>
+<h1 id="3-&#x603B;&#x7ED3;"><a href="#3-&#x603B;&#x7ED3;" class="headerlink" title="3. &#x603B;&#x7ED3;"></a>3. &#x603B;&#x7ED3;</h1><p>xml &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5728; spring &#x6CE8;&#x89E3;&#x5F00;&#x53D1;&#x4E2D;&#x5DF2;&#x7ECF;&#x88AB;&#x66FF;&#x6362;&#x6210;&#x4E86;Java &#x914D;&#x7F6E;&#x7C7B;&#xFF0C;&#x8981;&#x6210;&#x4E3A;&#x5177;&#x6709; xml &#x529F;&#x80FD;&#x7684;&#x914D;&#x7F6E;&#x7C7B;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x5728;&#x7C7B;&#x540D;&#x4E0A;&#x589E;&#x52A0;<code>@Configuration</code>&#x6CE8;&#x89E3;&#x3002;</p>
+<p>bean &#x7EC4;&#x4EF6;&#x6CE8;&#x518C;&#x7684;&#x65B9;&#x5F0F;&#x6709;&#x4EE5;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>&#x4F7F;&#x7528;<code>@Bean</code>&#x6CE8;&#x89E3;&#xFF0C;&#x7F16;&#x5199;&#x521B;&#x5EFA; bean &#x5E76;&#x8FD4;&#x56DE;&#x8FD9;&#x4E2A;bean &#x7684;&#x5171;&#x6709;&#x65B9;&#x6CD5;&#xFF0C;&#x5728;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4E0A;&#x52A0;&#x6CE8;&#x89E3;&#xFF0C;&#x9ED8;&#x8BA4;&#x4F1A;&#x5C06;&#x65B9;&#x6CD5;&#x540D;&#x4F5C;&#x4E3A;bean &#x7684; id&#x3002;</li>
+</ol>
+<p>&#x5BB9;&#x5668;&#x9ED8;&#x8BA4;&#x88C5;&#x8F7D;&#x7684; bean &#x90FD;&#x662F;&#x5355;&#x4F8B;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x591A;&#x4F8B;&#x7684; bean &#xFF0C;&#x5C31;&#x9700;&#x8981;&#x6DFB;&#x52A0;<code>@Scope</code>&#x6CE8;&#x89E3;&#x3002;</p>
+<ol start="2">
+<li><p>&#x5B9E;&#x73B0;<code>Condition</code>&#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x81EA;&#x5B9A;&#x4E49;&#x6761;&#x4EF6;&#x89C4;&#x5219;&#xFF0C;&#x4F7F;&#x7528;&#x6CE8;&#x89E3;<code>@Conditional</code>&#x5BF9; bean &#x8FDB;&#x884C;&#x6709;&#x6761;&#x4EF6;&#x7684;&#x6CE8;&#x518C;</p>
+</li>
+<li><p>&#x4F7F;&#x7528;<code>@Import</code>&#x6CE8;&#x89E3;&#x5BFC;&#x5165;&#x7EC4;&#x4EF6;&#xFF0C;&#x6709;&#x4E09;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li>&#x76F4;&#x63A5;&#x4F20;&#x5165; bean &#x7684;&#x7C7B;&#x5BF9;&#x8C61;&#x5230;<code>@Import</code>&#x5C5E;&#x6027;&#x4E2D;&#x3002;</li>
+<li>&#x5B9E;&#x73B0;<code>ImportSelector</code>&#x63A5;&#x53E3;&#xFF0C;&#x91CD;&#x5199;<code>selectImports()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x8FD4;&#x56DE;&#x5C06;&#x8981;&#x6CE8;&#x518C;&#x7684;bean &#x7684;&#x5168;&#x7C7B;&#x540D;&#x5B57;&#x7B26;&#x4E32;&#x6570;&#x7EC4;&#xFF0C;&#x6700;&#x540E;&#x5C06;&#x8FD9;&#x4E2A;&#x5B9E;&#x73B0;&#x7C7B;&#x7684;&#x7C7B;&#x5BF9;&#x8C61;&#x4F20;&#x5165;<code>@Import</code>&#x5C5E;&#x6027;&#x4E2D;&#x3002;</li>
+<li>&#x5B9E;&#x73B0;<code>ImportBeanDefinitionRegistrar</code>&#x63A5;&#x53E3;&#xFF0C;&#x624B;&#x52A8;&#x6CE8;&#x518C; bean &#x5230;&#x5BB9;&#x5668;&#x4E2D;&#x3002;</li>
+</ul>
+</li>
+<li>&#x4F7F;&#x7528;<code>FactoryBean</code>&#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#xFF0C;&#x5373; bean &#x7684;&#x5DE5;&#x5382;&#x7C7B;&#xFF0C;&#x914D;&#x7F6E;&#x5230;&#x914D;&#x7F6E;&#x7C7B;&#x4E2D;&#x3002;</li>
+</ol>
+<p>&#x6269;&#x5C55;&#x535A;&#x6587;&#xFF1A;</p>
+<p><a href="https://blog.csdn.net/weixin_37778801/article/details/86233124" target="_blank" rel="noopener">Spring&#x6CE8;&#x89E3;&#x9A71;&#x52A8;&#x5F00;&#x53D1;&#xFF08;&#x4E00;&#xFF09;</a></p>
+<p><a href="https://www.miaoroom.com/code/backend/java/spring-annotation.html" target="_blank" rel="noopener">&#x300C;Java&#x7B14;&#x8BB0;&#x300D;&#x5E38;&#x89C1;&#x7684;Spring &#x6CE8;&#x89E3; &#x603B;&#x7ED3;</a></p>
+<p><a href="https://www.cnblogs.com/wangxiayun/p/10083217.html" target="_blank" rel="noopener">Spring&#x6CE8;&#x89E3;&#x5F00;&#x53D1;&#x7CFB;&#x5217;&#x2160;&#x2014; &#x7EC4;&#x4EF6;&#x6CE8;&#x518C;(&#x4E0A;)</a></p>
+<p><a href="https://www.cnblogs.com/wangxiayun/p/10102763.html" target="_blank" rel="noopener">Spring&#x6CE8;&#x89E3;&#x5F00;&#x53D1;&#x7CFB;&#x5217;&#x2161; &#x2014; &#x7EC4;&#x4EF6;&#x6CE8;&#x518C;(&#x4E0B;)</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-07-06</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-07-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/07/06/042/">Spring 注解驱动开发之组件注册</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2019/07/06/042/" title="Spring 注解驱动开发之组件注册">https://woodwhales.github.io/2019/07/06/042/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/07/06/042/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/组件注册/" rel="tag"><i class="fa fa-tag"></i> 组件注册</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/04/041/" rel="next" title="浅析分布式系统（四）">
+                <i class="fa fa-chevron-left"></i> 浅析分布式系统（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/06/043/" rel="prev" title="Spring 注解驱动开发之组件装配">
+                Spring 注解驱动开发之组件装配 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-注解驱动开发"><span class="nav-text">1. 注解驱动开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-环境准备"><span class="nav-text">1.1 环境准备</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-组件注册"><span class="nav-text">2. 组件注册</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-xml方式注册"><span class="nav-text">2.1 xml方式注册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-注解方式注册"><span class="nav-text">2.2 注解方式注册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-组件自动扫描组件"><span class="nav-text">2.3 组件自动扫描组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-bean-的作用域"><span class="nav-text">2.4 bean 的作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-懒加载"><span class="nav-text">2.5 懒加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-Conditional-按照条件注册bean"><span class="nav-text">2.6 @Conditional 按照条件注册bean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-Import-导入组件"><span class="nav-text">2.7 @Import 导入组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-1-导入-bean-的类对象"><span class="nav-text">2.7.1 导入 bean 的类对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-2-导入-ImportSelector-的实现类类对象"><span class="nav-text">2.7.2 导入 ImportSelector 的实现类类对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-3-手动注册-bean"><span class="nav-text">2.7.3 手动注册 bean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-使用FactoryBean注册组件"><span class="nav-text">2.8 使用FactoryBean注册组件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-总结"><span class="nav-text">3. 总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

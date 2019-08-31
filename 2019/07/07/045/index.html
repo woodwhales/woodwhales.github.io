@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="JNI, VS2010, JNI乱码, JNI生成DLL, 动态链接库, dll, java">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="JNI 技术之用 Visual Studio 2010 (C++) 生成 DLL 实战详解">
+<meta name="keywords" content="JNI, VS2010, JNI乱码, JNI生成DLL, 动态链接库, dll, java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JNI技术实战">
+<meta property="og:url" content="https://woodwhales.github.io/2019/07/07/045/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="JNI 技术之用 Visual Studio 2010 (C++) 生成 DLL 实战详解">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2019/07/07/045/2019/07/07/045/face.png">
+<meta property="og:updated_time" content="2019-07-07T13:00:51.682Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JNI技术实战">
+<meta name="twitter:description" content="JNI 技术之用 Visual Studio 2010 (C++) 生成 DLL 实战详解">
+<meta name="twitter:image" content="https://woodwhales.github.io/2019/07/07/045/2019/07/07/045/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2019/07/07/045/">
+
+
+
+
+
+  <title>JNI技术实战 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/07/07/045/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JNI技术实战</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-07T20:50:00+08:00">
+                2019-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JNI/" itemprop="url" rel="index">
+                    <span itemprop="name">JNI</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/07/045/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/07/045/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/07/07/045/" class="leancloud_visitors" data-flag-title="JNI技术实战">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  1.8k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  JNI 技术之用 Visual Studio 2010 (C++) 生成 DLL 实战详解
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2019/07/07/045/face.png" rel="gallery_cjzz5uweo002hawvgi31p48x0" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2019/07/07/045/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <p>&#x672C;&#x6587;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#xFF1A;</p>
+<ol>
+<li><p>&#x5F00;&#x53D1;&#x5DE5;&#x5177;&#xFF1A;</p>
+<p>1&#xFF09;Java&#xFF1A;STS&#xFF08;Spring &#x4F18;&#x5316;&#x8FC7;&#x7684; eclipse&#xFF09;</p>
+<p>2&#xFF09;C++&#xFF1A;Microsoft Visual Studio 2010 Ultimate&#xFF08;VS 2010 &#x65D7;&#x8230;&#x7248;&#xFF09;</p>
+</li>
+<li><p>JDK &#x73AF;&#x5883;&#xFF1A;JDK 1.8.0_144</p>
+</li>
+<li><p>&#x5F00;&#x53D1;&#x5E73;&#x53F0;&#xFF1A;Windows 7 x64</p>
+</li>
+<li><p>&#x6E90;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x5B57;&#x7B26;&#x96C6;&#xFF1A;Java &#x6E90;&#x7801;&#x6587;&#x4EF6;&#x4F7F;&#x7528;<code>UTF8</code>&#x7F16;&#x7801;&#xFF0C;C++&#x6E90;&#x6587;&#x4EF6;&#x4F7F;&#x7528;<code>UTF8</code>&#x7F16;&#x7801;</p>
+</li>
+</ol>
+<h3 id="&#x6B65;&#x9AA4;1-&#x7F16;&#x5199;-JNI-&#x6587;&#x4EF6;&#x7684;-Java-&#x6E90;&#x7801;"><a href="#&#x6B65;&#x9AA4;1-&#x7F16;&#x5199;-JNI-&#x6587;&#x4EF6;&#x7684;-Java-&#x6E90;&#x7801;" class="headerlink" title="&#x6B65;&#x9AA4;1. &#x7F16;&#x5199; JNI &#x6587;&#x4EF6;&#x7684; Java &#x6E90;&#x7801;"></a>&#x6B65;&#x9AA4;1. &#x7F16;&#x5199; JNI &#x6587;&#x4EF6;&#x7684; Java &#x6E90;&#x7801;</h3><p>&#x4F7F;&#x7528; STS &#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x6700;&#x7B80;&#x5355;&#x7684; Java &#x5DE5;&#x7A0B;&#xFF1A;<code>JNI_demo</code>&#xFF0C;&#x5E76;&#x521B;&#x5EFA;<code>org.woodwhales.king.JniTest</code>&#x7C7B; &#xFF0C;&#x8BE5;&#x7C7B;&#x6709;&#x7C7B;&#xFF1B;&#x4E24;&#x4E2A;&#x539F;&#x751F;&#x7684;&#x65B9;&#x6CD5;<code>getMessage()</code>&#x548C;<code>plus()</code>&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.woodwhales.king;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JniTest</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> {</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">			System.loadLibrary(<span class="string">&quot;TestJni&quot;</span>);</span><br><span class="line">		} <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">			System.out.println(<span class="string">&quot;load dll error, cause : &quot;</span> + e.getMessage());</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">JniTest</span><span class="params">()</span> </span>{</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// &#x83B7;&#x53D6;&#x6D88;&#x606F;</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">getMessage</span><span class="params">(String str)</span></span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// &#x4E24;&#x6570;&#x76F8;&#x52A0;</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">native</span> Integer <span class="title">plus</span><span class="params">(Integer x, Integer y)</span></span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x6CE8;&#x610F;</strong>&#xFF1A;&#x7F16;&#x5199;Java&#x6E90;&#x7801;&#x4E4B;&#x524D;&#x4E00;&#x5B9A;&#x8981;&#x8BBE;&#x7F6E;&#x6587;&#x4EF6;&#x662F;<code>UTF-8</code>&#x7F16;&#x7801;&#x4FDD;&#x5B58;&#x7684;&#x3002;</p>
+<h3 id="&#x6B65;&#x9AA4;2-&#x751F;&#x6210;-JNI-&#x5934;&#x6587;&#x4EF6;"><a href="#&#x6B65;&#x9AA4;2-&#x751F;&#x6210;-JNI-&#x5934;&#x6587;&#x4EF6;" class="headerlink" title="&#x6B65;&#x9AA4;2. &#x751F;&#x6210; JNI &#x5934;&#x6587;&#x4EF6;"></a>&#x6B65;&#x9AA4;2. &#x751F;&#x6210; JNI &#x5934;&#x6587;&#x4EF6;</h3><p>&#x7F16;&#x5199;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x53F3;&#x51FB;&#x9879;&#x76EE;&#x627E;&#x5230;&#x9879;&#x76EE;&#x6839;&#x76EE;&#x5F55;&#x5BF9;&#x5E94;&#x7684;&#x8D44;&#x6E90;&#x7BA1;&#x7406;&#x5668;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/01.png" alt=""></p>
+<p>&#x8FDB;&#x5165;&#x9879;&#x76EE;&#x7684;<code>bin</code>&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x8FD0;&#x884C; dos &#x547D;&#x4EE4;&#x7A97;&#x53E3;&#xFF0C;&#x6267;&#x884C;&#x5982;&#x4E0B;&#x547D;&#x4EE4;&#x751F;&#x6210; JNI &#x5934;&#x6587;&#x4EF6;&#xFF1A;</p>
+<figure class="highlight dos"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javah -classpath . -jni org.woodwhales.king.JniTest</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x547D;&#x4EE4;&#x6267;&#x884C;&#x6B63;&#x786E;&#xFF0C;&#x7A97;&#x53E3;&#x4E0D;&#x4F1A;&#x63D0;&#x793A;&#x4EFB;&#x4F55;&#x4FE1;&#x606F;&#xFF0C;&#x6B64;&#x65F6;&#x5F53;&#x524D; bin &#x76EE;&#x5F55;&#x4E0B;&#x4F1A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x540D;&#x4E3A;&#xFF1A;<code>org_woodwhales_king_JniTest.h</code>&#x7684;&#x5934;&#x6587;&#x4EF6;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/02.png" alt=""></p>
+<h3 id="&#x6B65;&#x9AA4;3-&#x521B;&#x5EFA;&#x52A8;&#x6001;&#x94FE;&#x63A5;&#x5E93;&#x9879;&#x76EE;"><a href="#&#x6B65;&#x9AA4;3-&#x521B;&#x5EFA;&#x52A8;&#x6001;&#x94FE;&#x63A5;&#x5E93;&#x9879;&#x76EE;" class="headerlink" title="&#x6B65;&#x9AA4;3. &#x521B;&#x5EFA;&#x52A8;&#x6001;&#x94FE;&#x63A5;&#x5E93;&#x9879;&#x76EE;"></a>&#x6B65;&#x9AA4;3. &#x521B;&#x5EFA;&#x52A8;&#x6001;&#x94FE;&#x63A5;&#x5E93;&#x9879;&#x76EE;</h3><p>&#x6253;&#x5F00; VS 2010 &#x5F00;&#x53D1;&#x5DE5;&#x5177;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x754C;&#x9762;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/03.png" alt=""></p>
+<p>&#x70B9;&#x51FB;&#x5DE6;&#x4E0A;&#x89D2;&#x7684;<code>&#x6587;&#x4EF6;</code>&#x83DC;&#x5355;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x9879;&#x76EE;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/05.png" alt=""></p>
+<p>&#x8FDB;&#x5165;&#x5411;&#x5BFC;&#x754C;&#x9762;&#xFF0C;&#x76F4;&#x63A5;&#x4E0B;&#x4E00;&#x6B65;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/06.png" alt=""></p>
+<p>&#x9009;&#x62E9;<code>DLL</code>&#x52A8;&#x6001;&#x94FE;&#x63A5;&#x5E93;&#x9879;&#x76EE;&#xFF0C;&#x5E76;&#x52FE;&#x9009;&#x7A7A;&#x9879;&#x76EE;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/07.png" alt=""></p>
+<p>&#x521B;&#x5EFA;&#x6210;&#x529F;&#x540E;&#xFF0C;&#x5F00;&#x53D1;&#x754C;&#x9762;&#x89C6;&#x56FE;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/08.png" alt=""></p>
+<p>&#x6B64;&#x65F6;&#xFF0C;&#x53F3;&#x51FB;&#x8BE5;&#x9879;&#x76EE;&#xFF0C;&#x8FDB;&#x5165;&#x8D44;&#x6E90;&#x7BA1;&#x7406;&#x5668;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/09.png" alt=""></p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x8FD8;&#x6709;&#x4E2A;<code>TestJni</code>&#x76EE;&#x5F55;&#xFF0C;&#x8FD9;&#x4E2A;&#x76EE;&#x5F55;&#x5C31;&#x662F;&#x5F00;&#x53D1;&#x76EE;&#x5F55;&#xFF0C;&#x5916;&#x9762;&#x7684;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#xFF0C;&#x662F;VS2010&#x5F00;&#x53D1;&#x5DE5;&#x5177;&#x81EA;&#x52A8;&#x751F;&#x6210;&#x7684;&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x76F8;&#x5173;&#x6587;&#x4EF6;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/10.png" alt=""></p>
+<h3 id="&#x6B65;&#x9AA4;4-JNI&#x76F8;&#x5173;&#x5934;&#x6587;&#x4EF6;&#x51C6;&#x5907;"><a href="#&#x6B65;&#x9AA4;4-JNI&#x76F8;&#x5173;&#x5934;&#x6587;&#x4EF6;&#x51C6;&#x5907;" class="headerlink" title="&#x6B65;&#x9AA4;4. JNI&#x76F8;&#x5173;&#x5934;&#x6587;&#x4EF6;&#x51C6;&#x5907;"></a>&#x6B65;&#x9AA4;4. JNI&#x76F8;&#x5173;&#x5934;&#x6587;&#x4EF6;&#x51C6;&#x5907;</h3><p>&#x5C06;&#x6B65;&#x9AA4;2 &#x4E2D;&#x751F;&#x6210;&#x7684;JNI&#x5934;&#x6587;&#x4EF6;&#x62F7;&#x8D1D;&#x4E00;&#x4EFD;&#x5230;&#x6B65;&#x9AA4;3&#x9879;&#x76EE;&#x7684;&#x5F00;&#x53D1;&#x76EE;&#x5F55;&#x4E2D;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/11.png" alt=""></p>
+<p>&#x53E6;&#x5916;&#x9700;&#x8981;&#x5C06;&#x5728;&#x7F16;&#x5199;Java&#x6E90;&#x6587;&#x4EF6;&#x6240;&#x4F7F;&#x7528;&#x7684;JDK&#x4E2D;&#x81EA;&#x5E26;&#x7684;<code>jni.h</code>&#x548C;<code>jni_md.h</code>&#x5934;&#x6587;&#x4EF6;&#x4E5F;&#x62F7;&#x8D1D;&#x4E00;&#x4EFD;&#x5230;&#x8FD9;&#x4E2A;&#x5F00;&#x53D1;&#x76EE;&#x5F55;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/12.png" alt=""></p>
+<h3 id="&#x6B65;&#x9AA4;5-&#x521B;&#x5EFA;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x7ED3;&#x6784;"><a href="#&#x6B65;&#x9AA4;5-&#x521B;&#x5EFA;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x7ED3;&#x6784;" class="headerlink" title="&#x6B65;&#x9AA4;5. &#x521B;&#x5EFA;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x7ED3;&#x6784;"></a>&#x6B65;&#x9AA4;5. &#x521B;&#x5EFA;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x7ED3;&#x6784;</h3><p>&#x5C06;&#x6B65;&#x9AA4;4&#x4E2D;&#x7684;&#x5934;&#x6587;&#x4EF6;&#x6DFB;&#x52A0;&#x5230; VS 2010 &#x5F00;&#x53D1;&#x5DE5;&#x5177;&#x89C6;&#x56FE;&#x7684;&#x5934;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x4E2D;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/13.png" alt=""></p>
+<p>&#x6DFB;&#x52A0;&#x5934;&#x6587;&#x4EF6;&#x5230;&#x5934;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x4E4B;&#x540E;&#xFF0C;&#x518D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;C++&#x6E90;&#x6587;&#x4EF6;&#x5230;&#x6E90;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x4E2D;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/14.png" alt=""></p>
+<p>&#x9009;&#x62E9;&#x521B;&#x5EFA;<code>cpp</code>&#x6587;&#x4EF6;&#xFF0C;&#x6587;&#x4EF6;&#x540D;&#x7684;&#x547D;&#x540D;&#x968F;&#x610F;&#x5199;&#x5373;&#x53EF;&#xFF1A;<br><img src="/2019/07/07/045/images/15.png" alt=""></p>
+<h3 id="&#x6B65;&#x9AA4;6-&#x5F00;&#x53D1;"><a href="#&#x6B65;&#x9AA4;6-&#x5F00;&#x53D1;" class="headerlink" title="&#x6B65;&#x9AA4;6. &#x5F00;&#x53D1;"></a>&#x6B65;&#x9AA4;6. &#x5F00;&#x53D1;</h3><h4 id="&#x5F00;&#x53D1;&#x524D;&#x7684;&#x95EE;&#x9898;&#x6CE8;&#x610F;"><a href="#&#x5F00;&#x53D1;&#x524D;&#x7684;&#x95EE;&#x9898;&#x6CE8;&#x610F;" class="headerlink" title="&#x5F00;&#x53D1;&#x524D;&#x7684;&#x95EE;&#x9898;&#x6CE8;&#x610F;"></a>&#x5F00;&#x53D1;&#x524D;&#x7684;&#x95EE;&#x9898;&#x6CE8;&#x610F;</h4><p>&#x524D;&#x9762;&#x6240;&#x6709;&#x6B65;&#x9AA4;&#x987A;&#x5229;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x5F00;&#x59CB;&#x51C6;&#x5907;&#x5F00;&#x53D1;&#xFF0C;&#x4F46;&#x662F;&#x6709;&#x4E09;&#x70B9;&#x9700;&#x8981;&#x6CE8;&#x610F;&#xFF1A;</p>
+<h5 id="&#x95EE;&#x9898;1&#xFF1A;JNI-&#x5934;&#x6587;&#x4EF6;&#x5F15;&#x7528;&#x8BBE;&#x7F6E;"><a href="#&#x95EE;&#x9898;1&#xFF1A;JNI-&#x5934;&#x6587;&#x4EF6;&#x5F15;&#x7528;&#x8BBE;&#x7F6E;" class="headerlink" title="&#x95EE;&#x9898;1&#xFF1A;JNI &#x5934;&#x6587;&#x4EF6;&#x5F15;&#x7528;&#x8BBE;&#x7F6E;"></a>&#x95EE;&#x9898;1&#xFF1A;JNI &#x5934;&#x6587;&#x4EF6;&#x5F15;&#x7528;&#x8BBE;&#x7F6E;</h5><p>&#x5C06;JNI&#x5934;&#x6587;&#x4EF6;&#x4E2D;&#x5F15;&#x7528;<code>jni.h</code>&#x7684;&#x4EE3;&#x7801;&#x4FEE;&#x6539;&#x4E3A;&#x53CC;&#x5F15;&#x53F7;&#x5F15;&#x7528;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/16.png" alt=""></p>
+<blockquote>
+<p>&#x5C16;&#x62EC;&#x53F7;&#x662F;&#x5F15;&#x7528;&#x7CFB;&#x7EDF;&#x5E93;&#xFF0C;&#x5F15;&#x7528;&#x975E;&#x7CFB;&#x7EDF;&#x5E93;&#x4F7F;&#x7528;&#x53CC;&#x5F15;&#x53F7;&#x3002;</p>
+</blockquote>
+<h5 id="&#x95EE;&#x9898;2&#xFF1A;&#x6E90;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x8BBE;&#x7F6E;"><a href="#&#x95EE;&#x9898;2&#xFF1A;&#x6E90;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x8BBE;&#x7F6E;" class="headerlink" title="&#x95EE;&#x9898;2&#xFF1A;&#x6E90;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x8BBE;&#x7F6E;"></a>&#x95EE;&#x9898;2&#xFF1A;&#x6E90;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x8BBE;&#x7F6E;</h5><p>&#x8BBE;&#x7F6E;<code>MyDLL</code>&#x6E90;&#x6587;&#x4EF6;&#x7684;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#xFF1A;&#x53CC;&#x51FB;&#x6253;&#x5F00;<code>MyDLL.cpp</code>&#x6587;&#x4EF6;&#xFF0C;&#x8BA9;&#x5149;&#x6807;&#x5728;&#x7F16;&#x8F91;&#x533A;&#xFF0C;&#x7136;&#x540E;&#x70B9;&#x51FB;&#x53F3;&#x4E0A;&#x89D2;<code>&#x6587;&#x4EF6;</code>&#x83DC;&#x5355;&#xFF0C;&#x9009;&#x62E9;<code>&#x9AD8;&#x7EA7;&#x4FDD;&#x5B58;&#x9009;&#x9879;</code>&#xFF0C;&#x8BBE;&#x7F6E;&#x6587;&#x4EF6;&#x7F16;&#x7801;&#x683C;&#x5F0F;&#x4E3A;&#x65E0;&#x7B7E;&#x540D;&#x7684;<code>UTF-8</code>&#xFF0C;&#x8BBE;&#x7F6E;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x4FDD;&#x5B58;&#x5F53;&#x524D;&#x7A7A;&#x7684;&#x6E90;&#x6587;&#x4EF6;&#x5373;&#x53EF;&#x3002;</p>
+<p><img src="/2019/07/07/045/images/17.png" alt=""></p>
+<blockquote>
+<p>VS 2010 &#x9ED8;&#x8BA4;&#x521B;&#x5EFA;&#x7684;&#x6587;&#x4EF6;&#x90FD;&#x662F;<code>GB2312</code>&#x7F16;&#x7801;&#x7684;&#xFF0C;&#x8FD9;&#x4F1A;&#x5728;&#x5904;&#x7406;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x65F6;&#x5019;&#x5E26;&#x6765;&#x5F88;&#x591A;&#x8F6C;&#x7801;&#x7684;&#x9EBB;&#x70E6;&#x3002;</p>
+</blockquote>
+<h5 id="&#x95EE;&#x9898;3&#xFF1A;32-64-&#x4F4D;&#x95EE;&#x9898;"><a href="#&#x95EE;&#x9898;3&#xFF1A;32-64-&#x4F4D;&#x95EE;&#x9898;" class="headerlink" title="&#x95EE;&#x9898;3&#xFF1A;32/64 &#x4F4D;&#x95EE;&#x9898;"></a>&#x95EE;&#x9898;3&#xFF1A;32/64 &#x4F4D;&#x95EE;&#x9898;</h5><p>&#x70B9;&#x51FB;&#x7F16;&#x8F91;&#x533A;&#x4E0A;&#x9762;&#x7684;<code>Debug</code>&#x4E0B;&#x62C9;&#x6846;&#xFF0C;&#x70B9;&#x51FB;&#x914D;&#x7F6E;&#x7BA1;&#x7406;&#x5668;&#xFF0C;&#x8BBE;&#x7F6E;&#x9879;&#x76EE;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x751F;&#x6210;&#x7684;&#x662F; 64&#x4F4D; &#x9879;&#x76EE;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/18.png" alt=""></p>
+<p>&#x65B0;&#x5EFA;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/19.png" alt=""></p>
+<p>&#x9009;&#x62E9;&#x751F;&#x6210;<code>x64</code>&#x7684;&#x6D3B;&#x52A8;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/20.png" alt=""></p>
+<p>&#x6700;&#x540E;&#x8BBE;&#x7F6E;&#x914D;&#x4E3A;&#xFF1A;<code>Release</code>&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/21.png" alt=""></p>
+<blockquote>
+<p>&#x540E;&#x7EED;&#x751F;&#x6210; dll &#x6587;&#x4EF6;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5DE5;&#x5177;&#x770B;&#x5230;&#x4E2D;&#x6587;&#x4E5F;&#x4F1A;&#x63D0;&#x793A;&#x8FD9;&#x6837;&#x7684;&#x4FE1;&#x606F;&#xFF1A;</p>
+<p>warning C4819: &#x8BE5;&#x6587;&#x4EF6;&#x5305;&#x542B;&#x4E0D;&#x80FD;&#x5728;&#x5F53;&#x524D;&#x4EE3;&#x7801;&#x9875;(936)&#x4E2D;&#x8868;&#x793A;&#x7684;&#x5B57;&#x7B26;&#x3002;&#x8BF7;&#x5C06;&#x8BE5;&#x6587;&#x4EF6;&#x4FDD;&#x5B58;&#x4E3A; Unicode &#x683C;&#x5F0F;&#x4EE5;&#x9632;&#x6B62;&#x6570;&#x636E;&#x4E22;&#x5931;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#x5C06;&#x6E90;&#x7801;&#x6587;&#x4EF6;&#x8BBE;&#x7F6E;&#x6210; UTF-8 &#x7F16;&#x7801;&#x662F;&#x5F88;&#x6709;&#x5FC5;&#x8981;&#x7684;&#x3002;</p>
+</blockquote>
+<h4 id="&#x5F00;&#x53D1;JNI"><a href="#&#x5F00;&#x53D1;JNI" class="headerlink" title="&#x5F00;&#x53D1;JNI"></a>&#x5F00;&#x53D1;JNI</h4><p>&#x5728;<code>MyDLL.cpp</code>&#x6E90;&#x7801;&#x4E2D;&#x5F00;&#x59CB;&#x5F15;&#x5165;&#x6B65;&#x9AA4;5&#x4E2D;&#x7684;&#x5934;&#x6587;&#x4EF6;<code>org_woodwhales_king_JniTest.h</code>&#xFF0C;&#x5B9E;&#x73B0;&#x5934;&#x6587;&#x4EF6;&#x7684;&#x51FD;&#x6570;&#xFF1A;</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;org_woodwhales_king_JniTest.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;jni.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">JNIEXPORT jstring JNICALL Java_org_woodwhales_king_JniTest_getMessage</span><br><span class="line">  (JNIEnv * env, jobject thisObj, jstring j_str) {</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *c_str = <span class="literal">NULL</span>;  </span><br><span class="line">    <span class="keyword">char</span> buff[<span class="number">2048</span>] = {<span class="number">0</span>};</span><br><span class="line">    jboolean isCopy;</span><br><span class="line">    c_str = env-&gt;GetStringUTFChars(j_str, &amp;isCopy);  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(c_str == <span class="literal">NULL</span>) {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;  </span><br><span class="line">    }  </span><br><span class="line"></span><br><span class="line">    <span class="built_in">sprintf</span>(buff, <span class="string">&quot;&#x8FD9;&#x91CC;&#x662F;C++&#x90E8;&#x5206;&#x7F16;&#x5199;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8FD9;&#x91CC;&#x662F;Java &#x4F20;&#x8FC7;&#x6765;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF1A;%s&quot;</span>, c_str);  </span><br><span class="line">    env-&gt;ReleaseStringUTFChars(j_str, c_str);</span><br><span class="line">    <span class="keyword">return</span> env-&gt;NewStringUTF(buff);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">JNIEXPORT jint JNICALL Java_org_woodwhales_king_JniTest_plus</span><br><span class="line">  (JNIEnv * env, jobject j_obj, jint j_x, jint j_y) {</span><br><span class="line">	<span class="keyword">int</span> result = j_x + j_y;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6E90;&#x7801;&#x7F16;&#x5199;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x70B9;&#x51FB;<code>&#x751F;&#x6210;</code>&#x83DC;&#x5355;&#x751F;&#x6210;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x6216;&#x6309;<code>Ctrl+F7</code>&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/22.png" alt=""></p>
+<p>&#x5982;&#x679C;&#x7F16;&#x7801;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x5219;&#x4F1A;&#x5728;&#x63A7;&#x5236;&#x53F0;&#x8F93;&#x51FA;&#x5982;&#x4E0B;&#x4FE1;&#x606F;&#xFF1A;</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>&gt;&#x751F;&#x6210;&#x6210;&#x529F;&#x3002;</span><br><span class="line"><span class="number">1</span>&gt;</span><br><span class="line"><span class="number">1</span>&gt;&#x5DF2;&#x7528;&#x65F6;&#x95F4; <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.13</span></span><br><span class="line">========== &#x751F;&#x6210;: &#x6210;&#x529F; <span class="number">1</span> &#x4E2A;&#xFF0C;&#x5931;&#x8D25; <span class="number">0</span> &#x4E2A;&#xFF0C;&#x6700;&#x65B0; <span class="number">0</span> &#x4E2A;&#xFF0C;&#x8DF3;&#x8FC7; <span class="number">0</span> &#x4E2A; ==========</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6B64;&#x65F6;&#x518D;&#x6B21;&#x8FDB;&#x5165;&#x9879;&#x76EE;&#x6839;&#x76EE;&#x5F55;&#xFF0C;&#x4F1A;&#x53D1;&#x73B0;&#x5728; x64 &#x76EE;&#x5F55;&#x4E0B;&#x7684; Release &#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x751F;&#x6210;&#x4E86; dll &#x6587;&#x4EF6;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/23.png" alt=""></p>
+<h3 id="&#x6B65;&#x9AA4;7-&#x6D4B;&#x8BD5;dll&#x6587;&#x4EF6;"><a href="#&#x6B65;&#x9AA4;7-&#x6D4B;&#x8BD5;dll&#x6587;&#x4EF6;" class="headerlink" title="&#x6B65;&#x9AA4;7. &#x6D4B;&#x8BD5;dll&#x6587;&#x4EF6;"></a>&#x6B65;&#x9AA4;7. &#x6D4B;&#x8BD5;dll&#x6587;&#x4EF6;</h3><p>&#x5728; java &#x9879;&#x76EE;&#x6839;&#x76EE;&#x5F55;&#x4E0B;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x540D;&#x79F0;&#x4E3A; lib &#x7684;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#xFF0C;&#x7528;&#x4E8E;&#x5B58;&#x653E;&#x6B65;&#x9AA4;6 &#x5F00;&#x53D1;&#x51FA;&#x6765;&#x7684; dll &#x6587;&#x4EF6;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/24.png" alt=""></p>
+<p>&#x5C06;&#x6B65;&#x9AA4; 6&#x5F00;&#x53D1;&#x51FA;&#x6765;&#x7684; dll &#x6587;&#x4EF6;&#x62F7;&#x8D1D;&#x4E00;&#x4EFD;&#x5230;&#x8FD9;&#x4E2A;lib&#x76EE;&#x5F55;&#x4E0B;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/25.png" alt=""></p>
+<p>&#x5C06;&#x8FD9;&#x4E2A; lib &#x76EE;&#x5F55;&#x8BBE;&#x7F6E;&#x4E3A; native &#x4F9D;&#x8D56;&#x5E93;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/26.png" alt=""></p>
+<p>&#x7531;&#x4E8E; lib &#x5DF2;&#x7ECF;&#x662F;&#x8D44;&#x6E90;&#x76EE;&#x5F55;&#xFF0C;&#x6240;&#x4EE5; lib &#x4E2D;&#x7684;&#x6587;&#x4EF6;&#x90FD;&#x4F1A;&#x88AB;&#x7F16;&#x8BD1;&#x5230;&#x9879;&#x76EE;&#x7684; bin &#x76EE;&#x5F55;&#xFF0C;&#x6240;&#x4EE5;&#x6307;&#x5B9A;&#x9879;&#x76EE;&#x7684; bin &#x76EE;&#x5F55;&#x4E3A; native &#x4F9D;&#x8D56;&#x5E93;&#x5373;&#x53EF;&#xFF1A;</p>
+<p><img src="/2019/07/07/045/images/27.png" alt=""></p>
+<p>&#x7F16;&#x5199;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">		JniTest jniTest = <span class="keyword">new</span> JniTest();</span><br><span class="line">		</span><br><span class="line">		String message = jniTest.getMessage(<span class="string">&quot;my blog -&gt; &#x4E2A;&#x4EBA;&#x535A;&#x5BA2;&#xFF1A;https://woodwhales.github.io/&quot;</span>);</span><br><span class="line">		System.out.println(message);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> result = jniTest.plus(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">		System.out.println(result);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>&#x8FD9;&#x91CC;&#x662F;C++&#x90E8;&#x5206;&#x7F16;&#x5199;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8FD9;&#x91CC;&#x662F;Java &#x4F20;&#x8FC7;&#x6765;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF1A;my blog -&gt; &#x4E2A;&#x4EBA;&#x535A;&#x5BA2;&#xFF1A;<a href="https://woodwhales.github.io/">https://woodwhales.github.io/</a><br>7</p>
+</blockquote>
+<p>&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;</p>
+<p><a href="https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaNativeInterface.html" target="_blank" rel="noopener">Java Programming Tutorial - Java Native Interface (JNI)</a></p>
+<p><a href="https://blog.csdn.net/lwcloud/article/details/78326903" target="_blank" rel="noopener">JAVA&#x4E4B;JNI&#x4ECE;&#x5934;&#x5B8C;&#x6574;&#x5B9E;&#x4F8B;</a></p>
+<p><a href="https://blog.csdn.net/lovesummerforever/article/details/25827199" target="_blank" rel="noopener">Java&#x91C7;&#x7528;JNI&#x8C03;&#x7528;VC++&#x751F;&#x6210;&#x7684;dll(Java&#x4E0E;C++&#x4EA4;&#x4E92;)</a></p>
+<p><a href="https://mp.weixin.qq.com/s/HChvJlZiq2kRbHuACB4SjQ" target="_blank" rel="noopener">Android&#x9AD8;&#x7EA7;&#x7B2C;65&#x8BFE; jni&#x5F00;&#x53D1;&#x4E4B;&#x5B8C;&#x7F8E;&#x89E3;&#x51B3;&#x4E2D;&#x6587;&#x4E71;&#x7801;&#x65B9;&#x6848;&#x3010;&#x901A;&#x4FD7;&#x6613;&#x61C2;-&#x6DF1;&#x5165;&#x5E95;&#x5C42;&#x5B66;&#x4E60;Android&#x3011;</a></p>
+<p><a href="https://wiki.jikexueyuan.com/project/jni-ndk-developer-guide/string.html" target="_blank" rel="noopener">JNI &#x5B57;&#x7B26;&#x4E32;&#x5904;&#x7406;</a></p>
+<p><a href="https://sslyxhz.github.io/post/jni%E6%89%8B%E5%86%8C3/" target="_blank" rel="noopener">JNI&#x81EA;&#x7528;&#x624B;&#x518C;3 - &#x62FE;&#x9057;&#x7BC7;</a></p>
+<p><a href="https://blog.csdn.net/qq_18983205/article/details/78840507" target="_blank" rel="noopener">&#xFF08;&#x4E09;&#xFF09;JNI &#x4E2D;&#x6587;&#x4E71;&#x7801;</a></p>
+<p><a href="https://blog.csdn.net/qfanmingyiq/article/details/62218550" target="_blank" rel="noopener">JNI&#x4E71;&#x7801;&#x95EE;&#x9898;</a></p>
+<p><a href="https://juejin.im/post/5b5b1ad3f265da0f8145f194" target="_blank" rel="noopener">JNI&#x7CFB;&#x5217;&#x5165;&#x95E8;&#x4E4B;C&#x8BED;&#x8A00;&#x4E2D;&#x6587;&#x5B57;&#x7B26;&#x4E32;&#x4E71;&#x7801;&#x95EE;&#x9898;</a></p>
+<p><a href="https://www.iteye.com/topic/304594" target="_blank" rel="noopener">JNI&#x6280;&#x672F;&#x5B9E;&#x8DF5;&#x5C0F;&#x7ED3;</a></p>
+<p><a href="https://tocreate.app/2017/11/17/Jni/" target="_blank" rel="noopener">Jni &#xFF0C;&#x4ECE;&#x5165;&#x95E8;&#x5230;&#x5165;&#x575F;</a></p>
+<p><a href="https://www.jianshu.com/p/67081d9b0a9c" target="_blank" rel="noopener">Android JNI&#x5B66;&#x4E60;(&#x56DB;)&#x2014;&#x2014;JNI&#x7684;&#x5E38;&#x7528;&#x65B9;&#x6CD5;&#x7684;&#x4E2D;&#x6587;API</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-07-07</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-07-07</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/07/07/045/">JNI技术实战</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2019/07/07/045/" title="JNI技术实战">https://woodwhales.github.io/2019/07/07/045/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/07/07/045/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JNI/" rel="tag"><i class="fa fa-tag"></i> JNI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/06/043/" rel="next" title="Spring 注解驱动开发之组件装配">
+                <i class="fa fa-chevron-left"></i> Spring 注解驱动开发之组件装配
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/02/046/" rel="prev" title="Spring Jpa Data 快速入门指南">
+                Spring Jpa Data 快速入门指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤1-编写-JNI-文件的-Java-源码"><span class="nav-text">步骤1. 编写 JNI 文件的 Java 源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤2-生成-JNI-头文件"><span class="nav-text">步骤2. 生成 JNI 头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤3-创建动态链接库项目"><span class="nav-text">步骤3. 创建动态链接库项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤4-JNI相关头文件准备"><span class="nav-text">步骤4. JNI相关头文件准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤5-创建项目目录结构"><span class="nav-text">步骤5. 创建项目目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤6-开发"><span class="nav-text">步骤6. 开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开发前的问题注意"><span class="nav-text">开发前的问题注意</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题1：JNI-头文件引用设置"><span class="nav-text">问题1：JNI 头文件引用设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题2：源文件编码设置"><span class="nav-text">问题2：源文件编码设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题3：32-64-位问题"><span class="nav-text">问题3：32/64 位问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开发JNI"><span class="nav-text">开发JNI</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤7-测试dll文件"><span class="nav-text">步骤7. 测试dll文件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

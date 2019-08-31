@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.github.io/"/>
-  <updated>2019-07-04T16:55:57.260Z</updated>
+  <updated>2019-08-19T13:27:39.670Z</updated>
   <id>https://woodwhales.github.io/</id>
   
   <author>
@@ -15,6 +15,146 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>浅析理解HashMap</title>
+    <link href="https://woodwhales.github.io/2019/08/18/048/"/>
+    <id>https://woodwhales.github.io/2019/08/18/048/</id>
+    <published>2019-08-18T13:25:00.000Z</published>
+    <updated>2019-08-19T13:27:39.670Z</updated>
+    
+    <summary type="html">
+    
+      通过分析源码，看HashMap的底层原理
+    
+    </summary>
+    
+      <category term="Java集合" scheme="https://woodwhales.github.io/categories/Java%E9%9B%86%E5%90%88/"/>
+    
+    
+      <category term="HashMap" scheme="https://woodwhales.github.io/tags/HashMap/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>人生苦短，转行程序员要趁早(下)</title>
+    <link href="https://woodwhales.github.io/2019/08/03/047/"/>
+    <id>https://woodwhales.github.io/2019/08/03/047/</id>
+    <published>2019-08-03T10:30:00.000Z</published>
+    <updated>2019-08-03T10:28:05.136Z</updated>
+    
+    <summary type="html">
+    
+      关于自学编程的一点心得，献给自学编程的你我
+    
+    </summary>
+    
+      <category term="随笔杂谈" scheme="https://woodwhales.github.io/categories/%E9%9A%8F%E7%AC%94%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="转行" scheme="https://woodwhales.github.io/tags/%E8%BD%AC%E8%A1%8C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Jpa Data 快速入门指南</title>
+    <link href="https://woodwhales.github.io/2019/08/02/046/"/>
+    <id>https://woodwhales.github.io/2019/08/02/046/</id>
+    <published>2019-08-02T13:50:00.000Z</published>
+    <updated>2019-08-02T14:43:47.418Z</updated>
+    
+    <summary type="html">
+    
+      简化数据库操作，快速CRUD
+    
+    </summary>
+    
+      <category term="SpringBoot" scheme="https://woodwhales.github.io/categories/SpringBoot/"/>
+    
+    
+      <category term="jpa" scheme="https://woodwhales.github.io/tags/jpa/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JNI技术实战</title>
+    <link href="https://woodwhales.github.io/2019/07/07/045/"/>
+    <id>https://woodwhales.github.io/2019/07/07/045/</id>
+    <published>2019-07-07T12:50:00.000Z</published>
+    <updated>2019-07-07T13:00:51.682Z</updated>
+    
+    <summary type="html">
+    
+      JNI 技术之用 Visual Studio 2010 (C++) 生成 DLL 实战详解
+    
+    </summary>
+    
+      <category term="JNI" scheme="https://woodwhales.github.io/categories/JNI/"/>
+    
+    
+      <category term="JNI" scheme="https://woodwhales.github.io/tags/JNI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring 注解驱动开发之组件装配</title>
+    <link href="https://woodwhales.github.io/2019/07/06/043/"/>
+    <id>https://woodwhales.github.io/2019/07/06/043/</id>
+    <published>2019-07-06T02:55:14.000Z</published>
+    <updated>2019-07-06T03:01:05.721Z</updated>
+    
+    <summary type="html">
+    
+      Java EE 核心知识梳理 | Spring 注解驱动开发之组件装配
+    
+    </summary>
+    
+      <category term="Spring" scheme="https://woodwhales.github.io/categories/Spring/"/>
+    
+    
+      <category term="组件装配" scheme="https://woodwhales.github.io/tags/%E7%BB%84%E4%BB%B6%E8%A3%85%E9%85%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring 注解驱动开发之组件注册</title>
+    <link href="https://woodwhales.github.io/2019/07/06/042/"/>
+    <id>https://woodwhales.github.io/2019/07/06/042/</id>
+    <published>2019-07-06T02:52:14.000Z</published>
+    <updated>2019-07-06T03:01:01.731Z</updated>
+    
+    <summary type="html">
+    
+      Java EE 核心知识梳理 | Spring 注解驱动开发之组件注册
+    
+    </summary>
+    
+      <category term="Spring" scheme="https://woodwhales.github.io/categories/Spring/"/>
+    
+    
+      <category term="组件注册" scheme="https://woodwhales.github.io/tags/%E7%BB%84%E4%BB%B6%E6%B3%A8%E5%86%8C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅析分布式系统（四）</title>
+    <link href="https://woodwhales.github.io/2019/07/04/041/"/>
+    <id>https://woodwhales.github.io/2019/07/04/041/</id>
+    <published>2019-07-04T12:35:14.000Z</published>
+    <updated>2019-07-04T12:39:02.480Z</updated>
+    
+    <summary type="html">
+    
+      互联网Java工程师面试突击训练第1季-学习笔记
+    
+    </summary>
+    
+      <category term="分布式" scheme="https://woodwhales.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    
+      <category term="mycat" scheme="https://woodwhales.github.io/tags/mycat/"/>
+    
+  </entry>
   
   <entry>
     <title>浅析分布式系统（三）</title>
@@ -273,146 +413,6 @@
     
     
       <category term="Spring Security" scheme="https://woodwhales.github.io/tags/Spring-Security/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot + Spring Security 学习笔记（二）安全认证流程源码详解</title>
-    <link href="https://woodwhales.github.io/2019/04/12/027/"/>
-    <id>https://woodwhales.github.io/2019/04/12/027/</id>
-    <published>2019-04-12T11:00:00.000Z</published>
-    <updated>2019-07-06T03:00:18.138Z</updated>
-    
-    <summary type="html">
-    
-      安全认证流程源码详解
-    
-    </summary>
-    
-      <category term="Spring Security" scheme="https://woodwhales.github.io/categories/Spring-Security/"/>
-    
-    
-      <category term="Spring Security" scheme="https://woodwhales.github.io/tags/Spring-Security/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot + Spring Security 学习笔记（一）自定义基本使用及个性化登录配置</title>
-    <link href="https://woodwhales.github.io/2019/04/12/026/"/>
-    <id>https://woodwhales.github.io/2019/04/12/026/</id>
-    <published>2019-04-12T10:00:00.000Z</published>
-    <updated>2019-07-06T03:00:14.051Z</updated>
-    
-    <summary type="html">
-    
-      自定义基本使用及个性化登录配置
-    
-    </summary>
-    
-      <category term="Spring Security" scheme="https://woodwhales.github.io/categories/Spring-Security/"/>
-    
-    
-      <category term="Spring Security" scheme="https://woodwhales.github.io/tags/Spring-Security/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mybatis Plus 学习笔记</title>
-    <link href="https://woodwhales.github.io/2019/03/28/025/"/>
-    <id>https://woodwhales.github.io/2019/03/28/025/</id>
-    <published>2019-03-28T15:28:00.000Z</published>
-    <updated>2019-07-06T03:01:41.585Z</updated>
-    
-    <summary type="html">
-    
-      Mybatis 的升级版
-    
-    </summary>
-    
-      <category term="Mybatis" scheme="https://woodwhales.github.io/categories/Mybatis/"/>
-    
-    
-      <category term="mybatis Plus" scheme="https://woodwhales.github.io/tags/mybatis-Plus/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>swagger入门教程</title>
-    <link href="https://woodwhales.github.io/2019/03/06/024/"/>
-    <id>https://woodwhales.github.io/2019/03/06/024/</id>
-    <published>2019-03-06T13:30:00.000Z</published>
-    <updated>2019-05-30T14:00:45.302Z</updated>
-    
-    <summary type="html">
-    
-      快速生成 Restful API 文档
-    
-    </summary>
-    
-      <category term="Java" scheme="https://woodwhales.github.io/categories/Java/"/>
-    
-    
-      <category term="swagger" scheme="https://woodwhales.github.io/tags/swagger/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java高并发编程 | 学习笔记（二）</title>
-    <link href="https://woodwhales.github.io/2019/02/14/023/"/>
-    <id>https://woodwhales.github.io/2019/02/14/023/</id>
-    <published>2019-02-14T13:30:00.000Z</published>
-    <updated>2019-05-30T14:11:21.847Z</updated>
-    
-    <summary type="html">
-    
-      高并发编程，从基础到入门
-    
-    </summary>
-    
-      <category term="Java" scheme="https://woodwhales.github.io/categories/Java/"/>
-    
-    
-      <category term="并发编程" scheme="https://woodwhales.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java高并发编程 | 学习笔记（一）</title>
-    <link href="https://woodwhales.github.io/2019/01/28/022/"/>
-    <id>https://woodwhales.github.io/2019/01/28/022/</id>
-    <published>2019-01-28T14:30:00.000Z</published>
-    <updated>2019-07-06T03:02:45.436Z</updated>
-    
-    <summary type="html">
-    
-      高并发编程，从基础到入门
-    
-    </summary>
-    
-      <category term="并发编程" scheme="https://woodwhales.github.io/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="并发编程" scheme="https://woodwhales.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Restful API 最佳实践</title>
-    <link href="https://woodwhales.github.io/2019/01/27/021/"/>
-    <id>https://woodwhales.github.io/2019/01/27/021/</id>
-    <published>2019-01-27T05:44:00.000Z</published>
-    <updated>2019-05-30T13:54:43.966Z</updated>
-    
-    <summary type="html">
-    
-      前后端常用的接口规范
-    
-    </summary>
-    
-      <category term="软件架构" scheme="https://woodwhales.github.io/categories/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84/"/>
-    
-    
-      <category term="Restful" scheme="https://woodwhales.github.io/tags/Restful/"/>
     
   </entry>
   

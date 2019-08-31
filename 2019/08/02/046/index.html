@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="Spring, Jpa, Data, Spring Jpa Data, 数据库查询, 条件查询, Spring Boot">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="简化数据库操作，快速CRUD">
+<meta name="keywords" content="Spring, Jpa, Data, Spring Jpa Data, 数据库查询, 条件查询, Spring Boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Jpa Data 快速入门指南">
+<meta property="og:url" content="https://woodwhales.github.io/2019/08/02/046/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="简化数据库操作，快速CRUD">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2019/08/02/046/2019/08/02/046/face.png">
+<meta property="og:updated_time" content="2019-08-02T14:43:47.418Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Jpa Data 快速入门指南">
+<meta name="twitter:description" content="简化数据库操作，快速CRUD">
+<meta name="twitter:image" content="https://woodwhales.github.io/2019/08/02/046/2019/08/02/046/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2019/08/02/046/">
+
+
+
+
+
+  <title>Spring Jpa Data 快速入门指南 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/08/02/046/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Jpa Data 快速入门指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-02T21:50:00+08:00">
+                2019-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/02/046/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/02/046/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/08/02/046/" class="leancloud_visitors" data-flag-title="Spring Jpa Data 快速入门指南">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  4.4k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  简化数据库操作，快速CRUD
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2019/08/02/046/face.png" rel="gallery_cjzz5uwn3003xawvglg7hwlcx" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2019/08/02/046/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="1-&#x521D;&#x8BC6;Spring-Jpa-Data"><a href="#1-&#x521D;&#x8BC6;Spring-Jpa-Data" class="headerlink" title="1. &#x521D;&#x8BC6;Spring Jpa Data"></a>1. &#x521D;&#x8BC6;Spring Jpa Data</h1><h2 id="1-1-&#x73AF;&#x5883;&#x51C6;&#x5907;"><a href="#1-1-&#x73AF;&#x5883;&#x51C6;&#x5907;" class="headerlink" title="1.1 &#x73AF;&#x5883;&#x51C6;&#x5907;"></a>1.1 &#x73AF;&#x5883;&#x51C6;&#x5907;</h2><p>&#x521B;&#x5EFA;maven&#x5DE5;&#x7A0B;&#xFF0C;&#x9879;&#x76EE;&#x7EE7;&#x627F;<code>spring-boot-starter-parent</code>&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5F15;&#x5165;<code>spring-boot-starter-data-jpa</code>&#x5373;&#x53EF;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="1-2-&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x914D;&#x7F6E;"><a href="#1-2-&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x914D;&#x7F6E;" class="headerlink" title="1.2 &#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x914D;&#x7F6E;"></a>1.2 &#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x914D;&#x7F6E;</h2><p>&#x5728;<code>application.yml</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x914D;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x6E90;&#x4FE1;&#x606F;&#x548C;jpa&#x57FA;&#x7840;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql:///jpa-study</span></span><br><span class="line"><span class="attr">    driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">  jpa:</span></span><br><span class="line"><span class="attr">    database:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">    show-sql:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    hibernate:</span></span><br><span class="line"><span class="attr">      ddl-auto:</span> <span class="string">update</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="1-3-&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6D4B;&#x8BD5;"><a href="#1-3-&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6D4B;&#x8BD5;" class="headerlink" title="1.3 &#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6D4B;&#x8BD5;"></a>1.3 &#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6D4B;&#x8BD5;</h2><p>&#x9996;&#x5148;&#x5728;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x521B;&#x5EFA;<code>jpa-study</code>&#x6570;&#x636E;&#x5E93;&#xFF1A;</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="string">`jpa-study`</span> <span class="comment">/*!40100 COLLATE &apos;utf8mb4_unicode_ci&apos; */</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7F16;&#x5199;&#x6570;&#x636E;&#x8FDE;&#x63A5;&#x6D4B;&#x8BD5;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringJpaDataStudyApplicationTests</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> DataSource dataSource;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDataSource</span><span class="params">()</span> </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;dataSource-&gt;&quot;</span> + dataSource);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x542F;&#x52A8;&#x8FD0;&#x884C;&#xFF0C;&#x4E0D;&#x62A5;&#x5F02;&#x5E38;&#x8868;&#x793A;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6B63;&#x5E38;&#x3002;</p>
+<h2 id="1-4-&#x521B;&#x5EFA;&#x8868;&#x5BF9;&#x8C61;"><a href="#1-4-&#x521B;&#x5EFA;&#x8868;&#x5BF9;&#x8C61;" class="headerlink" title="1.4 &#x521B;&#x5EFA;&#x8868;&#x5BF9;&#x8C61;"></a>1.4 &#x521B;&#x5EFA;&#x8868;&#x5BF9;&#x8C61;</h2><p>&#x7F16;&#x5199;<code>Person</code>&#x7C7B;&#xFF0C;&#x8FD9;&#x4E2A;&#x7C7B;&#x5BF9;&#x5E94;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E3A;&#xFF1A;<code>JPA_PERSONS</code></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.persistence.Entity;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.GeneratedValue;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Id;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Table;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Table</span>(name = <span class="string">&quot;JPA_PERSONS&quot;</span>)</span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>{</span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="meta">@GeneratedValue</span></span><br><span class="line">	<span class="keyword">private</span> Integer id;</span><br><span class="line">	<span class="keyword">private</span> String lastName;</span><br><span class="line">	<span class="keyword">private</span> String email;</span><br><span class="line">	<span class="keyword">private</span> Date birth;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x518D;&#x6B21;&#x8FD0;&#x884C;&#x6D4B;&#x8BD5;&#x7C7B;&#xFF0C;&#x6B64;&#x65F6;&#x6570;&#x636E;&#x5E93;&#x521B;&#x5EFA;&#x4E86;<code>JPA_PERSONS</code>&#x8868;&#xFF0C;&#x4F7F;&#x7528;<code>heidisql</code>&#x5DE5;&#x5177;&#x67E5;&#x770B;&#x6570;&#x636E;&#x5E93;&#xFF1A;</p>
+<p><img src="/2019/08/02/046/images/01.png" alt=""></p>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x5728;&#x4E3B;&#x952E;&#x5C5E;&#x6027;&#x4E0A;&#x52A0;&#x4E86;<code>@GeneratedValue</code>&#x6CE8;&#x89E3;&#xFF0C;&#x5219;&#x4F1A;&#x5728;&#x521B;&#x5EFA;&#x8868;&#x7684;&#x65F6;&#x5019;&#x751F;&#x6210;&#x4E00;&#x5F20;<code>hibernate_sequence</code>&#x8868;&#x3002;</p>
+<h2 id="1-5-&#x7F16;&#x5199;dao&#x63A5;&#x53E3;"><a href="#1-5-&#x7F16;&#x5199;dao&#x63A5;&#x53E3;" class="headerlink" title="1.5 &#x7F16;&#x5199;dao&#x63A5;&#x53E3;"></a>1.5 &#x7F16;&#x5199;dao&#x63A5;&#x53E3;</h2><p>&#x7F16;&#x5199;Person&#x5BF9;&#x8C61;&#x7684;&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;&#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x7EE7;&#x627F;<code>Repository&lt;T, ID&gt;</code>&#xFF0C;&#x5176;&#x4E2D;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x5F53;&#x524D;&#x6570;&#x636E;&#x5BF9;&#x8C61;&#x7684;&#x7C7B;&#x578B;&#x548C;&#x4E3B;&#x952E;&#x7C7B;&#x578B;&#xFF0C;&#x5E76;&#x5728;&#x63A5;&#x53E3;&#x4E2D;&#x7F16;&#x5199;save()&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.data.repository.Repository;</span><br><span class="line"><span class="keyword">import</span> org.woodwhales.springjpadatastudy.entity.Person;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PersonDao</span> <span class="keyword">extends</span> <span class="title">Repository</span>&lt;<span class="title">Person</span>, <span class="title">Integer</span>&gt; </span>{</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">save</span><span class="params">(Person person)</span></span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6B64;&#x65F6;<code>PersonDao</code>&#x63A5;&#x53E3;&#x5DF2;&#x7ECF;&#x5177;&#x5907;&#x4E86;&#x4FDD;&#x5B58;&#x6570;&#x636E;&#x7684;&#x80FD;&#x529B;&#x4E86;&#x3002;</p>
+<blockquote>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x7ECF;&#x8FC7;&#x6D4B;&#x8BD5;&#xFF0C;&#x8FD9;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x7684;<code>save()</code>&#x65B9;&#x6CD5;&#x5982;&#x679C;&#x5199;&#x4E86;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x662F;Long&#x3001;Integer&#x6216;boolean&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x6570;&#x636E;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x4E4B;&#x540E;&#xFF0C;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;<code>java.lang.ClassCastException</code>&#xFF0C;&#x4F46;&#x662F;&#x6570;&#x636E;&#x4F1A;&#x4FDD;&#x5B58;&#x5230;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#xFF0C;&#x6240;&#x4EE5;&#x8981;&#x6CE8;&#x610F;&#x5F02;&#x5E38;&#x60C5;&#x51B5;&#x589E;&#x52A0;&#x4E8B;&#x52A1;&#x3002;</p>
+</blockquote>
+<p>&#x7F16;&#x5199;&#x6D4B;&#x8BD5;&#x65B9;&#x6CD5;&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> PersonDao personDao;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSave</span><span class="params">()</span> </span>{</span><br><span class="line">    Person person = <span class="keyword">new</span> Person(<span class="number">1</span>, <span class="string">&quot;woodwhales&quot;</span>, <span class="string">&quot;woodwhales@163.com&quot;</span>, <span class="keyword">new</span> Date());</span><br><span class="line">    personDao.save(person);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4ECE;&#x6267;&#x884C;&#x65E5;&#x5FD7;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x6570;&#x636E;&#x5DF2;&#x7ECF;&#x6210;&#x529F;&#x4FDD;&#x5B58;&#x5230;&#x6570;&#x636E;&#x5E93;&#xFF1A;</p>
+<figure class="highlight"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: select person0_.id as id1_0_0_, person0_.birth as birth2_0_0_, person0_.email as email3_0_0_, person0_.last_name as last_nam4_0_0_ from jpa_persons person0_ where person0_.id=?</span><br><span class="line">Hibernate: insert into jpa_persons (birth, email, last_name, id) values (?, ?, ?, ?)</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x518D;&#x5230;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x76F4;&#x63A5;&#x68C0;&#x67E5;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<p><img src="/2019/08/02/046/images/02.png" alt=""></p>
+<p>&#x518D;&#x6B21;&#x5728;&#x63A5;&#x53E3;&#x4E2D;&#x7F16;&#x5199;&#x6839;&#x636E;id&#x67E5;&#x8BE2;&#x6570;&#x636E;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Person <span class="title">getById</span><span class="params">(Integer id)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGetById</span><span class="params">()</span> </span>{</span><br><span class="line">    Person person = personDao.getById(<span class="number">2</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;person -&gt; &quot;</span> + person);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6267;&#x884C;&#x65E5;&#x5FD7;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x987A;&#x5229;&#x67E5;&#x8BE2;&#x51FA;&#x6570;&#x636E;&#xFF1A;</p>
+<figure class="highlight"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: select person0_.id as id1_0_, person0_.birth as birth2_0_, person0_.email as email3_0_, person0_.last_name as last_nam4_0_ from jpa_persons person0_ where person0_.id=?</span><br><span class="line">person -&gt; Person(id=2, lastName=woodwhales, email=woodwhales@163.com, birth=2019-08-02 14:17:17.0)</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="2-&#x8BA4;&#x8BC6;Repository&#x63A5;&#x53E3;"><a href="#2-&#x8BA4;&#x8BC6;Repository&#x63A5;&#x53E3;" class="headerlink" title="2. &#x8BA4;&#x8BC6;Repository&#x63A5;&#x53E3;"></a>2. &#x8BA4;&#x8BC6;Repository&#x63A5;&#x53E3;</h1><h2 id="2-1-Repository&#x662F;&#x6807;&#x8BB0;&#x63A5;&#x53E3;"><a href="#2-1-Repository&#x662F;&#x6807;&#x8BB0;&#x63A5;&#x53E3;" class="headerlink" title="2.1 Repository&#x662F;&#x6807;&#x8BB0;&#x63A5;&#x53E3;"></a>2.1 Repository&#x662F;&#x6807;&#x8BB0;&#x63A5;&#x53E3;</h2><p>&#x70B9;&#x51FB;<code>Repository</code>&#x63A5;&#x53E3;&#x6E90;&#x7801;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x63A5;&#x53E3;&#xFF0C;&#x4ECE;&#x4E0A;&#x8FF0;&#x6D4B;&#x8BD5;&#x7684;&#x7ED3;&#x679C;&#x53EF;&#x4EE5;&#x5F97;&#x51FA;&#xFF1A;</p>
+<ul>
+<li>Repository &#x63A5;&#x53E3;&#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x63A5;&#x53E3;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x6807;&#x8BB0;&#x63A5;&#x53E3;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x7A0B;&#x5E8F;&#x5458;&#x81EA;&#x5DF1;&#x5B9A;&#x4E49;&#x7684;&#x63A5;&#x53E3;&#x7EE7;&#x627F;&#x4E86;&#x8FD9;&#x4E2A; Repository &#x63A5;&#x53E3;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x63A5;&#x53E3;&#x4E5F;&#x4F1A;&#x88AB;&#x52A0;&#x8F7D;&#x5230; spring ioc &#x5BB9;&#x5668;&#x4E2D;&#xFF08;&#x56E0;&#x4E3A;&#x4F7F;&#x7528;@Autowired &#x62FF;&#x5230;&#x4E86;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x6210;&#x529F;&#x6267;&#x884C;&#x4E86;&#x6D4B;&#x8BD5;&#x65B9;&#x6CD5;&#xFF0C;&#x6240;&#x4EE5;&#x4E00;&#x5B9A;&#x88AB;&#x7EB3;&#x8FDB;&#x4E86;&#x5BB9;&#x5668;&#x4E2D;&#xFF09;&#xFF0C;&#x5E76;&#x4E14;&#x7F16;&#x5199;&#x4E00;&#x5B9A;&#x89C4;&#x5219;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x90FD;&#x662F;&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;&#x3002;</li>
+<li>&#x5B9E;&#x9645;&#x4E0A;, &#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>@RepositoryDefinition</code>&#x6CE8;&#x89E3;&#x6765;&#x66FF;&#x4EE3;&#x7EE7;&#x627F; Repository &#x63A5;&#x53E3;</li>
+</ul>
+<p>&#x5F62;&#x5982;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.data.repository.RepositoryDefinition;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RepositoryDefinition</span>(domainClass=Person.class,idClass = Integer.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PersonDao</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="2-2-Repository&#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;-&#x5B50;&#x63A5;&#x53E3;"><a href="#2-2-Repository&#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;-&#x5B50;&#x63A5;&#x53E3;" class="headerlink" title="2.2 Repository&#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;/&#x5B50;&#x63A5;&#x53E3;"></a>2.2 Repository&#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;/&#x5B50;&#x63A5;&#x53E3;</h2><p>&#x5728; IDEA &#x7F16;&#x8F91;&#x5668;&#x4E2D;&#xFF0C;&#x6309;&#x5FEB;&#x6377;&#x952E;<code>ctrl+H</code>&#x67E5;&#x770B; Repository &#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#xFF1A;</p>
+<p><img src="/2019/08/02/046/images/03.png" alt=""></p>
+<p>&#x4ECE;&#x7EE7;&#x627F;&#x5173;&#x7CFB;&#x56FE;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF1A;</p>
+<p>&#x57FA;&#x7840;&#x7684; Repository &#x63D0;&#x4F9B;&#x4E86;&#x6700;&#x57FA;&#x672C;&#x7684;&#x6570;&#x636E;&#x8BBF;&#x95EE;&#x529F;&#x80FD;&#xFF0C;&#x5176;&#x51E0;&#x4E2A;&#x5B50;&#x63A5;&#x53E3;&#x5219;&#x6269;&#x5C55;&#x4E86;&#x4E00;&#x4E9B;&#x529F;&#x80FD;&#x3002;&#x5B83;&#x4EEC;&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;&#x5982;&#x4E0B;&#xFF1A; </p>
+<ul>
+<li><p>Repository&#xFF1A; &#x4EC5;&#x4EC5;&#x662F;&#x4E00;&#x4E2A;&#x6807;&#x8BC6;&#xFF0C;&#x8868;&#x660E;&#x4EFB;&#x4F55;&#x7EE7;&#x627F;&#x5B83;&#x7684;&#x5747;&#x4E3A;&#x4ED3;&#x5E93;&#x63A5;&#x53E3;&#x7C7B;</p>
+</li>
+<li><p>CrudRepository&#xFF1A; &#x7EE7;&#x627F; Repository&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x7EC4; CRUD &#x76F8;&#x5173;&#x7684;&#x65B9;&#x6CD5; </p>
+</li>
+<li><p>PagingAndSortingRepository&#xFF1A; &#x7EE7;&#x627F; CrudRepository&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x7EC4;&#x5206;&#x9875;&#x6392;&#x5E8F;&#x76F8;&#x5173;&#x7684;&#x65B9;&#x6CD5; </p>
+</li>
+<li><p>JpaRepository&#xFF1A; &#x7EE7;&#x627F; PagingAndSortingRepository&#xFF0C;&#x5B9E;&#x73B0;&#x4E00;&#x7EC4; JPA &#x89C4;&#x8303;&#x76F8;&#x5173;&#x7684;&#x65B9;&#x6CD5; </p>
+</li>
+<li><p>&#x81EA;&#x5B9A;&#x4E49;&#x7684; XxxxRepository &#x9700;&#x8981;&#x7EE7;&#x627F; JpaRepository&#xFF0C;&#x8FD9;&#x6837;&#x7684; XxxxRepository &#x63A5;&#x53E3;&#x5C31;&#x5177;&#x5907;&#x4E86;&#x901A;&#x7528;&#x7684;&#x6570;&#x636E;&#x8BBF;&#x95EE;&#x63A7;&#x5236;&#x5C42;&#x7684;&#x80FD;&#x529B;&#x3002;</p>
+</li>
+<li><p>JpaSpecificationExecutor&#xFF1A; <strong>&#x4E0D;&#x5C5E;&#x4E8E;Repository&#x4F53;&#x7CFB;</strong>&#xFF0C;&#x5B9E;&#x73B0;&#x4E00;&#x7EC4; JPA Criteria &#x67E5;&#x8BE2;&#x76F8;&#x5173;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x7528;&#x4E8E;&#x6761;&#x4EF6;&#x67E5;&#x8BE2;&#x3002;</p>
+</li>
+</ul>
+<h2 id="2-3-&#x65B9;&#x6CD5;&#x5B9A;&#x4E49;&#x89C4;&#x5219;"><a href="#2-3-&#x65B9;&#x6CD5;&#x5B9A;&#x4E49;&#x89C4;&#x5219;" class="headerlink" title="2.3 &#x65B9;&#x6CD5;&#x5B9A;&#x4E49;&#x89C4;&#x5219;"></a>2.3 &#x65B9;&#x6CD5;&#x5B9A;&#x4E49;&#x89C4;&#x5219;</h2><p>&#x5728; Repository &#x5B50;&#x63A5;&#x53E3;&#x4E2D;&#x58F0;&#x660E;&#x65B9;&#x6CD5;&#xFF0C;&#x4E0D;&#x662F;&#x968F;&#x4FBF;&#x58F0;&#x660E;&#x7684;&#xFF0C;&#x800C;&#x9700;&#x8981;&#x7B26;&#x5408;&#x4E00;&#x5B9A;&#x7684;&#x89C4;&#x8303;&#xFF1A;</p>
+<ul>
+<li><p>&#x67E5;&#x8BE2;&#x65B9;&#x6CD5;&#x4EE5; find | read | get &#x5F00;&#x5934;&#x3002;</p>
+</li>
+<li><p>&#x6D89;&#x53CA;&#x6761;&#x4EF6;&#x67E5;&#x8BE2;&#x65F6;&#xFF0C;&#x6761;&#x4EF6;&#x7684;&#x5C5E;&#x6027;&#x7528;&#x6761;&#x4EF6;&#x5173;&#x952E;&#x5B57;&#x8FDE;&#x63A5;&#x3002;</p>
+</li>
+<li><p>&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF1A;&#x6761;&#x4EF6;&#x5C5E;&#x6027;&#x4EE5;&#x9996;&#x5B57;&#x6BCD;&#x5927;&#x5199;&#x3002;</p>
+</li>
+<li><p>&#x652F;&#x6301;&#x5C5E;&#x6027;&#x7684;&#x7EA7;&#x8054;&#x67E5;&#x8BE2;&#xFF0C;&#x5982;&#x679C;&#x5F53;&#x524D;&#x7C7B;&#x6709;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x5219;&#x4F18;&#x5148;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#xFF0C;&#x800C;&#x4E0D;&#x4F7F;&#x7528;&#x7EA7;&#x8054;&#x5C5E;&#x6027;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x60F3;&#x8981;&#x4F7F;&#x7528;&#x7EA7;&#x8054;&#x67E5;&#x8BE2;&#xFF0C;&#x9700;&#x8981;&#x5728;&#x5C5E;&#x6027;&#x4E4B;&#x95F4;&#x4F7F;&#x7528;&#x4E0B;&#x5212;&#x7EBF;&#x5206;&#x5272;</p>
+</li>
+</ul>
+<p>&#x76F4;&#x63A5;&#x5728;&#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#x67E5;&#x8BE2;&#x65B9;&#x6CD5;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x7B26;&#x5408;&#x89C4;&#x8303;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x7528;&#x5199;&#x5B9E;&#x73B0;&#xFF0C;&#x76EE;&#x524D;&#x652F;&#x6301;&#x7684;&#x5173;&#x952E;&#x5B57;&#x5199;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Keyword</th>
+<th style="text-align:left">Sample</th>
+<th style="text-align:left">JPQL snippet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">And</td>
+<td style="text-align:left">findByLastnameAndFirstname</td>
+<td style="text-align:left">&#x2026; where x.lastname = ?1 and x.firstname = ?2</td>
+</tr>
+<tr>
+<td style="text-align:left">Or</td>
+<td style="text-align:left">findByLastnameOrFirstname</td>
+<td style="text-align:left">&#x2026; where x.lastname = ?1 or x.firstname = ?2</td>
+</tr>
+<tr>
+<td style="text-align:left">Is,Equals</td>
+<td style="text-align:left">findByFirstname,findByFirstnameIs,findByFirstnameEquals</td>
+<td style="text-align:left">&#x2026; where x.firstname = ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">Between</td>
+<td style="text-align:left">findByStartDateBetween</td>
+<td style="text-align:left">&#x2026; where x.startDate between ?1 and ?2</td>
+</tr>
+<tr>
+<td style="text-align:left">LessThan</td>
+<td style="text-align:left">findByAgeLessThan</td>
+<td style="text-align:left">&#x2026; where x.age &lt; ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">LessThanEqual</td>
+<td style="text-align:left">findByAgeLessThanEqual</td>
+<td style="text-align:left">&#x2026; where x.age &lt;= ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">GreaterThan</td>
+<td style="text-align:left">findByAgeGreaterThan</td>
+<td style="text-align:left">&#x2026; where x.age &gt; ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">GreaterThanEqual</td>
+<td style="text-align:left">findByAgeGreaterThanEqual</td>
+<td style="text-align:left">&#x2026; where x.age &gt;= ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">After</td>
+<td style="text-align:left">findByStartDateAfter</td>
+<td style="text-align:left">&#x2026; where x.startDate &gt; ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">Before</td>
+<td style="text-align:left">findByStartDateBefore</td>
+<td style="text-align:left">&#x2026; where x.startDate &lt; ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">IsNull</td>
+<td style="text-align:left">findByAgeIsNull</td>
+<td style="text-align:left">&#x2026; where x.age is null</td>
+</tr>
+<tr>
+<td style="text-align:left">IsNotNull,NotNull</td>
+<td style="text-align:left">findByAge(Is)NotNull</td>
+<td style="text-align:left">&#x2026; where x.age not null</td>
+</tr>
+<tr>
+<td style="text-align:left">Like</td>
+<td style="text-align:left">findByFirstnameLike</td>
+<td style="text-align:left">&#x2026; where x.firstname like ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">NotLike</td>
+<td style="text-align:left">findByFirstnameNotLike</td>
+<td style="text-align:left">&#x2026; where x.firstname not like ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">StartingWith</td>
+<td style="text-align:left">findByFirstnameStartingWith</td>
+<td style="text-align:left">&#x2026; where x.firstname like ?1(parameter bound with appended %)</td>
+</tr>
+<tr>
+<td style="text-align:left">EndingWith</td>
+<td style="text-align:left">findByFirstnameEndingWith</td>
+<td style="text-align:left">&#x2026; where x.firstname like ?1(parameter bound with prepended %)</td>
+</tr>
+<tr>
+<td style="text-align:left">Containing</td>
+<td style="text-align:left">findByFirstnameContaining</td>
+<td style="text-align:left">&#x2026; where x.firstname like ?1(parameter bound wrapped in %)</td>
+</tr>
+<tr>
+<td style="text-align:left">OrderBy</td>
+<td style="text-align:left">findByAgeOrderByLastnameDesc</td>
+<td style="text-align:left">&#x2026; where x.age = ?1 order by x.lastname desc</td>
+</tr>
+<tr>
+<td style="text-align:left">Not</td>
+<td style="text-align:left">findByLastnameNot</td>
+<td style="text-align:left">&#x2026; where x.lastname &lt;&gt; ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">In</td>
+<td style="text-align:left">findByAgeIn(Collection<age> ages)</age></td>
+<td style="text-align:left">&#x2026; where x.age in ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">NotIn</td>
+<td style="text-align:left">findByAgeNotIn(Collection<age> ages)</age></td>
+<td style="text-align:left">&#x2026; where x.age not in ?1</td>
+</tr>
+<tr>
+<td style="text-align:left">True</td>
+<td style="text-align:left">findByActiveTrue()</td>
+<td style="text-align:left">&#x2026; where x.active = true</td>
+</tr>
+<tr>
+<td style="text-align:left">False</td>
+<td style="text-align:left">findByActiveFalse()</td>
+<td style="text-align:left">&#x2026; where x.active = false</td>
+</tr>
+<tr>
+<td style="text-align:left">IgnoreCase</td>
+<td style="text-align:left">findByFirstnameIgnoreCase</td>
+<td style="text-align:left">&#x2026; where UPPER(x.firstame) = UPPER(?1)</td>
+</tr>
+</tbody>
+</table>
+<p>&#x5B98;&#x65B9;&#x6587;&#x6863;&#x5730;&#x5740;&#xFF1A;<a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation" target="_blank" rel="noopener">https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation</a></p>
+<h3 id="&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#x4E3E;&#x4F8B;"><a href="#&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#x4E3E;&#x4F8B;" class="headerlink" title="&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#x4E3E;&#x4F8B;"></a>&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#x4E3E;&#x4F8B;</h3><p>&#x67E5;&#x8BE2; id &#x5C0F;&#x4E8E; xx &#x5E76;&#x4E14; lastName &#x4EE5; xx &#x5F00;&#x5934;&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#xFF1A;</p>
+<p>&#x4F7F;&#x7528; JPQL &#x8868;&#x8FBE;&#x5F0F;&#x8868;&#x793A;&#x5C31;&#x662F;&#xFF1A;</p>
+<figure class="highlight"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE lastName LIKE ?% AND id &lt; ?</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x65B9;&#x6CD5;&#x547D;&#x540D;&#x89C4;&#x5219;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;Person&gt; <span class="title">getByLastNameStartingWithAndIdLessThan</span><span class="params">(String lastName, Integer id)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4F9D;&#x6B21;&#x7C7B;&#x63A8;&#xFF0C;&#x67E5;&#x8BE2; id &#x5C0F;&#x4E8E; xx &#x5E76;&#x4E14; lastName &#x4EE5; xx &#x7ED3;&#x5C3E;&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//WHERE lastName LIKE %? AND id &lt; ?</span></span><br><span class="line"><span class="function">List&lt;Person&gt; <span class="title">getByLastNameEndingWithAndIdLessThan</span><span class="params">(String lastName, Integer id)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7C7B;&#x4F3C;&#x7684;&#x5199;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//WHERE email IN (?, ?, ?) OR birth &lt; ?</span></span><br><span class="line"><span class="function">List&lt;Person&gt; <span class="title">getByEmailInOrBirthLessThan</span><span class="params">(List&lt;String&gt; emails, Date birth)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x7EA7;&#x8054;&#x5C5E;&#x6027;&#x89C4;&#x5219;&#x8BF4;&#x660E;"><a href="#&#x7EA7;&#x8054;&#x5C5E;&#x6027;&#x89C4;&#x5219;&#x8BF4;&#x660E;" class="headerlink" title="&#x7EA7;&#x8054;&#x5C5E;&#x6027;&#x89C4;&#x5219;&#x8BF4;&#x660E;"></a>&#x7EA7;&#x8054;&#x5C5E;&#x6027;&#x89C4;&#x5219;&#x8BF4;&#x660E;</h3><p>&#x6BD4;&#x5982; Person &#x5BF9;&#x8C61;&#x5C5E;&#x6027;&#x4E2D;&#x6709;&#x4E2A; Address &#x5BF9;&#x8C61;&#x5C5E;&#x6027;&#xFF0C;&#x4E00;&#x4E2A; Person &#x5BF9;&#x5E94;&#x591A;&#x4E2A; Address &#x5BF9;&#x8C61;&#xFF0C;&#x5982;&#x679C;&#x60F3;&#x8981;&#x7EA7;&#x8054;&#x67E5;&#x8BE2;&#xFF0C;&#x67E5;&#x8BE2;&#x5730;&#x5740;&#x7684; id &#x5927;&#x4E8E;&#x67D0;&#x67D0;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x5199;&#x6210;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//WHERE address.id &gt; ?</span></span><br><span class="line"><span class="function">List&lt;Person&gt; <span class="title">getByAddressIdGreaterThan</span><span class="params">(Integer id)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4F46;&#x662F;&#x8FD9;&#x91CC;&#x6709;&#x4E2A;&#x6F5C;&#x5728;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5F53;&#x524D; Person &#x5BF9;&#x8C61;&#x6709;&#x4E2A;&#x53EB;  address &#x5C5E;&#x6027;&#x540D;&#x7684;&#x5B57;&#x6BB5;&#xFF0C;&#x800C;&#x6CA1;&#x6709;&#x5C5E;&#x6027;&#x53EB; addressId &#x7684;&#x5C5E;&#x6027;&#x5B57;&#x6BB5;&#xFF0C;&#x90A3;&#x4E48;&#x67E5;&#x8BE2;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x662F;&#x5148;&#x67E5; address &#x518D;&#x7EA7;&#x8054;&#x5230; address &#x7684; id &#x7684;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x5F53;&#x524D; Person &#x5BF9;&#x8C61;&#x6709;&#x4E2A;&#x53EB; addressId &#x7684;&#x5C5E;&#x6027;&#x5B57;&#x6BB5;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x6267;&#x884C;&#x67E5;&#x8BE2;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x662F;&#x76F4;&#x63A5;&#x67E5;&#x4E86; addressId&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x7EA7;&#x8054;&#x67E5;&#x8BE2;&#x4E86;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#x4E3A;&#x4E86;&#x9632;&#x6B62;&#x6B67;&#x4E49;&#xFF0C;&#x5BF9;&#x4E8E;&#x7EA7;&#x8054;&#x7684;&#x5C5E;&#x6027;&#x6761;&#x4EF6;&#xFF0C;&#x4E2D;&#x95F4;&#x9700;&#x8981;&#x52A0;&#x4E0B;&#x5212;&#x7EBF;&#x533A;&#x522B;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;Person&gt; <span class="title">getByAddress_IdGreaterThan</span><span class="params">(Integer id)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8BF4;&#x660E;&#xFF1A;&#x5176;&#x5B9E;&#x7EA7;&#x8054;&#x67E5;&#x8BE2;&#x5373;&#x4F7F;&#x4F7F;&#x7528;&#x4E86;&#x4E0B;&#x5212;&#x7EBF;&#xFF0C;&#x4E5F;&#x5F88;&#x96BE;&#x4EE5;&#x9605;&#x8BFB;&#x7406;&#x89E3;&#xFF0C;&#x6240;&#x4EE5;&#x5EFA;&#x8BAE;&#x590D;&#x6742;&#x7684;&#x67E5;&#x8BE2;&#x5168;&#x90E8;&#x4F7F;&#x7528;&#x539F;&#x751F;&#x7684;sql&#x3002;</p>
+<h1 id="3-Query&#x6CE8;&#x89E3;"><a href="#3-Query&#x6CE8;&#x89E3;" class="headerlink" title="3. @Query&#x6CE8;&#x89E3;"></a>3. @Query&#x6CE8;&#x89E3;</h1><p>&#x901A;&#x8FC7;<code>@Query</code>&#x6CE8;&#x89E3;&#xFF0C;&#x6CE8;&#x89E3;&#x5728;&#x65B9;&#x6CD5;&#x4E0A;&#xFF0C;&#x7F16;&#x5199;&#x81EA;&#x5B9A;&#x4E49;&#x539F;&#x751F;&#x7684;sql&#x6216;&#x8005;JPQL&#x8BED;&#x53E5;&#xFF0C;&#x8FD9;&#x91CC;&#x8FD8;&#x662F;&#x5EFA;&#x8BAE;&#x5199;&#x539F;&#x751F;&#x7684;sql&#x8BED;&#x53E5;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x67E5;&#x8BE2;&#x518D;&#x62F7;&#x8D1D;&#x5230;&#x6CE8;&#x89E3;&#x4E0A;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x6539;&#x52A8;&#x5F88;&#x5927;&#xFF0C;&#x8C03;&#x8BD5;&#x8D77;&#x6765;&#x4E5F;&#x5F88;&#x65B9;&#x4FBF;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x662F;JPQL&#x8BED;&#x53E5;&#x7684;&#x67E5;&#x8BE2;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query</span>(<span class="string">&quot;SELECT p FROM Person p WHERE p.id = (SELECT max(p2.id) FROM Person p2)&quot;</span>)</span><br><span class="line"><span class="function">Person <span class="title">getMaxIdPerson</span><span class="params">()</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="3-1-&#x5360;&#x4F4D;&#x7B26;"><a href="#3-1-&#x5360;&#x4F4D;&#x7B26;" class="headerlink" title="3.1 &#x5360;&#x4F4D;&#x7B26;"></a>3.1 &#x5360;&#x4F4D;&#x7B26;</h2><p>&#x7D22;&#x5F15;&#x53C2;&#x6570;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF0C;&#x7D22;&#x5F15;&#x503C;&#x4ECE;1&#x5F00;&#x59CB;&#xFF0C;&#x67E5;&#x8BE2;&#x4E2D; &#x201D;?X&#x201D; &#x4E2A;&#x6570;&#x9700;&#x8981;&#x4E0E;&#x65B9;&#x6CD5;&#x5B9A;&#x4E49;&#x7684;&#x53C2;&#x6570;&#x4E2A;&#x6570;&#x76F8;&#x4E00;&#x81F4;&#xFF0C;&#x5E76;&#x4E14;&#x987A;&#x5E8F;&#x4E5F;&#x8981;&#x4E00;&#x81F4;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query</span>(<span class="string">&quot;SELECT p FROM Person p WHERE p.lastName = ?1 AND p.email = ?2&quot;</span>)</span><br><span class="line"><span class="function">List&lt;Person&gt; <span class="title">testQueryAnnotationParams1</span><span class="params">(String lastName, String email)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x547D;&#x540D;&#x53C2;&#x6570;&#xFF08;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#xFF09;&#xFF1A;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x597D;&#x53C2;&#x6570;&#x540D;&#xFF0C;&#x8D4B;&#x503C;&#x65F6;&#x91C7;&#x7528;<code>@Param</code>&#x6CE8;&#x89E3;&#xFF0C;&#x800C;&#x4E0D;&#x7528;&#x7BA1;&#x987A;&#x5E8F;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query</span>(<span class="string">&quot;SELECT p FROM Person p WHERE p.lastName = :lastName AND p.email = :email&quot;</span>)</span><br><span class="line"><span class="function">List&lt;Person&gt; <span class="title">testQueryAnnotationParams2</span><span class="params">(@Param(<span class="string">&quot;email&quot;</span>)</span> String email, @<span class="title">Param</span><span class="params">(<span class="string">&quot;lastName&quot;</span>)</span> String lastName)</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>SpringData &#x5141;&#x8BB8;&#x5728;&#x5360;&#x4F4D;&#x7B26;&#x4E0A;&#x6DFB;&#x52A0;<code>%%</code>&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SpringData &#x5141;&#x8BB8;&#x5728;&#x5360;&#x4F4D;&#x7B26;&#x4E0A;&#x6DFB;&#x52A0; %%. </span></span><br><span class="line"><span class="meta">@Query</span>(<span class="string">&quot;SELECT p FROM Person p WHERE p.lastName LIKE %?1% OR p.email LIKE %?2%&quot;</span>)</span><br><span class="line"><span class="function">List&lt;Person&gt; <span class="title">testQueryAnnotationLikeParam</span><span class="params">(String lastName, String email)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SpringData &#x5141;&#x8BB8;&#x5728;&#x5360;&#x4F4D;&#x7B26;&#x4E0A;&#x6DFB;&#x52A0; %%. </span></span><br><span class="line"><span class="meta">@Query</span>(<span class="string">&quot;SELECT p FROM Person p WHERE p.lastName LIKE %:lastName% OR p.email LIKE %:email%&quot;</span>)</span><br><span class="line"><span class="function">List&lt;Person&gt; <span class="title">testQueryAnnotationLikeParam2</span><span class="params">(@Param(<span class="string">&quot;email&quot;</span>)</span> String email, @<span class="title">Param</span><span class="params">(<span class="string">&quot;lastName&quot;</span>)</span> String lastName)</span>;</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="3-2-&#x652F;&#x6301;&#x539F;&#x751F;SQL"><a href="#3-2-&#x652F;&#x6301;&#x539F;&#x751F;SQL" class="headerlink" title="3.2 &#x652F;&#x6301;&#x539F;&#x751F;SQL"></a>3.2 &#x652F;&#x6301;&#x539F;&#x751F;SQL</h2><p>&#x8BBE;&#x7F6E;<code>nativeQuery=true</code>&#x5373;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x539F;&#x751F;&#x7684; SQL &#x67E5;&#x8BE2;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query</span>(value=<span class="string">&quot;SELECT count(id) FROM jpa_persons&quot;</span>, nativeQuery=<span class="keyword">true</span>)</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">getTotalCount</span><span class="params">()</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="4-Modifying&#x6CE8;&#x89E3;"><a href="#4-Modifying&#x6CE8;&#x89E3;" class="headerlink" title="4. @Modifying&#x6CE8;&#x89E3;"></a>4. @Modifying&#x6CE8;&#x89E3;</h1><p><code>@Query</code>&#x4E0E;<code>@Modifying</code>&#x8FD9;&#x4E24;&#x4E2A;&#x6CE8;&#x89E3;&#x4E00;&#x8D77;&#x58F0;&#x660E;&#xFF0C;&#x53EF;&#x5B9A;&#x4E49;&#x4E2A;&#x6027;&#x5316;&#x66F4;&#x65B0;&#x64CD;&#x4F5C;&#xFF0C;&#x4F8B;&#x5982;&#x53EA;&#x6D89;&#x53CA;&#x67D0;&#x4E9B;&#x5B57;&#x6BB5;&#x66F4;&#x65B0;&#x65F6;&#x6700;&#x4E3A;&#x5E38;&#x7528;&#xFF0C;&#x793A;&#x4F8B;&#x5982;&#x4E0B;&#xFF1A; </p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Modifying</span></span><br><span class="line"><span class="meta">@Query</span>(<span class="string">&quot;UPDATE Person p SET p.email = :email WHERE id = :id&quot;</span>)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">updatePersonEmail</span><span class="params">(@Param(<span class="string">&quot;id&quot;</span>)</span> Integer id, @<span class="title">Param</span><span class="params">(<span class="string">&quot;email&quot;</span>)</span> String email)</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;</strong></p>
+<ul>
+<li><p>&#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x5E94;&#x8BE5;&#x662F; int&#xFF0C;&#x8868;&#x793A;&#x66F4;&#x65B0;&#x8BED;&#x53E5;&#x6240;&#x5F71;&#x54CD;&#x7684;&#x884C;&#x6570;</p>
+</li>
+<li><p>&#x5728;&#x8C03;&#x7528;&#x7684;&#x5730;&#x65B9;&#x5FC5;&#x987B;&#x52A0;&#x4E8B;&#x52A1;&#xFF0C;&#x6CA1;&#x6709;&#x4E8B;&#x52A1;&#x4E0D;&#x80FD;&#x6B63;&#x5E38;&#x6267;&#x884C;</p>
+</li>
+</ul>
+<p>Spring Data &#x63D0;&#x4F9B;&#x4E86;&#x9ED8;&#x8BA4;&#x7684;&#x4E8B;&#x52A1;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#xFF0C;&#x5373;<strong>&#x6240;&#x6709;&#x7684;&#x67E5;&#x8BE2;&#x5747;&#x58F0;&#x660E;&#x4E3A;&#x53EA;&#x8BFB;&#x4E8B;&#x52A1;</strong>&#x3002;&#x5BF9;&#x4E8E;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5982;&#x9700;&#x6539;&#x53D8;<br>Spring Data &#x63D0;&#x4F9B;&#x7684;&#x4E8B;&#x52A1;&#x9ED8;&#x8BA4;&#x65B9;&#x5F0F;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x65B9;&#x6CD5;&#x4E0A;&#x6CE8;&#x89E3;<code>@Transactional</code>&#x58F0;&#x660E;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x5BF9;&#x4E8E;update&#x548C;delete&#x64CD;&#x4F5C;&#xFF0C;&#x9700;&#x8981;&#x6DFB;&#x52A0;<code>@Modifying</code>&#x6CE8;&#x89E3;&#xFF0C;service &#x8C03;&#x7528;&#x8FD9;&#x4E9B;&#x65B9;&#x6CD5;&#x7684;&#x65F6;&#x5019;&#x9700;&#x8981;&#x7533;&#x660E;&#x4E8B;&#x52A1;&#x3002;</p>
+<h1 id="5-CrudRepository&#x63A5;&#x53E3;"><a href="#5-CrudRepository&#x63A5;&#x53E3;" class="headerlink" title="5. CrudRepository&#x63A5;&#x53E3;"></a>5. CrudRepository&#x63A5;&#x53E3;</h1><p>CrudRepository &#x63A5;&#x53E3;&#x63D0;&#x4F9B;&#x4E86;&#x6700;&#x57FA;&#x672C;&#x7684;&#x5BF9;&#x5B9E;&#x4F53;&#x7C7B;&#x7684;&#x6DFB;&#x5220;&#x6539;&#x67E5;&#x64CD;&#x4F5C;&#xFF0C;IDEA &#x7F16;&#x8F91;&#x5668;&#x4E2D;&#x6309;&#x5FEB;&#x6377;&#x952E;<code>alt+7</code>&#x663E;&#x793A; CrudRepository &#x63A5;&#x53E3;&#x7684;&#x6240;&#x6709;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<p><img src="/2019/08/02/046/images/04.png" alt=""></p>
+<h1 id="6-PagingAndSortingRepository&#x63A5;&#x53E3;"><a href="#6-PagingAndSortingRepository&#x63A5;&#x53E3;" class="headerlink" title="6. PagingAndSortingRepository&#x63A5;&#x53E3;"></a>6. PagingAndSortingRepository&#x63A5;&#x53E3;</h1><p>PagingAndSortingRepository &#x63A5;&#x53E3;&#x8BE5;&#x63A5;&#x53E3;&#x63D0;&#x4F9B;&#x4E86;&#x5206;&#x9875;&#x4E0E;&#x6392;&#x5E8F;&#x529F;&#x80FD;&#xFF0C;&#x5F00;&#x53D1;&#x4E2D;&#x5E38;&#x7528;&#x7684;&#x662F;&#x7B2C;&#x4E8C;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PagingAndSortingRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; <span class="keyword">extends</span> <span class="title">CrudRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; </span>{</span><br><span class="line">	<span class="function">Iterable&lt;T&gt; <span class="title">findAll</span><span class="params">(Sort sort)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function">Page&lt;T&gt; <span class="title">findAll</span><span class="params">(Pageable pageable)</span></span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>Pageable &#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x4E3A; PageRequest&#xFF0C;&#x5728;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E2D;&#x4F20;&#x5165;&#x9875;&#x7801;&#x548C;&#x9875;&#x6570;&#xFF0C;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x9ED8;&#x8BA4;&#x9875;&#x7801;&#x662F;&#x4ECE; 0 &#x9875;&#x5F00;&#x59CB;&#x3002;&#x4E00;&#x822C;&#x5728;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x524D;&#x7AEF;&#x4F20;&#x53C2;&#x8FC7;&#x6765;&#x7684;&#x9875;&#x7801;&#x662F;&#x4ECE;&#x7B2C; 1 &#x9875;&#x5F00;&#x59CB;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x521B;&#x5EFA; PageRequest &#x5BF9;&#x8C61;&#x7684;&#x65F6;&#x5019;&#x6CE8;&#x610F;&#x51CF;1&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.data.domain.Page;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.PageRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.Sort;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.Sort.Direction;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.Sort.Order;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPagingAndSortingRespository</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="comment">//pageNo &#x4ECE; 0 &#x5F00;&#x59CB;. </span></span><br><span class="line">    <span class="keyword">int</span> pageNo = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">int</span> pageSize = <span class="number">5</span>;</span><br><span class="line">    <span class="comment">//Pageable &#x63A5;&#x53E3;&#x901A;&#x5E38;&#x4F7F;&#x7528;&#x7684;&#x5176; PageRequest &#x5B9E;&#x73B0;&#x7C7B;. &#x5176;&#x4E2D;&#x5C01;&#x88C5;&#x4E86;&#x9700;&#x8981;&#x5206;&#x9875;&#x7684;&#x4FE1;&#x606F;</span></span><br><span class="line">    <span class="comment">//&#x6392;&#x5E8F;&#x76F8;&#x5173;&#x7684;. Sort &#x5C01;&#x88C5;&#x4E86;&#x6392;&#x5E8F;&#x7684;&#x4FE1;&#x606F;</span></span><br><span class="line">    <span class="comment">//Order &#x662F;&#x5177;&#x4F53;&#x9488;&#x5BF9;&#x4E8E;&#x67D0;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x5347;&#x5E8F;&#x8FD8;&#x662F;&#x964D;&#x5E8F;.</span></span><br><span class="line">    Order order1 = <span class="keyword">new</span> Order(Direction.DESC, <span class="string">&quot;id&quot;</span>);</span><br><span class="line">    Order order2 = <span class="keyword">new</span> Order(Direction.ASC, <span class="string">&quot;email&quot;</span>);</span><br><span class="line">    Sort sort = <span class="keyword">new</span> Sort(order1, order2);</span><br><span class="line"></span><br><span class="line">    PageRequest pageable = <span class="keyword">new</span> PageRequest(pageNo - <span class="number">1</span>, pageSize, sort);</span><br><span class="line">    Page&lt;Person&gt; page = personRepsotory.findAll(pageable);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;&#x603B;&#x8BB0;&#x5F55;&#x6570;: &quot;</span> + page.getTotalElements());</span><br><span class="line">    System.out.println(<span class="string">&quot;&#x5F53;&#x524D;&#x7B2C;&#x51E0;&#x9875;: &quot;</span> + (page.getNumber() + <span class="number">1</span>));</span><br><span class="line">    System.out.println(<span class="string">&quot;&#x603B;&#x9875;&#x6570;: &quot;</span> + page.getTotalPages());</span><br><span class="line">    System.out.println(<span class="string">&quot;&#x5F53;&#x524D;&#x9875;&#x9762;&#x7684; List: &quot;</span> + page.getContent());</span><br><span class="line">    System.out.println(<span class="string">&quot;&#x5F53;&#x524D;&#x9875;&#x9762;&#x7684;&#x8BB0;&#x5F55;&#x6570;: &quot;</span> + page.getNumberOfElements());</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>Order &#x6392;&#x5E8F;&#x5BF9;&#x8C61;&#xFF0C;&#x91CC;&#x9762;&#x4F20;&#x53C2;&#x662F;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E2D;&#x7684;&#x5217;&#x540D;&#x3002;</p>
+<h1 id="7-JpaRepository&#x63A5;&#x53E3;"><a href="#7-JpaRepository&#x63A5;&#x53E3;" class="headerlink" title="7. JpaRepository&#x63A5;&#x53E3;"></a>7. JpaRepository&#x63A5;&#x53E3;</h1><p>&#x5728;&#x5B9E;&#x9645;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x63A5;&#x53E3;&#x4E00;&#x822C;&#x7EE7;&#x627F;&#x7684;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#xFF0C;&#x800C;&#x4E0D;&#x662F; Repository &#x8FD9;&#x4E2A;&#x7A7A;&#x63A5;&#x53E3;&#x3002;</p>
+<p><img src="/2019/08/02/046/images/05.png" alt=""></p>
+<p>&#x5176;&#x4E2D;<code>saveAndFlush()</code>&#x8868;&#x793A;&#x5F3A;&#x5236;&#x6267;&#x884C;&#x6301;&#x4E45;&#x5316;&#x64CD;&#x4F5C;&#xFF0C;&#x8FD4;&#x56DE;&#x7684;&#x5BF9;&#x8C61;&#x548C;&#x4F20;&#x53C2;&#x5BF9;&#x8C61;&#x4E0D;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testJpaRepository</span><span class="params">()</span></span>{</span><br><span class="line">    Person person = <span class="keyword">new</span> Person(<span class="number">3</span>, <span class="string">&quot;woodwhales&quot;</span>, <span class="string">&quot;woodwhales@163.com&quot;</span>, <span class="keyword">new</span> Date());</span><br><span class="line">    Person person2 = personRepsotory.saveAndFlush(person);</span><br><span class="line"></span><br><span class="line">    System.out.println(person == person2);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x662F;false&#xFF0C;&#x8868;&#x793A;&#x6267;&#x884C;&#x4E4B;&#x540E;&#xFF0C;&#x521B;&#x5EFA;&#x4E86;&#x65B0;&#x7684;&#x5BF9;&#x8C61;&#x3002;</p>
+<h1 id="8-JpaSpecificationExecutor&#x63A5;&#x53E3;"><a href="#8-JpaSpecificationExecutor&#x63A5;&#x53E3;" class="headerlink" title="8. JpaSpecificationExecutor&#x63A5;&#x53E3;"></a>8. JpaSpecificationExecutor&#x63A5;&#x53E3;</h1><p>JpaSpecificationExecutor &#x63A5;&#x53E3;&#x4E0D;&#x5C5E;&#x4E8E;Repository&#x4F53;&#x7CFB;&#xFF0C;&#x5B9E;&#x73B0;&#x4E00;&#x7EC4; JPA Criteria &#x67E5;&#x8BE2;&#x76F8;&#x5173;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<p><img src="/2019/08/02/046/images/06.png" alt=""></p>
+<p>Specification&#xFF1A;&#x5C01;&#x88C5;  JPA Criteria &#x67E5;&#x8BE2;&#x6761;&#x4EF6;&#x3002;&#x901A;&#x5E38;&#x4F7F;&#x7528;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521B;&#x5EFA;&#x8BE5;&#x63A5;&#x53E3;&#x7684;&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x4E3E;&#x4F8B;&#xFF1A;&#x5B9E;&#x73B0;&#x5E26;&#x67E5;&#x8BE2;&#x6761;&#x4EF6;&#x7684;&#x5206;&#x9875;&#xFF0C;&#x5E76;&#x4E14;&#x67E5;&#x8BE2; id &gt; 5 &#x7684;&#x6570;&#x636E;&#xFF0C;&#x4F7F;&#x7528; JpaSpecificationExecutor &#x63A5;&#x53E3;&#x7684;<code>JpaSpecificationExecutor &#x7684; Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable)</code>&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testJpaSpecificationExecutor</span><span class="params">()</span></span>{</span><br><span class="line">    <span class="keyword">int</span> pageNo = <span class="number">3</span> - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> pageSize = <span class="number">5</span>;</span><br><span class="line">    PageRequest pageable = <span class="keyword">new</span> PageRequest(pageNo, pageSize);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//&#x901A;&#x5E38;&#x4F7F;&#x7528; Specification &#x7684;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;</span></span><br><span class="line">    Specification&lt;Person&gt; specification = <span class="keyword">new</span> Specification&lt;Person&gt;() {</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> root  &#x6839;&#x5BF9;&#x8C61;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8981;&#x628A;&#x6761;&#x4EF6;&#x5C01;&#x88C5;&#x5230;&#x54EA;&#x4E2A;&#x5BF9;&#x8C61;&#x4E2D;</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> criteriaQuery  &#x5C01;&#x88C5;&#x7684;&#x90FD;&#x662F;&#x67E5;&#x8BE2;&#x7684;&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x6BD4;&#x5982;group by order by&#x7B49;</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> criteriaBuilder &#x7528;&#x4E86;&#x5C01;&#x88C5;&#x6761;&#x4EF6;&#x5BF9;&#x8C61;&#x7684;,&#x5982;&#x679C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;null&#xFF0C;&#x8868;&#x793A;&#x4E0D;&#x9700;&#x8981;&#x4EFB;&#x4F55;&#x6761;&#x4EF6;</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Predicate <span class="title">toPredicate</span><span class="params">(Root&lt;Person&gt; root, CriteriaQuery&lt;?&gt; query, CriteriaBuilder criteriaBuilder)</span> </span>{</span><br><span class="line">            Predicate predicate = criteriaBuilder.gt(root.get(<span class="string">&quot;id&quot;</span>), <span class="number">5</span>);</span><br><span class="line">            <span class="keyword">return</span> predicate;</span><br><span class="line">        }</span><br><span class="line">    };</span><br><span class="line"></span><br><span class="line">    Page&lt;Person&gt; page = personRepsotory.findAll(specification, pageable);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;&#x603B;&#x8BB0;&#x5F55;&#x6570;: &quot;</span> + page.getTotalElements());</span><br><span class="line">    System.out.println(<span class="string">&quot;&#x5F53;&#x524D;&#x7B2C;&#x51E0;&#x9875;: &quot;</span> + (page.getNumber() + <span class="number">1</span>));</span><br><span class="line">    System.out.println(<span class="string">&quot;&#x603B;&#x9875;&#x6570;: &quot;</span> + page.getTotalPages());</span><br><span class="line">    System.out.println(<span class="string">&quot;&#x5F53;&#x524D;&#x9875;&#x9762;&#x7684; List: &quot;</span> + page.getContent());</span><br><span class="line">    System.out.println(<span class="string">&quot;&#x5F53;&#x524D;&#x9875;&#x9762;&#x7684;&#x8BB0;&#x5F55;&#x6570;: &quot;</span> + page.getNumberOfElements());</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Jpa&#x6761;&#x4EF6;&#x67E5;&#x8BE2;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;"><a href="#Jpa&#x6761;&#x4EF6;&#x67E5;&#x8BE2;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;" class="headerlink" title="Jpa&#x6761;&#x4EF6;&#x67E5;&#x8BE2;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;"></a>Jpa&#x6761;&#x4EF6;&#x67E5;&#x8BE2;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;</h2><p>&#x5F53;&#x6709;&#x591A;&#x4E2A;&#x6761;&#x4EF6;&#x67E5;&#x8BE2;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x591A;&#x4E2A; Predicate &#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x5C06;&#x8FD9;&#x4E9B; Predicate &#x5BF9;&#x8C61;&#x5E76;&#x8054;&#x8D77;&#x6765;&#xFF0C;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;<code>createSpecification(Map searchMap)</code>&#x65B9;&#x6CD5;&#xFF0C;&#x7528;&#x6765;&#x521B;&#x5EFA;&#x6700;&#x7EC8;&#x7684; Specification &#x5BF9;&#x8C61;&#xFF0C;&#x4EE5;&#x4E0B;&#x662F;&#x4F2A;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x52A8;&#x6001;&#x6761;&#x4EF6;&#x6784;&#x5EFA;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> searchMap</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> Specification&lt;Article&gt; <span class="title">createSpecification</span><span class="params">(Map searchMap)</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Specification&lt;Article&gt;() {</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Predicate <span class="title">toPredicate</span><span class="params">(Root&lt;Article&gt; root, CriteriaQuery&lt;?&gt; query, CriteriaBuilder cb)</span> </span>{</span><br><span class="line">            List&lt;Predicate&gt; predicateList = <span class="keyword">new</span> ArrayList&lt;Predicate&gt;();</span><br><span class="line">            <span class="comment">// &#x83B7;&#x53D6; xxx &#x67E5;&#x8BE2;&#x6761;&#x4EF6;&#xFF0C;&#x4F9D;&#x6B21;&#x505A;&#x975E;&#x7A7A;&#x5224;&#x65AD;&#xFF0C;&#x4E4B;&#x540E;&#x6761;&#x4EF6;&#x5BF9;&#x8C61;&#x521B;&#x5EFA;&#x5E76;&#x653E;&#x5165;list&#x4E2D;</span></span><br><span class="line">            <span class="keyword">if</span> (searchMap.get(<span class="string">&quot;xxx&quot;</span>)!=<span class="keyword">null</span> &amp;&amp; !<span class="string">&quot;&quot;</span>.equals(searchMap.get(<span class="string">&quot;xxx&quot;</span>))) {</span><br><span class="line">                predicateList.add(cb.like(root.get(<span class="string">&quot;xxxx&quot;</span>).as(String.class), <span class="string">&quot;%&quot;</span>+(String)searchMap.get(<span class="string">&quot;xxx&quot;</span>)+<span class="string">&quot;%&quot;</span>));</span><br><span class="line">            }</span><br><span class="line">            &#x2026;&#x2026;</span><br><span class="line">			</span><br><span class="line">            <span class="comment">// &#x5C06;list&#x8F6C;&#x6210; Predicate[] &#x6570;&#x7EC4;&#xFF0C;&#x8FDB;&#x884C;&#x62FC;&#x63A5;</span></span><br><span class="line">            <span class="keyword">return</span> cb.and(predicateList.toArray(<span class="keyword">new</span> Predicate[predicateList.size()]));</span><br><span class="line">        }</span><br><span class="line">    };</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4EE3;&#x7801;&#x89E3;&#x91CA;&#xFF1A;&#x6BD4;&#x5982;&#x4F20;&#x53C2; searchMap &#x4E2D;&#x5B58;&#x4E86;{&#x201C;name&#x201D;:&#x201D;woodwhales&#x201D;}&#x7684;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x90A3;&#x4E48;&#x5C06;&#x8BE5;&#x5BF9;&#x8C61;&#x7684;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x5F53;&#x4F5C;key&#x5BF9;&#x8FD9;&#x4E2A;map&#x4F9D;&#x6B21;&#x83B7;&#x53D6;&#x4E00;&#x904D;&#xFF0C;&#x80FD;&#x83B7;&#x53D6;&#x5230;&#x7684;key &#x5C31;&#x8868;&#x793A;&#x5F53;&#x524D;&#x5C5E;&#x6027;&#x9700;&#x8981;&#x6761;&#x4EF6;&#x67E5;&#x8BE2;&#xFF0C;&#x521B;&#x5EFA;&#x6761;&#x4EF6;&#x5BF9;&#x8C61;&#x5E76;&#x653E;&#x5165;&#x96C6;&#x5408;&#x4E2D;&#x3002;&#x6700;&#x540E;&#x5C06;&#x6240;&#x6709;&#x6761;&#x4EF6;&#x5BF9;&#x8C61;&#x5E76;&#x8054;&#x8FD4;&#x56DE;&#x3002;</p>
+<p>&#x7B80;&#x5355;&#x6982;&#x8FF0;&#x5C31;&#x662F;&#xFF0C;&#x5C06;&#x4F20;&#x8FC7;&#x6765;&#x7684;map&#x4E2D;&#x7684;&#x952E;&#x503C;&#x5BF9;&#xFF0C;&#x4F9D;&#x6B21;&#x548C;&#x5F53;&#x524D;&#x5BF9;&#x8C61;&#x5C5E;&#x6027;&#x6BD4;&#x5BF9;&#xFF0C;&#x6709;&#x503C;&#x7684;&#x5C31;&#x662F;&#x8981;&#x6761;&#x4EF6;&#x67E5;&#x8BE2;&#x7684;&#x3002;</p>
+<h1 id="9-&#x81EA;&#x5B9A;&#x4E49;Repository&#x63A5;&#x53E3;"><a href="#9-&#x81EA;&#x5B9A;&#x4E49;Repository&#x63A5;&#x53E3;" class="headerlink" title="9. &#x81EA;&#x5B9A;&#x4E49;Repository&#x63A5;&#x53E3;"></a>9. &#x81EA;&#x5B9A;&#x4E49;Repository&#x63A5;&#x53E3;</h1><p>&#x6B65;&#x9AA4;1&#xFF1A;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#xFF1A;&#x58F0;&#x660E;&#x8981;&#x6DFB;&#x52A0;&#x7684;&#xFF0C;&#x5E76;&#x81EA;&#x5B9E;&#x73B0;&#x7684;&#x65B9;&#x6CD5;</p>
+<p>&#x6B65;&#x9AA4;2&#xFF1A;&#x63D0;&#x4F9B;&#x8BE5;&#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#xFF1A;&#x7C7B;&#x540D;&#x9700;&#x5728;&#x8981;&#x58F0;&#x660E;&#x7684; Repository &#x540E;&#x6DFB;&#x52A0; Impl&#xFF0C;&#x5E76;&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;</p>
+<p>&#x6B65;&#x9AA4;3&#xFF1A;&#x58F0;&#x660E; Repository &#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x7EE7;&#x627F;&#x6B65;&#x9AA4;1 &#x58F0;&#x660E;&#x7684;&#x63A5;&#x53E3;&#x3002; </p>
+<p>&#x4E09;&#x6B65;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x63A5;&#x53E3;&#x4E86;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<p>&#x6B65;&#x9AA4;1&#xFF1A;&#x81EA;&#x5B9A;&#x4E49;Repository&#x63A5;&#x53E3;&#x540D;&#x79F0;&#x4E3A;&#xFF1A;PersonRepsotory&#xFF0C;&#x91CC;&#x9762;&#x6709;&#x4E2A;<code>test()</code>&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PersonRepsotory</span> </span>{</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>;</span><br><span class="line">	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6B65;&#x9AA4;2&#xFF1A;&#x5B9E;&#x73B0;&#x81EA;&#x5B9A;&#x4E49;&#x63A5;&#x53E3;&#xFF0C;&#x6CE8;&#x610F;&#x5B9E;&#x73B0;&#x7C7B;&#x5FC5;&#x987B;&#x662F;<code>&#x63A5;&#x53E3;&#x540D;+Impl&#x540E;&#x7F00;</code>&#x7684;&#x7C7B;&#x540D;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.persistence.EntityManager;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.PersistenceContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonRepsotoryImpl</span> <span class="keyword">implements</span> <span class="title">PersonRepsotory</span> </span>{</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@PersistenceContext</span></span><br><span class="line">	<span class="keyword">private</span> EntityManager entityManager;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>{</span><br><span class="line">		Person person = entityManager.find(Person.class, <span class="number">11</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;PersonRepsotoryImpl -&gt; &quot;</span> + person);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;Spring Data &#x4F1A;&#x5728; base-package &#x4E2D;&#x67E5;&#x627E; &#x201C;&#x63A5;&#x53E3;&#x540D;Impl&#x201D; &#x4F5C;&#x4E3A;&#x5B9E;&#x73B0;&#x7C7B;&#x3002;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;repository-impl-postfix&#x58F0;&#x660E;&#x540E;&#x7F00;&#x3002;</p>
+<p>&#x6B65;&#x9AA4;3&#xFF1A;&#x5728;&#x771F;&#x6B63;&#x7684;&#x4E1A;&#x52A1;&#x63A5;&#x53E3;&#x4E2D;&#x7EE7;&#x627F;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x6B64;&#x65F6;&#x5F53;&#x524D; PersonDao &#x63A5;&#x53E3;&#x5C31;&#x5177;&#x6709;&#x4E86;&#x81EA;&#x5B9A;&#x4E49;&#x63A5;&#x53E3;&#x91CC;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x4E86;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PersonDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Person</span>, <span class="title">Integer</span>&gt;, <span class="title">JpaSpecificationExecutor</span>&lt;<span class="title">Person</span>&gt;, <span class="title">PersonRepsotory</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;</p>
+<p><a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/" target="_blank" rel="noopener">&#x5B98;&#x65B9;&#x6587;&#x6863;</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-08-02</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-08-02</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/08/02/046/">Spring Jpa Data 快速入门指南</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2019/08/02/046/" title="Spring Jpa Data 快速入门指南">https://woodwhales.github.io/2019/08/02/046/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/08/02/046/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jpa/" rel="tag"><i class="fa fa-tag"></i> jpa</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/07/045/" rel="next" title="JNI技术实战">
+                <i class="fa fa-chevron-left"></i> JNI技术实战
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/03/047/" rel="prev" title="人生苦短，转行程序员要趁早(下)">
+                人生苦短，转行程序员要趁早(下) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-初识Spring-Jpa-Data"><span class="nav-text">1. 初识Spring Jpa Data</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-环境准备"><span class="nav-text">1.1 环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-数据库连接配置"><span class="nav-text">1.2 数据库连接配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-数据库连接测试"><span class="nav-text">1.3 数据库连接测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-创建表对象"><span class="nav-text">1.4 创建表对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-编写dao接口"><span class="nav-text">1.5 编写dao接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-认识Repository接口"><span class="nav-text">2. 认识Repository接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Repository是标记接口"><span class="nav-text">2.1 Repository是标记接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Repository接口的实现类-子接口"><span class="nav-text">2.2 Repository接口的实现类/子接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-方法定义规则"><span class="nav-text">2.3 方法定义规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义规则举例"><span class="nav-text">定义规则举例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#级联属性规则说明"><span class="nav-text">级联属性规则说明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Query注解"><span class="nav-text">3. @Query注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-占位符"><span class="nav-text">3.1 占位符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-支持原生SQL"><span class="nav-text">3.2 支持原生SQL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Modifying注解"><span class="nav-text">4. @Modifying注解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-CrudRepository接口"><span class="nav-text">5. CrudRepository接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-PagingAndSortingRepository接口"><span class="nav-text">6. PagingAndSortingRepository接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-JpaRepository接口"><span class="nav-text">7. JpaRepository接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-JpaSpecificationExecutor接口"><span class="nav-text">8. JpaSpecificationExecutor接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jpa条件查询最佳实践"><span class="nav-text">Jpa条件查询最佳实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-自定义Repository接口"><span class="nav-text">9. 自定义Repository接口</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="spring注解驱动, @Bean, @Autowired, @Profile, @Qualifier, @PropertySource, @Value">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Java EE 核心知识梳理 | Spring 注解驱动开发之组件装配">
+<meta name="keywords" content="spring注解驱动, @Bean, @Autowired, @Profile, @Qualifier, @PropertySource, @Value">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring 注解驱动开发之组件装配">
+<meta property="og:url" content="https://woodwhales.github.io/2019/07/06/043/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="Java EE 核心知识梳理 | Spring 注解驱动开发之组件装配">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2019/07/06/043/2019/07/06/043/face.png">
+<meta property="og:updated_time" content="2019-07-06T03:01:05.721Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring 注解驱动开发之组件装配">
+<meta name="twitter:description" content="Java EE 核心知识梳理 | Spring 注解驱动开发之组件装配">
+<meta name="twitter:image" content="https://woodwhales.github.io/2019/07/06/043/2019/07/06/043/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2019/07/06/043/">
+
+
+
+
+
+  <title>Spring 注解驱动开发之组件装配 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/07/06/043/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring 注解驱动开发之组件装配</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-06T10:55:14+08:00">
+                2019-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/06/043/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/06/043/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/07/06/043/" class="leancloud_visitors" data-flag-title="Spring 注解驱动开发之组件装配">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  4.6k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Java EE 核心知识梳理 | Spring 注解驱动开发之组件装配
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2019/07/06/043/face.png" rel="gallery_cjzz5uwo2004pawvgp7fpo0my" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2019/07/06/043/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h1 id="1-Bean&#x7684;&#x521D;&#x59CB;&#x5316;&#x548C;&#x9500;&#x6BC1;&#x65B9;&#x6CD5;"><a href="#1-Bean&#x7684;&#x521D;&#x59CB;&#x5316;&#x548C;&#x9500;&#x6BC1;&#x65B9;&#x6CD5;" class="headerlink" title="1. Bean&#x7684;&#x521D;&#x59CB;&#x5316;&#x548C;&#x9500;&#x6BC1;&#x65B9;&#x6CD5;"></a>1. Bean&#x7684;&#x521D;&#x59CB;&#x5316;&#x548C;&#x9500;&#x6BC1;&#x65B9;&#x6CD5;</h1><p>Spring &#x53EA;&#x5E2E;&#x6211;&#x4EEC;&#x7BA1;&#x7406;&#x5355;&#x4F8B;&#x6A21;&#x5F0F; Bean &#x7684;&#x5B8C;&#x6574;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x5BF9;&#x4E8E; prototype &#x7684; bean &#xFF0C;Spring &#x5728;&#x521B;&#x5EFA;&#x597D;&#x4EA4;&#x7ED9;&#x4F7F;&#x7528;&#x8005;&#x4E4B;&#x540E;&#x5219;&#x4E0D;&#x4F1A;&#x518D;&#x7BA1;&#x7406;&#x540E;&#x7EED;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;</p>
+<p>spring &#x7BA1;&#x7406;&#x7684; bean &#x7684;&#x4F5C;&#x7528;&#x57DF;&#x9ED8;&#x8BA4;&#x662F;&#x5355;&#x4F8B;&#xFF0C;&#x5728;&#x5BB9;&#x5668;&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x3002;&#x800C;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x591A;&#x4F8B;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x662F;&#x5728;&#x6BCF;&#x6B21;&#x83B7;&#x53D6;&#x7684;&#x65F6;&#x5019;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x3002;</p>
+<p>bean &#x7684;&#x521D;&#x59CB;&#x5316;&#x548C;&#x9500;&#x6BC1;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#xFF1A;</p>
+<ol>
+<li><code>@Bean</code>&#x6CE8;&#x89E3;&#x7684;<code>init-methdod</code>&#x548C;<code>destroy-method</code>&#x5C5E;&#x6027;&#x4E2D;&#x6307;&#x5B9A;&#xFF0C;&#x4F46;&#x662F;&#x8981;&#x6C42;&#x4F20;&#x5165;&#x7684;&#x662F;&#x4E0D;&#x5E26;&#x53C2;&#x6570;&#x7684;&#x65B9;&#x6CD5;&#x540D;&#x3002;</li>
+<li>&#x5B9E;&#x73B0;<code>InitializingBean</code>&#x548C;<code>DisposableBean</code>&#x63A5;&#x53E3;</li>
+<li>&#x4F7F;&#x7528;<code>@PostConstruct</code>&#x548C;<code>@PreDestroy</code>&#x6CE8;&#x89E3;</li>
+<li>&#x5B9E;&#x73B0;<code>BeanPostProcessor</code>&#x63A5;&#x53E3;&#xFF08;&#x540E;&#x7F6E;&#x5904;&#x7406;&#x5668;&#xFF09;&#x3002;</li>
+</ol>
+<h2 id="1-1-Bean-&#x6CE8;&#x89E3;&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;"><a href="#1-1-Bean-&#x6CE8;&#x89E3;&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;" class="headerlink" title="1.1 @Bean &#x6CE8;&#x89E3;&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;"></a>1.1 @Bean &#x6CE8;&#x89E3;&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;</h2><p>&#x5BF9;&#x8981;&#x6CE8;&#x518C;&#x7684; bean&#xFF0C;&#x81EA;&#x5B9A;&#x4E49;&#x521D;&#x59CB;&#x5316;&#x548C;&#x9500;&#x6BC1;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Car</span><span class="params">()</span> </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;car construct...&quot;</span>);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;car init...&quot;</span>);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destory</span><span class="params">()</span> </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;car destory...&quot;</span>);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5C06;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;&#x548C;&#x9500;&#x6BC1;&#x65B9;&#x6CD5;&#x540D;&#x914D;&#x7F6E;&#x5230;<code>@Bean</code>&#x6CE8;&#x89E3;&#x5C5E;&#x6027;&#x4E2D;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig6</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span>(initMethod = <span class="string">&quot;init&quot;</span>, destroyMethod = <span class="string">&quot;destory&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Car <span class="title">car</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Car();</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x52A0;&#x8F7D;&#x914D;&#x7F6E;&#x7C7B;&#xFF0C;&#x968F;&#x5373;&#x5173;&#x95ED;&#x5BB9;&#x5668;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCode06</span> </span>{</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLifeMethod</span><span class="params">()</span> </span>{</span><br><span class="line">		AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig6.class);</span><br><span class="line">		System.out.println(<span class="string">&quot;&#x5BB9;&#x5668;&#x521B;&#x5EFA;&#x5B8C;&#x6210;&quot;</span>);</span><br><span class="line">		applicationContext.close();</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>car construct&#x2026;<br>car init&#x2026;<br>&#x5BB9;&#x5668;&#x521B;&#x5EFA;&#x5B8C;&#x6210;<br>car destory&#x2026;</p>
+</blockquote>
+<p>&#x5F53;&#x8BBE;&#x7F6E; bean &#x7684;&#x4F5C;&#x7528;&#x57DF;&#x662F;&#x591A;&#x4F8B;&#x7684;&#x65F6;&#x5019;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scope</span>(ConfigurableBeanFactory.SCOPE_PROTOTYPE)</span><br><span class="line"><span class="meta">@Bean</span>(initMethod = <span class="string">&quot;init&quot;</span>, destroyMethod = <span class="string">&quot;destory&quot;</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Car <span class="title">car</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Car();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>&#x5BB9;&#x5668;&#x521B;&#x5EFA;&#x5B8C;&#x6210;</p>
+</blockquote>
+<p>&#x5728;&#x5173;&#x95ED;&#x524D;&#x83B7;&#x53D6;&#x4E00;&#x6B21; bean &#x6D4B;&#x8BD5; &#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCode06</span> </span>{</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLifeMethod</span><span class="params">()</span> </span>{</span><br><span class="line">		AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig6.class);</span><br><span class="line">		System.out.println(<span class="string">&quot;&#x5BB9;&#x5668;&#x521B;&#x5EFA;&#x5B8C;&#x6210;&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		applicationContext.getBean(Car.class);</span><br><span class="line">		</span><br><span class="line">		applicationContext.close();</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>car construct&#x2026;<br>car init&#x2026;<br>&#x5BB9;&#x5668;&#x521B;&#x5EFA;&#x5B8C;&#x6210;<br>car destory&#x2026;</p>
+</blockquote>
+<p>&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x5F97;&#x51FA;&#xFF1A;spring &#x5BF9;&#x4E8E;&#x591A;&#x4F8B;&#x4F5C;&#x7528;&#x57DF;&#x7684; bean&#xFF0C;&#x53EA;&#x6709;&#x5728;&#x83B7;&#x53D6; bean &#x7684;&#x65F6;&#x5019;&#x624D;&#x6267;&#x884C;&#x914D;&#x7F6E;&#x7684;&#x521D;&#x59CB;&#x5316;&#x548C;&#x9500;&#x6BC1;&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
+<h2 id="1-2-&#x5B9E;&#x73B0;InitializingBean&#x548C;DisposableBean&#x63A5;&#x53E3;"><a href="#1-2-&#x5B9E;&#x73B0;InitializingBean&#x548C;DisposableBean&#x63A5;&#x53E3;" class="headerlink" title="1.2 &#x5B9E;&#x73B0;InitializingBean&#x548C;DisposableBean&#x63A5;&#x53E3;"></a>1.2 &#x5B9E;&#x73B0;InitializingBean&#x548C;DisposableBean&#x63A5;&#x53E3;</h2><p>&#x8981;&#x6CE8;&#x518C;&#x7684; bean &#x5B9E;&#x73B0; <code>InitializingBean</code>&#x63A5;&#x53E3;&#x548C;<code>DisposableBean</code>&#x63A5;&#x53E3;&#xFF0C;&#x81EA;&#x5DF1;&#x91CD;&#x5199;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;&#x548C;&#x9500;&#x6BC1;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tank</span> <span class="keyword">implements</span> <span class="title">InitializingBean</span>, <span class="title">DisposableBean</span> </span>{</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Tank</span><span class="params">()</span> </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;tank construct...&quot;</span>);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;tank --&gt; DisposableBean --&gt; destroy&quot;</span>);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;tank --&gt; InitializingBean --&gt; afterPropertiesSet&quot;</span>);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5C06;&#x8FD9;&#x4E2A; bean &#x4E5F;&#x914D;&#x7F6E;&#x5230;&#x914D;&#x7F6E;&#x7C7B;&#x4E2D;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig6</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="comment">// @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)</span></span><br><span class="line">	<span class="meta">@Bean</span>(initMethod = <span class="string">&quot;init&quot;</span>, destroyMethod = <span class="string">&quot;destory&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Car <span class="title">car</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Car();</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Tank <span class="title">tank</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Tank();</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCode06</span> </span>{</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLifeMethod</span><span class="params">()</span> </span>{</span><br><span class="line">		AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig6.class);</span><br><span class="line">		System.out.println(<span class="string">&quot;&#x5BB9;&#x5668;&#x521B;&#x5EFA;&#x5B8C;&#x6210;&quot;</span>);</span><br><span class="line">		applicationContext.close();</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>car construct&#x2026;<br>car init&#x2026;<br>tank construct&#x2026;<br>tank &#x2013;&gt; InitializingBean &#x2013;&gt; afterPropertiesSet<br>&#x5BB9;&#x5668;&#x521B;&#x5EFA;&#x5B8C;&#x6210;<br>tank &#x2013;&gt; DisposableBean &#x2013;&gt; destroy<br>car destory&#x2026;</p>
+</blockquote>
+<h2 id="1-3-PostConstruct&#x548C;-PreDestroy&#x6CE8;&#x89E3;"><a href="#1-3-PostConstruct&#x548C;-PreDestroy&#x6CE8;&#x89E3;" class="headerlink" title="1.3 @PostConstruct&#x548C;@PreDestroy&#x6CE8;&#x89E3;"></a>1.3 @PostConstruct&#x548C;@PreDestroy&#x6CE8;&#x89E3;</h2><p>spring &#x652F;&#x6301;&#x5BF9;JSR250&#x89C4;&#x8303;&#x7684;&#x6CE8;&#x89E3;&#xFF1A;</p>
+<p><code>@PostConstruct</code>&#xFF1A;&#x5728;bean&#x521B;&#x5EFA;&#x5B8C;&#x6210;&#x5E76;&#x4E14;&#x5C5E;&#x6027;&#x8D4B;&#x503C;&#x5B8C;&#x6210;&#xFF0C;&#x6765;&#x6267;&#x884C;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;</p>
+<p><code>@PreDestroy</code>&#xFF1A;&#x5728;&#x5BB9;&#x5668;&#x9500;&#x6BC1; bean &#x4E4B;&#x524D;&#x901A;&#x77E5;&#x6211;&#x4EEC;&#x8FDB;&#x884C;&#x6E05;&#x7406;&#x5DE5;&#x4F5C;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Dog</span><span class="params">()</span> </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;dog construct...&quot;</span>);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@PostConstruct</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;dog init...&quot;</span>);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@PreDestroy</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destory</span><span class="params">()</span> </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;dog destory...&quot;</span>);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6D4B;&#x8BD5;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>dog construct&#x2026;<br>dog init&#x2026;<br>&#x5BB9;&#x5668;&#x521B;&#x5EFA;&#x5B8C;&#x6210;<br>dog destory&#x2026;</p>
+</blockquote>
+<h2 id="1-4-&#x5B9E;&#x73B0;BeanPostProcessor&#x63A5;&#x53E3;"><a href="#1-4-&#x5B9E;&#x73B0;BeanPostProcessor&#x63A5;&#x53E3;" class="headerlink" title="1.4 &#x5B9E;&#x73B0;BeanPostProcessor&#x63A5;&#x53E3;"></a>1.4 &#x5B9E;&#x73B0;BeanPostProcessor&#x63A5;&#x53E3;</h2><p>BeanPostProcessor&#x662F;Spring IOC&#x5BB9;&#x5668;&#x7ED9;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x7684;&#x4E00;&#x4E2A;&#x6269;&#x5C55;&#x63A5;&#x53E3;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanPostProcessor</span> </span>{</span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>{</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>{</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5982;&#x4E0A;&#x63A5;&#x53E3;&#x58F0;&#x660E;&#x6240;&#x793A;&#xFF0C;BeanPostProcessor&#x63A5;&#x53E3;&#x6709;&#x4E24;&#x4E2A;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<p>&#x5F53;&#x4E00;&#x4E2A;BeanPostProcessor&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x6CE8;&#x518C;&#x5230;Spring IOC&#x5BB9;&#x5668;&#x540E;&#xFF0C;&#x5BF9;&#x4E8E;&#x8BE5;Spring IOC&#x5BB9;&#x5668;&#x6240;&#x521B;&#x5EFA;&#x7684;&#x6BCF;&#x4E2A;bean&#x5B9E;&#x4F8B;&#x5728;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;&#xFF08;&#x5982;afterPropertiesSet&#x548C;&#x4EFB;&#x610F;&#x5DF2;&#x58F0;&#x660E;&#x7684;init&#x65B9;&#x6CD5;&#xFF09;&#x8C03;&#x7528;&#x524D;&#xFF0C;&#x5C06;&#x4F1A;&#x8C03;&#x7528;BeanPostProcessor&#x4E2D;&#x7684;postProcessBeforeInitialization&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x800C;&#x5728;bean&#x5B9E;&#x4F8B;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x5219;&#x4F1A;&#x8C03;&#x7528;BeanPostProcessor&#x4E2D;&#x7684;postProcessAfterInitialization&#x65B9;&#x6CD5;&#xFF0C;&#x6574;&#x4E2A;&#x8C03;&#x7528;&#x987A;&#x5E8F;&#x53EF;&#x4EE5;&#x7B80;&#x5355;&#x793A;&#x610F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>Spring IOC&#x5BB9;&#x5668;&#x5B9E;&#x4F8B;&#x5316;Bean</li>
+<li>&#x8C03;&#x7528;BeanPostProcessor&#x7684;postProcessBeforeInitialization&#x65B9;&#x6CD5;</li>
+<li>&#x8C03;&#x7528;bean&#x5B9E;&#x4F8B;&#x7684;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;</li>
+<li>&#x8C03;&#x7528;BeanPostProcessor&#x7684;postProcessAfterInitialization&#x65B9;&#x6CD5;</li>
+</ol>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;Spring&#x5BB9;&#x5668;&#x901A;&#x8FC7;BeanPostProcessor&#x7ED9;&#x4E86;&#x6211;&#x4EEC;&#x4E00;&#x4E2A;&#x673A;&#x4F1A;&#x5BF9;Spring&#x7BA1;&#x7406;&#x7684;bean&#x8FDB;&#x884C;&#x518D;&#x52A0;&#x5DE5;&#x3002;&#x6BD4;&#x5982;&#xFF1A;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4FEE;&#x6539;bean&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x53EF;&#x4EE5;&#x7ED9;bean&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x52A8;&#x6001;&#x4EE3;&#x7406;&#x5B9E;&#x4F8B;&#x7B49;&#x7B49;&#x3002;&#x4E00;&#x4E9B;Spring AOP&#x7684;&#x5E95;&#x5C42;&#x5904;&#x7406;&#x4E5F;&#x662F;&#x901A;&#x8FC7;&#x5B9E;&#x73B0;BeanPostProcessor&#x6765;&#x6267;&#x884C;&#x4EE3;&#x7406;&#x5305;&#x88C5;&#x903B;&#x8F91;&#x7684;&#x3002;</p>
+<blockquote>
+<p>&#x591A;&#x4F8B;&#x4F5C;&#x7528;&#x57DF;&#x7684; bean &#x4E0D;&#x6267;&#x884C;&#x8BE5;&#x63A5;&#x53E3;&#x7684;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x3002;</p>
+</blockquote>
+<p>&#x5B9E;&#x73B0;<code>BeanPostProcessor</code>&#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x91CD;&#x5199;&#x4E24;&#x4E2A;&#x9ED8;&#x8BA4;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBeanPostProcessor</span> <span class="keyword">implements</span> <span class="title">BeanPostProcessor</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;postProcessBeforeInitialization...&quot;</span> + beanName + <span class="string">&quot; =&gt; &quot;</span> + bean);</span><br><span class="line">		<span class="keyword">return</span> BeanPostProcessor.<span class="keyword">super</span>.postProcessAfterInitialization(bean, beanName);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;postProcessBeforeInitialization...&quot;</span> + beanName + <span class="string">&quot; =&gt; &quot;</span> + bean);</span><br><span class="line">		<span class="keyword">return</span> BeanPostProcessor.<span class="keyword">super</span>.postProcessBeforeInitialization(bean, beanName);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x6CE8;&#x610F;</strong>&#xFF1A;&#x5728;&#x5F88;&#x591A;&#x8D44;&#x6599;&#x4E2D;&#x8BF4;&#x63A5;&#x53E3;&#x4E2D;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x4E0D;&#x80FD;&#x8FD4;&#x56DE;null&#xFF0C;&#x5982;&#x679C;&#x8FD4;&#x56DE;null&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x540E;&#x7EED;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;&#x5C06;&#x62A5;&#x7A7A;&#x6307;&#x9488;&#x5F02;&#x5E38;&#x6216;&#x8005;&#x901A;&#x8FC7;getBean()&#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x4E0D;&#x5230;bena&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#xFF0C;&#x56E0;&#x4E3A;&#x540E;&#x7F6E;&#x5904;&#x7406;&#x5668;&#x4ECE;Spring IoC&#x5BB9;&#x5668;&#x4E2D;&#x53D6;&#x51FA;bean&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x6CA1;&#x6709;&#x518D;&#x6B21;&#x653E;&#x56DE;IoC&#x5BB9;&#x5668;&#x4E2D;&#x3002;&#x4F46;&#x662F;&#x672C;&#x4F8B;&#x662F;&#x4F7F;&#x7528;<code>spring-context 5.1.8.RELEASE</code>&#x7248;&#x672C;&#xFF0C;&#x5373;&#x4F7F;&#x8FD4;&#x56DE; null &#x4E5F;&#x4E0D;&#x4F1A;&#x62A5;&#x9519;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x83B7;&#x53D6;bean&#x3002;</p>
+<p>&#x914D;&#x7F6E;&#x4E00;&#x4E2A; bean &#x5230;&#x914D;&#x7F6E;&#x7C7B;&#x4E2D; &#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(<span class="string">&quot;org.woodwhale.king.code06&quot;</span>)</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig6</span> </span>{</span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Dog <span class="title">dog</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Dog();</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCode06</span> </span>{	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testLifeMethod</span><span class="params">()</span> </span>{</span><br><span class="line">		AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig6.class);</span><br><span class="line">		System.out.println(<span class="string">&quot;&#x5BB9;&#x5668;&#x521B;&#x5EFA;&#x5B8C;&#x6210;&quot;</span>);</span><br><span class="line">		applicationContext.close();</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>dog construct&#x2026;<br>postProcessBeforeInitialization&#x2026;dog =&gt; org.woodwhale.king.code06.Dog@a4102b8<br>dog init&#x2026;<br>postProcessBeforeInitialization&#x2026;dog =&gt; org.woodwhale.king.code06.Dog@a4102b8<br>&#x5BB9;&#x5668;&#x521B;&#x5EFA;&#x5B8C;&#x6210;<br>dog destory&#x2026;</p>
+</blockquote>
+<p>&#x4ECE;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF1A;&#x5728; bean &#x6784;&#x9020;&#x5B8C;&#x6210;&#xFF0C;&#x5728;&#x6267;&#x884C;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;&#x7684;&#x524D;&#x540E;&#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;&#x4E00;&#x4E9B;&#x903B;&#x8F91;&#xFF0C;&#x8FD9;&#x6781;&#x5927;&#x7684;&#x589E;&#x5F3A;&#x4E86;spring &#x7684;&#x6269;&#x5C55;&#x6027;</p>
+<p><code>org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory</code>&#x7C7B;&#x4E2D;&#x7684;&#x6E90;&#x7801;&#x4F53;&#x73B0;&#x4E86;&#x4E0A;&#x8FF0;&#x63A5;&#x53E3;&#x7684;&#x6267;&#x884C;&#x903B;&#x8F91;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x7ED9;bean&#x8FDB;&#x884C;&#x5C5E;&#x6027;&#x8D4B;&#x503C;</span></span><br><span class="line">populateBean(beanName, bd, bw);</span><br><span class="line"><span class="comment">// &#x521D;&#x59CB;&#x5316; bean &#x64CD;&#x4F5C;</span></span><br><span class="line">initializeBean(beanName, existingBean, bd){</span><br><span class="line">    <span class="comment">// &#x521D;&#x59CB;&#x5316;&#x4E4B;&#x524D;&#x56DE;&#x8C03;</span></span><br><span class="line">    wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);</span><br><span class="line">    <span class="comment">// &#x8C03;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;</span></span><br><span class="line">    invokeInitMethods(beanName, wrappedBean, mbd);</span><br><span class="line">    <span class="comment">// &#x521D;&#x59CB;&#x5316;&#x4E4B;&#x540E;&#x56DE;&#x8C03;</span></span><br><span class="line">    wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="2-&#x5C5E;&#x6027;&#x8D4B;&#x503C;"><a href="#2-&#x5C5E;&#x6027;&#x8D4B;&#x503C;" class="headerlink" title="2. &#x5C5E;&#x6027;&#x8D4B;&#x503C;"></a>2. &#x5C5E;&#x6027;&#x8D4B;&#x503C;</h1><p>&#x5728;Spring&#x6846;&#x67B6;&#x4E2D;&#xFF0C;&#x5C5E;&#x6027;&#x7684;&#x6CE8;&#x5165;&#x6211;&#x4EEC;&#x6709;&#x591A;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x6CE8;&#x5165;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;set&#x65B9;&#x6CD5;&#x6CE8;&#x5165;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;p&#x540D;&#x79F0;&#x7A7A;&#x95F4;&#x6CE8;&#x5165;&#xFF0C;&#x65B9;&#x5F0F;&#x591A;&#x79CD;&#x591A;&#x6837;&#xFF0C;&#x5BF9;&#x4E8E;&#x590D;&#x6742;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x6BD4;&#x5982;&#x5BF9;&#x8C61;&#x3001;&#x6570;&#x7EC4;&#x3001;List&#x96C6;&#x5408;&#x3001;map&#x96C6;&#x5408;&#x3001;Properties&#x7B49;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x90FD;&#x6709;&#x76F8;&#x5E94;&#x7684;&#x6CE8;&#x5165;&#x65B9;&#x5F0F;&#x3002;&#x5176;&#x4E2D;&#x6BD4;&#x8F83;&#x5E38;&#x7528;&#x7684;&#x662F;set&#x6CE8;&#x5165;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4E0B;&#x9762;&#x6765;&#x770B;&#x770B;spring&#x7684;Set&#x6CE8;&#x5165;&#x7684;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<h3 id="2-1-&#x4F7F;&#x7528;-Value&#x8D4B;&#x503C;"><a href="#2-1-&#x4F7F;&#x7528;-Value&#x8D4B;&#x503C;" class="headerlink" title="2.1 &#x4F7F;&#x7528;@Value&#x8D4B;&#x503C;"></a>2.1 &#x4F7F;&#x7528;@Value&#x8D4B;&#x503C;</h3><p>&#x4F7F;&#x7528;<code>@Value</code>&#x6CE8;&#x89E3;&#x8D4B;&#x503C; bean &#x5C5E;&#x6027;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>{</span><br><span class="line">	<span class="comment">// &#x57FA;&#x672C;&#x6570;&#x503C;</span></span><br><span class="line">	<span class="meta">@Value</span>(<span class="string">&quot;zhangsan&quot;</span>)</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// &#x53EF;&#x4EE5;&#x5199;SpEL&#xFF1B; #{}</span></span><br><span class="line">	<span class="meta">@Value</span>(<span class="string">&quot;#{20+1}&quot;</span>)</span><br><span class="line">	<span class="keyword">private</span> String age;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7F16;&#x5199;&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCode07</span> </span>{</span><br><span class="line">	AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig7.class);</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testValue</span><span class="params">()</span> </span>{</span><br><span class="line">		Person person = applicationContext.getBean(Person.class);</span><br><span class="line">		System.out.println(person);</span><br><span class="line">		applicationContext.close();</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>Person(name=zhangsan, age=21)</p>
+</blockquote>
+<h3 id="2-2-&#x4ECE;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x53D6;"><a href="#2-2-&#x4ECE;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x53D6;" class="headerlink" title="2.2 &#x4ECE;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x53D6;"></a>2.2 &#x4ECE;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x8BFB;&#x53D6;</h3><p>xml &#x7248;&#x672C;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">&quot;classpath:person.properties&quot;</span>/&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4F7F;&#x7528;<code>@PropertySource</code>&#x8BFB;&#x53D6;&#x5916;&#x90E8;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;k/v&#x4FDD;&#x5B58;&#x5230;&#x8FD0;&#x884C;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E2D;&#xFF0C;&#x52A0;&#x8F7D;&#x5B8C;&#x5916;&#x90E8;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4EE5;&#x540E;&#x4F7F;&#x7528;<code>${}</code>&#x53D6;&#x51FA;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x503C;&#xFF1A;</p>
+<p>&#x521B;&#x5EFA;&#x914D;&#x7F6E;&#x6587;&#x4EF6;application.properties&#xFF0C;&#x5E76;&#x5B58;&#x4E00;&#x4EFD;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person.nickName=lisi</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x914D;&#x7F6E;&#x7C7B;&#x4E2D;&#x589E;&#x52A0;<code>@PropertySource</code>&#x6CE8;&#x89E3;&#xFF0C;&#x5F15;&#x5165;&#x5916;&#x90E8;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PropertySource</span>(value = {<span class="string">&quot;classpath:/application.properties&quot;</span>})</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig7</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Person <span class="title">person</span><span class="params">()</span> </span>{</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Person();</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4F7F;&#x7528;<code>@Value</code>&#x6CE8;&#x89E3;&#x7684;<code>${}</code>&#x8868;&#x8FBE;&#x5F0F;&#x53D6;&#x51FA;&#x5BB9;&#x5668;&#x4E2D;&#x7684;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>{</span><br><span class="line">	<span class="comment">// &#x57FA;&#x672C;&#x6570;&#x503C;</span></span><br><span class="line">	<span class="meta">@Value</span>(<span class="string">&quot;zhangsan&quot;</span>)</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// &#x53EF;&#x4EE5;&#x5199;SpEL&#xFF1B; #{}</span></span><br><span class="line">	<span class="meta">@Value</span>(<span class="string">&quot;#{20+1}&quot;</span>)</span><br><span class="line">	<span class="keyword">private</span> String age;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// &#x53EF;&#x4EE5;&#x5199;${} &#x53D6;&#x51FA;&#x914D;&#x7F6E;&#x6587;&#x4EF6;(properties)&#x4E2D;&#x7684;&#x503C;&#xFF08;&#x5728;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x91CC;&#x9762;&#x7684;&#x503C;&#xFF09;</span></span><br><span class="line">	<span class="meta">@Value</span>(<span class="string">&quot;${person.nickName}&quot;</span>)</span><br><span class="line">	<span class="keyword">private</span> String nickName;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x5728;&#x5BB9;&#x5668;&#x5BF9;&#x8C61;&#x4E2D;&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x83B7;&#x53D6;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCode07</span> </span>{</span><br><span class="line">	AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig7.class);</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testValue</span><span class="params">()</span> </span>{</span><br><span class="line">		Person person = applicationContext.getBean(Person.class);</span><br><span class="line">		System.out.println(person);</span><br><span class="line"></span><br><span class="line">		String property = applicationContext.getEnvironment().getProperty(<span class="string">&quot;person.nickName&quot;</span>);</span><br><span class="line">		System.out.println(property);</span><br><span class="line">		applicationContext.close();</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>Person(name=zhangsan, age=21, nickName=lisi)<br>lisi</p>
+</blockquote>
+<h1 id="3-&#x81EA;&#x52A8;&#x88C5;&#x914D;"><a href="#3-&#x81EA;&#x52A8;&#x88C5;&#x914D;" class="headerlink" title="3. &#x81EA;&#x52A8;&#x88C5;&#x914D;"></a>3. &#x81EA;&#x52A8;&#x88C5;&#x914D;</h1><p>spring&#x5229;&#x7528;&#x4F9D;&#x8D56;&#x6CE8;&#x5165;&#x548C;DI&#x5B8C;&#x6210;&#x5BF9;IOC&#x5BB9;&#x5668;&#x4E2D;&#x5404;&#x4E2A;&#x7EC4;&#x4EF6;&#x7684;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;&#x8D4B;&#x503C;&#x3002;&#x81EA;&#x52A8;&#x88C5;&#x914D;&#x7684;&#x4F18;&#x70B9;&#x6709;&#xFF1A;&#x81EA;&#x52A8;&#x88C5;&#x914D;&#x53EF;&#x4EE5;&#x5927;&#x5927;&#x5730;&#x51CF;&#x5C11;&#x5C5E;&#x6027;&#x548C;&#x6784;&#x9020;&#x5668;&#x53C2;&#x6570;&#x7684;&#x6307;&#x6D3E;&#x3002;&#x81EA;&#x52A8;&#x88C5;&#x914D;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x89E3;&#x6790;&#x5BF9;&#x8C61;&#x65F6;&#x66F4;&#x65B0;&#x914D;&#x7F6E;&#x3002;&#x81EA;&#x52A8;&#x88C5;&#x914D;&#x7684;&#x65B9;&#x5F0F;&#x6709;&#x5F88;&#x591A;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x542B;spring&#x7684;&#x6CE8;&#x89E3;&#x4EE5;&#x53CA;java&#x81EA;&#x5E26;&#x7684;&#x6CE8;&#x89E3;&#x3002;</p>
+<h2 id="3-1-Autowired"><a href="#3-1-Autowired" class="headerlink" title="3.1 @Autowired"></a>3.1 @Autowired</h2><p>&#x5728;xml &#x65B9;&#x5F0F;&#x7684;&#x65F6;&#x5019;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- &#x8BE5; BeanPostProcessor &#x5C06;&#x81EA;&#x52A8;&#x5BF9;&#x6807;&#x6CE8; @Autowired &#x7684; Bean &#x8FDB;&#x884C;&#x6CE8;&#x5165; --&gt;</span>     </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor&quot;</span>/&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>spring &#x63D0;&#x4F9B;&#x4E86;<code>@Autowired</code>&#x6CE8;&#x89E3;&#x53EF;&#x4EE5;&#x5BF9;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x3001;&#x65B9;&#x6CD5;&#x548C;&#x6784;&#x9020;&#x51FD;&#x6570;&#x8FDB;&#x884C;&#x6807;&#x6CE8;&#xFF0C;&#x6765;&#x5B8C;&#x6210;&#x81EA;&#x52A8;&#x88C5;&#x914D;&#x7684;&#x5DE5;&#x4F5C;&#x3002;&#x65E0;&#x9700;&#x518D;&#x901A;&#x8FC7;&#x4F20;&#x7EDF;&#x7684;&#x5728; bean &#x7684;xml&#x6587;&#x4EF6;&#x4E2D;&#x8FDB;&#x884C;bean&#x7684;&#x6CE8;&#x5165;&#x914D;&#x7F6E;&#x3002;</p>
+<p>@Autowired&#x662F;&#x6839;&#x636E;&#x7C7B;&#x578B;&#x8FDB;&#x884C;&#x6807;&#x6CE8;&#x7684;&#xFF0C;&#x5982;&#x9700;&#x8981;&#x6309;&#x7167;&#x540D;&#x79F0;&#x8FDB;&#x884C;&#x88C5;&#x914D;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x914D;&#x5408;<code>@Qualifier</code>&#x4F7F;&#x7528;&#xFF1A;</p>
+<ol>
+<li>&#x9ED8;&#x8BA4;&#x4F18;&#x5148;&#x6309;&#x7167; bean &#x7684;&#x7C7B;&#x578B;&#x53BB;&#x5BB9;&#x5668;&#x4E2D;&#x627E;&#x5BF9;&#x5E94;&#x7684;&#x7EC4;&#x4EF6;</li>
+<li>&#x82E5;&#x6709;&#x591A;&#x4E2A;&#x76F8;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x7EC4;&#x4EF6;&#xFF0C;&#x518D;&#x5C06;&#x5C5E;&#x6027;&#x540D;&#x79F0;&#x4F5C;&#x4E3A;&#x7EC4;&#x4EF6;&#x7684; id &#x53BB;&#x5BB9;&#x5668;&#x4E2D;&#x67E5;&#x627E;</li>
+<li>&#x4F7F;&#x7528;<code>@Qualifier(&quot;bookDao&quot;)</code>&#x6765;&#x6307;&#x5B9A;&#x9700;&#x8981;&#x88C5;&#x914D;&#x7684;&#x7EC4;&#x4EF6;id&#x800C;&#x4E0D;&#x662F;&#x6839;&#x636E;&#x5C5E;&#x6027;&#x540D;</li>
+<li>&#x4F7F;&#x7528;<code>@Autowired</code>&#x6CE8;&#x89E3;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x5BB9;&#x5668;&#x4E2D;&#x6CA1;&#x6709;&#x8FD9;&#x4E2A;&#x7C7B;&#x578B;&#x7684; bean &#x5C31;&#x4F1A;&#x62A5;&#x5F02;&#x5E38;&#xFF0C;&#x53EF;&#x4EE5;&#x663E;&#x5F0F;&#x6307;&#x5B9A;<code>@Autowired(required=false)</code>&#x907F;&#x514D;&#x62A5;&#x9519;</li>
+<li><code>@Primary</code>&#x8BA9;Spring&#x8FDB;&#x884C;&#x81EA;&#x52A8;&#x88C5;&#x914D;&#x65F6;&#xFF0C;&#x5728;&#x6CA1;&#x6709;&#x660E;&#x786E;&#x7528;<code>@Qualifier</code>&#x6307;&#x5B9A;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;&#x4F18;&#x5148;&#x9996;&#x9009;&#x7684; bean</li>
+</ol>
+<p>&#x521B;&#x5EFA; service &#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x81EA;&#x5B9A;&#x4E49;&#x4E24;&#x4E2A;&#x5B9E;&#x73B0;&#x7C7B;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserService</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl1</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl2</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x81EA;&#x5B9A;&#x4E49; cotroller &#x5E94;&#x7528; service &#x63A5;&#x53E3;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> UserService userService;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x914D;&#x7F6E;&#x5305;&#x626B;&#x63CF;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(basePackages = {<span class="string">&quot;org.woodwhale.king.code08&quot;</span>})</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig8</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7F16;&#x5199;&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCode08</span> </span>{</span><br><span class="line">	AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig8.class);</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAutowired</span><span class="params">()</span> </span>{</span><br><span class="line">		System.out.println(applicationContext.getBean(UserController.class));</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD0;&#x884C;&#x4F1A;&#x62A5;&#x5F02;&#x5E38;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x8B66;&#x544A;: Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name &apos;userController&apos;: Unsatisfied dependency expressed through field &apos;userService&apos;; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type &apos;org.woodwhale.king.code08.service.UserService&apos; available: expected single matching bean but found 2: userServiceImpl1,userServiceImpl2</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8868;&#x793A;&#x5BB9;&#x5668;&#x4E2D;&#x6709;&#x591A;&#x4E2A; service &#x7C7B;&#x578B;&#x7684; bean &#xFF0C;<code>@Autowired</code>&#x6CE8;&#x89E3;&#x7684;&#x5C5E;&#x6027;&#x540D;&#x662F;&#xFF1A;userService&#xFF0C;&#x627E;&#x4E0D;&#x5230; id &#x4E3A;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x540D;&#x7684; bean&#xFF0C;&#x6240;&#x4EE5;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x4FEE;&#x6539;&#x5C5E;&#x6027;&#x540D;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684; bean&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>{</span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> UserService userServiceImpl1;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>UserController(userServiceImpl1=org.woodwhale.king.code08.service.UserServiceImpl1@501edcf1)</p>
+</blockquote>
+<p>&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x4E0D;&#x662F;&#x5F88;&#x4F18;&#x96C5;&#xFF0C;&#x5C5E;&#x6027;&#x540D;&#x6539;&#x4E86;&#xFF0C;&#x6240;&#x6709;&#x7528;&#x5230;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x53D8;&#x91CF;&#x540D;&#x7684;&#x5730;&#x65B9;&#x90FD;&#x9700;&#x8981;&#x6539;&#xFF0C;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>@Qualifier</code>&#x6CE8;&#x89E3;&#xFF0C;&#x663E;&#x5F0F;&#x6307;&#x5B9A;&#x5BB9;&#x5668;&#x4E2D;&#x7684; bean&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Qualifier</span>(<span class="string">&quot;userServiceImpl2&quot;</span>)</span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> UserService userService;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>UserController(userService=org.woodwhale.king.code08.service.UserServiceImpl2@78b729e6)</p>
+</blockquote>
+<p>&#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x529E;&#x6CD5;&#x5C31;&#x662F;&#xFF0C;&#x5BF9;&#x67D0;&#x4E2A;&#x7EC4;&#x4EF6;&#x4F7F;&#x7528;<code>@Primary</code>&#x6CE8;&#x89E3;&#xFF0C;&#x8FD9;&#x4E2A;&#x6CE8;&#x89E3;&#x8868;&#x793A;&#xFF0C;&#x5982;&#x679C;&#x5B58;&#x5728;&#x76F8;&#x540C;&#x7C7B;&#x578B;&#x7684; bean&#xFF0C;&#x5C31;&#x4EE5;&#x8FD9;&#x4E2A;&#x4E3A;&#x4E3B;&#x4F9D;&#x8D56;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Primary</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl2</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>{</span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> UserService userServiceImpl1;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>UserController(userServiceImpl1=org.woodwhale.king.code08.service.UserServiceImpl2@3c9d0b9d)</p>
+</blockquote>
+<h2 id="3-2-Resource&#x548C;-Inject"><a href="#3-2-Resource&#x548C;-Inject" class="headerlink" title="3.2 @Resource&#x548C;@Inject"></a>3.2 @Resource&#x548C;@Inject</h2><p>Spring&#x8FD8;&#x652F;&#x6301;&#x4F7F;&#x7528;<code>@Resource</code>&#xFF08;JSR250&#xFF09;&#x548C;<code>@Inject</code>&#xFF08;JSR330&#xFF09;</p>
+<p><strong>@Resource</strong></p>
+<p>&#x53EF;&#x4EE5;&#x548C;<code>@Autowired</code>&#x4E00;&#x6837;&#x5B9E;&#x73B0;&#x81EA;&#x52A8;&#x7684;&#x88C5;&#x914D;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;&#x6309;&#x7167;&#x7EC4;&#x4EF6;&#x7684;&#x540D;&#x79F0;&#x6765;&#x8FDB;&#x884C;&#x88C5;&#x914D;&#xFF0C;&#x4E0D;&#x652F;&#x6301;<code>@Primary</code> &#x4E5F;&#x6CA1;&#x6709;&#x652F;&#x6301;&#x548C;<code>@Autowired(required = false)</code>&#x4E00;&#x6837;&#x7684;&#x529F;&#x80FD;&#x3002;</p>
+<p><strong>@Inject</strong></p>
+<p>&#x9700;&#x8981;&#x5BFC;&#x5165;javax.inject&#x7684;&#x5305;&#xFF0C;&#x548C;<code>@Autowired</code>&#x7684;&#x529F;&#x80FD;&#x4E00;&#x6837;&#xFF0C;&#x4E0D;&#x652F;&#x6301;&#x548C;<code>@Autowired(required = false)</code>&#x4E00;&#x6837;&#x7684;&#x529F;&#x80FD;&#x3002;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.inject<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.inject<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="3-2-Autowired&#x53EF;&#x6807;&#x6CE8;&#x7684;&#x5730;&#x65B9;"><a href="#3-2-Autowired&#x53EF;&#x6807;&#x6CE8;&#x7684;&#x5730;&#x65B9;" class="headerlink" title="3.2 @Autowired&#x53EF;&#x6807;&#x6CE8;&#x7684;&#x5730;&#x65B9;"></a>3.2 @Autowired&#x53EF;&#x6807;&#x6CE8;&#x7684;&#x5730;&#x65B9;</h2><p>&#x6211;&#x4EEC;&#x4ECE;<code>@Autowired</code>&#x8FD9;&#x4E2A;&#x6CE8;&#x89E3;&#x70B9;&#x8FDB;&#x53BB;&#x770B;&#x4E00;&#x4E0B;&#x6E90;&#x7801;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#x8FD9;&#x4E2A;&#x6CE8;&#x89E3;&#x53EF;&#x4EE5;&#x6807;&#x6CE8;&#x7684;&#x4F4D;&#x7F6E;&#x6709;&#xFF1A;&#x6784;&#x9020;&#x5668;&#xFF0C;&#x53C2;&#x6570;&#xFF0C;&#x65B9;&#x6CD5;&#xFF0C;&#x5C5E;&#x6027;&#xFF1B;&#x90FD;&#x662F;&#x4ECE;&#x5BB9;&#x5668;&#x4E2D;&#x6765;&#x83B7;&#x53D6;&#x53C2;&#x6570;&#x7EC4;&#x4EF6;&#x7684;&#x503C;&#xFF1A;</p>
+<h3 id="3-2-1-&#x6807;&#x6CE8;&#x5728;&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;&#x4E0A;"><a href="#3-2-1-&#x6807;&#x6CE8;&#x5728;&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;&#x4E0A;" class="headerlink" title="3.2.1 &#x6807;&#x6CE8;&#x5728;&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;&#x4E0A;"></a>3.2.1 &#x6807;&#x6CE8;&#x5728;&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;&#x4E0A;</h3><p><code>@Autowired</code>&#x53EF;&#x4EE5;&#x6807;&#x6CE8;&#x5728;&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;&#x4E0A;&#xFF0C;&#x5982;&#x679C;&#x5BB9;&#x5668;&#x91CC;&#x53EA;&#x6709;&#x4E00;&#x79CD;&#x7C7B;&#x578B;&#x7684;bean&#xFF0C;&#x90A3;&#x4E48;&#x5728;<code>@Bean</code>&#x6CE8;&#x89E3;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x4EE5;&#x7701;&#x7565;&#x4E0D;&#x5199;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(basePackages = {<span class="string">&quot;org.woodwhale.king.code08&quot;</span>})</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig8</span> </span>{</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> User <span class="title">user</span><span class="params">(UserController userController)</span> </span>{</span><br><span class="line">		System.out.println(userController.getClass());</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> User();</span><br><span class="line">	}</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// &#x4EE5;&#x4E0A;&#x7B49;&#x4EF7;&#x4E8E;&#x4EE5;&#x4E0B;</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> User <span class="title">user</span><span class="params">(@Autowired UserController userController)</span> </span>{</span><br><span class="line">		System.out.println(userController.getClass());</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> User();</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="3-2-2-&#x6807;&#x6CE8;&#x5728;&#x65B9;&#x6CD5;&#x4E0A;"><a href="#3-2-2-&#x6807;&#x6CE8;&#x5728;&#x65B9;&#x6CD5;&#x4E0A;" class="headerlink" title="3.2.2 &#x6807;&#x6CE8;&#x5728;&#x65B9;&#x6CD5;&#x4E0A;"></a>3.2.2 &#x6807;&#x6CE8;&#x5728;&#x65B9;&#x6CD5;&#x4E0A;</h3><p><code>@Autowired</code>&#x53EF;&#x4EE5;&#x6CE8;&#x89E3;&#x5728;&#x5C5E;&#x6027;&#x4E0A;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x6CE8;&#x89E3;&#x5728; setter &#x65B9;&#x6CD5;&#x4E0A;&#xFF0C;&#x8FD9;&#x79CD;&#x5F88;&#x4E0D;&#x5E38;&#x7528;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserService</span><span class="params">(UserService userService)</span></span>{</span><br><span class="line">    <span class="keyword">this</span>.userService = userService;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="3-2-3-&#x6807;&#x6CE8;&#x5728;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E0A;"><a href="#3-2-3-&#x6807;&#x6CE8;&#x5728;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E0A;" class="headerlink" title="3.2.3 &#x6807;&#x6CE8;&#x5728;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E0A;"></a>3.2.3 &#x6807;&#x6CE8;&#x5728;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E0A;</h3><p><code>@Autowired</code>&#x53EF;&#x4EE5;&#x6807;&#x6CE8;&#x5728;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E0A;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x8FD9;&#x79CD;&#x4E5F;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x53C2;&#x6570;&#x540D;&#x79F0;&#x548C;&#x5BB9;&#x5668;&#x4E2D;&#x540C;&#x7C7B;&#x578B;bean &#x7684;&#x95EE;&#x9898;&#xFF0C;&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#x8FD8;&#x662F;&#x5728;&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#x524D;&#x9762;&#x6CE8;&#x89E3;<code>@Qualifier</code>&#x663E;&#x5F0F;&#x6307;&#x5B9A;bean&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">UserController</span><span class="params">(UserService userServiceImpl2)</span> </span>{</span><br><span class="line">    <span class="keyword">this</span>.userService = userServiceImpl2;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>UserController(userService=org.woodwhale.king.code08.service.UserServiceImpl2@6b26e945)</p>
+</blockquote>
+<p>&#x663E;&#x5F0F;&#x6307;&#x5B9A;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">UserController</span><span class="params">(@Qualifier(<span class="string">&quot;userServiceImpl1&quot;</span>)</span> UserService userService) </span>{</span><br><span class="line">    <span class="keyword">this</span>.userService = userService;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>UserController(userService=org.woodwhale.king.code08.service.UserServiceImpl1@54c562f7)</p>
+</blockquote>
+<p>&#x7EFC;&#x4E0A;&#xFF0C;&#x8FD9;&#x79CD;&#x914D;&#x7F6E;&#x4E5F;&#x662F;&#x5E38;&#x7528;&#x3002;</p>
+<h1 id="4-&#x4F7F;&#x7528;spring&#x5E95;&#x5C42;&#x7EC4;&#x4EF6;"><a href="#4-&#x4F7F;&#x7528;spring&#x5E95;&#x5C42;&#x7EC4;&#x4EF6;" class="headerlink" title="4. &#x4F7F;&#x7528;spring&#x5E95;&#x5C42;&#x7EC4;&#x4EF6;"></a>4. &#x4F7F;&#x7528;spring&#x5E95;&#x5C42;&#x7EC4;&#x4EF6;</h1><p>&#x8981;&#x60F3;&#x4F7F;&#x7528;spring&#x5E95;&#x5C42;&#x7EC4;&#x4EF6;&#xFF0C;&#x5982;<code>ApplicationContext</code>&#x3001;<code>BeanFactory</code>&#x7B49;&#x3002;&#x5047;&#x8BBE;&#x6709;&#x4E2A; Food &#x7EC4;&#x4EF6;&#x9700;&#x8981;&#x4F7F;&#x7528;<code>ApplicationContext</code>&#x5BF9;&#x8C61;&#xFF0C;&#x90A3;&#x4E48;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;<code>ApplicationContextAware</code>&#x63A5;&#x53E3;&#xFF0C;&#x91CD;&#x5199;<code>setApplicationContext()</code>&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Food</span> <span class="keyword">implements</span> <span class="title">ApplicationContextAware</span>, <span class="title">BeanNameAware</span>, <span class="title">EmbeddedValueResolverAware</span> </span>{</span><br><span class="line">	<span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException </span>{</span><br><span class="line">		<span class="keyword">this</span>.applicationContext = applicationContext;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEmbeddedValueResolver</span><span class="params">(StringValueResolver resolver)</span> </span>{</span><br><span class="line">		String resolveStringValue = resolver.resolveStringValue(<span class="string">&quot;current os name = ${os.name}&quot;</span>);</span><br><span class="line">		System.out.println(resolveStringValue);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBeanName</span><span class="params">(String name)</span> </span>{</span><br><span class="line">		System.out.println(<span class="string">&quot;current bean name = &quot;</span> + name);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>spring &#x63D0;&#x4F9B;&#x4E86;&#x5F88;&#x591A;<code>Aware</code>&#x63A5;&#x53E3;&#x7684;&#x5B50;&#x7C7B;&#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x4E14;&#x63D0;&#x4F9B;&#x4E86;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#xFF0C;&#x7528;&#x4E8E;&#x6211;&#x4EEC;&#x81EA;&#x5B9A;&#x4E49;&#x7EC4;&#x4EF6;&#x5B9E;&#x73B0;&#x8FD9;&#x4E9B;&#x63A5;&#x53E3;&#xFF0C;&#x91CD;&#x5199;&#x8FD9;&#x4E9B;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x5C31;&#x80FD;&#x62FF;&#x5230; spring &#x5E95;&#x5C42;&#x7684;&#x5BF9;&#x8C61;&#x4E86;&#x3002;<code>ApplicationContextAware</code>&#x63A5;&#x53E3;&#x83B7;&#x53D6;IOC&#x5BB9;&#x5668;&#xFF0C;<code>BeanNameAware</code>&#x63A5;&#x53E3;&#x83B7;&#x53D6;&#x5F53;&#x524D; bean &#x5728;&#x5BB9;&#x5668;&#x4E2D;&#x7684; name&#xFF0C;<code>EmbeddedValueResolverAware</code>&#x89E3;&#x6790; spring &#x4E2D;&#x652F;&#x6301;&#x7684;&#x8868;&#x8FBE;&#x5F0F;&#x3002;</p>
+<h1 id="5-xxxAware&#x63A5;&#x53E3;&#x56DE;&#x8C03;&#x539F;&#x7406;"><a href="#5-xxxAware&#x63A5;&#x53E3;&#x56DE;&#x8C03;&#x539F;&#x7406;" class="headerlink" title="5. xxxAware&#x63A5;&#x53E3;&#x56DE;&#x8C03;&#x539F;&#x7406;"></a>5. xxxAware&#x63A5;&#x53E3;&#x56DE;&#x8C03;&#x539F;&#x7406;</h1><p>&#x6240;&#x6709;xxxAware&#x90FD;&#x4F1A;&#x88AB;ApplicationContextAwareProcessor&#x5B9E;&#x73B0;&#x7C7B;&#x8C03;&#x7528;&#x3002;&#x770B;<code>org.springframework.context.support.ApplicationContextAwareProcessor</code>&#x6E90;&#x7801;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">postProcessBeforeInitialization</span><span class="params">(<span class="keyword">final</span> Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>{</span><br><span class="line">    AccessControlContext acc = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (System.getSecurityManager() != <span class="keyword">null</span> &amp;&amp;</span><br><span class="line">        (bean <span class="keyword">instanceof</span> EnvironmentAware || bean <span class="keyword">instanceof</span> EmbeddedValueResolverAware ||</span><br><span class="line">         bean <span class="keyword">instanceof</span> ResourceLoaderAware || bean <span class="keyword">instanceof</span> ApplicationEventPublisherAware ||</span><br><span class="line">         bean <span class="keyword">instanceof</span> MessageSourceAware || bean <span class="keyword">instanceof</span> ApplicationContextAware)) {</span><br><span class="line">        acc = <span class="keyword">this</span>.applicationContext.getBeanFactory().getAccessControlContext();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (acc != <span class="keyword">null</span>) {</span><br><span class="line">        AccessController.doPrivileged((PrivilegedAction&lt;Object&gt;) () -&gt; {</span><br><span class="line">            invokeAwareInterfaces(bean);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        }, acc);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        invokeAwareInterfaces(bean);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> bean;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">invokeAwareInterfaces</span><span class="params">(Object bean)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (bean <span class="keyword">instanceof</span> Aware) {</span><br><span class="line">        <span class="keyword">if</span> (bean <span class="keyword">instanceof</span> EnvironmentAware) {</span><br><span class="line">            ((EnvironmentAware) bean).setEnvironment(<span class="keyword">this</span>.applicationContext.getEnvironment());</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (bean <span class="keyword">instanceof</span> EmbeddedValueResolverAware) {</span><br><span class="line">            ((EmbeddedValueResolverAware) bean).setEmbeddedValueResolver(<span class="keyword">this</span>.embeddedValueResolver);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (bean <span class="keyword">instanceof</span> ResourceLoaderAware) {</span><br><span class="line">            ((ResourceLoaderAware) bean).setResourceLoader(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (bean <span class="keyword">instanceof</span> ApplicationEventPublisherAware) {</span><br><span class="line">            ((ApplicationEventPublisherAware) bean).setApplicationEventPublisher(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (bean <span class="keyword">instanceof</span> MessageSourceAware) {</span><br><span class="line">            ((MessageSourceAware) bean).setMessageSource(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (bean <span class="keyword">instanceof</span> ApplicationContextAware) {</span><br><span class="line">            ((ApplicationContextAware) bean).setApplicationContext(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5728;<code>invokeAwareInterfaces()</code>&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x4F9D;&#x6B21;&#x627E;&#x5BF9;&#x5E94;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x8C03;&#x7528;&#x5BF9;&#x5E94;&#x7684;&#x63A5;&#x53E3;&#x65B9;&#x6CD5;&#xFF0C;&#x5B8C;&#x6210;&#x4F20;&#x53C2;&#x64CD;&#x4F5C;&#x3002;</p>
+<h1 id="6-Profile&#x6839;&#x636E;&#x73AF;&#x5883;&#x88C5;&#x8F7D;"><a href="#6-Profile&#x6839;&#x636E;&#x73AF;&#x5883;&#x88C5;&#x8F7D;" class="headerlink" title="6. @Profile&#x6839;&#x636E;&#x73AF;&#x5883;&#x88C5;&#x8F7D;"></a>6. @Profile&#x6839;&#x636E;&#x73AF;&#x5883;&#x88C5;&#x8F7D;</h1><p>Spring&#x4E3A;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x7684;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x5F53;&#x524D;&#x73AF;&#x5883;&#xFF0C;&#x52A8;&#x6001;&#x7684;&#x6FC0;&#x6D3B;&#x548C;&#x5207;&#x6362;&#x4E00;&#x7CFB;&#x5217;&#x7EC4;&#x4EF6;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x5B9E;&#x9645;&#x5F00;&#x53D1;&#x4E2D;&#x5206;&#x4E3A;&#xFF1A;&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x3001;&#x6D4B;&#x8BD5;&#x73AF;&#x5883;&#x548C;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x3002;</p>
+<p><code>@Profile</code>&#x6CE8;&#x89E3;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x7EC4;&#x4EF6;&#x5728;&#x54EA;&#x4E2A;&#x73AF;&#x5883;&#x4E0B;&#x624D;&#x80FD;&#x88AB;&#x6CE8;&#x518C;&#x5230;&#x5BB9;&#x5668;&#x4E2D;&#xFF0C;&#x52A0;&#x4E86;&#x73AF;&#x5883;&#x6807;&#x8BC6;&#x7684;bean&#xFF0C;&#x53EA;&#x6709;&#x8FD9;&#x4E2A;&#x73AF;&#x5883;&#x88AB;&#x6FC0;&#x6D3B;&#x7684;&#x65F6;&#x5019;&#x624D;&#x80FD;&#x6CE8;&#x518C;&#x5230;&#x5BB9;&#x5668;&#x4E2D;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;default&#x3002;</p>
+<p>&#x73AF;&#x5883;&#x6FC0;&#x6D3B;&#x7684;&#x4E24;&#x79CD;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<ul>
+<li><p>&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x884C;&#x52A8;&#x6001;&#x53C2;&#x6570;&#xFF1A;&#x5728;JVM&#x53C2;&#x6570;&#x914D;&#x7F6E;<code>-Dspring.profiles.active=test</code></p>
+</li>
+<li><p>&#x4EE3;&#x7801;&#x7684;&#x65B9;&#x5F0F;&#x6FC0;&#x6D3B;&#x67D0;&#x79CD;&#x73AF;&#x5883;</p>
+</li>
+</ul>
+<p>&#x81EA;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x6E90;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyDataSource</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String jdbcUrl;</span><br><span class="line">	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x914D;&#x7F6E;&#x591A;&#x4E2A;&#x6570;&#x636E;&#x6E90;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig9</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Profile</span>(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">	<span class="meta">@Bean</span>(<span class="string">&quot;testDataSource&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> MyDataSource <span class="title">testDataSource</span><span class="params">()</span> </span>{</span><br><span class="line">		MyDataSource dataSource = <span class="keyword">new</span> MyDataSource();</span><br><span class="line">		dataSource.setJdbcUrl(<span class="string">&quot;jdbc:mysql://localhost:3306/test&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> dataSource; </span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Profile</span>(<span class="string">&quot;prod&quot;</span>)</span><br><span class="line">	<span class="meta">@Bean</span>(<span class="string">&quot;prodDataSource&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> MyDataSource <span class="title">prodDataSource</span><span class="params">()</span> </span>{</span><br><span class="line">		MyDataSource dataSource = <span class="keyword">new</span> MyDataSource();</span><br><span class="line">		dataSource.setJdbcUrl(<span class="string">&quot;jdbc:mysql://localhost:3306/prod&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> dataSource; </span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Profile</span>(<span class="string">&quot;dev&quot;</span>)</span><br><span class="line">	<span class="meta">@Bean</span>(<span class="string">&quot;devDataSource&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> MyDataSource <span class="title">devDataSource</span><span class="params">()</span> </span>{</span><br><span class="line">		MyDataSource dataSource = <span class="keyword">new</span> MyDataSource();</span><br><span class="line">		dataSource.setJdbcUrl(<span class="string">&quot;jdbc:mysql://localhost:3306/dev&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> dataSource; </span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Bean</span>(<span class="string">&quot;dataSource&quot;</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> MyDataSource <span class="title">dataSource</span><span class="params">()</span> </span>{</span><br><span class="line">		MyDataSource dataSource = <span class="keyword">new</span> MyDataSource();</span><br><span class="line">		dataSource.setJdbcUrl(<span class="string">&quot;jdbc:mysql://localhost:3306/default&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> dataSource; </span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7F16;&#x5199;&#x6D4B;&#x8BD5;&#x7C7B;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCode09</span> </span>{</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testProfile</span><span class="params">()</span> </span>{</span><br><span class="line">		AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig9.class);</span><br><span class="line">		MyDataSource dataSource = applicationContext.getBean(MyDataSource.class);</span><br><span class="line">		System.out.println(dataSource);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>MyDataSource(jdbcUrl=jdbc:mysql://localhost:3306/default)</p>
+</blockquote>
+<p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;JVM&#x547D;&#x4EE4;&#x884C;&#x53C2;&#x6570;&#x6307;&#x5B9A;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x5BB9;&#x5668;&#x521D;&#x59CB;&#x5316;&#x7684;&#x65F6;&#x5019;&#x4EE3;&#x7801;&#x6307;&#x5B9A;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testProfileCode</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="comment">//1&#x3001;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;applicationContext</span></span><br><span class="line">    AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext();</span><br><span class="line">    <span class="comment">//2&#x3001;&#x8BBE;&#x7F6E;&#x9700;&#x8981;&#x6FC0;&#x6D3B;&#x7684;&#x73AF;&#x5883;</span></span><br><span class="line">    applicationContext.getEnvironment().setActiveProfiles(<span class="string">&quot;dev&quot;</span>);</span><br><span class="line">    <span class="comment">//3&#x3001;&#x6CE8;&#x518C;&#x4E3B;&#x914D;&#x7F6E;&#x7C7B;</span></span><br><span class="line">    applicationContext.register(AppConfig9.class);</span><br><span class="line">    <span class="comment">//4&#x3001;&#x542F;&#x52A8;&#x5237;&#x65B0;&#x5BB9;&#x5668;</span></span><br><span class="line">    applicationContext.refresh();</span><br><span class="line"></span><br><span class="line">    String[] beanNames = applicationContext.getBeanNamesForType(MyDataSource.class);</span><br><span class="line">    <span class="keyword">for</span> (String beanName : beanNames) {</span><br><span class="line">        System.out.println(beanName);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<blockquote>
+<p>devDataSource<br>dataSource</p>
+</blockquote>
+<h1 id="7-&#x603B;&#x7ED3;"><a href="#7-&#x603B;&#x7ED3;" class="headerlink" title="7. &#x603B;&#x7ED3;"></a>7. &#x603B;&#x7ED3;</h1><ul>
+<li><p>bean &#x5BF9;&#x8C61;&#x7684;&#x521D;&#x59CB;&#x5316;&#x548C;&#x9500;&#x6BC1;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<p>1&#xFF09;&#x4F7F;&#x7528; @Bean &#x6CE8;&#x89E3;&#x7684;&#x5C5E;&#x6027;&#x914D;&#x7F6E;</p>
+<p>2&#xFF09;&#x5B9E;&#x73B0;InitializingBean&#x548C;DisposableBean&#x63A5;&#x53E3;</p>
+<p>3&#xFF09;&#x4F7F;&#x7528;@PostConstruct&#x548C;@PreDestroy&#x6CE8;&#x89E3;</p>
+<p>4&#xFF09;&#x5B9E;&#x73B0;BeanPostProcessor&#x63A5;&#x53E3;&#xFF0C;&#x80FD;&#x591F;&#x5728;bean&#x7684;&#x5C5E;&#x6027;&#x88C5;&#x914D;&#x6210;&#x529F;&#x4E4B;&#x540E;&#xFF0C;&#x5728;&#x521D;&#x59CB;&#x5316;&#x65B9;&#x6CD5;&#x6267;&#x884C;&#x7684;&#x524D;&#x540E;&#x589E;&#x52A0;&#x903B;&#x8F91;</p>
+</li>
+<li><p>&#x5C5E;&#x6027;&#x8D4B;&#x503C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; @Value &#x6CE8;&#x89E3;&#xFF0C;&#x5176;&#x5C5E;&#x6027;&#x53EF;&#x4EE5;&#x914D;&#x7F6E; &#x201C;${}&#x201D; &#x5360;&#x4F4D;&#x7B26;&#xFF0C;&#x914D;&#x5408; @PropertySource &#x6CE8;&#x89E3;&#x5F15;&#x5165;&#x5916;&#x90E8;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x52A8;&#x6001;&#x4E3A;&#x5C5E;&#x6027;&#x8D4B;&#x503C;&#x3002;</p>
+</li>
+<li><p>&#x7EC4;&#x4EF6;&#x7684;&#x81EA;&#x52A8;&#x88C5;&#x914D;&#xFF1A;</p>
+<p>1&#xFF09;&#x4F7F;&#x7528; @Atuowired &#x6CE8;&#x89E3;&#x8FDB;&#x884C;&#x81EA;&#x52A8;&#x88C5;&#x914D;&#xFF0C;&#x5F53;&#x5BB9;&#x5668;&#x4E2D;&#x5B58;&#x5728;&#x591A;&#x4E2A;&#x76F8;&#x540C;&#x7C7B;&#x578B;&#x7684; bean &#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; @Qualifier &#x6CE8;&#x89E3;&#x8FDB;&#x884C;&#x663E;&#x5F0F;&#x6307;&#x5B9A;&#x3002;</p>
+<p>2&#xFF09;&#x4F7F;&#x7528;@Resource&#x6216;@Inject</p>
+</li>
+<li><p>&#x60F3;&#x8981;&#x4F7F;&#x7528; spring &#x5E95;&#x5C42;&#x7684;&#x7EC4;&#x4EF6;&#xFF0C;&#x5982; spring ioc &#x5BB9;&#x5668;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0; ApplicationContextAware &#x63A5;&#x53E3;&#x3002;&#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5728;&#x8BA9;spring &#x901A;&#x8FC7;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4F20;&#x5165;&#x3002;</p>
+</li>
+<li><p>&#x7531;&#x4E8E;&#x5728;&#x5F00;&#x53D1;&#x4E2D;&#x4F1A;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;&#x8F6F;&#x4EF6;&#x73AF;&#x5883;&#x6765;&#x88C5;&#x8F7D;&#x4E0D;&#x540C;&#x7684;&#x76F8;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x4E0D;&#x540C;&#x7EC4;&#x4EF6;&#xFF0C;&#x5982;&#x6839;&#x636E;&#x8F6F;&#x4EF6;&#x73AF;&#x5883;&#x88C5;&#x914D;&#x6570;&#x636E;&#x6E90;&#xFF0C;&#x5C31;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; @Profile &#x6CE8;&#x89E3;&#x3002;</p>
+</li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-07-06</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-07-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/07/06/043/">Spring 注解驱动开发之组件装配</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2019/07/06/043/" title="Spring 注解驱动开发之组件装配">https://woodwhales.github.io/2019/07/06/043/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/07/06/043/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/组件装配/" rel="tag"><i class="fa fa-tag"></i> 组件装配</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/06/042/" rel="next" title="Spring 注解驱动开发之组件注册">
+                <i class="fa fa-chevron-left"></i> Spring 注解驱动开发之组件注册
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/07/045/" rel="prev" title="JNI技术实战">
+                JNI技术实战 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Bean的初始化和销毁方法"><span class="nav-text">1. Bean的初始化和销毁方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Bean-注解属性设置"><span class="nav-text">1.1 @Bean 注解属性设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-实现InitializingBean和DisposableBean接口"><span class="nav-text">1.2 实现InitializingBean和DisposableBean接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-PostConstruct和-PreDestroy注解"><span class="nav-text">1.3 @PostConstruct和@PreDestroy注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-实现BeanPostProcessor接口"><span class="nav-text">1.4 实现BeanPostProcessor接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-属性赋值"><span class="nav-text">2. 属性赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-使用-Value赋值"><span class="nav-text">2.1 使用@Value赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-从配置文件中读取"><span class="nav-text">2.2 从配置文件中读取</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#3-自动装配"><span class="nav-text">3. 自动装配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Autowired"><span class="nav-text">3.1 @Autowired</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Resource和-Inject"><span class="nav-text">3.2 @Resource和@Inject</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Autowired可标注的地方"><span class="nav-text">3.2 @Autowired可标注的地方</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-标注在方法的参数上"><span class="nav-text">3.2.1 标注在方法的参数上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-标注在方法上"><span class="nav-text">3.2.2 标注在方法上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-标注在构造函数上"><span class="nav-text">3.2.3 标注在构造函数上</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-使用spring底层组件"><span class="nav-text">4. 使用spring底层组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-xxxAware接口回调原理"><span class="nav-text">5. xxxAware接口回调原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Profile根据环境装载"><span class="nav-text">6. @Profile根据环境装载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-总结"><span class="nav-text">7. 总结</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>
