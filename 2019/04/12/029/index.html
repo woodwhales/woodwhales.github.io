@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="Spring Security, 记住我功能实现, remember me, Spring, Security, 安全认证, SpringBoot, 登录安全认证, 图片验证码认证">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="记住我功能实现">
+<meta name="keywords" content="Spring Security, 记住我功能实现, remember me, Spring, Security, 安全认证, SpringBoot, 登录安全认证, 图片验证码认证">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot + Spring Security 学习笔记（四）记住我功能实现">
+<meta property="og:url" content="https://woodwhales.github.io/2019/04/12/029/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="记住我功能实现">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2019/04/12/029/2019/04/12/029/face.jpg">
+<meta property="og:updated_time" content="2019-07-06T03:00:16.008Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot + Spring Security 学习笔记（四）记住我功能实现">
+<meta name="twitter:description" content="记住我功能实现">
+<meta name="twitter:image" content="https://woodwhales.github.io/2019/04/12/029/2019/04/12/029/face.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2019/04/12/029/">
+
+
+
+
+
+  <title>SpringBoot + Spring Security 学习笔记（四）记住我功能实现 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/04/12/029/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot + Spring Security 学习笔记（四）记住我功能实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-12T21:00:00+08:00">
+                2019-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Security/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/12/029/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/12/029/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/04/12/029/" class="leancloud_visitors" data-flag-title="SpringBoot + Spring Security 学习笔记（四）记住我功能实现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  2k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  记住我功能实现
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2019/04/12/029/face.jpg" rel="gallery_cjzz5dvlp0024l8vgpsyclloy" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2019/04/12/029/face.jpg" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h2 id="&#x8BB0;&#x4F4F;&#x6211;&#x529F;&#x80FD;&#x7684;&#x57FA;&#x672C;&#x539F;&#x7406;"><a href="#&#x8BB0;&#x4F4F;&#x6211;&#x529F;&#x80FD;&#x7684;&#x57FA;&#x672C;&#x539F;&#x7406;" class="headerlink" title="&#x8BB0;&#x4F4F;&#x6211;&#x529F;&#x80FD;&#x7684;&#x57FA;&#x672C;&#x539F;&#x7406;"></a>&#x8BB0;&#x4F4F;&#x6211;&#x529F;&#x80FD;&#x7684;&#x57FA;&#x672C;&#x539F;&#x7406;</h2><p>&#x5F53;&#x7528;&#x6237;&#x767B;&#x5F55;&#x53D1;&#x8D77;&#x8BA4;&#x8BC1;&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x4F1A;&#x901A;&#x8FC7;<code>UsernamePasswordAuthenticationFilter</code>&#x8FDB;&#x884C;&#x7528;&#x6237;&#x8BA4;&#x8BC1;&#xFF0C;&#x8BA4;&#x8BC1;&#x6210;&#x529F;&#x4E4B;&#x540E;&#xFF0C;SpringSecurity &#x8C03;&#x7528;&#x524D;&#x671F;&#x914D;&#x7F6E;&#x597D;&#x7684;&#x8BB0;&#x4F4F;&#x6211;&#x529F;&#x80FD;&#xFF0C;&#x5B9E;&#x9645;&#x662F;&#x8C03;&#x7528;&#x4E86;<code>RememberMeService</code>&#x63A5;&#x53E3;&#xFF0C;&#x5176;&#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x4F1A;&#x5C06;&#x7528;&#x6237;&#x7684;&#x4FE1;&#x606F;&#x751F;&#x6210;<code>Token</code>&#x5E76;&#x5C06;&#x5B83;&#x5199;&#x5165; response &#x7684;<code>Cookie</code>&#x4E2D;&#xFF0C;&#x5728;&#x5199;&#x5165;&#x7684;&#x540C;&#x65F6;&#xFF0C;&#x5185;&#x90E8;&#x7684;<code>TokenRepositoryTokenRepository</code>&#x4F1A;&#x5C06;&#x8FD9;&#x4EFD;<code>Token</code>&#x518D;&#x5B58;&#x5165;&#x6570;&#x636E;&#x5E93;&#x4E00;&#x4EFD;&#x3002;</p>
+<p>&#x5F53;&#x7528;&#x6237;&#x518D;&#x6B21;&#x8BBF;&#x95EE;&#x670D;&#x52A1;&#x5668;&#x8D44;&#x6E90;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9996;&#x5148;&#x4F1A;&#x7ECF;&#x8FC7;<code>RememberMeAuthenticationFiler</code>&#x8FC7;&#x6EE4;&#x5668;&#xFF0C;&#x5728;&#x8FD9;&#x4E2A;&#x8FC7;&#x6EE4;&#x5668;&#x91CC;&#x9762;&#x4F1A;&#x8BFB;&#x53D6;&#x5F53;&#x524D;&#x8BF7;&#x6C42;&#x4E2D;&#x643A;&#x5E26;&#x7684; Cookie&#xFF0C;&#x8FD9;&#x91CC;&#x5B58;&#x7740;&#x4E0A;&#x6B21;&#x670D;&#x52A1;&#x5668;&#x4FDD;&#x5B58; &#x7684;<code>Token</code>&#xFF0C;&#x7136;&#x540E;&#x53BB;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x67E5;&#x627E;&#x662F;&#x5426;&#x6709;&#x76F8;&#x5E94;&#x7684; Token&#xFF0C;&#x5982;&#x679C;&#x6709;&#xFF0C;&#x5219;&#x518D;&#x901A;&#x8FC7;<code>UserDetailsService</code>&#x83B7;&#x53D6;&#x7528;&#x6237;&#x7684;&#x4FE1;&#x606F;&#x3002;</p>
+<p><img src="/2019/04/12/029/images/19-&#x8BB0;&#x4F4F;&#x6211;&#x539F;&#x7406;.png" alt=""></p>
+<h3 id="&#x8BB0;&#x4F4F;&#x6211;&#x529F;&#x80FD;&#x7684;&#x8FC7;&#x6EE4;&#x5668;"><a href="#&#x8BB0;&#x4F4F;&#x6211;&#x529F;&#x80FD;&#x7684;&#x8FC7;&#x6EE4;&#x5668;" class="headerlink" title="&#x8BB0;&#x4F4F;&#x6211;&#x529F;&#x80FD;&#x7684;&#x8FC7;&#x6EE4;&#x5668;"></a>&#x8BB0;&#x4F4F;&#x6211;&#x529F;&#x80FD;&#x7684;&#x8FC7;&#x6EE4;&#x5668;</h3><p>&#x4ECE;&#x56FE;&#x4E2D;&#x53EF;&#x4EE5;&#x5F97;&#x77E5;&#x8BB0;&#x4F4F;&#x6211;&#x7684;&#x8FC7;&#x6EE4;&#x5668;&#x5728;&#x8FC7;&#x6EE4;&#x94FE;&#x7684;&#x4E2D;&#x90E8;&#xFF0C;&#x6CE8;&#x610F;&#x662F;&#x5728;<code>UsernamePasswordAuthenticationFilter</code>&#x4E4B;&#x540E;&#x3002;</p>
+<p><img src="/2019/04/12/029/images/20-&#x8BB0;&#x4F4F;&#x6211;&#x7684;&#x8FC7;&#x6EE4;&#x94FE;.png" alt=""></p>
+<h2 id="&#x524D;&#x7AEF;&#x9875;&#x9762;checkbox&#x8BBE;&#x7F6E;"><a href="#&#x524D;&#x7AEF;&#x9875;&#x9762;checkbox&#x8BBE;&#x7F6E;" class="headerlink" title="&#x524D;&#x7AEF;&#x9875;&#x9762;checkbox&#x8BBE;&#x7F6E;"></a>&#x524D;&#x7AEF;&#x9875;&#x9762;checkbox&#x8BBE;&#x7F6E;</h2><p>&#x5728; html &#x4E2D;&#x589E;&#x52A0;&#x8BB0;&#x4F4F;&#x6211;&#x590D;&#x9009;&#x6846;checkbox&#x63A7;&#x4EF6;&#xFF0C;&#x6CE8;&#x610F;&#x5176;&#x4E2D;&#x590D;&#x9009;&#x6846;&#x7684;<code>name</code> &#x4E00;&#x5B9A;&#x5FC5;&#x987B;&#x4E3A;<code>remember-me</code></p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;remember-me&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="&#x914D;&#x7F6E;cookie&#x5B58;&#x50A8;&#x6570;&#x636E;&#x5E93;&#x6E90;"><a href="#&#x914D;&#x7F6E;cookie&#x5B58;&#x50A8;&#x6570;&#x636E;&#x5E93;&#x6E90;" class="headerlink" title="&#x914D;&#x7F6E;cookie&#x5B58;&#x50A8;&#x6570;&#x636E;&#x5E93;&#x6E90;"></a>&#x914D;&#x7F6E;cookie&#x5B58;&#x50A8;&#x6570;&#x636E;&#x5E93;&#x6E90;</h2><p>&#x672C;&#x4F8B;&#x4E2D;&#x4F7F;&#x7528;&#x4E86; springboot &#x7BA1;&#x7406;&#x7684;&#x6570;&#x636E;&#x5E93;&#x6E90;&#xFF0C;&#x6240;&#x4EE5;&#x6CE8;&#x610F;&#x8981;&#x914D;&#x7F6E;<code>spring-boot-starter-jdbc</code>&#x7684;&#x4F9D;&#x8D56;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5982;&#x679C;&#x4E0D;&#x914D;&#x7F6E;&#x4F1A;&#x62A5;&#x7F16;&#x8BD1;&#x5F02;&#x5E38;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The type org.springframework.jdbc.core.support.JdbcDaoSupport cannot be resolved. It is indirectly referenced from required .class files</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8BB0;&#x4F4F;&#x6211;&#x7684;&#x5B89;&#x5168;&#x8BA4;&#x8BC1;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>{</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DataSource dataSource;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">        <span class="comment">// &#x5C06;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x9A8C;&#x8BC1;&#x7801;&#x8FC7;&#x6EE4;&#x5668;&#x653E;&#x7F6E;&#x5728; UsernamePasswordAuthenticationFilter &#x4E4B;&#x524D;</span></span><br><span class="line">        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class) </span><br><span class="line">            .formLogin()</span><br><span class="line">                .loginPage(<span class="string">&quot;/login&quot;</span>)	 					<span class="comment">// &#x8BBE;&#x7F6E;&#x767B;&#x5F55;&#x9875;&#x9762;</span></span><br><span class="line">                .loginProcessingUrl(<span class="string">&quot;/user/login&quot;</span>) 			<span class="comment">// &#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x767B;&#x5F55;&#x63A5;&#x53E3;</span></span><br><span class="line">                .successHandler(myAuthenctiationSuccessHandler)</span><br><span class="line">                .failureHandler(myAuthenctiationFailureHandler)</span><br><span class="line">                .defaultSuccessUrl(<span class="string">&quot;/home&quot;</span>).permitAll()		<span class="comment">// &#x767B;&#x5F55;&#x6210;&#x529F;&#x4E4B;&#x540E;&#xFF0C;&#x9ED8;&#x8BA4;&#x8DF3;&#x8F6C;&#x7684;&#x9875;&#x9762;</span></span><br><span class="line">                .and().authorizeRequests()					<span class="comment">// &#x5B9A;&#x4E49;&#x54EA;&#x4E9B;URL&#x9700;&#x8981;&#x88AB;&#x4FDD;&#x62A4;&#x3001;&#x54EA;&#x4E9B;&#x4E0D;&#x9700;&#x8981;&#x88AB;&#x4FDD;&#x62A4;</span></span><br><span class="line">                .antMatchers(<span class="string">&quot;/&quot;</span>, <span class="string">&quot;/index&quot;</span>, <span class="string">&quot;/user/login&quot;</span>, <span class="string">&quot;/code/image&quot;</span>).permitAll() <span class="comment">// &#x8BBE;&#x7F6E;&#x6240;&#x6709;&#x4EBA;&#x90FD;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x767B;&#x5F55;&#x9875;&#x9762;</span></span><br><span class="line">                .anyRequest().authenticated() 				<span class="comment">// &#x4EFB;&#x4F55;&#x8BF7;&#x6C42;,&#x767B;&#x5F55;&#x540E;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;</span></span><br><span class="line">                .and().csrf().disable() 					<span class="comment">// &#x5173;&#x95ED;csrf&#x9632;&#x62A4;</span></span><br><span class="line">            .rememberMe()                                   <span class="comment">// &#x8BB0;&#x4F4F;&#x6211;&#x914D;&#x7F6E;</span></span><br><span class="line">                .tokenRepository(persistentTokenRepository())  <span class="comment">// &#x914D;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x6E90;</span></span><br><span class="line">                .tokenValiditySeconds(<span class="number">3600</span>)</span><br><span class="line">                .userDetailsService(userDetailsService);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PersistentTokenRepository <span class="title">persistentTokenRepository</span><span class="params">()</span> </span>{</span><br><span class="line">        JdbcTokenRepositoryImpl persistentTokenRepository = <span class="keyword">new</span> JdbcTokenRepositoryImpl();</span><br><span class="line">        <span class="comment">// &#x5C06; DataSource &#x8BBE;&#x7F6E;&#x5230; PersistentTokenRepository</span></span><br><span class="line">        persistentTokenRepository.setDataSource(dataSource);</span><br><span class="line">        <span class="comment">// &#x7B2C;&#x4E00;&#x6B21;&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x81EA;&#x52A8;&#x5EFA;&#x8868;&#xFF08;&#x53EF;&#x4EE5;&#x4E0D;&#x7528;&#x8FD9;&#x53E5;&#x8BDD;&#xFF0C;&#x81EA;&#x5DF1;&#x624B;&#x52A8;&#x5EFA;&#x8868;&#xFF0C;&#x6E90;&#x7801;&#x4E2D;&#x6709;&#x8BED;&#x53E5;&#x7684;&#xFF09;</span></span><br><span class="line">        <span class="comment">// persistentTokenRepository.setCreateTableOnStartup(true);</span></span><br><span class="line">        <span class="keyword">return</span> persistentTokenRepository;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x5728;&#x6570;&#x636E;&#x5E93;&#x6E90;&#x914D;&#x7F6E;&#x4E4B;&#x524D;&#xFF0C;&#x5EFA;&#x8BAE;&#x624B;&#x52A8;&#x5728;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x65B0;&#x589E;&#x4E00;&#x5F20;&#x4FDD;&#x5B58;&#x7684;<code>cookie</code>&#x8868;&#xFF0C;&#x5176;&#x6570;&#x636E;&#x5E93;&#x811A;&#x672C;&#x5728;<code>JdbcTokenRepositoryImpl</code>&#x7684;&#x9759;&#x6001;&#x5C5E;&#x6027;&#x4E2D;&#x914D;&#x7F6E;&#x4E86;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcTokenRepositoryImpl</span> <span class="keyword">extends</span> <span class="title">JdbcDaoSupport</span> <span class="keyword">implements</span></span></span><br><span class="line"><span class="class">		<span class="title">PersistentTokenRepository</span> </span>{</span><br><span class="line">	<span class="comment">/** Default SQL for creating the database table to store the tokens */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String CREATE_TABLE_SQL = <span class="string">&quot;create table persistent_logins (username varchar(64) not null, series varchar(64) primary key, &quot;</span></span><br><span class="line">            + <span class="string">&quot;token varchar(64) not null, last_used timestamp not null)&quot;</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x4E8B;&#x5148;&#x6267;&#x884C;&#x4EE5;&#x4E0B;sql &#x811A;&#x672C;&#x521B;&#x5EFA;&#x8868;&#xFF1A;</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> persistent_logins (username <span class="built_in">varchar</span>(<span class="number">64</span>) <span class="keyword">not</span> <span class="literal">null</span>, series <span class="built_in">varchar</span>(<span class="number">64</span>) primary <span class="keyword">key</span>, token <span class="built_in">varchar</span>(<span class="number">64</span>) <span class="keyword">not</span> <span class="literal">null</span>, last_used <span class="built_in">timestamp</span> <span class="keyword">not</span> <span class="literal">null</span>);</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5F53;&#x7136;&#xFF0C;<code>JdbcTokenRepositoryImpl</code>&#x81EA;&#x8EAB;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;<code>setCreateTableOnStartup()</code>&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x5F00;&#x542F;&#x81EA;&#x52A8;&#x5EFA;&#x8868;&#x64CD;&#x4F5C;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x5F53;&#x6210;&#x529F;&#x767B;&#x5F55;&#x4E4B;&#x540E;&#xFF0C;<code>RememberMeService</code>&#x4F1A;&#x5C06;&#x6210;&#x529F;&#x767B;&#x5F55;&#x8BF7;&#x6C42;&#x7684;<code>cookie</code>&#x5B58;&#x50A8;&#x5230;&#x914D;&#x7F6E;&#x7684;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#xFF1A;</p>
+<p><img src="/2019/04/12/029/images/18-&#x6570;&#x636E;&#x5E93;&#x4FDD;&#x5B58;cookie.png" alt=""></p>
+<h2 id="&#x6E90;&#x7801;&#x5206;&#x6790;"><a href="#&#x6E90;&#x7801;&#x5206;&#x6790;" class="headerlink" title="&#x6E90;&#x7801;&#x5206;&#x6790;"></a>&#x6E90;&#x7801;&#x5206;&#x6790;</h2><h3 id="&#x9996;&#x6B21;&#x8BF7;&#x6C42;"><a href="#&#x9996;&#x6B21;&#x8BF7;&#x6C42;" class="headerlink" title="&#x9996;&#x6B21;&#x8BF7;&#x6C42;"></a>&#x9996;&#x6B21;&#x8BF7;&#x6C42;</h3><p>&#x9996;&#x5148;&#x8FDB;&#x5165;&#x5230;<code>AbstractAuthenticationProcessingFilter</code>&#x8FC7;&#x6EE4;&#x5668;&#x4E2D;&#x7684;<code>doFilter()</code>&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractAuthenticationProcessingFilter</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse res, FilterChain chain)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IOException, ServletException </span>{</span><br><span class="line"></span><br><span class="line">        &#x2026;&#x2026;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            authResult = attemptAuthentication(request, response);</span><br><span class="line">            &#x2026;&#x2026;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">catch</span> (InternalAuthenticationServiceException failed) {</span><br><span class="line">            &#x2026;&#x2026;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        successfulAuthentication(request, response, chain, authResult);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5176;&#x4E2D;&#x5F53;&#x7528;&#x6237;&#x8BA4;&#x8BC1;&#x6210;&#x529F;&#x4E4B;&#x540E;&#xFF0C;&#x4F1A;&#x8FDB;&#x5165;<code>successfulAuthentication()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5728;&#x7528;&#x6237;&#x4FE1;&#x606F;&#x88AB;&#x4FDD;&#x5B58;&#x5728;&#x4E86;<code>SecurityContextHolder</code>&#x4E4B;&#x540E;&#xFF0C;&#x5176;&#x4E2D;&#x5C31;&#x8C03;&#x7528;&#x4E86;<code>rememberMeServices.loginSuccess()</code>&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">successfulAuthentication</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">			HttpServletResponse response, FilterChain chain, Authentication authResult)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> IOException, ServletException </span>{</span><br><span class="line"></span><br><span class="line">    &#x2026;&#x2026;</span><br><span class="line"></span><br><span class="line">    SecurityContextHolder.getContext().setAuthentication(authResult);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// &#x8C03;&#x7528;&#x8BB0;&#x4F4F;&#x6211;&#x670D;&#x52A1;&#x63A5;&#x53E3;&#x7684;&#x767B;&#x5F55;&#x6210;&#x529F;&#x65B9;&#x6CD5;</span></span><br><span class="line">    rememberMeServices.loginSuccess(request, response, authResult);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Fire event</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.eventPublisher != <span class="keyword">null</span>) {</span><br><span class="line">        eventPublisher.publishEvent(<span class="keyword">new</span> InteractiveAuthenticationSuccessEvent(</span><br><span class="line">            authResult, <span class="keyword">this</span>.getClass()));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    successHandler.onAuthenticationSuccess(request, response, authResult);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5728;&#x8FD9;&#x4E2A;<code>RememberMeServices</code>&#x6709;&#x4E2A;&#x62BD;&#x8C61;&#x5B9E;&#x73B0;&#x7C7B;&#xFF0C;&#x5728;&#x62BD;&#x8C61;&#x5B9E;&#x73B0;&#x7C7B;<code>loginSuccess()</code>&#x65B9;&#x6CD5;&#x4E2D;&#x8FDB;&#x884C;&#x4E86;&#x8BB0;&#x4F4F;&#x6211;&#x529F;&#x80FD;&#x5224;&#x65AD;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x524D;&#x7AEF;&#x7684;&#x590D;&#x9009;&#x6846;&#x63A7;&#x4EF6;&#x7684; name &#x5FC5;&#x987B;&#x4E3A;<code>remember-me</code>&#xFF0C;&#x539F;&#x56E0;&#x5C31;&#x5728;&#x6B64;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractRememberMeServices</span> <span class="keyword">implements</span> <span class="title">RememberMeServices</span>,</span></span><br><span class="line"><span class="class">		<span class="title">InitializingBean</span>, <span class="title">LogoutHandler</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_PARAMETER = <span class="string">&quot;remember-me&quot;</span>;</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">private</span> String parameter = DEFAULT_PARAMETER;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">loginSuccess</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">            HttpServletResponse response, Authentication successfulAuthentication)</span> </span>{</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!rememberMeRequested(request, parameter)) {</span><br><span class="line">            logger.debug(<span class="string">&quot;Remember-me login not requested.&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        onLoginSuccess(request, response, successfulAuthentication);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5F53;&#x8BC6;&#x522B;&#x5230;&#x8BB0;&#x4F4F;&#x6211;&#x529F;&#x80FD;&#x5F00;&#x542F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x4F1A;&#x8FDB;&#x5165;<code>onLoginSuccess()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5176;&#x5177;&#x4F53;&#x7684;&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;&#x5728;<code>PersistentTokenBasedRememberMeServices</code>&#x7C7B;&#x4E2D;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersistentTokenBasedRememberMeServices</span> <span class="keyword">extends</span> <span class="title">AbstractRememberMeServices</span> </span>{</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLoginSuccess</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">            HttpServletResponse response, Authentication successfulAuthentication)</span> </span>{</span><br><span class="line">        String username = successfulAuthentication.getName();</span><br><span class="line"></span><br><span class="line">        logger.debug(<span class="string">&quot;Creating new persistent login for user &quot;</span> + username);</span><br><span class="line"></span><br><span class="line">        PersistentRememberMeToken persistentToken = <span class="keyword">new</span> PersistentRememberMeToken(</span><br><span class="line">                username, generateSeriesData(), generateTokenData(), <span class="keyword">new</span> Date());</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="comment">// &#x4FDD;&#x5B58;cookie&#x5230;&#x6570;&#x636E;&#x5E93;</span></span><br><span class="line">            tokenRepository.createNewToken(persistentToken);</span><br><span class="line">            <span class="comment">// &#x5C06;cookie&#x56DE;&#x5199;&#x4E00;&#x4EFD;&#x5230;&#x54CD;&#x5E94;&#x4E2D;</span></span><br><span class="line">            addCookie(persistentToken, request, response);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            logger.error(<span class="string">&quot;Failed to save persistent token &quot;</span>, e);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x9762;&#x7684;<code>tokenRepository.createNewToken()</code>&#x548C;<code>addCookie()</code>&#x5C31;&#x5C06; cookie &#x4FDD;&#x5B58;&#x5230;&#x6570;&#x636E;&#x5E93;&#x5E76;&#x56DE;&#x663E;&#x5230;&#x54CD;&#x5E94;&#x4E2D;&#x3002;</p>
+<h3 id="&#x7B2C;&#x4E8C;&#x6B21;&#x8BF7;&#x6C42;"><a href="#&#x7B2C;&#x4E8C;&#x6B21;&#x8BF7;&#x6C42;" class="headerlink" title="&#x7B2C;&#x4E8C;&#x6B21;&#x8BF7;&#x6C42;"></a>&#x7B2C;&#x4E8C;&#x6B21;&#x8BF7;&#x6C42;</h3><p>&#x5F53;&#x7B2C;&#x4E8C;&#x6B21;&#x8BF7;&#x6C42;&#x4F20;&#x5230;&#x670D;&#x52A1;&#x5668;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8BF7;&#x6C42;&#x4F1A;&#x88AB;<code>RememberMeAuthenticationFilter</code>&#x8FC7;&#x6EE4;&#x5668;&#x8FDB;&#x884C;&#x8FC7;&#x6EE4;&#xFF1A;&#x8FC7;&#x6EE4;&#x5668;&#x9996;&#x5148;&#x5224;&#x5B9A;&#x4E4B;&#x524D;&#x7684;&#x8FC7;&#x6EE4;&#x5668;&#x90FD;&#x6CA1;&#x6709;&#x8BA4;&#x8BC1;&#x901A;&#x8FC7;&#x5F53;&#x524D;&#x7528;&#x6237;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;<code>SecurityContextHolder</code>&#x4E2D;&#x6CA1;&#x6709;&#x5DF2;&#x7ECF;&#x8BA4;&#x8BC1;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x6240;&#x4EE5;&#x4F1A;&#x8C03;&#x7528;<code>rememberMeServices.autoLogin()</code>&#x7684;&#x81EA;&#x52A8;&#x767B;&#x5F55;&#x63A5;&#x53E3;&#x62FF;&#x5230;&#x5DF2;&#x901A;&#x8FC7;&#x8BA4;&#x8BC1;&#x7684;<code>rememberMeAuth</code>&#x8FDB;&#x884C;&#x7528;&#x6237;&#x8BA4;&#x8BC1;&#x767B;&#x5F55;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RememberMeAuthenticationFilter</span> <span class="keyword">extends</span> <span class="title">GenericFilterBean</span> <span class="keyword">implements</span></span></span><br><span class="line"><span class="class">		<span class="title">ApplicationEventPublisherAware</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest req, ServletResponse res, FilterChain chain)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IOException, ServletException </span>{</span><br><span class="line">        HttpServletRequest request = (HttpServletRequest) req;</span><br><span class="line">        HttpServletResponse response = (HttpServletResponse) res;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// SecurityContextHolder &#x4E0D;&#x5B58;&#x5728;&#x5DF2;&#x7ECF;&#x8BA4;&#x8BC1;&#x7684; authentication&#xFF0C;&#x8868;&#x793A;&#x524D;&#x9762;&#x7684;&#x8FC7;&#x6EE4;&#x5668;&#x6CA1;&#x6709;&#x505A;&#x8FC7;&#x4EFB;&#x4F55;&#x8EAB;&#x4EFD;&#x8BA4;&#x8BC1;</span></span><br><span class="line">        <span class="keyword">if</span> (SecurityContextHolder.getContext().getAuthentication() == <span class="keyword">null</span>) {</span><br><span class="line">            <span class="comment">// &#x8C03;&#x7528;&#x81EA;&#x52A8;&#x767B;&#x5F55;&#x63A5;&#x53E3;</span></span><br><span class="line">            Authentication rememberMeAuth = rememberMeServices.autoLogin(request,</span><br><span class="line">                    response);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (rememberMeAuth != <span class="keyword">null</span>) {</span><br><span class="line">                <span class="comment">// Attempt authenticaton via AuthenticationManager</span></span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    rememberMeAuth = authenticationManager.authenticate(rememberMeAuth);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// Store to SecurityContextHolder</span></span><br><span class="line">                    SecurityContextHolder.getContext().setAuthentication(rememberMeAuth);</span><br><span class="line">                    </span><br><span class="line">                    onSuccessfulAuthentication(request, response, rememberMeAuth);</span><br><span class="line"></span><br><span class="line">                    &#x2026;&#x2026;</span><br><span class="line"></span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">catch</span> (AuthenticationException authenticationException) {</span><br><span class="line">                    &#x2026;&#x2026;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            chain.doFilter(request, response);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span> {</span><br><span class="line">            <span class="keyword">if</span> (logger.isDebugEnabled()) {</span><br><span class="line">                logger.debug(<span class="string">&quot;SecurityContextHolder not populated with remember-me token, as it already contained: &apos;&quot;</span></span><br><span class="line">                        + SecurityContextHolder.getContext().getAuthentication() + <span class="string">&quot;&apos;&quot;</span>);</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            chain.doFilter(request, response);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD9;&#x4E2A;&#x81EA;&#x52A8;&#x767B;&#x5F55;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x53C8;&#x7531;&#x5176;&#x62BD;&#x8C61;&#x5B9E;&#x73B0;&#x7C7B;&#x8FDB;&#x884C;&#x5B9E;&#x73B0;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractRememberMeServices</span> <span class="keyword">implements</span> <span class="title">RememberMeServices</span>,</span></span><br><span class="line"><span class="class">		<span class="title">InitializingBean</span>, <span class="title">LogoutHandler</span> </span>{</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Authentication <span class="title">autoLogin</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">            HttpServletResponse response)</span> </span>{</span><br><span class="line">        <span class="comment">// &#x4ECE;&#x8BF7;&#x6C42;&#x4E2D;&#x83B7;&#x53D6;cookie</span></span><br><span class="line">        String rememberMeCookie = extractRememberMeCookie(request);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (rememberMeCookie == <span class="keyword">null</span>) {</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        logger.debug(<span class="string">&quot;Remember-me cookie detected&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (rememberMeCookie.length() == <span class="number">0</span>) {</span><br><span class="line">            logger.debug(<span class="string">&quot;Cookie was empty&quot;</span>);</span><br><span class="line">            cancelCookie(request, response);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        UserDetails user = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="comment">// &#x89E3;&#x7801;&#x8BF7;&#x6C42;&#x4E2D;&#x7684;cookie</span></span><br><span class="line">            String[] cookieTokens = decodeCookie(rememberMeCookie);</span><br><span class="line">            <span class="comment">// &#x6839;&#x636E; cookie &#x627E;&#x5230;&#x7528;&#x6237;&#x8BA4;&#x8BC1;</span></span><br><span class="line">            user = processAutoLoginCookie(cookieTokens, request, response);</span><br><span class="line">            userDetailsChecker.check(user);</span><br><span class="line"></span><br><span class="line">            logger.debug(<span class="string">&quot;Remember-me cookie accepted&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> createSuccessfulAuthentication(request, user);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">catch</span> (CookieTheftException cte) {</span><br><span class="line">            &#x2026;&#x2026;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        cancelCookie(request, response);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><code>processAutoLoginCookie()</code>&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x8FD8;&#x662F;&#x7531;<code>PersistentTokenBasedRememberMeServices</code>&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x603B;&#x5F97;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#x4E00;&#x987F;&#x5224;&#x5B9A;&#x5F53;&#x524D;&#x7684;<code>cookieTokens</code>&#x662F;&#x4E0D;&#x662F;&#x5728;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x5B58;&#x5728;<code>tokenRepository.getTokenForSeries(presentedSeries)</code>&#xFF0C;&#x5E76;&#x5224;&#x65AD;&#x662F;&#x4E0D;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x6837;&#xFF0C;&#x5C31;&#x662F;&#x628A;&#x5F53;&#x524D;&#x8BF7;&#x6C42;&#x7684;&#x65B0; token &#x66F4;&#x65B0;&#x4FDD;&#x5B58;&#x5230;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x6700;&#x540E;&#x901A;&#x8FC7;&#x5F53;&#x524D;&#x8BF7;&#x6C42;token&#x4E2D;&#x7684;&#x7528;&#x6237;&#x540D;&#x8C03;&#x7528;<code>UserDetailsService.loadUserByUsername()</code>&#x8FDB;&#x884C;&#x7528;&#x6237;&#x8BA4;&#x8BC1;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersistentTokenBasedRememberMeServices</span> <span class="keyword">extends</span> <span class="title">AbstractRememberMeServices</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> UserDetails <span class="title">processAutoLoginCookie</span><span class="params">(String[] cookieTokens,</span></span></span><br><span class="line"><span class="function"><span class="params">            HttpServletRequest request, HttpServletResponse response)</span> </span>{</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (cookieTokens.length != <span class="number">2</span>) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidCookieException(<span class="string">&quot;Cookie token did not contain &quot;</span> + <span class="number">2</span></span><br><span class="line">                    + <span class="string">&quot; tokens, but contained &apos;&quot;</span> + Arrays.asList(cookieTokens) + <span class="string">&quot;&apos;&quot;</span>);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> String presentedSeries = cookieTokens[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">final</span> String presentedToken = cookieTokens[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x4ECE;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x4E0A;&#x6B21;&#x4FDD;&#x5B58;&#x7684;token</span></span><br><span class="line">        PersistentRememberMeToken token = tokenRepository.getTokenForSeries(presentedSeries);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (token == <span class="keyword">null</span>) {</span><br><span class="line">            <span class="comment">// &#x67E5;&#x8BE2;&#x4E0D;&#x5230;&#x629B;&#x5F02;&#x5E38;</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RememberMeAuthenticationException(&#x2026;&#x2026;);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="comment">// token &#x4E0D;&#x5339;&#x914D;&#x629B;&#x51FA;&#x5F02;&#x5E38;</span></span><br><span class="line">        <span class="comment">// We have a match for this user/series combination</span></span><br><span class="line">        <span class="keyword">if</span> (!presentedToken.equals(token.getTokenValue())) {</span><br><span class="line">            <span class="comment">// Token doesn&apos;t match series value. Delete all logins for this user and throw</span></span><br><span class="line">            <span class="comment">// an exception to warn them.</span></span><br><span class="line">            tokenRepository.removeUserTokens(token.getUsername());</span><br><span class="line"></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> CookieTheftException(&#x2026;&#x2026;);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="comment">// &#x8FC7;&#x671F;&#x5224;&#x65AD;</span></span><br><span class="line">        <span class="keyword">if</span> (token.getDate().getTime() + getTokenValiditySeconds() * <span class="number">1000L</span> &lt; System.currentTimeMillis()) {</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RememberMeAuthenticationException(<span class="string">&quot;Remember-me login has expired&quot;</span>);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        PersistentRememberMeToken newToken = <span class="keyword">new</span> PersistentRememberMeToken(token.getUsername(), token.getSeries(), generateTokenData(), <span class="keyword">new</span> Date());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            tokenRepository.updateToken(newToken.getSeries(), newToken.getTokenValue(), newToken.getDate());</span><br><span class="line">            addCookie(newToken, request, response);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            &#x2026;&#x2026;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> getUserDetailsService().loadUserByUsername(token.getUsername());</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-07-06</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-07-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/04/12/029/">SpringBoot + Spring Security 学习笔记（四）记住我功能实现</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2019/04/12/029/" title="SpringBoot + Spring Security 学习笔记（四）记住我功能实现">https://woodwhales.github.io/2019/04/12/029/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/04/12/029/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring-Security/" rel="tag"><i class="fa fa-tag"></i> Spring Security</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/12/028/" rel="next" title="SpringBoot + Spring Security 学习笔记（三）实现图片验证码认证">
+                <i class="fa fa-chevron-left"></i> SpringBoot + Spring Security 学习笔记（三）实现图片验证码认证
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/24/030/" rel="prev" title="SpringBoot + Spring Security 学习笔记（五）实现短信验证码+登录功能">
+                SpringBoot + Spring Security 学习笔记（五）实现短信验证码+登录功能 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#记住我功能的基本原理"><span class="nav-text">记住我功能的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#记住我功能的过滤器"><span class="nav-text">记住我功能的过滤器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端页面checkbox设置"><span class="nav-text">前端页面checkbox设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置cookie存储数据库源"><span class="nav-text">配置cookie存储数据库源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码分析"><span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首次请求"><span class="nav-text">首次请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二次请求"><span class="nav-text">第二次请求</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

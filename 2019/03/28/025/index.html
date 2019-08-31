@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="Mybatis, Mybatis Plus, ORM, 数据库查询, 分页查询">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Mybatis 的升级版">
+<meta name="keywords" content="Mybatis, Mybatis Plus, ORM, 数据库查询, 分页查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis Plus 学习笔记">
+<meta property="og:url" content="https://woodwhales.github.io/2019/03/28/025/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="Mybatis 的升级版">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://mp.baomidou.com/img/logo.png">
+<meta property="og:updated_time" content="2019-07-06T03:01:41.585Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mybatis Plus 学习笔记">
+<meta name="twitter:description" content="Mybatis 的升级版">
+<meta name="twitter:image" content="https://mp.baomidou.com/img/logo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2019/03/28/025/">
+
+
+
+
+
+  <title>Mybatis Plus 学习笔记 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/03/28/025/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mybatis Plus 学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T23:28:00+08:00">
+                2019-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mybatis/" itemprop="url" rel="index">
+                    <span itemprop="name">Mybatis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/28/025/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/28/025/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/03/28/025/" class="leancloud_visitors" data-flag-title="Mybatis Plus 学习笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  3.9k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Mybatis 的升级版
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://mp.baomidou.com/img/logo.png" rel="gallery_cjzz5dvrd002ul8vg6it69p8d" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://mp.baomidou.com/img/logo.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h3 id="&#x6CE8;&#x89E3;"><a href="#&#x6CE8;&#x89E3;" class="headerlink" title="&#x6CE8;&#x89E3;"></a>&#x6CE8;&#x89E3;</h3><h4 id="TableName"><a href="#TableName" class="headerlink" title="@TableName"></a>@TableName</h4><p>&#x8868;&#x540D;&#x6CE8;&#x89E3;&#xFF0C;&#x5F53;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x8868;&#x540D;&#x548C;&#x5B9E;&#x4F53;&#x7C7B;&#x540D;&#x4E4B;&#x95F4;&#x4E0D;&#x80FD;&#x5B8C;&#x5168;&#x5339;&#x914D;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x6CE8;&#x89E3;&#x8FDB;&#x884C;&#x7ED1;&#x5B9A;&#x3002;</p>
+<p>&#x5982;&#xFF1A;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x5E93;&#x8868;&#x540D;&#x4E3A;<code>t_student</code>&#xFF0C;&#x800C;&#x5B9E;&#x4F53;&#x7C7B;&#x7684;&#x7C7B;&#x540D;&#x4E3A;&#xFF1A;<code>Student</code>&#xFF0C;&#x5219;&#x9700;&#x8981;&#x5728;&#x8BE5;&#x7C7B;&#x4E0A;&#x589E;&#x52A0;&#x6CE8;&#x89E3;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@TableName</span>(value = <span class="string">&quot;t_student&quot;</span>&#xFF09;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>{</span><br><span class="line">	<span class="keyword">private</span> Long stuId;   </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x8868;&#x524D;&#x7F00;"><a href="#&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x8868;&#x524D;&#x7F00;" class="headerlink" title="&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x8868;&#x524D;&#x7F00;"></a>&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x8868;&#x524D;&#x7F00;</h5><p>&#x5F53;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x8868;&#x540D;&#x524D;&#x6709;&#x524D;&#x7F00;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x6BCF;&#x6B21;&#x6307;&#x5B9A;<code>@TableName</code>&#x6CE8;&#x89E3;&#xFF0C;&#x5F88;&#x9EBB;&#x70E6;&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x5168;&#x5C40;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis-plus:</span> </span><br><span class="line"><span class="attr">  global-config:</span> </span><br><span class="line"><span class="attr">    db-config:</span></span><br><span class="line"><span class="attr">      table-prefix:</span> <span class="string">&quot;t_&quot;</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="TableId"><a href="#TableId" class="headerlink" title="@TableId"></a>@TableId</h4><p>&#x4E3B;&#x952E;&#x6CE8;&#x89E3;&#xFF0C;&#x5F53;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x4E3B;&#x952E;&#x548C;&#x5B9E;&#x4F53;&#x7C7B;&#x4E2D;&#x4E3B;&#x952E;&#x5C5E;&#x6027;&#x4E0D;&#x540C;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x6CE8;&#x89E3;&#x8FDB;&#x884C;&#x7ED1;&#x5B9A;&#x3002;<br>&#x5982;&#xFF1A;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E2D;&#x7684;&#x4E3B;&#x952E;&#x662F;<code>id</code>&#xFF0C;&#x800C;&#x5B9E;&#x4F53;&#x7C7B;&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x503C;&#x662F;<code>stuId</code>&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x5728;&#x5B9E;&#x4F53;&#x7C7B;&#x4E3B;&#x952E;&#x5C5E;&#x6027;&#x4E0A;&#x52A0;&#x4E0A;&#x6CE8;&#x89E3;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>{</span><br><span class="line">    <span class="meta">@TableId</span>(value = <span class="string">&quot;id&quot;</span>)</span><br><span class="line">	<span class="keyword">private</span> Long stuId;   </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="IdType"><a href="#IdType" class="headerlink" title="IdType"></a>IdType</h5><p><code>@TableId</code>&#x6CE8;&#x89E3;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x5C5E;&#x6027;&#x914D;&#x7F6E;&#x662F;&#x4E3B;&#x952E;&#x7684;&#x4E3B;&#x952E;&#x7C7B;&#x578B;&#xFF0C;&#x5177;&#x4F53;&#x53EF;&#x9009;&#x503C;&#x5982;&#x4E0B;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;&#xFF1A;<strong>IdType.NONE</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">&#x503C;</th>
+<th style="text-align:center">&#x63CF;&#x8FF0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">AUTO</td>
+<td style="text-align:center">&#x6570;&#x636E;&#x5E93;&#x81EA;&#x589E;</td>
+</tr>
+<tr>
+<td style="text-align:center">INPUT</td>
+<td style="text-align:center">&#x81EA;&#x884C;&#x8F93;&#x5165;</td>
+</tr>
+<tr>
+<td style="text-align:center">ID_WORKER</td>
+<td style="text-align:center">&#x5206;&#x5E03;&#x5F0F;&#x5168;&#x5C40;&#x552F;&#x4E00;ID &#x957F;&#x6574;&#x578B;&#x7C7B;&#x578B;</td>
+</tr>
+<tr>
+<td style="text-align:center">UUID</td>
+<td style="text-align:center">32&#x4F4D;UUID&#x5B57;&#x7B26;&#x4E32;</td>
+</tr>
+<tr>
+<td style="text-align:center">NONE</td>
+<td style="text-align:center">&#x65E0;&#x72B6;&#x6001;&#xFF08;<strong>&#x9ED8;&#x8BA4;</strong>&#xFF09;</td>
+</tr>
+<tr>
+<td style="text-align:center">ID_WORKER_STR</td>
+<td style="text-align:center">&#x5206;&#x5E03;&#x5F0F;&#x5168;&#x5C40;&#x552F;&#x4E00;ID &#x5B57;&#x7B26;&#x4E32;&#x7C7B;&#x578B;</td>
+</tr>
+</tbody>
+</table>
+<h5 id="&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x8BBE;&#x7F6E;&#x6CE8;&#x89E3;&#x7B56;&#x7565;"><a href="#&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x8BBE;&#x7F6E;&#x6CE8;&#x89E3;&#x7B56;&#x7565;" class="headerlink" title="&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x8BBE;&#x7F6E;&#x6CE8;&#x89E3;&#x7B56;&#x7565;"></a>&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x8BBE;&#x7F6E;&#x6CE8;&#x89E3;&#x7B56;&#x7565;</h5><p>&#x8BBE;&#x7F6E;&#x4E3B;&#x952E;&#x7B56;&#x7565;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#xFF1A;<strong>ID_WORKER</strong></p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis-plus:</span> </span><br><span class="line"><span class="attr">  global-config:</span> </span><br><span class="line"><span class="attr">    db-config:</span></span><br><span class="line"><span class="attr">      id-type:</span> <span class="string">AUTO</span></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x9A7C;&#x5CF0;&#x529F;&#x80FD;"><a href="#&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x9A7C;&#x5CF0;&#x529F;&#x80FD;" class="headerlink" title="&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x9A7C;&#x5CF0;&#x529F;&#x80FD;"></a>&#x5168;&#x5C40;&#x8BBE;&#x7F6E;&#x9A7C;&#x5CF0;&#x529F;&#x80FD;</h5><p>mybatisPlus &#x6709;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x7684;&#x914D;&#x7F6E;&#x7B56;&#x7565;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E2D;&#x7684;&#x5217;&#x540D;&#x5B57;&#x6BB5;&#x662F;&#x4E0B;&#x5212;&#x7EBF;&#x5206;&#x5272;&#xFF0C;&#x81EA;&#x52A8;&#x5BF9;&#x5E94;&#x5B9E;&#x4F53;&#x7C7B;&#x4E2D;&#x9A7C;&#x5CF0;&#x540D;&#xFF1A;</p>
+<p>&#x5982;&#xFF1A;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;<code>stu_address</code>&#x5B57;&#x6BB5;&#x4E0E;&#x5B9E;&#x4F53;&#x7C7B;&#x4E2D;&#x7684;<code>stuAddress</code>&#x5C5E;&#x6027;&#x5B57;&#x6BB5;&#x76F8;&#x5BF9;&#x5E94;&#x3002;</p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis-plus:</span> </span><br><span class="line"><span class="attr">  global-config:</span></span><br><span class="line"><span class="attr">    db-config:</span></span><br><span class="line"><span class="attr">      table-underline:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment"># &#x8868;&#x540D;&#x3001;&#x662F;&#x5426;&#x4F7F;&#x7528;&#x4E0B;&#x5212;&#x7EBF;&#x547D;&#x540D;&#xFF08;&#x9ED8;&#x8BA4; true:&#x9ED8;&#x8BA4;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E0B;&#x5212;&#x7EBF;&#x547D;&#x540D;&#xFF09;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5728; Springboot &#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8BBE;&#x7F6E;<code>map-underscore-to-camel-case</code>&#x5C5E;&#x6027;&#x4E3A; true &#x6765;&#x5F00;&#x542F;&#x9A7C;&#x5CF0;&#x529F;&#x80FD;&#x3002;&#x56E0;&#x6B64; mybatisPlus &#x4E5F;&#x7EE7;&#x627F;&#x4E86;&#x8FD9;&#x79CD;&#x914D;&#x7F6E;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A; <strong>true</strong>&#xFF1A;</p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis-plus:</span> </span><br><span class="line"><span class="attr">  configuration:</span></span><br><span class="line"><span class="attr">    map-underscore-to-camel-case:</span> <span class="literal">true</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="TableField"><a href="#TableField" class="headerlink" title="@TableField"></a>@TableField</h4><h6 id="value"><a href="#value" class="headerlink" title="value"></a>value</h6><p>&#x5F53;&#x663E;&#x793A;&#x914D;&#x7F6E;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5219;&#x6309;&#x8BBE;&#x7F6E;&#x7684;&#x503C;&#x4E3A;&#x51C6;&#x3002;</p>
+<h6 id="exist"><a href="#exist" class="headerlink" title="exist"></a>exist</h6><p>&#x6807;&#x8BC6;&#x8BE5;&#x5B57;&#x6BB5;&#x662F;&#x6570;&#x636E;&#x5E93;&#x8868;&#x5B57;&#x6BB5;&#xFF0C;&#x5F53;&#x5B9E;&#x4F53;&#x7C7B;&#x4E2D;&#x6709;&#x5C5E;&#x6027;&#x5B57;&#x6BB5;&#x4E0D;&#x5728;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E2D;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x5728;&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;&#x65F6;&#x5FFD;&#x7565;&#x8FD9;&#x4E9B;&#x5B57;&#x6BB5;&#xFF0C;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;<code>exist=false</code>&#x5C5E;&#x6027;&#x914D;&#x7F6E;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x914D;&#x7F6E;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;&#xFF1A;<strong>true</strong></p>
+<h3 id="BaseMapper"><a href="#BaseMapper" class="headerlink" title="BaseMapper"></a>BaseMapper</h3><p>BaseMapper &#x63A5;&#x53E3;&#x662F;&#x4E13;&#x95E8;&#x7528;&#x6765;&#x8FDB;&#x884C;&#x901A;&#x7528;&#x589E;&#x5220;&#x6539;&#x67E5;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x901A;&#x8FC7;&#x6307;&#x5B9A;&#x6CDB;&#x578B;&#x53EF;&#x4EE5;&#x5BF9;&#x6570;&#x636E;&#x5B9E;&#x4F53;&#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x901A;&#x7528;&#x7684;CIUD&#x64CD;&#x4F5C;&#xFF0C;&#x5927;&#x81F4;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x56DB;&#x7C7B;&#xFF1A;</p>
+<h4 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h4><p><code>int insert(T entity)</code></p>
+<p>insert &#x65B9;&#x6CD5;&#x4F1A;&#x5C06;&#x5B9E;&#x4F53;&#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#x975E;&#x7A7A;&#x5C5E;&#x6027;&#x503C;&#x6620;&#x5C04;&#x5230;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x8FDB;&#x884C;&#x63D2;&#x5165;&#x64CD;&#x4F5C;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x6709;&#x591A;&#x5C11;&#x975E;&#x7A7A;&#x5C5E;&#x6027;&#xFF0C;&#x6267;&#x884C;&#x7684;SQL&#x8BED;&#x53E5;&#x4E2D;&#x624D;&#x63D2;&#x5165;&#x591A;&#x5C11;&#xFF0C;&#x548C; mybatis &#x4E2D;&#x7684; insertSeletive &#x4E00;&#x6837;&#xFF0C;&#x6709;&#x503C;&#x624D;&#x64CD;&#x4F5C;&#x3002;</p>
+<p><strong>&#x4EAE;&#x70B9;</strong>&#xFF1A;</p>
+<p>&#x63D2;&#x5165;&#x6210;&#x529F;&#x9ED8;&#x8BA4;&#x8FD4;&#x56DE;&#x4E3B;&#x952E;&#xFF0C;mybatis Plus &#x63D2;&#x5165;&#x6570;&#x636E;&#x4E4B;&#x540E;&#xFF0C;&#x5B9E;&#x4F53;&#x7C7B;&#x4E2D;&#x7684;&#x4E3B;&#x952E;&#x4F1A;&#x8FD4;&#x56DE;&#x7ED9;&#x5B9E;&#x4F53;&#x7C7B;&#xFF0C;&#x76F8;&#x6BD4; mybatis &#x539F;&#x751F;&#x7684;&#x9ED8;&#x8BA4;&#x4E0D;&#x8FD4;&#x56DE;&#x8981;&#x5F88;&#x591A;&#x7E41;&#x7410;&#x7684;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;insert&quot;</span> <span class="attr">useGeneratedKeys</span>=<span class="string">&quot;true&quot;</span> <span class="attr">keyProperty</span>=<span class="string">&quot;stuId&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;org.woodwhales.king.Student&quot;</span>&gt;</span></span><br><span class="line">    insert into student(userName, password, comment)</span><br><span class="line">    values(#{userName}, #{password}, #{comment})</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5176;&#x4E2D;&#xFF1A;<code>keyProperty</code>&#x4E2D;&#x914D;&#x7F6E;&#x7684;&#x662F;&#x5B9E;&#x4F53;&#x7C7B;&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x5B57;&#x6BB5;&#xFF0C;&#x7528;&#x6765;&#x63A5;&#x6536;&#x6570;&#x636E;&#x5E93;&#x8868;&#x8FD4;&#x56DE;&#x7684;&#x4E3B;&#x952E;&#x503C;&#x3002;</p>
+<h4 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h4><h5 id="&#x6839;&#x636E;&#x4E3B;&#x952E;&#x66F4;&#x65B0;"><a href="#&#x6839;&#x636E;&#x4E3B;&#x952E;&#x66F4;&#x65B0;" class="headerlink" title="&#x6839;&#x636E;&#x4E3B;&#x952E;&#x66F4;&#x65B0;"></a>&#x6839;&#x636E;&#x4E3B;&#x952E;&#x66F4;&#x65B0;</h5><p><code>int updateById(T entity)</code></p>
+<h5 id="&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x66F4;&#x65B0;"><a href="#&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x66F4;&#x65B0;" class="headerlink" title="&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x66F4;&#x65B0;"></a>&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x66F4;&#x65B0;</h5><p><code>int update(T entity, Wrapper&lt;T&gt; updateWrapper)</code></p>
+<p>&#x5982;&#xFF1A;&#x66F4;&#x65B0;&#x59D3;&#x540D;&#x4E3A;<code>Tom</code>&#x4E14;&#x5E74;&#x9F84;&#x4E3A; 28 &#x7684;&#x5B66;&#x751F;&#x6570;&#x636E;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">LambdaQueryWrapper&lt;Student&gt; lambdaQueryWrapper = <span class="keyword">new</span> QueryWrapper&lt;Student&gt;().lambda()</span><br><span class="line">                                                            .eq(Student::getName, <span class="string">&quot;Tom&quot;</span>)</span><br><span class="line">                                                            .eq(Student::getAge, <span class="number">28</span>);</span><br><span class="line">    	</span><br><span class="line">    	Student student = Student.builder()</span><br><span class="line">            .name(<span class="string">&quot;woodwhales&quot;</span>)</span><br><span class="line">            .age(<span class="number">20</span>)</span><br><span class="line">            .email(<span class="string">&quot;woodwhales@woodwhales.com&quot;</span>).build();</span><br><span class="line">        <span class="keyword">int</span> row = studentMapper.update(student, lambdaQueryWrapper);</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>SQL&#x811A;&#x672C;&#x6267;&#x884C;&#x65E5;&#x5FD7;</strong>&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">==&gt; Preparing: UPDATE student SET name=?, age=?, email=? WHERE name = ? AND age = ? </span><br><span class="line">==&gt; Parameters: woodwhales(String), 20(Integer), woodwhales@woodwhales.com(String), Tom(String), 28(Integer)</span><br><span class="line">&lt;== Updates: 1</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Select"><a href="#Select" class="headerlink" title="Select"></a>Select</h4><h4 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h4><h3 id="&#x6761;&#x4EF6;&#x6784;&#x9020;&#x5668;"><a href="#&#x6761;&#x4EF6;&#x6784;&#x9020;&#x5668;" class="headerlink" title="&#x6761;&#x4EF6;&#x6784;&#x9020;&#x5668;"></a>&#x6761;&#x4EF6;&#x6784;&#x9020;&#x5668;</h3><p>EntityWapper</p>
+<p>&#x6CE8;&#x610F;&#xFF1A;&#x6761;&#x4EF6;&#x6784;&#x9020;&#x5668;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x6570;&#x636E;&#x5217;&#x540D;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5B9E;&#x4F53;&#x7C7B;&#x5BF9;&#x8C61;&#x5C5E;&#x6027;&#x3002;</p>
+<h4 id="&#x5206;&#x9875;&#x67E5;&#x8BE2;&#xFF08;&#x5E26;&#x6761;&#x4EF6;&#xFF09;"><a href="#&#x5206;&#x9875;&#x67E5;&#x8BE2;&#xFF08;&#x5E26;&#x6761;&#x4EF6;&#xFF09;" class="headerlink" title="&#x5206;&#x9875;&#x67E5;&#x8BE2;&#xFF08;&#x5E26;&#x6761;&#x4EF6;&#xFF09;"></a>&#x5206;&#x9875;&#x67E5;&#x8BE2;&#xFF08;&#x5E26;&#x6761;&#x4EF6;&#xFF09;</h4><p>&#x5BF9;&#x4E8E;&#x6761;&#x4EF6;&#x6784;&#x9020;&#x5668;&#x7684;&#x7F16;&#x5199;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6700;&#x539F;&#x59CB;&#x5199;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">QueryWrapper&lt;User&gt; queryWrapper = <span class="keyword">new</span> QueryWrapper&lt;User&gt;();</span><br><span class="line">    queryWrapper.eq(&#x201C;stu_name&#x201D;, <span class="string">&quot;Tom&quot;</span>);</span><br><span class="line">    queryWrapper.like(<span class="string">&quot;email&quot;</span>, <span class="string">&quot;woodwhale&quot;</span>);</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>QueryWrapper&lt;User&gt;().lambda()</code>&#x8FD9;&#x6837;&#x7C7B;&#x4F3C;&#x4E8E; JDK1.8 &#x7684;<code>lambda&#x8868;&#x8FBE;&#x5F0F;</code>&#x7F16;&#x5199;&#x6761;&#x4EF6;&#x6784;&#x9020;&#x5668;&#xFF0C;&#x4E0B;&#x6587;&#x4E2D;&#x5747;&#x91C7;&#x7528;&#x6B64;&#x5199;&#x6CD5;&#x3002;</p>
+<p>&#x4F8B;&#xFF1A;&#x67E5;&#x8BE2;&#x6570;&#x636E;&#x5E93;&#x4E2D; student &#x8868;&#xFF08;<code>Student</code> &#x5B9E;&#x4F53;&#x7C7B;&#xFF09;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x59D3;&#x540D;&#x4E3A;<code>Tom</code>&#x4E14;&#x5E74;&#x9F84;&#x5728;10-20 &#x5C81;&#x4E4B;&#x95F4;&#x7684;&#x5206;&#x9875;&#x6570;&#x636E;&#xFF0C;&#x5F53;&#x524D;&#x9875;&#x4E3A; 1&#xFF0C;&#x6BCF;&#x9875;&#x663E;&#x793A;&#x6570;&#x4E3A; 2</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">IPage&lt;Student&gt; pager = studentMapper.selectPage(<span class="keyword">new</span> Page&lt;Student&gt;(<span class="number">1</span>, <span class="number">2</span>), </span><br><span class="line">        		<span class="keyword">new</span> QueryWrapper&lt;User&gt;().lambda()</span><br><span class="line">				.eq(Student::getName, <span class="string">&quot;Tom&quot;</span>)</span><br><span class="line">				.between(Student::getAge, <span class="number">10</span>, <span class="number">20</span>));</span><br><span class="line">				</span><br><span class="line">	List&lt;Student&gt; studentList = pager.getRecords();</span><br><span class="line">	studentList.forEach(System.out::println);</span><br><span class="line">	System.out.println(<span class="string">&quot;total: &quot;</span> + pager.getTotal());</span><br><span class="line">    System.out.println(<span class="string">&quot;pages: &quot;</span> + pager.getPages());</span><br><span class="line">    System.out.println(<span class="string">&quot;size: &quot;</span> + pager.getSize());</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>SQL&#x811A;&#x672C;&#x6267;&#x884C;&#x65E5;&#x5FD7;</strong>&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">==&gt; Preparing: SELECT id,name,age,email FROM student WHERE name = ? AND age BETWEEN ? AND ? LIMIT ?,? </span><br><span class="line">==&gt; Parameters: Tom(String), 10(Integer), 20(Integer), 0(Long), 1(Long)</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x6CE8;&#x610F;</strong>&#xFF1A;&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x67E5;&#x8BE2;&#x51FA;&#x6765;&#x7684;&#x5BF9;&#x8C61;<code>pager</code>&#x4E2D;&#x7684;<code>total</code>&#x548C;<code>pages</code>&#x603B;&#x662F;&#x4E3A; 0 &#xFF0C;&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#xFF1A;&#x7F16;&#x5199;&#x4E00;&#x4E2A;&#x914D;&#x7F6E;&#x7C7B;&#xFF0C;&#x81EA;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x5206;&#x9875;&#x63D2;&#x4EF6;<code>PaginationInterceptor</code>&#x914D;&#x7F6E;&#x5230; spring &#x4E2D;&#x5373;&#x53EF;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.annotation.DbType;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>{</span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PaginationInterceptor <span class="title">paginationInterceptor</span><span class="params">()</span> </span>{</span><br><span class="line">        PaginationInterceptor page = <span class="keyword">new</span> PaginationInterceptor();</span><br><span class="line">        page.setDialectType(DbType.MYSQL.getDb()); <span class="comment">// &#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x65B9;&#x8A00;</span></span><br><span class="line">        <span class="keyword">return</span> page;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;&#x4E2D;&#xFF1A;&#x53EA;&#x9700;&#x8981;&#x8FD4;&#x56DE;<code>new PaginationInterceptor()</code>&#x5373;&#x53EF;&#x4F7F;&#x5F97;<code>selectPage</code>&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x4E2D;&#x6709;&#x6570;&#x636E;&#x603B;&#x8BB0;&#x5F55;&#x6570;&#x3002;</p>
+<h4 id="&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x67E5;&#x8BE2;-&#x5E76;&#x4E14;"><a href="#&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x67E5;&#x8BE2;-&#x5E76;&#x4E14;" class="headerlink" title="&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x67E5;&#x8BE2;-&#x5E76;&#x4E14;"></a>&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x67E5;&#x8BE2;-&#x5E76;&#x4E14;</h4><p>&#x67E5;&#x8BE2;&#x6570;&#x636E;&#x5E93;&#x4E2D; student &#x8868;&#xFF08;<code>Student</code> &#x5B9E;&#x4F53;&#x7C7B;&#xFF09;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x90AE;&#x7BB1;&#x540D;&#x5B57;&#x542B;&#x6709;<code>woodwhale</code>&#x4E14;&#x5E74;&#x9F84;&#x5728;10-20 &#x5C81;&#x4E4B;&#x95F4;&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Student&gt; studentList = studentMapper.selectList(<span class="keyword">new</span> QueryWrapper&lt;Student&gt;()</span><br><span class="line">							.lambda()</span><br><span class="line">							.like(Student::getEmail, <span class="string">&quot;woodwhale&quot;</span>)</span><br><span class="line">							.between(Student::getAge, <span class="number">10</span>, <span class="number">20</span>));</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>SQL&#x811A;&#x672C;&#x6267;&#x884C;&#x65E5;&#x5FD7;</strong>&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">==&gt; Preparing: SELECT id,name,age,email FROM student WHERE email LIKE ? AND age BETWEEN ? AND ? </span><br><span class="line">==&gt; Parameters: %woodwhale%(String), 10(Integer), 20(Integer)</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x67E5;&#x8BE2;-&#x6216;&#x8005;"><a href="#&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x67E5;&#x8BE2;-&#x6216;&#x8005;" class="headerlink" title="&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x67E5;&#x8BE2;-&#x6216;&#x8005;"></a>&#x5E26;&#x6761;&#x4EF6;&#x7684;&#x67E5;&#x8BE2;-&#x6216;&#x8005;</h4><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IPage&lt;Student&gt; pager = studentMapper.selectPage(<span class="keyword">new</span> Page&lt;Student&gt;(<span class="number">1</span>, <span class="number">2</span>), </span><br><span class="line">													<span class="keyword">new</span> QueryWrapper&lt;Student&gt;().lambda()</span><br><span class="line">														.eq(Student::getName, <span class="string">&quot;Tom&quot;</span>)</span><br><span class="line">														.between(Student::getAge, <span class="number">10</span>, <span class="number">20</span>)</span><br><span class="line">														.or()</span><br><span class="line">														.like(Student::getEmail, <span class="string">&quot;woodwhale&quot;</span>));</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x6CE8;&#x610F;</strong>&#xFF1A;<code>or()</code>&#x4E2D;&#x53EF;&#x4EE5;&#x4F20;&#x53C2;&#x4E00;&#x4E2A;&#x5E03;&#x5C14;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x5F53;&#x6761;&#x4EF6;&#x4E3A;<code>false</code>&#x65F6;&#xFF0C;&#x6216;&#x8005;&#x4F5C;&#x7528;&#x5931;&#x6548;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x6761;&#x4EF6;&#x4F1A;&#x4E0E;&#x524D;&#x9762;&#x7684;&#x6761;&#x4EF6;&#x5F62;&#x6210;&#x5E76;&#x4E14;&#x7684;&#x5173;&#x7CFB;&#x3002;&#x5F15;&#x7528;&#x5B98;&#x65B9;&#x7684;&#x89E3;&#x91CA;&#xFF1A;</p>
+<blockquote>
+<p>&#x4E3B;&#x52A8;&#x8C03;&#x7528;<code>or</code>&#x8868;&#x793A;&#x7D27;&#x63A5;&#x7740;&#x4E0B;&#x4E00;&#x4E2A;<strong>&#x65B9;&#x6CD5;</strong>&#x4E0D;&#x662F;&#x7528;<code>and</code>&#x8FDE;&#x63A5;&#xFF01;&#xFF08;&#x4E0D;&#x8C03;&#x7528;<code>or</code>&#x5219;&#x9ED8;&#x8BA4;&#x4E3A;&#x4F7F;&#x7528;<code>and</code>&#x8FDE;&#x63A5;&#xFF09;</p>
+</blockquote>
+<p><strong>SQL&#x811A;&#x672C;&#x6267;&#x884C;&#x65E5;&#x5FD7;</strong>&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">==&gt;  Preparing: SELECT COUNT(1) FROM student WHERE name = ? AND age BETWEEN ? AND ? OR email LIKE ? </span><br><span class="line">==&gt; Parameters: Tom(String), 10(Integer), 20(Integer), %woodwhale%(String)</span><br><span class="line">==&gt; Preparing: SELECT id,name,age,email FROM student WHERE name = ? AND age BETWEEN ? AND ? OR email LIKE ? limit ? </span><br><span class="line">==&gt; Parameters: Tom(String), 10(Integer), 20(Integer), %woodwhale%(String), 1(Long)</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x6392;&#x5E8F;"><a href="#&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x6392;&#x5E8F;" class="headerlink" title="&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x6392;&#x5E8F;"></a>&#x67E5;&#x8BE2;&#x7ED3;&#x679C;&#x6392;&#x5E8F;</h4><p><code>orderBy(boolean condition, boolean isAsc, R... columns)</code></p>
+<p>&#x5BF9;&#x67E5;&#x8BE2;&#x7684;&#x7ED3;&#x679C;&#x8FDB;&#x884C;&#x964D;&#x5E8F;&#x6392;&#x5217;&#xFF08;<code>isAsc</code> &#x8BBE;&#x7F6E;&#x6210;&#x4E86;<code>false</code>&#xFF09;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Student&gt; studentList = userMapper.selectList(Wrappers.&lt;Student&gt;query().orderBy(<span class="keyword">true</span>, <span class="keyword">false</span>, <span class="string">&quot;age&quot;</span>));</span><br><span class="line">studentList.forEach(System.out::println);</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>SQL &#x811A;&#x672C;&#x6267;&#x884C;&#x65E5;&#x5FD7;</strong>&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">==&gt; Preparing: SELECT id,name,age,email FROM student ORDER BY age DESC </span><br><span class="line">==&gt; Parameters: </span><br><span class="line">&lt;== Total: 8</span><br></pre></td></tr></tbody></table></figure>
+<p>mybatis Plus &#x63D0;&#x4F9B;&#x4E86;&#x66F4;&#x52A0;&#x4FBF;&#x6377;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<p>&#x964D;&#x5E8F;&#x6392;&#x5E8F;</p>
+<p><code>orderByDesc(R column)</code></p>
+<p><code>orderByDesc(R... columns)</code></p>
+<p><code>orderByDesc(boolean condition, R... columns)</code></p>
+<p>&#x5347;&#x5E8F;&#x6392;&#x5E8F;</p>
+<p><code>orderByAsc(R column)</code></p>
+<p><code>orderByAsc(R... columns)</code></p>
+<p><code>orderByAsc(boolean condition, R... columns)</code></p>
+<h3 id="&#x9886;&#x57DF;&#x6A21;&#x5F0F;"><a href="#&#x9886;&#x57DF;&#x6A21;&#x5F0F;" class="headerlink" title="&#x9886;&#x57DF;&#x6A21;&#x5F0F;"></a>&#x9886;&#x57DF;&#x6A21;&#x5F0F;</h3><p><code>ActiveRecord</code></p>
+<p>&#x5FC5;&#x987B;&#x5B58;&#x5728;&#x5BF9;&#x5E94;&#x7684;<code>&#x539F;&#x59CB;mapper</code>&#x5E76;&#x7EE7;&#x627F;<code>baseMapper</code>&#x5E76;&#x4E14;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7684;&#x524D;&#x63D0;&#x4E0B;&#xFF0C;&#x624D;&#x80FD;&#x4F7F;&#x7528;&#x6B64; AR &#x6A21;&#x5F0F;&#x3002;</p>
+<h4 id="&#x4F7F;&#x7528;&#x65B9;&#x6CD5;"><a href="#&#x4F7F;&#x7528;&#x65B9;&#x6CD5;" class="headerlink" title="&#x4F7F;&#x7528;&#x65B9;&#x6CD5;"></a>&#x4F7F;&#x7528;&#x65B9;&#x6CD5;</h4><p>&#x5B9E;&#x4F53;&#x7C7B;&#x5BF9;&#x8C61;&#x7EE7;&#x627F; <code>Model</code>&#x62BD;&#x8C61;&#x7C7B;&#x5373;&#x53EF;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;<span class="title">Student</span>&gt;</span>{</span><br><span class="line">	<span class="meta">@TableId</span>(type=IdType.AUTO)</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5BF9;&#x6570;&#x636E;&#x7684;&#x589E;&#x5220;&#x6539;&#x67E5;&#x64CD;&#x4F5C;&#xFF0C;&#x76F4;&#x63A5;&#x64CD;&#x4F5C;&#x81EA;&#x5DF1;&#x5373;&#x53EF;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Student student = Student.builder().id(<span class="keyword">null</span>).name(<span class="string">&quot;adc&quot;</span>).age(<span class="number">20</span>).email(<span class="string">&quot;ss@q.com&quot;</span>).build();</span><br><span class="line"><span class="keyword">boolean</span> insert = student.insert();</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x6761;&#x4EF6;&#x67E5;&#x8BE2;"><a href="#&#x6761;&#x4EF6;&#x67E5;&#x8BE2;" class="headerlink" title="&#x6761;&#x4EF6;&#x67E5;&#x8BE2;"></a>&#x6761;&#x4EF6;&#x67E5;&#x8BE2;</h4><p>&#x9886;&#x57DF;&#x6A21;&#x5F0F;&#x4E0B;&#x67E5;&#x8BE2;&#x4E3B;&#x952E;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x6709;&#x53C2;&#x6570;&#x4F20;&#x5165;&#x65F6;&#x4EE5;&#x4F20;&#x5165;&#x4E3A;&#x51C6;&#xFF0C;&#x65E0;&#x53C2;&#x6570;&#x65F6;&#x4EE5;&#x5BF9;&#x8C61;&#x4E3A;&#x51C6;&#x3002;&#x5F53;&#x5BF9;&#x8C61;&#x6CA1;&#x6709;&#x4E3B;&#x952E;&#x65F6;&#xFF0C;&#x4F1A;&#x62A5;<code>com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: selectById primaryKey is null.</code>&#x5F02;&#x5E38;&#xFF0C;&#x5220;&#x9664;&#x4E3B;&#x952E;&#x7684;&#x65B9;&#x6CD5;&#x540C;&#x7406;&#xFF0C;&#x53E6;&#x5916;&#x5220;&#x9664;&#x903B;&#x8F91;&#x4E0A;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x6570;&#x636E;&#x4E5F;&#x662F;&#x8FD4;&#x56DE;&#x6210;&#x529F;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Student student = Student.builder().id(<span class="number">5L</span>).build();</span><br><span class="line">Student result = student.selectById(<span class="number">6L</span>);</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>SQL&#x811A;&#x672C;&#x6267;&#x884C;&#x65E5;&#x5FD7;</strong>&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">==&gt; Preparing: SELECT id,name,age,email FROM student WHERE id=? </span><br><span class="line">==&gt; Parameters: 6(Long)</span><br><span class="line">&lt;== Total: 1</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x5206;&#x9875;&#x67E5;&#x8BE2;"><a href="#&#x5206;&#x9875;&#x67E5;&#x8BE2;" class="headerlink" title="&#x5206;&#x9875;&#x67E5;&#x8BE2;"></a>&#x5206;&#x9875;&#x67E5;&#x8BE2;</h4><p>&#x5206;&#x9875;&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x636E;&#x5BF9;&#x8C61;&#x662F;<code>IPage</code>&#xFF0C;&#x4ECE;<code>IPage</code>&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x76F8;&#x5E94;&#x7684;&#x603B;&#x8BB0;&#x5F55;&#x6570;&#xFF0C;&#x8BB0;&#x5F55;&#xFF0C;&#x5F53;&#x524D;&#x9875;&#xFF0C;&#x6BCF;&#x9875;&#x6570;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">IPage&lt;T&gt; <span class="title">selectPage</span><span class="params">(IPage&lt;T&gt; page, Wrapper&lt;T&gt; queryWrapper)</span></span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;"><a href="#&#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;" class="headerlink" title="&#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;"></a>&#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;</h3><p>AutoGenerator &#x662F; MyBatis-Plus &#x7684;&#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;&#xFF0C;MyBatis-Plus &#x7684;&#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;&#x6BD4; Mybatis &#x539F;&#x751F;&#x7684;&#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;&#x5F3A;&#x5927;&#x7684;&#x5730;&#x65B9;&#x5728;&#x4E8E;&#xFF0C;&#x80FD;&#x591F;&#x5FEB;&#x901F;&#x751F;&#x6210;&#x901A;&#x8FC7; AutoGenerator &#x53EF;&#x4EE5;&#x5FEB;&#x901F;&#x751F;&#x6210; Entity&#x3001;Mapper&#x3001;Mapper XML&#x3001;Service&#x3001;Controller &#x7B49;&#x5404;&#x4E2A;&#x6A21;&#x5757;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x6781;&#x5927;&#x7684;&#x63D0;&#x5347;&#x4E86;&#x5F00;&#x53D1;&#x6548;&#x7387;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;&#x4E2D;&#x5F00;&#x542F;&#x4E86;<code>lombok</code>&#xFF0C;<code>sprigboot-web</code>&#xFF0C;<code>swagger2</code>&#xFF0C;<code>freemarker</code>&#xFF0C;&#x56E0;&#x6B64;&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- lombok  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- spring-boot-web  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- mybatis-plus  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- druid  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- mybatis-plus-generator  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-generator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- freemarker  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-freemarker<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- swagger2  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- swagger-ui  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x6700;&#x4F73;&#x5B9E;&#x8DF5;"><a href="#&#x6700;&#x4F73;&#x5B9E;&#x8DF5;" class="headerlink" title="&#x6700;&#x4F73;&#x5B9E;&#x8DF5;"></a>&#x6700;&#x4F73;&#x5B9E;&#x8DF5;</h4><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.annotation.DbType;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.annotation.IdType;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.core.toolkit.StringPool;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.AutoGenerator;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.InjectionConfig;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.DataSourceConfig;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.FileOutConfig;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.GlobalConfig;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.PackageConfig;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.StrategyConfig;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.TemplateConfig;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.po.TableInfo;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Generator</span> </span>{</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">		<span class="comment">// &#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;</span></span><br><span class="line">		AutoGenerator mpg = <span class="keyword">new</span> AutoGenerator();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// &#x5168;&#x5C40;&#x914D;&#x7F6E;</span></span><br><span class="line">		GlobalConfig gc = <span class="keyword">new</span> GlobalConfig();</span><br><span class="line">		String projectPath = System.getProperty(<span class="string">&quot;user.dir&quot;</span>);</span><br><span class="line">		gc.setActiveRecord(<span class="keyword">true</span>); <span class="comment">// &#x5F00;&#x542F;&#x9886;&#x57DF;&#x6A21;&#x5F0F;</span></span><br><span class="line">		gc.setIdType(IdType.AUTO);</span><br><span class="line">		gc.setServiceName(<span class="string">&quot;%sService&quot;</span>); <span class="comment">// &#x5404;&#x5C42;&#x6587;&#x4EF6;&#x540D;&#x79F0;&#x65B9;&#x5F0F;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A; %sAction &#x751F;&#x6210; UserAction</span></span><br><span class="line">		gc.setOutputDir(projectPath + <span class="string">&quot;/src/main/java&quot;</span>); <span class="comment">// &#x751F;&#x6210;&#x6587;&#x4EF6;&#x7684;&#x8F93;&#x51FA;&#x76EE;&#x5F55;&#x3010;&#x9ED8;&#x8BA4; D &#x76D8;&#x6839;&#x76EE;&#x5F55;&#x3011;</span></span><br><span class="line">		gc.setAuthor(<span class="string">&quot;woodwhales&quot;</span>); <span class="comment">// [&#x5F00;&#x53D1;&#x8005;]</span></span><br><span class="line">		gc.setFileOverride(<span class="keyword">true</span>); <span class="comment">// &#x5F00;&#x542F;&#x6587;&#x4EF6;&#x8986;&#x76D6;</span></span><br><span class="line">		gc.setOpen(<span class="keyword">false</span>); <span class="comment">// &#x662F;&#x5426;&#x6253;&#x5F00;&#x8F93;&#x51FA;&#x76EE;&#x5F55;</span></span><br><span class="line">		gc.setSwagger2(<span class="keyword">true</span>); <span class="comment">// &#x5F00;&#x542F; swagger2 &#x6A21;&#x5F0F;</span></span><br><span class="line">		gc.setBaseResultMap(<span class="keyword">true</span>); <span class="comment">// &#x5F00;&#x542F; BaseResultMap</span></span><br><span class="line">		gc.setBaseColumnList(<span class="keyword">true</span>); <span class="comment">// &#x5F00;&#x542F; baseColumnList</span></span><br><span class="line">		mpg.setGlobalConfig(gc);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// &#x6570;&#x636E;&#x6E90;&#x914D;&#x7F6E;</span></span><br><span class="line">		DataSourceConfig dsc = <span class="keyword">new</span> DataSourceConfig();</span><br><span class="line">		dsc.setUrl(<span class="string">&quot;jdbc:mysql://localhost:3306/mytest?useUnicode=true&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&quot;</span>);</span><br><span class="line">		dsc.setDriverName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>); <span class="comment">// &#x6CE8;&#x610F;&#xFF1A;mysql 5.7 &#x4E4B;&#x540E;&#x7684;&#x9A71;&#x52A8;&#x662F;com.mysql.cj.jdbc.Driver</span></span><br><span class="line">		dsc.setDbType(DbType.MYSQL);</span><br><span class="line">		dsc.setUsername(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">		dsc.setPassword(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">		mpg.setDataSource(dsc);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// &#x5305;&#x914D;&#x7F6E;</span></span><br><span class="line">		PackageConfig pc = <span class="keyword">new</span> PackageConfig();</span><br><span class="line">		pc.setParent(<span class="string">&quot;org.woodwahles&quot;</span>); <span class="comment">// [&#x5B9E;&#x4F53;&#x7C7B;&#x6240;&#x5728;&#x6A21;&#x5757;&#x7684;&#x7236;&#x6A21;&#x5757;&#x540D;]</span></span><br><span class="line">		pc.setModuleName(<span class="string">&quot;king&quot;</span>); <span class="comment">// [&#x5B9E;&#x4F53;&#x7C7B;&#x6240;&#x5728;&#x6A21;&#x5757;&#x540D;]</span></span><br><span class="line">		pc.setXml(<span class="string">&quot;mapper&quot;</span>); <span class="comment">// &#x9ED8;&#x8BA4;&#x5305;&#x540D;&#xFF1A;mapper.xml</span></span><br><span class="line">		mpg.setPackageInfo(pc);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// &#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;</span></span><br><span class="line">		InjectionConfig cfg = <span class="keyword">new</span> InjectionConfig() {</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initMap</span><span class="params">()</span> </span>{</span><br><span class="line">				<span class="comment">// to do nothing</span></span><br><span class="line">			}</span><br><span class="line">		};</span><br><span class="line">		List&lt;FileOutConfig&gt; focList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">		focList.add(<span class="keyword">new</span> FileOutConfig(<span class="string">&quot;/templates/mapper.xml.ftl&quot;</span>) {</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> String <span class="title">outputFile</span><span class="params">(TableInfo tableInfo)</span> </span>{</span><br><span class="line">				<span class="comment">// &#x81EA;&#x5B9A;&#x4E49;mapper&#x6587;&#x4EF6;&#x540D;&#x79F0;</span></span><br><span class="line">				<span class="keyword">return</span> projectPath + <span class="string">&quot;/src/main/resources/mapper/&quot;</span> + pc.getModuleName() + <span class="string">&quot;/&quot;</span></span><br><span class="line">						+ tableInfo.getEntityName() + <span class="string">&quot;Mapper&quot;</span> + StringPool.DOT_XML;</span><br><span class="line">			}</span><br><span class="line"></span><br><span class="line">		});</span><br><span class="line">		cfg.setFileOutConfigList(focList);</span><br><span class="line">		mpg.setCfg(cfg);</span><br><span class="line">		mpg.setTemplate(<span class="keyword">new</span> TemplateConfig().setXml(<span class="keyword">null</span>));</span><br><span class="line"></span><br><span class="line">		<span class="comment">// &#x7B56;&#x7565;&#x914D;&#x7F6E;</span></span><br><span class="line">		StrategyConfig strategy = <span class="keyword">new</span> StrategyConfig();</span><br><span class="line">		strategy.setNaming(NamingStrategy.underline_to_camel); <span class="comment">// &#x4E0B;&#x5212;&#x7EBF;&#x8F6C;&#x9A7C;&#x5CF0;&#x547D;&#x540D;</span></span><br><span class="line">		strategy.setColumnNaming(NamingStrategy.underline_to_camel);</span><br><span class="line">		strategy.setEntityLombokModel(<span class="keyword">true</span>);</span><br><span class="line">		strategy.setInclude(<span class="string">&quot;student&quot;</span>); <span class="comment">// [&#x8868;&#x540D;]</span></span><br><span class="line">		strategy.setSuperEntityColumns(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">		strategy.setControllerMappingHyphenStyle(<span class="keyword">true</span>);</span><br><span class="line">		<span class="comment">// strategy.setTablePrefix(pc.getModuleName() + &quot;_&quot;); // &#x6570;&#x636E;&#x5E93;&#x8868;&#x540D;&#x524D;&#x7F00;</span></span><br><span class="line">		mpg.setStrategy(strategy);</span><br><span class="line">		<span class="comment">// &#x9009;&#x62E9; freemarker &#x5F15;&#x64CE;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x5982;&#x4E0B;&#x52A0;&#xFF0C;&#x6CE8;&#x610F; pom &#x4F9D;&#x8D56;&#x5FC5;&#x987B;&#x6709;&#xFF01;</span></span><br><span class="line">		mpg.setTemplateEngine(<span class="keyword">new</span> FreemarkerTemplateEngine());</span><br><span class="line">		mpg.execute();</span><br><span class="line">	}	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x751F;&#x6210;&#x7684;&#x9879;&#x76EE;&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="/2019/03/28/025/&#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;.png" alt="&#x4EE3;&#x7801;&#x751F;&#x6210;&#x5668;&#x751F;&#x6210;&#x7684;&#x9879;&#x76EE;&#x7ED3;&#x6784;"></p>
+<h3 id="&#x63D2;&#x4EF6;"><a href="#&#x63D2;&#x4EF6;" class="headerlink" title="&#x63D2;&#x4EF6;"></a>&#x63D2;&#x4EF6;</h3><h4 id="&#x653B;&#x51FB;-SQL-&#x963B;&#x65AD;&#x89E3;&#x6790;&#x5668;"><a href="#&#x653B;&#x51FB;-SQL-&#x963B;&#x65AD;&#x89E3;&#x6790;&#x5668;" class="headerlink" title="&#x653B;&#x51FB; SQL &#x963B;&#x65AD;&#x89E3;&#x6790;&#x5668;"></a>&#x653B;&#x51FB; SQL &#x963B;&#x65AD;&#x89E3;&#x6790;&#x5668;</h4><p>&#x4F5C;&#x7528;&#xFF01;&#x963B;&#x6B62;&#x6076;&#x610F;&#x7684;&#x5168;&#x8868;&#x66F4;&#x65B0;&#x5220;&#x9664;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>{</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#x5206;&#x9875;&#x63D2;&#x4EF6;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PaginationInterceptor <span class="title">paginationInterceptor</span><span class="params">()</span> </span>{</span><br><span class="line">        PaginationInterceptor page = <span class="keyword">new</span> PaginationInterceptor();</span><br><span class="line">        page.setDialectType(DbType.MYSQL.getDb()); <span class="comment">// &#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x65B9;&#x8A00;</span></span><br><span class="line">        </span><br><span class="line">        List&lt;ISqlParser&gt; sqlParserList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">// &#x653B;&#x51FB; SQL &#x963B;&#x65AD;&#x89E3;&#x6790;&#x5668;&#x3001;&#x52A0;&#x5165;&#x89E3;&#x6790;&#x94FE;</span></span><br><span class="line">        sqlParserList.add(<span class="keyword">new</span> BlockAttackSqlParser());</span><br><span class="line">        page.setSqlParserList(sqlParserList);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> page;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x6027;&#x80FD;&#x5206;&#x6790;&#x63D2;&#x4EF6;"><a href="#&#x6027;&#x80FD;&#x5206;&#x6790;&#x63D2;&#x4EF6;" class="headerlink" title="&#x6027;&#x80FD;&#x5206;&#x6790;&#x63D2;&#x4EF6;"></a>&#x6027;&#x80FD;&#x5206;&#x6790;&#x63D2;&#x4EF6;</h4><p>&#x8BE5;&#x63D2;&#x4EF6;&#x53EA;&#x7528;&#x4E8E;&#x5F00;&#x53D1;&#x73AF;&#x5883;&#xFF0C;&#x4E0D;&#x5EFA;&#x8BAE;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4F7F;&#x7528;&#x3002;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>{</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">	 *  &#x6027;&#x80FD;&#x5206;&#x6790;&#x63D2;&#x4EF6;</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Profile</span>({<span class="string">&quot;dev&quot;</span>,<span class="string">&quot;test&quot;</span>}) <span class="comment">// &#x8BBE;&#x7F6E; dev test &#x73AF;&#x5883;&#x5F00;&#x542F;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PerformanceInterceptor <span class="title">performanceInterceptor</span><span class="params">()</span> </span>{</span><br><span class="line">        PerformanceInterceptor performanceInterceptor = <span class="keyword">new</span> PerformanceInterceptor();</span><br><span class="line">        <span class="comment">// maxTime &#x6307;&#x7684;&#x662F; SQL &#x6267;&#x884C;&#x6700;&#x5927;&#x65F6;&#x957F;&#xFF0C;&#x8D85;&#x8FC7;&#x81EA;&#x52A8;&#x505C;&#x6B62;&#x8FD0;&#x884C;&#xFF0C;&#x6709;&#x52A9;&#x4E8E;&#x53D1;&#x73B0;&#x95EE;&#x9898;&#x3002;</span></span><br><span class="line">        performanceInterceptor.setMaxTime(<span class="number">100</span>);</span><br><span class="line">        <span class="comment">// SQL &#x662F;&#x5426;&#x683C;&#x5F0F;&#x5316;</span></span><br><span class="line">        performanceInterceptor.setFormat(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">return</span> performanceInterceptor;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x4E50;&#x89C2;&#x9501;&#x63D2;&#x4EF6;"><a href="#&#x4E50;&#x89C2;&#x9501;&#x63D2;&#x4EF6;" class="headerlink" title="&#x4E50;&#x89C2;&#x9501;&#x63D2;&#x4EF6;"></a>&#x4E50;&#x89C2;&#x9501;&#x63D2;&#x4EF6;</h4><p>&#x76EE;&#x7684;&#xFF1A;&#x5F53;&#x8981;&#x66F4;&#x65B0;&#x4E00;&#x6761;&#x8BB0;&#x5F55;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5E0C;&#x671B;&#x8FD9;&#x6761;&#x8BB0;&#x5F55;&#x6CA1;&#x6709;&#x88AB;&#x522B;&#x4EBA;&#x66F4;&#x65B0;</p>
+<p>&#x4E50;&#x89C2;&#x9501;&#x7684;&#x5B9E;&#x73B0;&#x601D;&#x8DEF;&#xFF1A;</p>
+<ul>
+<li>&#x53D6;&#x51FA;&#x8BB0;&#x5F55;&#x65F6;&#xFF0C;&#x83B7;&#x53D6;&#x5F53;&#x524D;<code>version</code></li>
+<li>&#x66F4;&#x65B0;&#x65F6;&#xFF0C;&#x5E26;&#x4E0A;&#x8FD9;&#x4E2A;<code>version</code></li>
+<li>&#x6267;&#x884C;&#x66F4;&#x65B0;&#x65F6;&#xFF0C; set version = newVersion where version = oldVersion</li>
+<li>&#x5982;&#x679C;<code>version</code>&#x4E0D;&#x5BF9;&#xFF0C;&#x5C31;&#x66F4;&#x65B0;&#x5931;&#x8D25;</li>
+</ul>
+<p>&#x63D2;&#x4EF6;&#x4F7F;&#x7528;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<ol>
+<li>&#x5C06;&#x63D2;&#x4EF6;&#x6CE8;&#x5165;spring &#x6846;&#x67B6;&#xFF1A;</li>
+</ol>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>{</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> OptimisticLockerInterceptor <span class="title">optimisticLockerInterceptor</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OptimisticLockerInterceptor();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<ol start="2">
+<li>&#x4F7F;&#x7528;&#x6CE8;&#x89E3;<code>@Version</code>&#x6CE8;&#x89E3;&#x5B9E;&#x4F53;&#x5B57;&#x6BB5;&#xFF08;&#x5FC5;&#x8981;&#x6B65;&#x9AA4;&#xFF09;</li>
+</ol>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Version</span></span><br><span class="line"><span class="keyword">private</span> Integer version;</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x7279;&#x522B;&#x8BF4;&#x660E;</strong>&#xFF1A;</p>
+<ul>
+<li>&#x652F;&#x6301;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x53EA;&#x6709;:<code>int</code>&#xFF0C;<code>Integer</code>&#xFF0C;<code>long</code>&#xFF0C;<code>Long</code>&#xFF0C;<code>Date</code>&#xFF0C;<code>Timestamp</code>&#xFF0C;<code>LocalDateTime</code></li>
+<li>&#x6574;&#x6570;&#x7C7B;&#x578B;&#x4E0B; <code>newVersion = oldVersion + 1</code></li>
+<li><code>newVersion</code> &#x4F1A;&#x56DE;&#x5199;&#x5230; <code>entity</code> &#x4E2D;</li>
+<li>&#x4EC5;&#x652F;&#x6301; <code>updateById(id)</code> &#x4E0E; <code>update(entity, wrapper)</code> &#x65B9;&#x6CD5;</li>
+<li>&#x5728;<code>update(entity, wrapper)</code>&#x65B9;&#x6CD5;&#x4E0B;, wrapper&#x4E0D;&#x80FD;&#x590D;&#x7528;&#xFF01;</li>
+</ul>
+<h4 id="&#x903B;&#x8F91;&#x5220;&#x9664;&#x63D2;&#x4EF6;"><a href="#&#x903B;&#x8F91;&#x5220;&#x9664;&#x63D2;&#x4EF6;" class="headerlink" title="&#x903B;&#x8F91;&#x5220;&#x9664;&#x63D2;&#x4EF6;"></a>&#x903B;&#x8F91;&#x5220;&#x9664;&#x63D2;&#x4EF6;</h4><p>&#x9996;&#x5148;&#x6307;&#x5B9A;&#x903B;&#x8F91;&#x5220;&#x9664;&#x5B57;&#x6BB5;&#x5728;&#x6570;&#x636E;&#x5E93;&#x8868;&#x4E2D;&#x7684;&#x53D6;&#x503C;&#xFF1A;</p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis-plus:</span></span><br><span class="line"><span class="attr">  global-config:</span></span><br><span class="line"><span class="attr">    db-config:</span></span><br><span class="line"><span class="attr">      logic-delete-value:</span> <span class="number">1</span> <span class="comment"># &#x903B;&#x8F91;&#x5DF2;&#x5220;&#x9664;&#x503C;(&#x9ED8;&#x8BA4;&#x4E3A; 1)</span></span><br><span class="line"><span class="attr">      logic-not-delete-value:</span> <span class="number">0</span> <span class="comment"># &#x903B;&#x8F91;&#x672A;&#x5220;&#x9664;&#x503C;(&#x9ED8;&#x8BA4;&#x4E3A; 0)</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5C06;&#x63D2;&#x4EF6;&#x6CE8;&#x5165;spring&#x4E2D;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.core.injector.ISqlInjector;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBatisPlusConfiguration</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ISqlInjector <span class="title">sqlInjector</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> LogicSqlInjector();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5B9E;&#x4F53;&#x7C7B;&#x5B57;&#x6BB5;&#x4E0A;&#x52A0;&#x4E0A;<code>@TableLogic</code>&#x6CE8;&#x89E3;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@TableLogic</span></span><br><span class="line"><span class="keyword">private</span> Integer deleted;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4F7F;&#x7528; Mybatis-Plus &#x81EA;&#x5E26;&#x65B9;&#x6CD5;&#x5220;&#x9664;&#x548C;&#x67E5;&#x627E;&#x90FD;&#x4F1A;&#x9644;&#x5E26;&#x903B;&#x8F91;&#x5220;&#x9664;&#x529F;&#x80FD;&#xFF08;&#x81EA;&#x5DF1;&#x5199;&#x7684;<code>xml</code>&#x4E0D;&#x4F1A;&#xFF09;</p>
+<h3 id="MybatisX&#x63D2;&#x4EF6;&#xFF08;IDEA&#x63D2;&#x4EF6;&#xFF09;"><a href="#MybatisX&#x63D2;&#x4EF6;&#xFF08;IDEA&#x63D2;&#x4EF6;&#xFF09;" class="headerlink" title="MybatisX&#x63D2;&#x4EF6;&#xFF08;IDEA&#x63D2;&#x4EF6;&#xFF09;"></a>MybatisX&#x63D2;&#x4EF6;&#xFF08;IDEA&#x63D2;&#x4EF6;&#xFF09;</h3><p>MybatisX &#x662F;&#x4E00;&#x6B3E;&#x57FA;&#x4E8E; IDEA &#x7684;&#x5FEB;&#x901F;&#x5F00;&#x53D1;&#x63D2;&#x4EF6;&#xFF0C;&#x4E3A;&#x6548;&#x7387;&#x800C;&#x751F;&#x3002;</p>
+<p>&#x5B89;&#x88C5;&#x65B9;&#x6CD5;&#xFF1A;&#x6253;&#x5F00; IDEA&#xFF0C;&#x8FDB;&#x5165; File -&gt; Settings -&gt; Plugins -&gt; Browse Repositories&#xFF0C;&#x8F93;&#x5165; <code>mybatisx</code> &#x641C;&#x7D22;&#x5E76;&#x5B89;&#x88C5;&#x3002;</p>
+<p>&#x63D2;&#x4EF6;&#x529F;&#x80FD;&#xFF1A;Java &#x4E0E; XML &#x8C03;&#x56DE;&#x8DF3;&#x8F6C;&#xFF0C;Mapper &#x65B9;&#x6CD5;&#x81EA;&#x52A8;&#x751F;&#x6210; XML&#x3002;</p>
+<p>&#x63D2;&#x4EF6;&#x6E90;&#x7801;&#xFF1A;<a href="https://gitee.com/baomidou/MybatisX&#x3002;" target="_blank" rel="noopener">https://gitee.com/baomidou/MybatisX&#x3002;</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-07-06</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-07-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/03/28/025/">Mybatis Plus 学习笔记</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2019/03/28/025/" title="Mybatis Plus 学习笔记">https://woodwhales.github.io/2019/03/28/025/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/03/28/025/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mybatis-Plus/" rel="tag"><i class="fa fa-tag"></i> mybatis Plus</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/06/024/" rel="next" title="swagger入门教程">
+                <i class="fa fa-chevron-left"></i> swagger入门教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/12/026/" rel="prev" title="SpringBoot + Spring Security 学习笔记（一）自定义基本使用及个性化登录配置">
+                SpringBoot + Spring Security 学习笔记（一）自定义基本使用及个性化登录配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226/" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#注解"><span class="nav-text">注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TableName"><span class="nav-text">@TableName</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#全局设置数据库表前缀"><span class="nav-text">全局设置数据库表前缀</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TableId"><span class="nav-text">@TableId</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#IdType"><span class="nav-text">IdType</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#全局设置设置注解策略"><span class="nav-text">全局设置设置注解策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#全局设置驼峰功能"><span class="nav-text">全局设置驼峰功能</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TableField"><span class="nav-text">@TableField</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#value"><span class="nav-text">value</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#exist"><span class="nav-text">exist</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#BaseMapper"><span class="nav-text">BaseMapper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Insert"><span class="nav-text">Insert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Update"><span class="nav-text">Update</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#根据主键更新"><span class="nav-text">根据主键更新</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#带条件的更新"><span class="nav-text">带条件的更新</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Select"><span class="nav-text">Select</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Delete"><span class="nav-text">Delete</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件构造器"><span class="nav-text">条件构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分页查询（带条件）"><span class="nav-text">分页查询（带条件）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#带条件的查询-并且"><span class="nav-text">带条件的查询-并且</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#带条件的查询-或者"><span class="nav-text">带条件的查询-或者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询结果排序"><span class="nav-text">查询结果排序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#领域模式"><span class="nav-text">领域模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方法"><span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件查询"><span class="nav-text">条件查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分页查询"><span class="nav-text">分页查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码生成器"><span class="nav-text">代码生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳实践"><span class="nav-text">最佳实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件"><span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击-SQL-阻断解析器"><span class="nav-text">攻击 SQL 阻断解析器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能分析插件"><span class="nav-text">性能分析插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乐观锁插件"><span class="nav-text">乐观锁插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑删除插件"><span class="nav-text">逻辑删除插件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MybatisX插件（IDEA插件）"><span class="nav-text">MybatisX插件（IDEA插件）</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

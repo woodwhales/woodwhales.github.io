@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.github.io/"/>
-  <updated>2019-05-30T13:54:22.723Z</updated>
+  <updated>2019-07-06T03:00:20.715Z</updated>
   <id>https://woodwhales.github.io/</id>
   
   <author>
@@ -15,6 +15,206 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SpringBoot + Spring Security 学习笔记（五）实现短信验证码+登录功能</title>
+    <link href="https://woodwhales.github.io/2019/04/24/030/"/>
+    <id>https://woodwhales.github.io/2019/04/24/030/</id>
+    <published>2019-04-24T13:00:00.000Z</published>
+    <updated>2019-07-06T03:00:20.715Z</updated>
+    
+    <summary type="html">
+    
+      实现短信验证码+登录功能
+    
+    </summary>
+    
+      <category term="Spring Security" scheme="https://woodwhales.github.io/categories/Spring-Security/"/>
+    
+    
+      <category term="Spring Security" scheme="https://woodwhales.github.io/tags/Spring-Security/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SpringBoot + Spring Security 学习笔记（四）记住我功能实现</title>
+    <link href="https://woodwhales.github.io/2019/04/12/029/"/>
+    <id>https://woodwhales.github.io/2019/04/12/029/</id>
+    <published>2019-04-12T13:00:00.000Z</published>
+    <updated>2019-07-06T03:00:16.008Z</updated>
+    
+    <summary type="html">
+    
+      记住我功能实现
+    
+    </summary>
+    
+      <category term="Spring Security" scheme="https://woodwhales.github.io/categories/Spring-Security/"/>
+    
+    
+      <category term="Spring Security" scheme="https://woodwhales.github.io/tags/Spring-Security/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SpringBoot + Spring Security 学习笔记（三）实现图片验证码认证</title>
+    <link href="https://woodwhales.github.io/2019/04/12/028/"/>
+    <id>https://woodwhales.github.io/2019/04/12/028/</id>
+    <published>2019-04-12T12:00:00.000Z</published>
+    <updated>2019-07-06T03:00:11.588Z</updated>
+    
+    <summary type="html">
+    
+      实现图片验证码认证
+    
+    </summary>
+    
+      <category term="Spring Security" scheme="https://woodwhales.github.io/categories/Spring-Security/"/>
+    
+    
+      <category term="Spring Security" scheme="https://woodwhales.github.io/tags/Spring-Security/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SpringBoot + Spring Security 学习笔记（二）安全认证流程源码详解</title>
+    <link href="https://woodwhales.github.io/2019/04/12/027/"/>
+    <id>https://woodwhales.github.io/2019/04/12/027/</id>
+    <published>2019-04-12T11:00:00.000Z</published>
+    <updated>2019-07-06T03:00:18.138Z</updated>
+    
+    <summary type="html">
+    
+      安全认证流程源码详解
+    
+    </summary>
+    
+      <category term="Spring Security" scheme="https://woodwhales.github.io/categories/Spring-Security/"/>
+    
+    
+      <category term="Spring Security" scheme="https://woodwhales.github.io/tags/Spring-Security/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SpringBoot + Spring Security 学习笔记（一）自定义基本使用及个性化登录配置</title>
+    <link href="https://woodwhales.github.io/2019/04/12/026/"/>
+    <id>https://woodwhales.github.io/2019/04/12/026/</id>
+    <published>2019-04-12T10:00:00.000Z</published>
+    <updated>2019-07-06T03:00:14.051Z</updated>
+    
+    <summary type="html">
+    
+      自定义基本使用及个性化登录配置
+    
+    </summary>
+    
+      <category term="Spring Security" scheme="https://woodwhales.github.io/categories/Spring-Security/"/>
+    
+    
+      <category term="Spring Security" scheme="https://woodwhales.github.io/tags/Spring-Security/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mybatis Plus 学习笔记</title>
+    <link href="https://woodwhales.github.io/2019/03/28/025/"/>
+    <id>https://woodwhales.github.io/2019/03/28/025/</id>
+    <published>2019-03-28T15:28:00.000Z</published>
+    <updated>2019-07-06T03:01:41.585Z</updated>
+    
+    <summary type="html">
+    
+      Mybatis 的升级版
+    
+    </summary>
+    
+      <category term="Mybatis" scheme="https://woodwhales.github.io/categories/Mybatis/"/>
+    
+    
+      <category term="mybatis Plus" scheme="https://woodwhales.github.io/tags/mybatis-Plus/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>swagger入门教程</title>
+    <link href="https://woodwhales.github.io/2019/03/06/024/"/>
+    <id>https://woodwhales.github.io/2019/03/06/024/</id>
+    <published>2019-03-06T13:30:00.000Z</published>
+    <updated>2019-05-30T14:00:45.302Z</updated>
+    
+    <summary type="html">
+    
+      快速生成 Restful API 文档
+    
+    </summary>
+    
+      <category term="Java" scheme="https://woodwhales.github.io/categories/Java/"/>
+    
+    
+      <category term="swagger" scheme="https://woodwhales.github.io/tags/swagger/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java高并发编程 | 学习笔记（二）</title>
+    <link href="https://woodwhales.github.io/2019/02/14/023/"/>
+    <id>https://woodwhales.github.io/2019/02/14/023/</id>
+    <published>2019-02-14T13:30:00.000Z</published>
+    <updated>2019-05-30T14:11:21.847Z</updated>
+    
+    <summary type="html">
+    
+      高并发编程，从基础到入门
+    
+    </summary>
+    
+      <category term="Java" scheme="https://woodwhales.github.io/categories/Java/"/>
+    
+    
+      <category term="并发编程" scheme="https://woodwhales.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java高并发编程 | 学习笔记（一）</title>
+    <link href="https://woodwhales.github.io/2019/01/28/022/"/>
+    <id>https://woodwhales.github.io/2019/01/28/022/</id>
+    <published>2019-01-28T14:30:00.000Z</published>
+    <updated>2019-07-06T03:02:45.436Z</updated>
+    
+    <summary type="html">
+    
+      高并发编程，从基础到入门
+    
+    </summary>
+    
+      <category term="并发编程" scheme="https://woodwhales.github.io/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="并发编程" scheme="https://woodwhales.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Restful API 最佳实践</title>
+    <link href="https://woodwhales.github.io/2019/01/27/021/"/>
+    <id>https://woodwhales.github.io/2019/01/27/021/</id>
+    <published>2019-01-27T05:44:00.000Z</published>
+    <updated>2019-05-30T13:54:43.966Z</updated>
+    
+    <summary type="html">
+    
+      前后端常用的接口规范
+    
+    </summary>
+    
+      <category term="软件架构" scheme="https://woodwhales.github.io/categories/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84/"/>
+    
+    
+      <category term="Restful" scheme="https://woodwhales.github.io/tags/Restful/"/>
+    
+  </entry>
   
   <entry>
     <title>领域驱动设计中国峰会2018</title>
@@ -215,208 +415,6 @@
       <category term="Spring Boot" scheme="https://woodwhales.github.io/tags/Spring-Boot/"/>
     
       <category term="Maven Project" scheme="https://woodwhales.github.io/tags/Maven-Project/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java Web 如何超清无码</title>
-    <link href="https://woodwhales.github.io/2018/11/30/007/"/>
-    <id>https://woodwhales.github.io/2018/11/30/007/</id>
-    <published>2018-11-30T10:00:00.000Z</published>
-    <updated>2018-12-25T16:00:00.000Z</updated>
-    
-    <summary type="html">
-    
-      一定可以解决的乱码问题
-    
-    </summary>
-    
-      <category term="Java" scheme="https://woodwhales.github.io/categories/Java/"/>
-    
-    
-      <category term="JavaWeb" scheme="https://woodwhales.github.io/tags/JavaWeb/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入理解计算机系统 | 学习笔记（五）</title>
-    <link href="https://woodwhales.github.io/2018/10/29/014/"/>
-    <id>https://woodwhales.github.io/2018/10/29/014/</id>
-    <published>2018-10-29T07:30:00.000Z</published>
-    <updated>2019-05-30T13:51:59.085Z</updated>
-    
-    <summary type="html">
-    
-      数学概念的数字化实现
-    
-    </summary>
-    
-      <category term="深入理解计算机系统" scheme="https://woodwhales.github.io/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="基础原理" scheme="https://woodwhales.github.io/tags/%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MyBatis Generator 逆向工程详解</title>
-    <link href="https://woodwhales.github.io/2018/10/29/015/"/>
-    <id>https://woodwhales.github.io/2018/10/29/015/</id>
-    <published>2018-10-29T07:30:00.000Z</published>
-    <updated>2019-07-06T03:01:58.794Z</updated>
-    
-    <summary type="html">
-    
-      轻松搞定数据对象实例化
-    
-    </summary>
-    
-      <category term="Mybatis" scheme="https://woodwhales.github.io/categories/Mybatis/"/>
-    
-    
-      <category term="Spring Boot" scheme="https://woodwhales.github.io/tags/Spring-Boot/"/>
-    
-      <category term="MyBatis" scheme="https://woodwhales.github.io/tags/MyBatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入理解计算机系统 | 学习笔记（四）</title>
-    <link href="https://woodwhales.github.io/2018/10/22/013/"/>
-    <id>https://woodwhales.github.io/2018/10/22/013/</id>
-    <published>2018-10-22T07:30:00.000Z</published>
-    <updated>2019-05-30T13:51:43.486Z</updated>
-    
-    <summary type="html">
-    
-      电信号的信息化表示
-    
-    </summary>
-    
-      <category term="深入理解计算机系统" scheme="https://woodwhales.github.io/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="基础原理" scheme="https://woodwhales.github.io/tags/%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入理解计算机系统 | 学习笔记（三）</title>
-    <link href="https://woodwhales.github.io/2018/10/19/012/"/>
-    <id>https://woodwhales.github.io/2018/10/19/012/</id>
-    <published>2018-10-19T07:30:00.000Z</published>
-    <updated>2019-05-30T13:51:27.708Z</updated>
-    
-    <summary type="html">
-    
-      抽象的世界，不简单
-    
-    </summary>
-    
-      <category term="深入理解计算机系统" scheme="https://woodwhales.github.io/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="基础原理" scheme="https://woodwhales.github.io/tags/%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入理解计算机系统 | 学习笔记（二）</title>
-    <link href="https://woodwhales.github.io/2018/10/17/011/"/>
-    <id>https://woodwhales.github.io/2018/10/17/011/</id>
-    <published>2018-10-17T07:30:00.000Z</published>
-    <updated>2019-05-30T13:51:11.806Z</updated>
-    
-    <summary type="html">
-    
-      程序跑起来
-    
-    </summary>
-    
-      <category term="深入理解计算机系统" scheme="https://woodwhales.github.io/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="基础原理" scheme="https://woodwhales.github.io/tags/%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入理解计算机系统 | 学习笔记（一）</title>
-    <link href="https://woodwhales.github.io/2018/10/16/010/"/>
-    <id>https://woodwhales.github.io/2018/10/16/010/</id>
-    <published>2018-10-16T07:30:00.000Z</published>
-    <updated>2019-05-30T13:48:11.154Z</updated>
-    
-    <summary type="html">
-    
-      计算机系统漫游
-    
-    </summary>
-    
-      <category term="深入理解计算机系统" scheme="https://woodwhales.github.io/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="基础原理" scheme="https://woodwhales.github.io/tags/%E5%9F%BA%E7%A1%80%E5%8E%9F%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>人生苦短，转行程序员要趁早(中)</title>
-    <link href="https://woodwhales.github.io/2018/08/13/019/"/>
-    <id>https://woodwhales.github.io/2018/08/13/019/</id>
-    <published>2018-08-13T14:58:00.000Z</published>
-    <updated>2019-05-30T13:53:57.116Z</updated>
-    
-    <summary type="html">
-    
-      人生苦短，程序员转行也得趁早。
-    
-    </summary>
-    
-      <category term="随笔杂谈" scheme="https://woodwhales.github.io/categories/%E9%9A%8F%E7%AC%94%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="转行" scheme="https://woodwhales.github.io/tags/%E8%BD%AC%E8%A1%8C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>人生苦短，转行程序员要趁早(上)</title>
-    <link href="https://woodwhales.github.io/2018/06/17/018/"/>
-    <id>https://woodwhales.github.io/2018/06/17/018/</id>
-    <published>2018-06-17T14:58:00.000Z</published>
-    <updated>2019-05-30T13:53:31.991Z</updated>
-    
-    <summary type="html">
-    
-      把生命浪费在美好的事物上
-    
-    </summary>
-    
-      <category term="随笔杂谈" scheme="https://woodwhales.github.io/categories/%E9%9A%8F%E7%AC%94%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="转行" scheme="https://woodwhales.github.io/tags/%E8%BD%AC%E8%A1%8C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>相遇即是缘分</title>
-    <link href="https://woodwhales.github.io/2016/02/29/001/"/>
-    <id>https://woodwhales.github.io/2016/02/29/001/</id>
-    <published>2016-02-29T06:14:56.000Z</published>
-    <updated>2018-12-21T14:28:33.000Z</updated>
-    
-    <summary type="html">
-    
-      茫茫人海，遇见你是我的缘。
-    
-    </summary>
-    
-      <category term="随笔杂谈" scheme="https://woodwhales.github.io/categories/%E9%9A%8F%E7%AC%94%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="编程随想" scheme="https://woodwhales.github.io/tags/%E7%BC%96%E7%A8%8B%E9%9A%8F%E6%83%B3/"/>
     
   </entry>
   
