@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.github.io/"/>
-  <updated>2019-09-27T14:53:51.394Z</updated>
+  <updated>2019-09-28T12:29:06.884Z</updated>
   <id>https://woodwhales.github.io/</id>
   
   <author>
@@ -17,19 +17,39 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>常用Java代码示例</title>
+    <link href="https://woodwhales.github.io/2019/09/28/044/"/>
+    <id>https://woodwhales.github.io/2019/09/28/044/</id>
+    <published>2019-09-28T12:12:14.000Z</published>
+    <updated>2019-09-28T12:29:06.884Z</updated>
+    
+    <summary type="html">
+    
+      Java开发中，常用的代码示例
+    
+    </summary>
+    
+      <category term="Java" scheme="https://woodwhales.github.io/categories/Java/"/>
+    
+    
+      <category term="代码规范" scheme="https://woodwhales.github.io/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/"/>
+    
+  </entry>
+  
+  <entry>
     <title>漫谈密码技术</title>
     <link href="https://woodwhales.github.io/2019/09/27/049/"/>
     <id>https://woodwhales.github.io/2019/09/27/049/</id>
     <published>2019-09-27T14:50:00.000Z</published>
-    <updated>2019-09-27T14:53:51.394Z</updated>
+    <updated>2019-09-28T12:30:24.227Z</updated>
     
     <summary type="html">
     
-      漫谈密码技术
+      信息安全基础之漫谈密码算法技术
     
     </summary>
     
-      <category term="密码技术" scheme="https://woodwhales.github.io/categories/%E5%AF%86%E7%A0%81%E6%8A%80%E6%9C%AF/"/>
+      <category term="信息安全" scheme="https://woodwhales.github.io/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/"/>
     
     
       <category term="密码" scheme="https://woodwhales.github.io/tags/%E5%AF%86%E7%A0%81/"/>
@@ -386,26 +406,6 @@
     <summary type="html">
     
       实现短信验证码+登录功能
-    
-    </summary>
-    
-      <category term="Spring Security" scheme="https://woodwhales.github.io/categories/Spring-Security/"/>
-    
-    
-      <category term="Spring Security" scheme="https://woodwhales.github.io/tags/Spring-Security/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot + Spring Security 学习笔记（四）记住我功能实现</title>
-    <link href="https://woodwhales.github.io/2019/04/12/029/"/>
-    <id>https://woodwhales.github.io/2019/04/12/029/</id>
-    <published>2019-04-12T13:00:00.000Z</published>
-    <updated>2019-07-06T03:00:16.008Z</updated>
-    
-    <summary type="html">
-    
-      记住我功能实现
     
     </summary>
     
