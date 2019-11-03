@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.github.io/"/>
-  <updated>2019-09-28T12:29:06.884Z</updated>
+  <updated>2019-11-03T09:56:28.981Z</updated>
   <id>https://woodwhales.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JDK 1.8 新特性</title>
+    <link href="https://woodwhales.github.io/2019/11/03/050/"/>
+    <id>https://woodwhales.github.io/2019/11/03/050/</id>
+    <published>2019-11-03T10:00:00.000Z</published>
+    <updated>2019-11-03T09:56:28.981Z</updated>
+    
+    <summary type="html">
+    
+      浅聊 JDK 1.8 新特性
+    
+    </summary>
+    
+      <category term="Java 新特性" scheme="https://woodwhales.github.io/categories/Java-%E6%96%B0%E7%89%B9%E6%80%A7/"/>
+    
+    
+      <category term="JDK 1.8" scheme="https://woodwhales.github.io/tags/JDK-1-8/"/>
+    
+  </entry>
   
   <entry>
     <title>常用Java代码示例</title>
@@ -393,26 +413,6 @@
     
     
       <category term="安全" scheme="https://woodwhales.github.io/tags/%E5%AE%89%E5%85%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot + Spring Security 学习笔记（五）实现短信验证码+登录功能</title>
-    <link href="https://woodwhales.github.io/2019/04/24/030/"/>
-    <id>https://woodwhales.github.io/2019/04/24/030/</id>
-    <published>2019-04-24T13:00:00.000Z</published>
-    <updated>2019-07-06T03:00:20.715Z</updated>
-    
-    <summary type="html">
-    
-      实现短信验证码+登录功能
-    
-    </summary>
-    
-      <category term="Spring Security" scheme="https://woodwhales.github.io/categories/Spring-Security/"/>
-    
-    
-      <category term="Spring Security" scheme="https://woodwhales.github.io/tags/Spring-Security/"/>
     
   </entry>
   
