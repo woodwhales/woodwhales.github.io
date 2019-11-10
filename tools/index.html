@@ -104,7 +104,7 @@
 
 
 
-  <meta name="keywords" content="分布式, Hystrix, 熔断, 服务降级, 服务熔断, 服务限流, 雪崩效应, 分布式服务, 分布式架构, 分布式系统">
+  <meta name="keywords" content="woodwhales, 木鲸鱼, Java, 设计, 博客">
 
 
 
@@ -117,20 +117,18 @@
 
 
 
-<meta name="description" content="互联网Java工程师面试突击训练第1季-学习笔记">
-<meta name="keywords" content="分布式, Hystrix, 熔断, 服务降级, 服务熔断, 服务限流, 雪崩效应, 分布式服务, 分布式架构, 分布式系统">
-<meta property="og:type" content="article">
-<meta property="og:title" content="浅析分布式系统（四）">
-<meta property="og:url" content="https://woodwhales.github.io/2019/07/04/041/index.html">
+<meta name="description" content="&amp;#x540E;&amp;#x7AEF;JDK &amp;#x5386;&amp;#x53F2;&amp;#x7248;&amp;#x672C;&amp;#x4E0B;&amp;#x8F7D;&amp;#x5F52;&amp;#x6863;&amp;#xFF1A;https://www.oracle.com/technetwork/java/javase/archive-139210.html JDK &amp;#x5386;&amp;#x53F2;&amp;#x7248;&amp;#x672C; API">
+<meta name="keywords" content="Java,编程,技术,设计,博客,建站,木鲸鱼,开源,折腾,woodwhales,blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="开发常用工具集合">
+<meta property="og:url" content="https://woodwhales.github.io/tools/index.html">
 <meta property="og:site_name" content="woodwhale&#39;s blog">
-<meta property="og:description" content="互联网Java工程师面试突击训练第1季-学习笔记">
+<meta property="og:description" content="&amp;#x540E;&amp;#x7AEF;JDK &amp;#x5386;&amp;#x53F2;&amp;#x7248;&amp;#x672C;&amp;#x4E0B;&amp;#x8F7D;&amp;#x5F52;&amp;#x6863;&amp;#xFF1A;https://www.oracle.com/technetwork/java/javase/archive-139210.html JDK &amp;#x5386;&amp;#x53F2;&amp;#x7248;&amp;#x672C; API">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://woodwhales.github.io/2019/07/04/041/2019/07/04/041/face.png">
-<meta property="og:updated_time" content="2019-07-04T12:39:02.480Z">
+<meta property="og:updated_time" content="2019-11-10T10:27:56.065Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅析分布式系统（四）">
-<meta name="twitter:description" content="互联网Java工程师面试突击训练第1季-学习笔记">
-<meta name="twitter:image" content="https://woodwhales.github.io/2019/07/04/041/2019/07/04/041/face.png">
+<meta name="twitter:title" content="开发常用工具集合">
+<meta name="twitter:description" content="&amp;#x540E;&amp;#x7AEF;JDK &amp;#x5386;&amp;#x53F2;&amp;#x7248;&amp;#x672C;&amp;#x4E0B;&amp;#x8F7D;&amp;#x5F52;&amp;#x6863;&amp;#xFF1A;https://www.oracle.com/technetwork/java/javase/archive-139210.html JDK &amp;#x5386;&amp;#x53F2;&amp;#x7248;&amp;#x672C; API">
 
 
 
@@ -160,13 +158,13 @@
 
 
 
-  <link rel="canonical" href="https://woodwhales.github.io/2019/07/04/041/">
+  <link rel="canonical" href="https://woodwhales.github.io/tools/">
 
 
 
 
 
-  <title>浅析分布式系统（四） | woodwhale's blog</title>
+  <title>开发常用工具集合 | woodwhale's blog</title>
   
 
 
@@ -337,187 +335,119 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/07/04/041/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="木鲸鱼">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="woodwhale's blog">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
+	<h1 class="post-title" itemprop="name headline">开发常用工具集合</h1>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
         
         
-          <h1 class="post-title" itemprop="name headline">浅析分布式系统（四）</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-04T20:35:14+08:00">
-                2019-07-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/分布式/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/07/04/041/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/04/041/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/07/04/041/" class="leancloud_visitors" data-flag-title="浅析分布式系统（四）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-pencil-square-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">全文总计&#58;</span>
-                
-                <span title="全文总计">
-                  467 字
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-              <div class="post-description">
-                  互联网Java工程师面试突击训练第1季-学习笔记
-              </div>
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="/2019/07/04/041/face.png" rel="gallery_ck2suzo9a000o9kvghn9aegxu" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="/2019/07/04/041/face.png" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        <p>&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x73AF;&#x5883;&#x4E0B;&#xFF0C;&#x670D;&#x52A1;&#x95F4;&#x7C7B;&#x4F3C;&#x4F9D;&#x8D56;&#x975E;&#x5E38;&#x5E38;&#x89C1;&#xFF0C;&#x4E00;&#x4E2A;&#x4E1A;&#x52A1;&#x8C03;&#x7528;&#x901A;&#x5E38;&#x4F9D;&#x8D56;&#x591A;&#x4E2A;&#x57FA;&#x7840;&#x670D;&#x52A1;&#x3002;&#x5982;&#x4E0B;&#x56FE;&#xFF0C;&#x5BF9;&#x4E8E;&#x540C;&#x6B65;&#x8C03;&#x7528;&#xFF0C;&#x5F53;&#x5E93;&#x5B58;&#x670D;&#x52A1;&#x4E0D;&#x53EF;&#x7528;&#x65F6;&#xFF0C;&#x5546;&#x54C1;&#x670D;&#x52A1;&#x8BF7;&#x6C42;&#x7EBF;&#x7A0B;&#x88AB;&#x963B;&#x585E;&#xFF0C;&#x5F53;&#x6709;&#x5927;&#x6279;&#x91CF;&#x8BF7;&#x6C42;&#x8C03;&#x7528;&#x5E93;&#x5B58;&#x670D;&#x52A1;&#x65F6;&#xFF0C;&#x6700;&#x7EC8;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x6574;&#x4E2A;&#x5546;&#x54C1;&#x670D;&#x52A1;&#x8D44;&#x6E90;&#x8017;&#x5C3D;&#xFF0C;&#x65E0;&#x6CD5;&#x7EE7;&#x7EED;&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x3002;&#x5E76;&#x4E14;&#x8FD9;&#x79CD;&#x4E0D;&#x53EF;&#x7528;&#x53EF;&#x80FD;&#x6CBF;&#x8BF7;&#x6C42;&#x8C03;&#x7528;&#x94FE;&#x5411;&#x4E0A;&#x4F20;&#x9012;&#xFF0C;&#x8FD9;&#x79CD;&#x73B0;&#x8C61;&#x88AB;&#x79F0;&#x4E3A;&#x96EA;&#x5D29;&#x6548;&#x5E94;&#x3002;</p>
-<blockquote>
-<p>&#x5DE6;&#x8033;&#x542C;&#x98CE; | &#x4ECE;&#x4E9A;&#x9A6C;&#x900A;&#x7684;&#x5B9E;&#x8DF5;&#xFF0C;&#x8C08;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x7684;&#x96BE;&#x70B9;</p>
-<p>&#x95EE;&#x9898;&#x4E8C;&#xFF1A;&#x7CFB;&#x7EDF;&#x67B6;&#x6784;&#x4E2D;&#x7684;&#x670D;&#x52A1;&#x4F9D;&#x8D56;&#x6027;&#x95EE;&#x9898;</p>
-<p>&#x5BF9;&#x4E8E;&#x4F20;&#x7EDF;&#x7684;&#x5355;&#x4F53;&#x5E94;&#x7528;&#xFF0C;&#x4E00;&#x53F0;&#x673A;&#x5668;&#x6302;&#x4E86;&#xFF0C;&#x6574;&#x4E2A;&#x8F6F;&#x4EF6;&#x5C31;&#x6302;&#x6389;&#x4E86;&#x3002;&#x4F46;&#x662F;&#x4F60;&#x5343;&#x4E07;&#x4E0D;&#x8981;&#x4EE5;&#x4E3A;&#x5728;&#x5206;&#x5E03;&#x5F0F;&#x7684;&#x67B6;&#x6784;&#x4E0B;&#x4E0D;&#x4F1A;&#x53D1;&#x751F;&#x8FD9;&#x6837;&#x7684;&#x4E8B;&#x3002;&#x5206;&#x5E03;&#x5F0F;&#x67B6;&#x6784;&#x4E0B;&#xFF0C;&#x670D;&#x52A1;&#x662F;&#x4F1A;&#x6709;&#x4F9D;&#x8D56;&#x7684;&#xFF0C;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x4F9D;&#x8D56;&#x94FE;&#x4E0A;&#x7684;&#x67D0;&#x4E2A;&#x670D;&#x52A1;&#x6302;&#x6389;&#x4E86;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x51FA;&#x73B0;&#x201C;&#x591A;&#x7C73;&#x8BFA;&#x9AA8;&#x724C;&#x201D;&#x6548;&#x5E94;&#x3002;</p>
-</blockquote>
-<p>&#x6269;&#x5C55;&#x535A;&#x6587;</p>
-<p><a href="https://www.cnblogs.com/raoshaoquan/articles/6636067.html" target="_blank" rel="noopener">&#x7194;&#x65AD;&#xFF0C;&#x9650;&#x6D41;&#xFF0C;&#x964D;&#x7EA7;</a></p>
-<p><a href="https://www.cnblogs.com/cjsblog/p/9391819.html" target="_blank" rel="noopener">Hystrix&#x4ECB;&#x7ECD;</a></p>
-<p><a href="https://blog.csdn.net/qq_33394088/article/details/80210679" target="_blank" rel="noopener">&#x670D;&#x52A1;&#x964D;&#x7EA7;&#xFF0C;&#x670D;&#x52A1;&#x7194;&#x65AD;&#xFF0C;&#x670D;&#x52A1;&#x9650;&#x6D41;</a></p>
-<p><a href="https://www.cnblogs.com/xiong2ge/p/hystrix_faststudy.html" target="_blank" rel="noopener">Hystrix&#x5FEB;&#x901F;&#x5165;&#x95E8;</a></p>
-<p><a href="https://www.jianshu.com/p/b9af028efebb" target="_blank" rel="noopener">Hystrix&#x4F7F;&#x7528;&#x5165;&#x95E8;&#x624B;&#x518C;&#xFF08;&#x4E2D;&#x6587;&#xFF09;</a></p>
-<p><a href="https://blog.csdn.net/lemon89/article/details/80460876" target="_blank" rel="noopener">Hystrix &#x4ECE;&#x5165;&#x95E8;&#x5230;&#x6DF1;&#x5165;&#x2014;&#x2014;&#x4E00;&#x9605;&#x8BFB;&#x5B98;&#x7F51;</a></p>
-<p><a href="https://www.jianshu.com/p/9cf7dd341bad" target="_blank" rel="noopener">Hystrix&#x7CFB;&#x5217;&#x4E4B;&#x5165;&#x95E8;</a></p>
-<p><a href="https://my.oschina.net/7001/blog/1619842" target="_blank" rel="noopener">Hystrix&#x539F;&#x7406;&#x4E0E;&#x5B9E;&#x6218;</a></p>
-<p><a href="https://juejin.im/post/5c009ff6f265da614b11b84d" target="_blank" rel="noopener">Hystrix&#x90FD;&#x505C;&#x66F4;&#x4E86;&#xFF0C;&#x6211;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x8981;&#x5B66;&#xFF1F;</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/51008825" target="_blank" rel="noopener">&#x9AD8;&#x53EF;&#x7528;&#x6846;&#x67B6;Resilience4j&#x4F7F;&#x7528;&#x6307;&#x5357;</a></p>
-<p><a href="https://hot66hot.iteye.com/blog/2155036" target="_blank" rel="noopener">Hystrix &#x4F7F;&#x7528;&#x4E0E;&#x5206;&#x6790;</a></p>
-<p><a href="https://www.itslide.com/slide/244438/" target="_blank" rel="noopener">Dubbo&#x5E94;&#x7528;&#x548C;&#x5B9E;&#x8DF5; &#x66F9;&#x80DC;&#x5229;</a></p>
-<p><a href="https://www.infoq.cn/article/IwZCAp3jo_H5fJFbWOZu" target="_blank" rel="noopener">&#x963F;&#x91CC;&#x6280;&#x672F;&#x4E13;&#x5BB6;&#x8BE6;&#x89E3; Dubbo &#x5B9E;&#x8DF5;&#xFF0C;&#x6F14;&#x8FDB;&#x53CA;&#x672A;&#x6765;&#x89C4;&#x5212;</a></p>
+          <h3 id="&#x540E;&#x7AEF;"><a href="#&#x540E;&#x7AEF;" class="headerlink" title="&#x540E;&#x7AEF;"></a>&#x540E;&#x7AEF;</h3><p><a href="https://www.oracle.com/technetwork/java/javase/archive-139210.html" target="_blank" rel="noopener">JDK &#x5386;&#x53F2;&#x7248;&#x672C;&#x4E0B;&#x8F7D;&#x5F52;&#x6863;&#xFF1A;https://www.oracle.com/technetwork/java/javase/archive-139210.html</a></p>
+<p><a href="https://www.oracle.com/technetwork/java/api-141528.html" target="_blank" rel="noopener">JDK &#x5386;&#x53F2;&#x7248;&#x672C; API &#x5F52;&#x6863;&#xFF1A;https://www.oracle.com/technetwork/java/api-141528.html</a></p>
+<p><a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">Java SE 1.8 API &#x6587;&#x6863;&#xFF1A;https://docs.oracle.com/javase/8/docs/api/</a></p>
+<p><a href="http://java-decompiler.github.io/" target="_blank" rel="noopener">jad &#x4E0B;&#x8F7D;&#xFF1A;http://java-decompiler.github.io/</a></p>
+<p><a href="https://jmeter.apache.org/download_jmeter.cgi" target="_blank" rel="noopener">jmeter &#x4E0B;&#x8F7D;&#xFF1A;https://jmeter.apache.org/download_jmeter.cgi</a></p>
+<p><a href="https://downloads.mysql.com/archives/community/" target="_blank" rel="noopener">MySQL &#x5386;&#x53F2;&#x7248;&#x672C;&#x4E0B;&#x8F7D;&#x5F52;&#x6863;&#xFF1A;https://downloads.mysql.com/archives/community/</a></p>
+<p><a href="https://www.heidisql.com/download.php" target="_blank" rel="noopener">heidisql &#x4E0B;&#x8F7D;&#xFF1A;https://www.heidisql.com/download.php</a></p>
+<p><a href="https://www.navicat.com/en/products" target="_blank" rel="noopener">navicat &#x4E0B;&#x8F7D;&#xFF1A;https://www.navicat.com/en/products</a></p>
+<p><a href="https://github.com/webyog/sqlyog-community/wiki/Downloads" target="_blank" rel="noopener">sqlyog-community &#x4E0B;&#x8F7D;&#xFF1A;https://github.com/webyog/sqlyog-community/wiki/Downloads</a></p>
+<p><a href="https://archive.apache.org/dist/tomcat/" target="_blank" rel="noopener">tomcat &#x5386;&#x53F2;&#x7248;&#x672C;&#x4E0B;&#x8F7D;&#x5F52;&#x6863;&#xFF1A;https://archive.apache.org/dist/tomcat/</a></p>
+<p><a href="https://spring.io/tools3/sts/all/" target="_blank" rel="noopener">STS3 &#x5386;&#x53F2;&#x7248;&#x672C;&#x4E0B;&#x8F7D;&#x5F52;&#x6863;&#xFF1A;https://spring.io/tools3/sts/all/</a></p>
+<p><a href="https://www.jetbrains.com/" target="_blank" rel="noopener">IDEA &#x5B98;&#x7F51;&#xFF1A;https://www.jetbrains.com/</a></p>
+<p><a href="https://plugins.jetbrains.com/contest/intellij-themes/2019" target="_blank" rel="noopener">IDEA &#x4E3B;&#x9898;&#x4E0B;&#x8F7D;&#xFF1A;https://plugins.jetbrains.com/contest/intellij-themes/2019</a></p>
+<p><a href="http://color-themes.com/?view=index" target="_blank" rel="noopener">IDEA &#x4E3B;&#x9898;&#x4E0B;&#x8F7D;&#xFF1A;http://color-themes.com/?view=index</a></p>
+<p><a href="https://mp.baomidou.com/guide/" target="_blank" rel="noopener">Mybatis Plus &#x5B98;&#x65B9;&#x6307;&#x5357;&#xFF1A;https://mp.baomidou.com/guide/</a></p>
+<p><a href="http://plantuml.com/zh/" target="_blank" rel="noopener">plantuml &#x5B98;&#x7F51;&#xFF1A;http://plantuml.com/zh/</a></p>
+<p><a href="http://fontawesome.dashgame.com/" target="_blank" rel="noopener">fontawesome &#x5B98;&#x7F51;&#xFF1A;http://fontawesome.dashgame.com/</a></p>
+<p><a href="https://www.elastic.co/cn/downloads/" target="_blank" rel="noopener">elastic &#x7CFB;&#x5217;&#x4EA7;&#x54C1;&#x4E0B;&#x8F7D;&#xFF1A;https://www.elastic.co/cn/downloads/</a></p>
+<p><a href="http://dubbo.apache.org/zh-cn/docs/user/quick-start.html" target="_blank" rel="noopener">dubbo &#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;http://dubbo.apache.org/zh-cn/docs/user/quick-start.html</a></p>
+<p><a href="https://mvnrepository.com/" target="_blank" rel="noopener">maven &#x5B98;&#x65B9;&#x4ED3;&#x5E93;&#xFF1A;https://mvnrepository.com/</a></p>
+<p><a href="https://maven.apache.org/download.cgi" target="_blank" rel="noopener">maven &#x5B89;&#x88C5;&#x6E90;&#x6587;&#x4EF6;&#x4E0B;&#x8F7D;&#xFF1A;https://maven.apache.org/download.cgi</a></p>
+<p><a href="https://github.com/uglide/RedisDesktopManager/releases" target="_blank" rel="noopener">RedisDesktopManager &#x6E90;&#x6587;&#x4EF6;&#x5386;&#x53F2;&#x7248;&#x672C;&#x4E0B;&#x8F7D;&#x5F52;&#x6863;&#xFF1A;https://github.com/uglide/RedisDesktopManager/releases</a></p>
+<p><a href="https://github.com/uglide/RedisDesktopManager/releases/tag/0.8.8" target="_blank" rel="noopener">redis-desktop-manager-0.8.8.384.exe &#x5B98;&#x65B9;&#x4E0B;&#x8F7D;&#xFF1A;https://github.com/uglide/RedisDesktopManager/releases/tag/0.8.8</a></p>
+<p><a href="https://github.com/microsoftarchive/redis/releases" target="_blank" rel="noopener">redis windows &#x5386;&#x53F2;&#x7248;&#x672C;&#x4E0B;&#x8F7D;&#x5F52;&#x6863;&#xFF1A;https://github.com/microsoftarchive/redis/releases</a></p>
+<p><a href="https://www.mongodb.com/download-center/community" target="_blank" rel="noopener">mongdb &#x5386;&#x53F2;&#x7248;&#x672C;&#x4E0B;&#x8F7D;&#x5F52;&#x6863;&#xFF1A;https://www.mongodb.com/download-center/community</a></p>
+<p><a href="https://spring.io/projects" target="_blank" rel="noopener">spring &#x5B98;&#x7F51;&#xFF1A;https://spring.io/projects</a></p>
+<p><a href="https://oauth.net/2/" target="_blank" rel="noopener">OAuth 2.0 &#x5B98;&#x7F51;&#xFF1A;https://oauth.net/2/</a></p>
+<p><a href="http://www.codeblocks.org/downloads/26" target="_blank" rel="noopener">codeblocks &#x4E0B;&#x8F7D;&#xFF1A;http://www.codeblocks.org/downloads/26</a></p>
+<p><a href="http://www.masm32.com/download.htm" target="_blank" rel="noopener">MASM32 SDK &#x4E0B;&#x8F7D;&#xFF1A;http://www.masm32.com/download.htm</a></p>
+<p><a href="https://code.visualstudio.com/download" target="_blank" rel="noopener">visual studio code &#x4E0B;&#x8F7D;&#xFF1A;https://code.visualstudio.com/download</a></p>
+<p><a href="https://code.visualstudio.com/docs" target="_blank" rel="noopener">visual studio code &#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;https://code.visualstudio.com/docs</a></p>
+<p><a href="https://javafx-scene-builder.informer.com/download/" target="_blank" rel="noopener">javafx-scene-builder &#x4E0B;&#x8F7D;&#xFF1A;https://javafx-scene-builder.informer.com/download/</a></p>
+<p><a href="https://osdn.net/projects/mingw/releases/" target="_blank" rel="noopener">MinGW &#x4E0B;&#x8F7D;&#xFF1A;https://osdn.net/projects/mingw/releases/</a></p>
+<p><a href="https://www.python.org/downloads/" target="_blank" rel="noopener">python &#x4E0B;&#x8F7D;&#xFF1A;https://www.python.org/downloads/</a></p>
+<p><a href="https://golang.google.cn/dl/" target="_blank" rel="noopener">go &#x4E0B;&#x8F7D;&#xFF1A;https://golang.google.cn/dl/</a></p>
+<p><a href="https://golang.google.cn/doc/" target="_blank" rel="noopener">go&#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;https://golang.google.cn/doc/</a></p>
+<p><a href="https://github.com/golang/go/wiki/NonEnglish" target="_blank" rel="noopener">go &#x975E;&#x82F1;&#x6587;&#x6587;&#x6863;&#x5F52;&#x6863;&#xFF1A;https://github.com/golang/go/wiki/NonEnglish</a></p>
+<p><a href="https://www.perl.org/get.html" target="_blank" rel="noopener">perl &#x4E0B;&#x8F7D;&#xFF1A;https://www.perl.org/get.html</a></p>
+<p><a href="http://kafka.apache.org/downloads" target="_blank" rel="noopener">kakfa &#x4E0B;&#x8F7D;&#xFF1A;http://kafka.apache.org/downloads</a></p>
+<p><a href="http://kafka.apache.org/documentation/" target="_blank" rel="noopener">kakfa &#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;http://kafka.apache.org/documentation/</a></p>
+<p><a href="https://nginx.org/en/download.html" target="_blank" rel="noopener">nginx &#x4E0B;&#x8F7D;&#xFF1A;https://nginx.org/en/download.html</a></p>
+<p><a href="https://nginx.org/en/docs/" target="_blank" rel="noopener">nginx &#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;https://nginx.org/en/docs/</a></p>
+<p><a href="https://visualstudio.microsoft.com/zh-hans/vs/" target="_blank" rel="noopener">visual studio &#x4E0B;&#x8F7D;&#xFF1A;https://visualstudio.microsoft.com/zh-hans/vs/</a></p>
+<h3 id="&#x524D;&#x7AEF;"><a href="#&#x524D;&#x7AEF;" class="headerlink" title="&#x524D;&#x7AEF;"></a>&#x524D;&#x7AEF;</h3><p><a href="https://www.w3school.com.cn/" target="_blank" rel="noopener">w3school&#x5728;&#x7EBF;&#x6559;&#x7A0B;&#xFF1A;https://www.w3school.com.cn/</a></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Learn" target="_blank" rel="noopener">MDN &#x5B66;&#x4E60; Web &#x5F00;&#x53D1;&#xFF1A;https://developer.mozilla.org/zh-CN/docs/Learn</a></p>
+<p><a href="https://v3.bootcss.com/getting-started/" target="_blank" rel="noopener">bootstrap &#x5B98;&#x7F51;&#x4E2D;&#x6587;&#x6559;&#x7A0B;&#xFF1A;https://v3.bootcss.com/getting-started/</a></p>
+<p><a href="https://npm.taobao.org/" target="_blank" rel="noopener">&#x6DD8;&#x5B9D; NPM &#x955C;&#x50CF;&#xFF1A;https://npm.taobao.org/</a></p>
+<p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">nodejs &#x4E0B;&#x8F7D;&#xFF1A;https://nodejs.org/en/download/</a></p>
+<p><a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">vuejs &#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;https://cn.vuejs.org/v2/guide/</a></p>
+<p><a href="https://element.eleme.cn/#/zh-CN/component/installation" target="_blank" rel="noopener">element-ui &#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;https://element.eleme.cn/#/zh-CN/component/installation</a></p>
+<p><a href="https://angular.cn/docs" target="_blank" rel="noopener">angular2 &#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;https://angular.cn/docs</a></p>
+<p><a href="https://react.docschina.org/tutorial/tutorial.html" target="_blank" rel="noopener">react &#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;https://react.docschina.org/tutorial/tutorial.html</a></p>
+<p><a href="https://www.layui.com/doc/" target="_blank" rel="noopener">layui &#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;https://www.layui.com/doc/</a></p>
+<p><a href="https://www.echartsjs.com/zh/tutorial.html" target="_blank" rel="noopener">echartsjs &#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;https://www.echartsjs.com/zh/tutorial.html</a></p>
+<h3 id="&#x5176;&#x4ED6;"><a href="#&#x5176;&#x4ED6;" class="headerlink" title="&#x5176;&#x4ED6;"></a>&#x5176;&#x4ED6;</h3><p><a href="https://opsx.alibaba.com/mirror" target="_blank" rel="noopener">&#x963F;&#x91CC;&#x5DF4;&#x5DF4;&#x5F00;&#x6E90;&#x955C;&#x50CF;&#x7AD9;&#xFF1A;https://opsx.alibaba.com/mirror</a></p>
+<p><a href="https://msdn.itellyou.cn/" target="_blank" rel="noopener">MSDN, &#x6211;&#x544A;&#x8BC9;&#x4F60;&#xFF1A;https://msdn.itellyou.cn/</a></p>
+<p><a href="https://wiki.centos.org/Download" target="_blank" rel="noopener">centos &#x5386;&#x53F2;&#x7248;&#x672C;&#x4E0B;&#x8F7D;&#x5F52;&#x6863;&#xFF1A;https://wiki.centos.org/Download</a></p>
+<p><a href="https://www.mozilla.org/en-US/firefox/all/#product-desktop-release" target="_blank" rel="noopener">firefox &#x56FD;&#x9645;&#x7248;&#x4E0B;&#x8F7D;&#xFF1A;https://www.mozilla.org/en-US/firefox/all/#product-desktop-release</a> <em>firefox &#x6D4F;&#x89C8;&#x5668;&#x5207;&#x52FF;&#x4E0B;&#x8F7D;&#x4E2D;&#x6587;&#x7248;</em></p>
+<p><a href="https://www.mozilla.org/en-US/firefox/organizations/all/" target="_blank" rel="noopener">firefox &#x5404;&#x56FD;&#x8BED;&#x8A00;&#x7248;&#x4E0B;&#x8F7D;&#x5F52;&#x6863;&#xFF1A;https://www.mozilla.org/en-US/firefox/organizations/all/</a> <em>firefox &#x6D4F;&#x89C8;&#x5668;&#x5207;&#x52FF;&#x4E0B;&#x8F7D;&#x4E2D;&#x6587;&#x7248;</em></p>
+<p><a href="https://www.mozilla.org/en-US/firefox/developer/all/" target="_blank" rel="noopener">firefox &#x5F00;&#x53D1;&#x8005;&#x7248;&#x5404;&#x56FD;&#x8BED;&#x8A00;&#x7248;&#x4E0B;&#x8F7D;&#x5F52;&#x6863;&#xFF1A;https://www.mozilla.org/en-US/firefox/developer/all/</a></p>
+<p><a href="https://www.google.cn/chrome/" target="_blank" rel="noopener">chrome &#x4E0B;&#x8F7D;&#xFF1A;https://www.google.cn/chrome/</a></p>
+<p><a href="https://www.google.cn/chrome/dev/" target="_blank" rel="noopener">chrome &#x5F00;&#x53D1;&#x8005;&#x7248;&#x4E0B;&#x8F7D;&#xFF1A;https://www.google.cn/chrome/dev/</a></p>
+<p><a href="https://chrome.google.com/webstore/category/extensions" target="_blank" rel="noopener">chrome &#x6269;&#x5C55;&#x5E94;&#x7528;&#x5546;&#x5E97;&#xFF1A;https://chrome.google.com/webstore/category/extensions</a></p>
+<p><a href="https://www.netsarang.com/en/all-downloads/" target="_blank" rel="noopener">xshell &#x7CFB;&#x5217;&#x4EA7;&#x54C1;&#x4E0B;&#x8F7D;&#xFF1A;https://www.netsarang.com/en/all-downloads/</a></p>
+<p><a href="https://github.com/netsarang/Xshell-ColorScheme" target="_blank" rel="noopener">xshell &#x989C;&#x8272;&#x4E3B;&#x9898;&#x4E0B;&#x8F7D;&#xFF1A;https://github.com/netsarang/Xshell-ColorScheme</a></p>
+<p><a href="https://www.getpostman.com/downloads/" target="_blank" rel="noopener">postman &#x4E0B;&#x8F7D;&#xFF1A;https://www.getpostman.com/downloads/</a></p>
+<p><a href="https://archive.apache.org/dist/httpd/" target="_blank" rel="noopener">ApacheBench &#x4E0B;&#x8F7D;&#xFF1A;https://archive.apache.org/dist/httpd/</a></p>
+<p><a href="https://mobaxterm.mobatek.net/download.html" target="_blank" rel="noopener">mobaxterm &#x4E0B;&#x8F7D;&#xFF1A;https://mobaxterm.mobatek.net/download.html</a></p>
+<p><a href="https://www.snipaste.com/download.html" target="_blank" rel="noopener">snipaste &#x622A;&#x56FE;&#x5DE5;&#x5177;&#x4E0B;&#x8F7D;&#xFF1A;https://www.snipaste.com/download.html</a></p>
+<p><a href="https://picpick.app/en/download" target="_blank" rel="noopener">picpick &#x622A;&#x56FE;&#x5DE5;&#x5177;&#x4E0B;&#x8F7D;&#xFF1A;https://picpick.app/en/download</a></p>
+<p><a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html" target="_blank" rel="noopener">putty &#x4E0B;&#x8F7D;&#xFF1A;https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html</a></p>
+<p><a href="https://github.com/AlexAkulov/putty-color-themes" target="_blank" rel="noopener">putty &#x989C;&#x8272;&#x4E3B;&#x9898;&#x4E0B;&#x8F7D;&#xFF1A;https://github.com/AlexAkulov/putty-color-themes</a></p>
+<p><a href="https://calibre-ebook.com/download" target="_blank" rel="noopener">calibre &#x7535;&#x5B50;&#x4E66;&#x9605;&#x8BFB;&#x5668;&#x4E0B;&#x8F7D;&#xFF1A;https://calibre-ebook.com/download</a></p>
+<p><a href="https://www.my-debugbar.com/wiki/IETester/HomePage" target="_blank" rel="noopener">IETester &#x4E0B;&#x8F7D;&#xFF1A;https://www.my-debugbar.com/wiki/IETester/HomePage</a></p>
+<p><a href="https://www.videolan.org/vlc/index.html" target="_blank" rel="noopener">vlc &#x64AD;&#x653E;&#x5668;&#x4E0B;&#x8F7D;&#xFF1A;https://www.videolan.org/vlc/index.html</a></p>
+<p><a href="https://daumpotplayer.com/download/" target="_blank" rel="noopener">pot player &#x64AD;&#x653E;&#x5668;&#x4E0B;&#x8F7D;&#xFF1A;https://daumpotplayer.com/download/</a></p>
+<p><a href="https://notepad-plus-plus.org/downloads/" target="_blank" rel="noopener">notepad++ &#x4E0B;&#x8F7D;&#xFF1A;https://notepad-plus-plus.org/downloads/</a></p>
+<p><a href="https://www.vim.org/download.php" target="_blank" rel="noopener">vim &#x4E0B;&#x8F7D;&#xFF1A;https://www.vim.org/download.php</a></p>
+<p><a href="http://www.sublimetext.com/3" target="_blank" rel="noopener">Sublime Text 3 3 &#x4E0B;&#x8F7D;&#xFF1A;http://www.sublimetext.com/3</a></p>
+<p><a href="http://blog.bahraniapps.com/gifcam/#download" target="_blank" rel="noopener">gifcam &#x4E0B;&#x8F7D;&#xFF1A;http://blog.bahraniapps.com/gifcam/#download</a></p>
+<p><a href="https://www.typora.io/#download" target="_blank" rel="noopener">typora &#x4E0B;&#x8F7D;&#xFF1A;https://www.typora.io/#download</a></p>
+<p><a href="http://theme.typora.io/" target="_blank" rel="noopener">typora &#x4E3B;&#x9898;&#x4E0B;&#x8F7D;&#xFF1A;http://theme.typora.io/</a></p>
+<p><a href="https://obsproject.com/download" target="_blank" rel="noopener">OBS Studio &#x4E0B;&#x8F7D;&#xFF1A;https://obsproject.com/download</a></p>
+<p><a href="https://www.alcpu.com/CoreTemp/" target="_blank" rel="noopener">Core Temp &#x4E0B;&#x8F7D;&#xFF1A;https://www.alcpu.com/CoreTemp/</a></p>
+<p><a href="https://mh-nexus.de/en/downloads.php?product=HxD20" target="_blank" rel="noopener">HxD &#x4E0B;&#x8F7D;&#xFF1A;https://mh-nexus.de/en/downloads.php?product=HxD20</a></p>
+<p><a href="http://systemexplorer.net/" target="_blank" rel="noopener">system explorer &#x4E0B;&#x8F7D;&#xFF1A;http://systemexplorer.net/</a></p>
+<p><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">git &#x4E0B;&#x8F7D;&#xFF1A;https://git-scm.com/downloads</a></p>
+<p><a href="https://www.sourcetreeapp.com/" target="_blank" rel="noopener">source tree &#x4E0B;&#x8F7D;&#xFF1A;https://www.sourcetreeapp.com/</a></p>
+<p><a href="https://tortoisegit.org/download/" target="_blank" rel="noopener">tortoisegit &#x4E0B;&#x8F7D;&#xFF1A;https://tortoisegit.org/download/</a></p>
+<p><a href="https://winmerge.org/downloads/?lang=en" target="_blank" rel="noopener">winmerge &#x4E0B;&#x8F7D;&#xFF1A;https://winmerge.org/downloads/?lang=en</a></p>
+<p><a href="http://www.scootersoftware.com/download.php" target="_blank" rel="noopener">Beyond Compare &#x4E0B;&#x8F7D;&#xFF1A;http://www.scootersoftware.com/download.php</a></p>
+<p><a href="https://rime.im/download/" target="_blank" rel="noopener">RIME&#xFF0F;&#x4E2D;&#x5DDE;&#x97F5;&#x8F93;&#x5165;&#x6CD5;&#x5F15;&#x64CE; &#x4E0B;&#x8F7D;&#xFF1A;https://rime.im/download/</a></p>
+<p><a href="http://www.sweetscape.com/download/010editor/" target="_blank" rel="noopener">010editor &#x4E0B;&#x8F7D;&#xFF1A;http://www.sweetscape.com/download/010editor/</a></p>
+<p><a href="http://www.ollydbg.de/version2.html" target="_blank" rel="noopener">ollydbg &#x4E0B;&#x8F7D;&#xFF1A;http://www.ollydbg.de/version2.html</a></p>
+<p><a href="https://www.wireshark.org/download.html" target="_blank" rel="noopener">wireshark &#x4E0B;&#x8F7D;&#xFF1A;https://www.wireshark.org/download.html</a></p>
+<p><a href="https://www.telerik.com/download/fiddler" target="_blank" rel="noopener">fiddler &#x4E0B;&#x8F7D;&#xFF1A;https://www.telerik.com/download/fiddler</a></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -537,133 +467,15 @@
             document.body.appendChild(img);
           });
       </script>
-      
-    </div>
-    
-    
-    
-
-	
-	
-		
-	<div class="updated">
-		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
-			<lineargradient id="b" x2="0" y2="100%">
-				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
-				<stop offset="1" stop-opacity=".1"/>
-			</lineargradient>
-			<clippath id="a">
-				<rect width="130" height="20" rx="3" fill="#fff"/>
-			</clippath>
-			<g clip-path="url(#a)">
-				<path fill="#555" d="M0 0h55v20H0z"/>
-				<path fill="#97CA00" d="M55 0h75v20H55z"/>
-				<path fill="url(#b)" d="M0 0h130v20H0z"/>
-			</g>
-			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
-				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
-				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
-				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-07-04</text>
-				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-07-04</text>
-			</g>
-			
-		</svg>
-	</div>
-
-
-  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
-
-	
-	
-	
-    
-
-    
-	
-	<div>
-      
         
-<div class="my_post_copyright">
-  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
-  <!-- JS库 sweetalert 可修改路径 -->
-  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/07/04/041/">浅析分布式系统（四）</a></p>
-  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
-  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
-  <p><span>原始链接:</span><a href="/2019/07/04/041/" title="浅析分布式系统（四）">https://woodwhales.github.io/2019/07/04/041/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/07/04/041/" aria-label="复制成功！"></i></span>
-  </p>
-  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
-</div>
-<script> 
-    var clipboard = new Clipboard('.fa-clipboard');
-    $(".fa-clipboard").click(function(){
-      clipboard.on('success', function(){
-        swal({   
-          title: "",   
-          text: '复制成功',
-          icon: "success", 
-          showConfirmButton: true
-          });
-    });
-    });  
-</script>
-
-      
-	</div>
-
-    
-	
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/mycat/" rel="tag"><i class="fa fa-tag"></i> mycat</a>
-          
-        </div>
-      
-
+      </div>
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/07/04/040/" rel="next" title="浅析分布式系统（三）">
-                <i class="fa fa-chevron-left"></i> 浅析分布式系统（三）
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/06/042/" rel="prev" title="Spring 注解驱动开发之组件注册">
-                Spring 注解驱动开发之组件注册 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
       
     </div>
+    
+    
+    
   </div>
 
 
@@ -699,8 +511,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -866,6 +687,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#后端"><span class="nav-text">后端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端"><span class="nav-text">前端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
