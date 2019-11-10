@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.github.io/"/>
-  <updated>2019-11-04T13:21:26.237Z</updated>
+  <updated>2019-11-10T16:26:54.096Z</updated>
   <id>https://woodwhales.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git 设置本地配置多个账户对应不同的 ssh key</title>
+    <link href="https://woodwhales.github.io/2019/11/11/052/"/>
+    <id>https://woodwhales.github.io/2019/11/11/052/</id>
+    <published>2019-11-10T16:25:00.000Z</published>
+    <updated>2019-11-10T16:26:54.096Z</updated>
+    
+    <summary type="html">
+    
+      git 设置本地配置多个账户对应不同的 ssh key
+    
+    </summary>
+    
+      <category term="git" scheme="https://woodwhales.github.io/categories/git/"/>
+    
+    
+      <category term="git" scheme="https://woodwhales.github.io/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>ElasticSearch 学习笔记之安装详解</title>
@@ -393,26 +413,6 @@
     
     
       <category term="数据结构" scheme="https://woodwhales.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构与算法之链表</title>
-    <link href="https://woodwhales.github.io/2019/05/30/036/"/>
-    <id>https://woodwhales.github.io/2019/05/30/036/</id>
-    <published>2019-05-30T12:39:14.000Z</published>
-    <updated>2019-07-01T12:44:22.965Z</updated>
-    
-    <summary type="html">
-    
-      C语言学习笔记
-    
-    </summary>
-    
-      <category term="C语言" scheme="https://woodwhales.github.io/categories/C%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="算法" scheme="https://woodwhales.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
