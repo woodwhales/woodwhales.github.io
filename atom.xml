@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.github.io/"/>
-  <updated>2019-11-10T16:26:54.096Z</updated>
+  <updated>2019-11-17T17:25:37.255Z</updated>
   <id>https://woodwhales.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C 语言中的细节知识点</title>
+    <link href="https://woodwhales.github.io/2019/11/18/053/"/>
+    <id>https://woodwhales.github.io/2019/11/18/053/</id>
+    <published>2019-11-17T17:23:00.000Z</published>
+    <updated>2019-11-17T17:25:37.255Z</updated>
+    
+    <summary type="html">
+    
+      C 语言中的细节知识点
+    
+    </summary>
+    
+      <category term="C 语言" scheme="https://woodwhales.github.io/categories/C-%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="C 语言" scheme="https://woodwhales.github.io/tags/C-%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
   
   <entry>
     <title>git 设置本地配置多个账户对应不同的 ssh key</title>
@@ -393,26 +413,6 @@
     
     
       <category term="消息中间件" scheme="https://woodwhales.github.io/tags/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构与算法之链表（C语言描述）</title>
-    <link href="https://woodwhales.github.io/2019/05/30/032/"/>
-    <id>https://woodwhales.github.io/2019/05/30/032/</id>
-    <published>2019-05-30T13:25:00.000Z</published>
-    <updated>2019-05-30T13:44:23.290Z</updated>
-    
-    <summary type="html">
-    
-      数据结构与算法之链表（C语言描述）
-    
-    </summary>
-    
-      <category term="算法" scheme="https://woodwhales.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="数据结构" scheme="https://woodwhales.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   

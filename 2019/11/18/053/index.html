@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="C语言, 指针, 变量, 常量, 宏定义, static, 静态局部变量, 预处理, 自增, 自减, 系统函数库, 类型转换">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="C 语言中的细节知识点">
+<meta name="keywords" content="C语言, 指针, 变量, 常量, 宏定义, static, 静态局部变量, 预处理, 自增, 自减, 系统函数库, 类型转换">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C 语言中的细节知识点">
+<meta property="og:url" content="https://woodwhales.github.io/2019/11/18/053/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="C 语言中的细节知识点">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://woodwhales.github.io/2019/11/18/053/2019/11/18/053/face.png">
+<meta property="og:updated_time" content="2019-11-17T17:25:37.255Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C 语言中的细节知识点">
+<meta name="twitter:description" content="C 语言中的细节知识点">
+<meta name="twitter:image" content="https://woodwhales.github.io/2019/11/18/053/2019/11/18/053/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2019/11/18/053/">
+
+
+
+
+
+  <title>C 语言中的细节知识点 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br>
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br>
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/11/18/053/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C 语言中的细节知识点</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-18T01:23:00+08:00">
+                2019-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-语言/" itemprop="url" rel="index">
+                    <span itemprop="name">C 语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/18/053/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/11/18/053/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/11/18/053/" class="leancloud_visitors" data-flag-title="C 语言中的细节知识点">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  6.9k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  C 语言中的细节知识点
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="/2019/11/18/053/face.png" rel="gallery_ck339zh4x00568kvgh8crzr2n" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="/2019/11/18/053/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h2 id="&#x5E38;&#x91CF;&#x7684;&#x5B9A;&#x4E49;"><a href="#&#x5E38;&#x91CF;&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="&#x5E38;&#x91CF;&#x7684;&#x5B9A;&#x4E49;"></a>&#x5E38;&#x91CF;&#x7684;&#x5B9A;&#x4E49;</h2><p>&#x5E38;&#x91CF;&#x7684;&#x5B9A;&#x4E49;&#x53EF;&#x4EE5;&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;</p>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>&#x683C;&#x5F0F;&#xFF1A;<code>const &#x6570;&#x636E;&#x7C7B;&#x578B; &#x5E38;&#x91CF;&#x540D; = &#x5E38;&#x91CF;&#x503C;</code></p>
+<p>&#x793A;&#x4F8B;&#xFF1A;<code>const double PI = 3.14</code></p>
+<h3 id="define"><a href="#define" class="headerlink" title="#define"></a>#define</h3><p>&#x683C;&#x5F0F;&#xFF1A;<code>#define &#x5E38;&#x91CF;&#x540D; &#x5E38;&#x91CF;&#x503C;</code></p>
+<p>&#x793A;&#x4F8B;&#xFF1A;<code>#define SUM = 1 + 2</code></p>
+<h3 id="const-&#x548C;-define-&#x7684;&#x533A;&#x522B;"><a href="#const-&#x548C;-define-&#x7684;&#x533A;&#x522B;" class="headerlink" title="const &#x548C; #define &#x7684;&#x533A;&#x522B;"></a>const &#x548C; #define &#x7684;&#x533A;&#x522B;</h3><ul>
+<li>const &#x5B9A;&#x4E49;&#x7684;&#x5E38;&#x91CF;&#x65F6;&#x5E26;&#x7C7B;&#x578B;&#xFF0C;#define &#x4E0D;&#x5E26;&#x7C7B;&#x578B;</li>
+<li>const &#x662F;&#x5728; &#x7F16;&#x8BD1;&#x3001;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x5019;&#x8D77;&#x4F5C;&#x7528;&#xFF0C;&#x800C; #define &#x662F;&#x5728;&#x7F16;&#x8BD1;&#x7684;&#x9884;&#x5904;&#x7406;&#x9636;&#x6BB5;&#x8D77;&#x4F5C;&#x7528;</li>
+<li>#define &#x53EA;&#x662F;&#x7B80;&#x5355;&#x7684;&#x66FF;&#x6362;&#xFF0C;&#x6CA1;&#x6709;&#x7C7B;&#x578B;&#x68C0;&#x67E5;&#x3002;&#x7B80;&#x5355;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x66FF;&#x6362;&#x4F1A;&#x5BFC;&#x81F4;<strong>&#x8FB9;&#x754C;&#x6548;&#x5E94;</strong></li>
+<li>const &#x5E38;&#x91CF;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x8C03;&#x8BD5;&#x7684;&#xFF0C;#define &#x662F;&#x4E0D;&#x80FD;&#x8FDB;&#x884C;&#x8C03;&#x8BD5;&#x7684;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x9884;&#x7F16;&#x8BD1;&#x9636;&#x6BB5;&#x5C31;&#x5DF2;&#x7ECF;&#x66FF;&#x6362;&#x6389;&#x4E86;&#xFF0C;&#x8C03;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x6CA1;&#x5B83;&#x4E86;</li>
+<li>const &#x4E0D;&#x80FD;&#x91CD;&#x5B9A;&#x4E49;&#xFF0C;&#x4E0D;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x4E24;&#x4E2A;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x800C; #define &#x901A;&#x8FC7; #undef &#x53D6;&#x6D88;&#x67D0;&#x4E2A;&#x7B26;&#x53F7;&#x7684;&#x5B9A;&#x4E49;&#xFF0C;&#x518D;&#x91CD;&#x65B0;&#x5B9A;&#x4E49;</li>
+<li>define &#x53EF;&#x4EE5;&#x914D;&#x5408;<code>#ifdef</code>&#x3001; <code>#ifndef</code>&#x3001; <code>#endif</code>&#x6765;&#x4F7F;&#x7528;&#xFF0C; &#x53EF;&#x4EE5;&#x8BA9;&#x4EE3;&#x7801;&#x66F4;&#x52A0;&#x7075;&#x6D3B;&#xFF0C;&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; #define &#x6765;&#x542F;&#x52A8;&#x6216;&#x8005;&#x5173;&#x95ED;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x3002;</li>
+</ul>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> SUM_CONST = <span class="number">1</span> + <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SUM_DEFINE 1 + 2;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="keyword">int</span> num1 = <span class="number">1</span> / SUM_CONST;  <span class="comment">// &#x8868;&#x793A; 1 / 3</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> num2 = <span class="number">1</span> / SUM_DEFINE; <span class="comment">// &#x9884;&#x7F16;&#x8BD1;&#x4E4B;&#x540E;&#xFF0C;&#x6E90;&#x7801;&#x4E2D;&#x7684;&#x8868;&#x8FBE;&#x5F0F;&#x662F;&#xFF1A;1 / 1 + 2&#xFF0C;&#x800C;&#x4E0D;&#x662F; 1 / (+ 2)</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num1 = %d\n&quot;</span>, num1); <span class="comment">// &#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;0</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num2 = %d\n&quot;</span>, num2); <span class="comment">// &#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;3</span></span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/01.png" alt=""></p>
+<p>&#x4ECE;&#x4E0A;&#x8FF0;&#x7684;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x51FA;<code>#define</code>&#x4EC5;&#x4EC5;&#x662F;&#x9884;&#x7F16;&#x8BD1;&#x4E4B;&#x540E;&#x5C06;&#x5E38;&#x91CF;&#x66FF;&#x6362;&#x6210;&#x539F;&#x6765;&#x7684;&#x8868;&#x8FBE;&#x5F0F;&#x3002;</p>
+<h2 id="&#x53D6;&#x6A21;&#x8FD0;&#x7B97;&#x7B26;"><a href="#&#x53D6;&#x6A21;&#x8FD0;&#x7B97;&#x7B26;" class="headerlink" title="&#x53D6;&#x6A21;&#x8FD0;&#x7B97;&#x7B26;"></a>&#x53D6;&#x6A21;&#x8FD0;&#x7B97;&#x7B26;</h2><p>&#x9664;&#x6CD5;&#x8FD0;&#x7B97;&#x7B26;&#x7684;&#x5E95;&#x5C42;&#x539F;&#x7406;&#xFF1A;</p>
+<p><code>A % B</code>&#x5728;&#x7F16;&#x8BD1;&#x5668;&#x4E2D;&#x4F1A;&#x81EA;&#x52A8;&#x7FFB;&#x8BD1;&#x4E3A;&#xFF1A;<code>A - ((A) / (B)) * (B)</code>&#x3002;</p>
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * A % B = A - A / B * B</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="keyword">int</span> num1 = <span class="number">-1</span> % <span class="number">2</span>; <span class="comment">// &#x8868;&#x793A;&#xFF1A;-1 - (-1) / 2 * 2 = -1 - (0 * 2) = -1 - 0 = -1</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> num2 = <span class="number">-3</span> % <span class="number">1</span>; <span class="comment">// &#x8868;&#x793A;&#xFF1A;-3 - (-3) / 1 * 1 = -3 - (-3 * 1) = -3 + 3 = 0</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> num3 = <span class="number">-3</span> % <span class="number">2</span>; <span class="comment">// &#x8868;&#x793A;&#xFF1A;-3 - (-3) / 2 * 2 = -3 - (-1 * 2) = -3 - (-2) = -1</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> num4 = <span class="number">-3</span> % <span class="number">3</span>; <span class="comment">// &#x8868;&#x793A;&#xFF1A;-3 - (-3) / 3 * 3 = -3 - (-1 * 3) = -3 + 3 = 0</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> num5 = <span class="number">-3</span> % <span class="number">4</span>; <span class="comment">// &#x8868;&#x793A;&#xFF1A;-3 - (-3) / 4 * 4 = -3 - (0 * 4) = -3 + 0 = -3</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num1 = %d\n&quot;</span>, num1);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num2 = %d\n&quot;</span>, num2);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num3 = %d\n&quot;</span>, num3);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num4 = %d\n&quot;</span>, num4);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num5 = %d\n&quot;</span>, num5);</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/02.png" alt=""></p>
+<p>&#x4ECE;&#x53D6;&#x6A21;&#x7684;&#x5E95;&#x5C42;&#x539F;&#x7406;&#x53EF;&#x4EE5;&#x5F97;&#x51FA;&#x7ED3;&#x8BBA;&#xFF1A;&#x53D6;&#x6A21;&#x6570;&#x4E0D;&#x53EF;&#x4EE5;&#x4E3A;&#x96F6;&#xFF0C;&#x5F62;&#x5982;&#xFF1A;<code>2 % 0</code>&#x8FD9;&#x6837;&#x7684;&#x8868;&#x8FBE;&#x5F0F;&#x662F;&#x975E;&#x6CD5;&#x7684;&#x3002;</p>
+<h2 id="&#x7B97;&#x672F;&#x8FD0;&#x7B97;&#x4E2D;&#x7684;&#x81EA;&#x52A8;&#x7C7B;&#x578B;&#x8F6C;&#x6362;"><a href="#&#x7B97;&#x672F;&#x8FD0;&#x7B97;&#x4E2D;&#x7684;&#x81EA;&#x52A8;&#x7C7B;&#x578B;&#x8F6C;&#x6362;" class="headerlink" title="&#x7B97;&#x672F;&#x8FD0;&#x7B97;&#x4E2D;&#x7684;&#x81EA;&#x52A8;&#x7C7B;&#x578B;&#x8F6C;&#x6362;"></a>&#x7B97;&#x672F;&#x8FD0;&#x7B97;&#x4E2D;&#x7684;&#x81EA;&#x52A8;&#x7C7B;&#x578B;&#x8F6C;&#x6362;</h2><p>&#x5728;&#x57FA;&#x672C;&#x8FD0;&#x7B97;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4E00;&#x5B9A;&#x8981;&#x6CE8;&#x610F; C &#x8BED;&#x8A00;&#x4E2D;&#x4E0D;&#x5E26;&#x5C0F;&#x6570;&#x70B9;&#x7684;&#x6570;&#x5B57;&#x9ED8;&#x8BA4;&#x7C7B;&#x578B;&#x662F; int &#x7C7B;&#x578B;&#xFF0C;&#x5E26;&#x5C0F;&#x6570;&#x70B9;&#x7684;&#x6570;&#x5B57;&#x9ED8;&#x8BA4;&#x7C7B;&#x578B;&#x662F; double &#x7C7B;&#x578B;&#xFF0C;&#x5728;&#x8BA1;&#x7B97;&#x4E2D;&#x53EF;&#x80FD;&#x4F1A;&#x5B58;&#x5728;&#x7C7B;&#x578B;&#x81EA;&#x52A8;&#x8F6C;&#x6362;&#x95EE;&#x9898;&#xFF0C;&#x5982;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x8FD0;&#x7B97;&#x4E2D;&#x7684;&#x81EA;&#x52A8;&#x7C7B;&#x578B;&#x8F6C;&#x6362;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="keyword">double</span> num1 = <span class="number">5</span> / <span class="number">2</span>; <span class="comment">// num &#x4E0D;&#x662F; 2.500000&#xFF0C;&#x800C;&#x662F; 2.000000&#xFF0C;&#x56E0;&#x4E3A;&#x5DE6;&#x8FB9;&#x662F;&#x5148;int&#x7C7B;&#x578B;&#x9664;&#x6CD5;&#x8BA1;&#x7B97;&#xFF0C;&#x518D;&#x7C7B;&#x578B;&#x81EA;&#x52A8;&#x8F6C;&#x6362;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">double</span> num2 = <span class="number">5.0</span> / <span class="number">2</span>; <span class="comment">// num &#x662F; 2.500000&#xFF0C;&#x56E0;&#x4E3A;&#x5DE6;&#x8FB9;&#x662F;&#x5148;&#x90FD;double&#x7C7B;&#x578B;&#x9664;&#x6CD5;&#x8BA1;&#x7B97;&#xFF0C;&#x518D;&#x8D4B;&#x503C;&#x3002;</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num1 = %f\n&quot;</span>, num1);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num2 = %f\n&quot;</span>, num2);</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/03.png" alt=""></p>
+<h2 id="&#x81EA;&#x589E;-&#x81EA;&#x51CF;&#x8FD0;&#x7B97;"><a href="#&#x81EA;&#x589E;-&#x81EA;&#x51CF;&#x8FD0;&#x7B97;" class="headerlink" title="&#x81EA;&#x589E;/&#x81EA;&#x51CF;&#x8FD0;&#x7B97;"></a>&#x81EA;&#x589E;/&#x81EA;&#x51CF;&#x8FD0;&#x7B97;</h2><p>&#x5982;&#x679C;&#x53D8;&#x91CF;&#x4EC5;&#x4EC5;&#x662F;&#x81EA;&#x5DF1;&#x81EA;&#x589E;&#x6216;&#x8005;&#x81EA;&#x51CF;&#x64CD;&#x4F5C;&#xFF0C;&#x90A3;&#x4E48;&#x4EC5;&#x4EC5;&#x5F71;&#x54CD;&#x53D8;&#x91CF;&#x672C;&#x8EAB;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x81EA;&#x589E;&#x6216;&#x81EA;&#x51CF;&#x5E76;&#x8D4B;&#x503C;&#x7ED9;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x90A3;&#x4E48;&#x4F1A;&#x6709;&#x8D4B;&#x503C;&#x987A;&#x5E8F;&#x3002;</p>
+<p>&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x81EA;&#x589E;/&#x81EA;&#x51CF;&#x8FD0;&#x7B97;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">10</span>, j = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">10</span>, q = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> m = i++;</span><br><span class="line">	<span class="keyword">int</span> n = ++j;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;i = %d\n&quot;</span>, i);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;j = %d\n&quot;</span>, j);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;m = %d\n&quot;</span>, m); <span class="comment">// &#x7B49;&#x4EF7;&#x4E8E;&#x5148;&#x8D4B;&#x503C;&#x518D;&#x81EA;&#x589E;&#xFF0C;m = j ,j = j + 1</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;n = %d\n&quot;</span>, n); <span class="comment">// &#x7B49;&#x4EF7;&#x4E8E;&#x5148;&#x81EA;&#x589E;&#x518D;&#x8D4B;&#x503C;&#xFF0C;j = j + 1, m = j</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;k = %d\n&quot;</span>, k);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;q = %d\n&quot;</span>, q);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(k++ == <span class="number">10</span>) { <span class="comment">// &#x7B49;&#x4EF7;&#x4E8E;&#x5148;&#x6BD4;&#x8F83;&#x518D;&#x81EA;&#x589E;</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;k++ == 10\n&quot;</span>);</span><br><span class="line">	} <span class="keyword">else</span> {</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;k++ != 10\n&quot;</span>);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(++q == <span class="number">10</span>) { <span class="comment">// &#x7B49;&#x4EF7;&#x4E8E;&#x5148;&#x81EA;&#x589E;&#x518D;&#x6BD4;&#x8F83;</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;++q == 10\n&quot;</span>);</span><br><span class="line">	} <span class="keyword">else</span> {</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;++q != 10\n&quot;</span>);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/04.png" alt=""></p>
+<h2 id="&#x53D8;&#x91CF;&#x548C;&#x6307;&#x9488;"><a href="#&#x53D8;&#x91CF;&#x548C;&#x6307;&#x9488;" class="headerlink" title="&#x53D8;&#x91CF;&#x548C;&#x6307;&#x9488;"></a>&#x53D8;&#x91CF;&#x548C;&#x6307;&#x9488;</h2><p>&#x6307;&#x9488;&#x662F; C &#x8BED;&#x8A00;&#x7684;&#x7075;&#x9B42;&#xFF0C;&#x6307;&#x9488;&#x5C31;&#x662F;&#x5730;&#x5740;&#xFF0C;&#x5730;&#x5740;&#x5C31;&#x662F;&#x6307;&#x9488;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x53D8;&#x91CF;&#x548C;&#x6307;&#x9488;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> * ptr = &amp;num;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num &#x53D8;&#x91CF;&#x672C;&#x8EAB;&#x7684;&#x503C;&#xFF1A;%d\n&quot;</span>, num);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num &#x53D8;&#x91CF;&#x672C;&#x8EAB;&#x7684;&#x503C;&#x6240;&#x5728;&#x7684;&#x5185;&#x5B58;&#x5730;&#x5740;&#xFF1A;%p\n&quot;</span>, &amp;num);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;ptr &#x53D8;&#x91CF;&#x672C;&#x8EAB;&#x7684;&#x503C;&#xFF1A;%p\n&quot;</span>, ptr);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;ptr &#x53D8;&#x91CF;&#x672C;&#x8EAB;&#x7684;&#x503C;&#x6240;&#x5728;&#x7684;&#x5185;&#x5B58;&#x5730;&#x5740;&#xFF1A;%p\n&quot;</span>, &amp;ptr);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;ptr &#x53D8;&#x91CF;&#x672C;&#x8EAB;&#x7684;&#x503C;&#x6240;&#x5728;&#x7684;&#x5185;&#x5B58;&#x5730;&#x5740;&#x4E2D;&#x7684;&#x5185;&#x5BB9;&#xFF1A;%d\n&quot;</span>, *ptr);</span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/05.png" alt=""></p>
+<p>&#x4E0A;&#x8FF0;&#x7684;&#x6267;&#x884C;&#x7ED3;&#x679C;&#xFF0C;&#x53EF;&#x80FD;&#x5B58;&#x5728;&#x4E0D;&#x4E00;&#x6837;&#xFF0C;&#x4F46;&#x662F;<code>num &#x53D8;&#x91CF;&#x672C;&#x8EAB;&#x7684;&#x503C;&#x6240;&#x5728;&#x7684;&#x5185;&#x5B58;&#x5730;&#x5740;</code>&#x548C;<code>ptr &#x53D8;&#x91CF;&#x672C;&#x8EAB;&#x7684;&#x503C;</code>&#x4E24;&#x8005;&#x4E00;&#x5B9A;&#x662F;&#x76F8;&#x7B49;&#x7684;&#x3002;</p>
+<p>&#x4E0A;&#x8FF0;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x89E3;&#x91CA;&#xFF1A;</p>
+<p>&#x5728;&#x6E90;&#x7801;&#x88AB;&#x7F16;&#x8BD1;&#x4E4B;&#x540E;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x53D8;&#x91CF;&#x90FD;&#x4F1A;&#x53D8;&#x6210;&#x4E86;&#x6C47;&#x7F16;&#x6307;&#x4EE4;&#x4E2D;&#x7684;&#x5F00;&#x8F9F;&#x4E00;&#x5757;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x7684;&#x610F;&#x601D;&#xFF0C;&#x800C;&#x8FD9;&#x4E2A;&#x8D4B;&#x503C;&#x64CD;&#x4F5C;&#x5C31;&#x662F;&#x5BF9;&#x8FD9;&#x5757;&#x5F00;&#x8F9F;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x8FDB;&#x884C;&#x8BBE;&#x7F6E;&#x503C;&#x3002;</p>
+<p>&#x597D;&#x6BD4;&#x4E00;&#x4F4D;&#x5BA2;&#x4EBA;&#x8981;&#x8FDB;&#x5165;&#x9152;&#x5E97;&#x5165;&#x4F4F;&#xFF1A;</p>
+<ul>
+<li><p>&#x8FD9;&#x4F4D;&#x5BA2;&#x4EBA;&#x8981;&#x544A;&#x8BC9;&#x524D;&#x53F0;&#xFF0C;&#x6211;&#x8981;&#x4F4F;&#x4EC0;&#x4E48;&#x7C7B;&#x578B;&#x7684;&#x623F;&#x95F4;&#xFF0C;&#x662F;&#x5355;&#x4EBA;&#x95F4;&#x8FD8;&#x662F;&#x53CC;&#x4EBA;&#x95F4;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;&#x623F;&#x95F4;&#x7C7B;&#x578B;&#x5C31;&#x662F;&#x53D8;&#x91CF;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;<code>int</code>&#x7C7B;&#x578B;&#x3002;</p>
+</li>
+<li><p>&#x8FD9;&#x4F4D;&#x5BA2;&#x4EBA;&#x8FD8;&#x8981;&#x544A;&#x8BC9;&#x524D;&#x53F0;&#xFF0C;&#x4F60;&#x9009;&#x62E9;&#x7684;&#x8FD9;&#x4E2A;&#x623F;&#x95F4;&#x8981;&#x4F4F;&#x5177;&#x4F53;&#x7684;&#x4EBA;&#x662F;&#x8C01;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;&#x5177;&#x4F53;&#x7684;&#x4EBA;&#x5C31;&#x662F;&#x53D8;&#x91CF;&#x88AB;&#x8D4B;&#x503C;&#x7684;&#x503C;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6570;&#x5B57;<code>10</code>&#x3002;</p>
+</li>
+</ul>
+<p><em>&#x4EE5;&#x4E0A;&#x8FC7;&#x7A0B;&#x4E2D;&#x524D;&#x53F0;&#x8FD8;&#x9700;&#x8981;&#x8003;&#x8651;&#x4E00;&#x4E0B;&#x8FD9;&#x4F4D;&#x5BA2;&#x4EBA;&#x8981;&#x6C42;&#x5F00;&#x7684;&#x623F;&#x95F4;&#x7C7B;&#x578B;&#x548C;&#x8981;&#x4F4F;&#x7684;&#x4EBA;&#x662F;&#x4E0D;&#x662F;&#x5339;&#x914D;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x53D8;&#x91CF;&#x7533;&#x660E;&#x7684;&#x7C7B;&#x578B;&#x548C;&#x8D4B;&#x503C;&#x7684;&#x503C;&#x7C7B;&#x578B;&#x662F;&#x5426;&#x5339;&#x914D;</em></p>
+<p>&#x7ECF;&#x8FC7;&#x4EE5;&#x4E0A;&#x8FC7;&#x7A0B;&#x4E4B;&#x540E;&#xFF0C;&#x8FD9;&#x4F4D;&#x5BA2;&#x4EBA;&#x5C31;&#x53EF;&#x4EE5;&#x529E;&#x7406;&#x5165;&#x4F4F;&#x624B;&#x7EED;&#x5E76;&#x987A;&#x5229;&#x5165;&#x4F4F;&#x4E86;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#x7684;&#x662F;&#x5BA2;&#x4EBA;&#x8BF4;&#x4F60;&#x4EEC;&#x7684;&#x623F;&#x95F4;&#x53F7;&#x90FD;&#x662F;&#x4E00;&#x5927;&#x4E32;&#x6570;&#x5B57;&#x8BB0;&#x5FC6;&#x8D77;&#x6765;&#x592A;&#x9EBB;&#x70E6;&#x4E86;&#xFF0C;&#x6211;&#x51FA;&#x95E8;&#x4E4B;&#x540E;&#x5F88;&#x5BB9;&#x6613;&#x5FD8;&#x8BB0;&#x6211;&#x7684;&#x623F;&#x95F4;&#x53F7;&#xFF0C;&#x80FD;&#x4E0D;&#x80FD;&#x6211;&#x7ED9;&#x6211;&#x8FD9;&#x4E2A;&#x623F;&#x95F4;&#x53F7;&#x8D77;&#x4E00;&#x4E2A;&#x522B;&#x540D;&#x3002;&#x4E8E;&#x662F;&#x524D;&#x53F0;&#x8BF4;&#xFF0C;&#x90A3;&#x4F60;&#x81EA;&#x5DF1;&#x8D77;&#x4E00;&#x4E2A;&#x81EA;&#x5DF1;&#x80FD;&#x8BB0;&#x4F4F;&#x7684;&#x623F;&#x95F4;&#x53F7;&#x522B;&#x540D;&#x5427;&#xFF0C;&#x6211;&#x5E2E;&#x4F60;&#x505A;&#x597D;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#x3002;&#x4E8E;&#x662F;&#x8FD9;&#x4F4D;&#x5BA2;&#x4EBA;&#x7ED9;&#x81EA;&#x5DF1;&#x7684;&#x623F;&#x95F4;&#x53F7;&#x8D77;&#x4E86;&#x4E2A;&#x522B;&#x540D;&#x53EB;<code>num</code>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x53D8;&#x91CF;&#x7684;&#x540D;&#x5B57;&#x3002;</p>
+<p>&#x5F53;&#x8FD9;&#x4E2A;&#x4EBA;&#x88AB;&#x5165;&#x4F4F;&#x8FDB;&#x5165;&#x8FD9;&#x4E2A;&#x623F;&#x95F4;&#x4E4B;&#x540E;&#xFF0C;&#x9152;&#x5E97;&#x8001;&#x677F;&#x4E86;&#x6765;&#x95EE;&#x524D;&#x53F0;&#xFF0C;&#x521A;&#x624D;&#x5F00;&#x7684;&#x623F;&#x95F4;&#x91CC;&#x4F4F;&#x7740;&#x662F;&#x8C01;&#x554A;&#xFF0C;&#x524D;&#x53F0;&#x60F3;&#x90A3;&#x4E48;&#x591A;&#x7684;&#x623F;&#x95F4;&#x53F7;&#x90FD;&#x662F;&#x6570;&#x5B57;&#xFF0C;&#x6211;&#x8981;&#x662F;&#x987A;&#x7740;&#x6570;&#x5B57;&#x627E;&#x6211;&#x4E5F;&#x8D39;&#x52B2;&#xFF0C;&#x521A;&#x624D;&#x7684;&#x5BA2;&#x4EBA;&#x4E0D;&#x662F;&#x7ED9;&#x81EA;&#x5DF1;&#x8D77;&#x4E86;&#x4E2A;&#x623F;&#x95F4;&#x53F7;&#x522B;&#x540D;&#x53EB;<code>num</code>&#x4E48;&#xFF0C;&#x6211;&#x4E5F;&#x505A;&#x597D;&#x4E86;&#x6620;&#x5C04;&#xFF0C;&#x76F4;&#x63A5;<code>&amp;num</code>&#x5C31;&#x80FD;&#x77E5;&#x9053;&#x8FD9;&#x4E2A;&#x4EBA;&#x7684;&#x623F;&#x95F4;&#x53F7;&#x662F;&#x591A;&#x5C11;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A;&#x522B;&#x540D;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x4EBA;&#x8D77;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x4E2A;&#x522B;&#x540D;&#x5C31;&#x4EE3;&#x8868;&#x4E86;&#x8FD9;&#x4E2A;&#x623F;&#x95F4;&#x91CC;&#x4F4F;&#x7684;&#x4EBA;&#x3002;&#x4E5F;&#x662F;&#x524D;&#x53F0;&#x5F88;&#x723D;&#x5FEB;&#x7684;&#x56DE;&#x590D;&#x8001;&#x677F;&#xFF0C;&#x8FD9;&#x4E2A;&#x4EBA;&#x662F;<code>num</code>&#xFF0C;&#x4ED6;&#x4F4F;&#x7684;&#x623F;&#x95F4;&#x53F7;&#x662F;<code>&amp;num</code>&#x3002;</p>
+<p>&#x8FD9;&#x65F6;&#x8001;&#x677F;&#x518D;&#x95EE;&#xFF0C;&#x4EBA;&#x65E2;&#x7136;&#x4F4F;&#x5728;&#x4E86;&#x8FD9;&#x4E2A;&#x623F;&#x95F4;&#x91CC;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x623F;&#x95F4;&#x53F7;&#x4F60;&#x662F;&#x8BB0;&#x5728;&#x54EA;&#x91CC;&#x4E86;&#x5462;&#xFF0C;&#x603B;&#x4E0D;&#x4F1A;&#x7528;&#x8111;&#x888B;&#x8BB0;&#x5FC6;&#x5427;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A;&#x4EBA;&#x6240;&#x4F4F;&#x7684;&#x623F;&#x95F4;&#x7C7B;&#x578B;&#xFF0C;&#x6211;&#x4E5F;&#x4E0D;&#x77E5;&#x9053;&#x554A;&#x3002;&#x806A;&#x660E;&#x7684;&#x524D;&#x53F0;&#x8BF4;&#xFF0C;&#x8FD9;&#x4E2A;&#x5DF2;&#x7ECF;&#x8BB0;&#x4F4F;&#x4E86;&#xFF0C;&#x5C31;&#x662F;&#x5728;&#x5BA2;&#x4EBA;&#x8D77;&#x623F;&#x95F4;&#x53F7;&#x522B;&#x540D;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x505A;&#x597D;&#x4E86;&#x6620;&#x5C04;&#x8BB0;&#x5F55;&#x4E86;&#x3002;&#x6211;&#x4E13;&#x95E8;&#x8BBE;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A;&#x4E13;&#x95E8;&#x7528;&#x6765;&#x5B58;&#x623F;&#x95F4;&#x53F7;&#x7684;&#x623F;&#x95F4;&#xFF0C;&#x53EB;<code>ptr</code>&#xFF0C;&#x8FD9;&#x7279;&#x6B8A;&#x7684;&#x623F;&#x95F4;&#x91CC;&#x9762;&#x4E0D;&#x4F4F;&#x5BA2;&#x4EBA;&#xFF0C;&#x53EA;&#x628A;&#x67D0;&#x4F4D;&#x5BA2;&#x4EBA;&#x6240;&#x4F4F;&#x7684;&#x623F;&#x95F4;&#x53F7;&#x7801;&#x653E;&#x5728;&#x8FD9;&#x4E2A;&#x623F;&#x95F4;&#x91CC;&#xFF0C;&#x5149;&#x8BB0;&#x4F4F;&#x8FD9;&#x4E2A;&#x5BA2;&#x4EBA;&#x7684;&#x623F;&#x95F4;&#x53F7;&#x4E0D;&#x591F;&#xFF0C;&#x8FD9;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x623F;&#x95F4;&#x8FD8;&#x662F;&#x7279;&#x6B8A;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x53EB;&#x5BA2;&#x4EBA;&#x623F;&#x95F4;&#x53F7;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;<code>int *</code>&#x3002;</p>
+<p>&#x524D;&#x53F0;&#x5F88;&#x723D;&#x5FEB;&#x7684;&#x56DE;&#x590D;&#x8001;&#x677F;&#xFF0C;&#x8FD9;&#x4E2A;<code>ptr</code>&#x623F;&#x95F4;&#x91CC;&#x5B58;&#x7684;&#x67D0;&#x4F4D;&#x5BA2;&#x4EBA;&#x7684;&#x623F;&#x95F4;&#x53F7;&#x5C31;&#x662F;&#xFF1A;<code>ptr</code>&#xFF0C;&#x8FD9;&#x4F4D;&#x5BA2;&#x4EBA;&#x5C31;&#x662F;&#xFF1A;<code>* ptr</code>&#x3002;</p>
+<p>&#x4ECE;&#x4E0A;&#x8FF0;&#x6BD4;&#x55BB;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;<code>ptr</code>&#x623F;&#x95F4;&#x91CC;&#x7684;&#x4E1C;&#x897F;&#x5B58;&#x7684;&#x5C31;&#x662F;&#x5BA2;&#x4EBA;&#x7684;&#x623F;&#x95F4;&#x53F7;&#x7801;&#xFF0C;&#x53EA;&#x8981;&#x8C01;&#x62FF;&#x5230;&#x4E86;&#x8FD9;&#x4E2A;&#x5BA2;&#x4EBA;&#x7684;&#x623F;&#x95F4;&#x53F7;&#x7801;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x53EF;&#x4EE5;&#x5BF9;&#x8FD9;&#x4F4D;&#x5BA2;&#x4EBA;&#x4E3A;&#x6240;&#x6B32;&#x4E3A;&#x4E86;&#x3002;</p>
+<p><em>&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x6740;&#x624B;&#x77E5;&#x9053;&#x4E86;&#x8FD9;&#x4E2A;&#x623F;&#x95F4;&#x53F7;&#x7801;&#xFF0C;&#x5E26;&#x628A;&#x67AA;&#x628A;&#x8FD9;&#x4E2A;&#x623F;&#x95F4;&#x53F7;&#x7801;&#x91CC;&#x4F4F;&#x7684;&#x4EBA;&#x7ED9;&#x67AA;&#x6740;&#x4E86;&#xFF0C;&#x90A3;&#x4E48;&#x662F;&#x4E2A;&#x5371;&#x9669;&#x7684;&#x4E8B;&#x60C5;&#x3002;&#x5F53;&#x7136;&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x533B;&#x751F;&#x77E5;&#x9053;&#x8FD9;&#x4E2A;&#x623F;&#x95F4;&#x53F7;&#x7801;&#xFF0C;&#x5C31;&#x80FD;&#x5728;&#x7B2C;&#x4E00;&#x65F6;&#x95F4;&#x53CA;&#x65F6;&#x62A2;&#x6551;&#x8FD9;&#x4F4D;&#x5BA2;&#x4EBA;&#x3002;</em></p>
+<h2 id="static-&#x5173;&#x952E;&#x5B57;"><a href="#static-&#x5173;&#x952E;&#x5B57;" class="headerlink" title="static &#x5173;&#x952E;&#x5B57;"></a>static &#x5173;&#x952E;&#x5B57;</h2><p><code>static</code>&#x5173;&#x952E;&#x5B57;&#x5728; C &#x8BED;&#x8A00;&#x4E2D;&#x6BD4;&#x8F83;&#x5E38;&#x7528;&#xFF0C;&#x4F7F;&#x7528;&#x6070;&#x5F53;&#x80FD;&#x591F;&#x5927;&#x5927;&#x63D0;&#x9AD8;&#x7A0B;&#x5E8F;&#x7684;&#x6A21;&#x5757;&#x5316;&#x7279;&#x6027;&#xFF0C;&#x6709;&#x5229;&#x4E8E;&#x6269;&#x5C55;&#x548C;&#x7EF4;&#x62A4;&#x3002;</p>
+<h3 id="&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x4F7F;&#x7528;-static"><a href="#&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x4F7F;&#x7528;-static" class="headerlink" title="&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x4F7F;&#x7528; static"></a>&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x4F7F;&#x7528; static</h3><p>&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x88AB; static &#x4FEE;&#x9970;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x79F0;&#x4E3A;&#x9759;&#x6001;&#x5C40;&#x90E8;&#x53D8;&#x91CF;</p>
+<p>&#x5BF9;&#x5E94;&#x9759;&#x6001;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x5728;&#x58F0;&#x660E;&#x65F6;&#x672A;&#x8D4B;&#x521D;&#x503C;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x4E5F;&#x4F1A;&#x628A;&#x5B83;&#x521D;&#x59CB;&#x5316;&#x4E3A;&#x9ED8;&#x8BA4;&#x503C;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x6570;&#x636E;&#x7C7B;&#x578B;</th>
+<th>&#x521D;&#x59CB;&#x5316;&#x9ED8;&#x8BA4;&#x503C;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td>0</td>
+</tr>
+<tr>
+<td>char</td>
+<td>&#x2018;\0&#x2019;</td>
+</tr>
+<tr>
+<td>float</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>double</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>pointer &#x6307;&#x9488;</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p>&#x9759;&#x6001;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x5B58;&#x50A8;&#x4E8E;&#x8FDB;&#x7A0B;&#x7684;<strong>&#x9759;&#x6001;&#x5B58;&#x50A8;&#x533A;&#xFF08;&#x5168;&#x5C40;&#x6027;&#x8D28;&#xFF09;</strong>&#xFF0C; <strong>&#x53EA;&#x4F1A;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x4E00;&#x6B21;</strong>&#xFF0C;&#x5373;&#x4F7F;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#xFF0C;&#x5B83;&#x7684;&#x503C;&#x4E5F;&#x4F1A;&#x4FDD;&#x6301;&#x4E0D;&#x53D8;</p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x9759;&#x6001;&#x5C40;&#x90E8;&#x53D8;&#x91CF;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun_static</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> n = <span class="number">10</span>; <span class="comment">// static &#x4FEE;&#x9970;&#x7684;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x4F1A;&#x5B58;&#x5728;&#x9759;&#x6001;&#x5B58;&#x50A8;&#x533A;&#xFF08;&#x5168;&#x5C40;&#x6027;&#x7684;&#x533A;&#x57DF;&#xFF09;&#xFF0C;&#x53EA;&#x4F1A;&#x521D;&#x59CB;&#x5316;&#x4E00;&#x6B21;</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;n = %d\n&quot;</span>, n);</span><br><span class="line">	</span><br><span class="line">	n++;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;n = %d\n&quot;</span>, n);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	fun_static();</span><br><span class="line"></span><br><span class="line">	fun_static();</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/06.png" alt=""></p>
+<h3 id="&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4F7F;&#x7528;-static"><a href="#&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4F7F;&#x7528;-static" class="headerlink" title="&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4F7F;&#x7528; static"></a>&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4F7F;&#x7528; static</h3><p>&#x666E;&#x901A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x5BF9;&#x6574;&#x4E2A;&#x5DE5;&#x7A0B;&#x53EF;&#x89C1;&#xFF0C;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>extern</code>&#x5916;&#x90E8;&#x58F0;&#x660E;&#x540E;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x4E0D;&#x80FD;&#x518D;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x4E0E;&#x5176;&#x76F8;&#x540C;&#x540D;&#x5B57;&#x7684;&#x53D8;&#x91CF;&#x4E86;&#xFF08;&#x5426;&#x5219;&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x8BA4;&#x4E3A;&#x5B83;&#x4EEC;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF09;&#xFF0C;&#x9759;&#x6001;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4EC5;&#x5BF9;&#x5F53;&#x524D;&#x6587;&#x4EF6;&#x53EF;&#x89C1;&#xFF0C;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x4E0D;&#x53EF;&#x8BBF;&#x95EE;&#xFF0C;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x4E0E;&#x5176;&#x540C;&#x540D;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x4E24;&#x8005;&#x4E92;&#x4E0D;&#x5F71;&#x54CD;&#x3002;</p>
+<p>&#x5B9A;&#x4E49;&#x4E0D;&#x9700;&#x8981;&#x4E0E;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x5171;&#x4EAB;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x65F6;&#xFF0C;&#x52A0;&#x4E0A;<code>static</code>&#x5173;&#x952E;&#x5B57;&#x80FD;&#x591F;&#x6709;&#x6548;&#x5730;&#x964D;&#x4F4E;&#x7A0B;&#x5E8F;&#x6A21;&#x5757;&#x4E4B;&#x95F4;&#x7684;&#x8026;&#x5408;&#xFF0C;&#x907F;&#x514D;&#x4E0D;&#x540C;&#x6587;&#x4EF6;&#x540C;&#x540D;&#x53D8;&#x91CF;&#x7684;&#x51B2;&#x7A81;&#xFF0C;&#x4E14;&#x4E0D;&#x4F1A;&#x8BEF;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<p>file01.c &#x6587;&#x4EF6;&#x4E2D;&#x5B9A;&#x4E49;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num1 = <span class="number">10</span>; <span class="comment">// &#x666E;&#x901A;&#x5168;&#x5C40;&#x53D8;&#x91CF;</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> num2 = <span class="number">20</span>; <span class="comment">// &#x9759;&#x6001;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x53EA;&#x80FD;&#x5728;&#x672C;&#x6587;&#x4EF6;&#x4E2D;&#x4F7F;&#x7528;&#xFF0C;&#x800C;&#x4E0D;&#x80FD;&#x5728;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x4E2D;&#x4F7F;&#x7528;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>file02.c &#x6587;&#x4EF6;&#x4E2D;&#x5F15;&#x5165;&#x666E;&#x901A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> num1; <span class="comment">// &#x5F15;&#x7528;&#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x666E;&#x901A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x5343;&#x4E07;&#x4E0D;&#x8981;&#x5BF9;&#x5176;&#x8D4B;&#x503C;&#xFF01;</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> num2; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num1 = %d\n&quot;</span>, num1);</span><br><span class="line">	<span class="comment">// printf(&quot;num2 = %d\n&quot;, num2); // num2 &#x5728;&#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x5DF2;&#x7ECF;&#x662F;&#x9759;&#x6001;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4E86;&#xFF0C;</span></span><br><span class="line">								    <span class="comment">// &#x90A3;&#x4E48;&#x672C;&#x6587;&#x4EF6;&#x53EA;&#x662F;&#x5F15;&#x7528;&#x800C;&#x4E0D;&#x91CD;&#x65B0;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x90A3;&#x4E48;&#x8FD0;&#x884C;&#x4F1A;&#x62A5;&#x9519;</span></span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/07.png" alt=""></p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<p>file01.c &#x6587;&#x4EF6;&#x4E2D;&#x5B9A;&#x4E49;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num1 = <span class="number">10</span>; <span class="comment">// &#x666E;&#x901A;&#x5168;&#x5C40;&#x53D8;&#x91CF;</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> num2 = <span class="number">20</span>; <span class="comment">// &#x9759;&#x6001;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x53EA;&#x80FD;&#x5728;&#x672C;&#x6587;&#x4EF6;&#x4E2D;&#x4F7F;&#x7528;&#xFF0C;&#x800C;&#x4E0D;&#x80FD;&#x5728;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x4E2D;&#x4F7F;&#x7528;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>file02.c &#x6587;&#x4EF6;&#x4E2D;&#x5F15;&#x5165;&#x666E;&#x901A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> num1; <span class="comment">// &#x5F15;&#x7528;&#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x666E;&#x901A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;&#x5343;&#x4E07;&#x4E0D;&#x8981;&#x5BF9;&#x5176;&#x8D4B;&#x503C;&#xFF01;</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> num2; </span><br><span class="line"></span><br><span class="line"><span class="comment">// int num1 = 9; // &#x8FD9;&#x91CC;&#x7684;num1&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x5728;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x4E2D;&#x5DF2;&#x7ECF;&#x5B9A;&#x4E49;&#x5E76;&#x88AB;&#x672C;&#x6587;&#x4EF6;&#x5F15;&#x7528;&#xFF0C;</span></span><br><span class="line">                 <span class="comment">// &#x56E0;&#x6B64;&#x4E0D;&#x5141;&#x8BB8;&#x5B9A;&#x4E49;&#x76F8;&#x540C;&#x540D;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> num2 = <span class="number">11</span>; <span class="comment">// &#x7531;&#x4E8E; &#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x7684;num2&#x88AB;&#x5B9A;&#x4E49;&#x6210;&#x4E86;&#x9759;&#x6001;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#xFF0C;</span></span><br><span class="line">					  <span class="comment">// &#x90A3;&#x4E48;&#x672C;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x76F8;&#x540C;&#x53D8;&#x91CF;&#x540D;&#x7684;&#x666E;&#x901A;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x6216;&#x9759;&#x6001;&#x5168;&#x5C40;&#x53D8;&#x91CF;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num1 = %d\n&quot;</span>, num1);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;num2 = %d\n&quot;</span>, num2);</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/08.png" alt=""></p>
+<p>&#x4ECE;&#x7B2C;&#x4E8C;&#x4E2A;&#x793A;&#x4F8B;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x4E00;&#x822C;&#x5728;&#x6587;&#x4EF6;&#x4E2D;&#x5B9A;&#x4E49;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x60F3;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x4F7F;&#x7528;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4F7F;&#x7528;<code>static</code>&#x4FEE;&#x9970;&#xFF0C;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x5F15;&#x7528;&#x4E86;&#x4E5F;&#x6CA1;&#x5173;&#x7CFB;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x8981;&#x60F3;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x5C31;&#x5F97;&#x81EA;&#x5DF1;&#x91CD;&#x65B0;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x76F8;&#x540C;&#x540D;&#x5B57;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x3002;&#x4ECE;&#x800C;&#x4F7F;&#x5F97;&#x81EA;&#x5DF1;&#x7684;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x201D;&#x5F88;&#x5B89;&#x5168;&#x201D;&#x3002;</p>
+<h3 id="&#x51FD;&#x6570;&#x4F7F;&#x7528;-static"><a href="#&#x51FD;&#x6570;&#x4F7F;&#x7528;-static" class="headerlink" title="&#x51FD;&#x6570;&#x4F7F;&#x7528; static"></a>&#x51FD;&#x6570;&#x4F7F;&#x7528; static</h3><p>&#x51FD;&#x6570;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x4E0E;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x7C7B;&#x4F3C;&#xFF0C;&#x5728;&#x51FD;&#x6570;&#x7684;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x524D;&#x52A0;&#x4E0A;static&#xFF0C;&#x5C31;&#x662F;&#x9759;&#x6001;&#x51FD;&#x6570;&#x3002;</p>
+<p>&#x975E;&#x9759;&#x6001;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x5728;&#x53E6;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#x901A;&#x8FC7;<code>extern</code>&#x5F15;&#x7528;&#x3002;</p>
+<p>&#x9759;&#x6001;&#x51FD;&#x6570;&#x53EA;&#x80FD;&#x5728;&#x58F0;&#x660E;&#x5B83;&#x7684;&#x6587;&#x4EF6;&#x4E2D;&#x53EF;&#x89C1;&#xFF0C;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x4E0D;&#x80FD;&#x5F15;&#x7528;&#x8BE5;&#x51FD;&#x6570;&#x3002;</p>
+<p>&#x4E0D;&#x540C;&#x7684;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x76F8;&#x540C;&#x540D;&#x5B57;&#x7684;&#x9759;&#x6001;&#x51FD;&#x6570;&#xFF0C;&#x4E92;&#x4E0D;&#x5F71;&#x54CD;&#x3002;</p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<p>file03.c &#x6587;&#x4EF6;&#x4E2D;&#x5B9A;&#x4E49;&#x51FD;&#x6570;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x666E;&#x901A;&#x51FD;&#x6570;&#xFF08;&#x975E;&#x9759;&#x6001;&#x51FD;&#x6570;&#xFF09;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">void</span>)</span> </span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;fun1 was executed...\n&quot;</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// static &#x4FEE;&#x9970;&#x7684;&#x51FD;&#x6570;&#x53EB;&#x9759;&#x6001;&#x51FD;&#x6570;</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fun2</span><span class="params">(<span class="keyword">void</span>)</span> </span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;fun2 was executed...\n&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>file04.c &#x6587;&#x4EF6;&#x4E2D;&#x4F7F;&#x7528;&#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x51FD;&#x6570;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">void</span>)</span></span>; <span class="comment">// &#x4F7F;&#x7528; extern &#x5F15;&#x5165;&#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x975E;&#x9759;&#x6001;&#x51FD;&#x6570;</span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">fun2</span><span class="params">(<span class="keyword">void</span>)</span></span>; <span class="comment">// &#x53EF;&#x4EE5;&#x5F15;&#x5165;&#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x9759;&#x6001;&#x51FD;&#x6570;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#xFF01;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	fun1();</span><br><span class="line">	<span class="comment">// fun2(); // &#x4E0D;&#x80FD;&#x6B63;&#x5E38;&#x4F7F;&#x7528;&#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x9759;&#x6001;&#x51FD;&#x6570;</span></span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/09.png" alt=""></p>
+<p>&#x548C;&#x9759;&#x6001;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x4E00;&#x6837;&#xFF0C;&#x672C;&#x6587;&#x4EF6;&#x4E2D;&#x5F15;&#x5165;&#x4E86;&#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x9759;&#x6001;&#x51FD;&#x6570;&#xFF0C;&#x5982;&#x679C;&#x60F3;&#x4F7F;&#x7528;&#x76F8;&#x540C;&#x540D;&#x79F0;&#x7684;&#x51FD;&#x6570;&#x540D;&#xFF0C;&#x90A3;&#x4E48;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x91CD;&#x65B0;&#x5B9A;&#x4E49;&#xFF1A;</p>
+<p>file03.c &#x6587;&#x4EF6;&#x4E2D;&#x5B9A;&#x4E49;&#x51FD;&#x6570;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">// &#x666E;&#x901A;&#x51FD;&#x6570;&#xFF08;&#x975E;&#x9759;&#x6001;&#x51FD;&#x6570;&#xFF09;</span><br><span class="line">void fun1(void) {</span><br><span class="line">	printf(&quot;fun1 was executed...\n&quot;);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">// static &#x4FEE;&#x9970;&#x7684;&#x51FD;&#x6570;&#x53EB;&#x9759;&#x6001;&#x51FD;&#x6570;</span><br><span class="line">static void fun2(void) {</span><br><span class="line">	printf(&quot;fun2 was executed...\n&quot;);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>file04.c &#x6587;&#x4EF6;&#x4E2D;&#x4F7F;&#x7528;&#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x51FD;&#x6570;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">void</span>)</span></span>; <span class="comment">// &#x4F7F;&#x7528; extern &#x5F15;&#x5165;&#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x975E;&#x9759;&#x6001;&#x51FD;&#x6570;&#xFF0C;&#x4E0D;&#x5141;&#x8BB8;&#x91CD;&#x65B0;&#x5B9A;&#x4E49;</span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">fun2</span><span class="params">(<span class="keyword">void</span>)</span></span>; <span class="comment">// &#x53EF;&#x4EE5;&#x5F15;&#x5165;&#x5916;&#x90E8;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x9759;&#x6001;&#x51FD;&#x6570;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#xFF01; &#x9664;&#x975E;&#x81EA;&#x5DF1;&#x91CD;&#x65B0;&#x5B9A;&#x4E49;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun2</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;fun2 was redefined\n&quot;</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	fun1();</span><br><span class="line">	fun2();</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/10.png" alt=""></p>
+<h2 id="&#x7CFB;&#x7EDF;&#x51FD;&#x6570;&#x5E93;"><a href="#&#x7CFB;&#x7EDF;&#x51FD;&#x6570;&#x5E93;" class="headerlink" title="&#x7CFB;&#x7EDF;&#x51FD;&#x6570;&#x5E93;"></a>&#x7CFB;&#x7EDF;&#x51FD;&#x6570;&#x5E93;</h2><h3 id="string-h-&#x5B57;&#x7B26;&#x4E32;&#x51FD;&#x6570;&#x5E93;"><a href="#string-h-&#x5B57;&#x7B26;&#x4E32;&#x51FD;&#x6570;&#x5E93;" class="headerlink" title="string.h &#x5B57;&#x7B26;&#x4E32;&#x51FD;&#x6570;&#x5E93;"></a>string.h &#x5B57;&#x7B26;&#x4E32;&#x51FD;&#x6570;&#x5E93;</h3><p>&#x5B57;&#x7B26;&#x4E32;&#x64CD;&#x4F5C;&#x5E38;&#x5E38;&#x4F9D;&#x8D56;&#x7CFB;&#x7EDF;&#x4F9D;&#x8D56;&#x63D0;&#x4F9B;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x51FD;&#x6570;&#xFF1A;</p>
+<h4 id="&#x5F97;&#x5230;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x957F;&#x5EA6;"><a href="#&#x5F97;&#x5230;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x957F;&#x5EA6;" class="headerlink" title="&#x5F97;&#x5230;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x957F;&#x5EA6;"></a>&#x5F97;&#x5230;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x957F;&#x5EA6;</h4><p><code>size_t strlen(const char *str)</code></p>
+<p>&#x8BA1;&#x7B97;&#x5B57;&#x7B26;&#x4E32; str &#x7684;&#x957F;&#x5EA6;&#xFF0C;&#x76F4;&#x5230;&#x7A7A;&#x7ED3;&#x675F;&#x5B57;&#x7B26;&#xFF0C;&#x4F46;&#x4E0D;&#x5305;&#x62EC;&#x7A7A;&#x7ED3;&#x675F;&#x5B57;&#x7B26; &#x3002;</p>
+<h4 id="&#x62F7;&#x8D1D;&#x5B57;&#x7B26;&#x4E32;"><a href="#&#x62F7;&#x8D1D;&#x5B57;&#x7B26;&#x4E32;" class="headerlink" title="&#x62F7;&#x8D1D;&#x5B57;&#x7B26;&#x4E32;"></a>&#x62F7;&#x8D1D;&#x5B57;&#x7B26;&#x4E32;</h4><p><code>char *strcpy(char *dest, const char *src)</code></p>
+<p>&#x628A; src &#x6240;&#x6307;&#x5411;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x590D;&#x5236;&#x5230; dest&#x3002;</p>
+<h4 id="&#x8FDE;&#x63A5;&#x5B57;&#x7B26;&#x4E32;"><a href="#&#x8FDE;&#x63A5;&#x5B57;&#x7B26;&#x4E32;" class="headerlink" title="&#x8FDE;&#x63A5;&#x5B57;&#x7B26;&#x4E32;"></a>&#x8FDE;&#x63A5;&#x5B57;&#x7B26;&#x4E32;</h4><p><code>char *strcat(char *dest, const char *src)</code></p>
+<p>&#x628A; src &#x6240;&#x6307;&#x5411;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x8FFD;&#x52A0;&#x5230; dest &#x6240;&#x6307;&#x5411;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x7ED3;&#x5C3E;&#x3002;</p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="keyword">char</span> src[<span class="number">50</span>], dest[<span class="number">50</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> * str = <span class="string">&quot;woodwhales&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> len = <span class="built_in">strlen</span>(str); <span class="comment">// &#x8BA1;&#x7B97;&#x5B57;&#x7B26;&#x4E32;&#x957F;&#x5EA6;&#xFF08;&#x4EE5;&#x5B57;&#x7B26;&#x4E3A;&#x5355;&#x4F4D;&#xFF09;</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;0. str = %s, len = %d\n&quot;</span>, str, len);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">strcpy</span>(src, <span class="string">&quot;src str&quot;</span>); <span class="comment">// strcpy &#x5B57;&#x7B26;&#x4E32;&#x62F7;&#x8D1D;&#xFF0C;&#x6CE8;&#x610F;&#x6E90;&#x5B57;&#x7B26;&#x4E32;&#x4F1A;&#x88AB;&#x8986;&#x76D6;</span></span><br><span class="line">	<span class="built_in">strcpy</span>(dest, <span class="string">&quot;dest str&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;1. src = %s\n&quot;</span>, src);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;2. dest = %s\n&quot;</span>, dest);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">strcpy</span>(dest, <span class="string">&quot;hello world&quot;</span>); <span class="comment">// &#x8BC1;&#x660E; strcpy &#x5B57;&#x7B26;&#x4E32;&#x62F7;&#x8D1D;&#x6E90;&#x5B57;&#x7B26;&#x4E32;&#x4F1A;&#x88AB;&#x8986;&#x76D6;</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;3. dest = %s\n&quot;</span>, dest);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">strcat</span>(dest, <span class="string">&quot; woodwhales&quot;</span>); <span class="comment">// strcpy &#x5B57;&#x7B26;&#x4E32;&#x62FC;&#x63A5;</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;4. dest = %s\n&quot;</span>, dest);</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/11.png" alt=""></p>
+<h3 id="time-h-&#x65F6;&#x95F4;&#x65E5;&#x671F;&#x51FD;&#x6570;&#x5E93;"><a href="#time-h-&#x65F6;&#x95F4;&#x65E5;&#x671F;&#x51FD;&#x6570;&#x5E93;" class="headerlink" title="time.h &#x65F6;&#x95F4;&#x65E5;&#x671F;&#x51FD;&#x6570;&#x5E93;"></a>time.h &#x65F6;&#x95F4;&#x65E5;&#x671F;&#x51FD;&#x6570;&#x5E93;</h3><h4 id="&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x65F6;&#x95F4;"><a href="#&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x65F6;&#x95F4;" class="headerlink" title="&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x65F6;&#x95F4;"></a>&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x65F6;&#x95F4;</h4><p><code>char *ctime(const time_t *timer)</code></p>
+<p>&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x8868;&#x793A;&#x5F53;&#x5730;&#x65F6;&#x95F4;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5F53;&#x5730;&#x65F6;&#x95F4;&#x662F;&#x57FA;&#x4E8E;&#x53C2;&#x6570; timer&#x3002;</p>
+<h4 id="&#x65F6;&#x95F4;&#x5DEE;&#x8BA1;&#x7B97;"><a href="#&#x65F6;&#x95F4;&#x5DEE;&#x8BA1;&#x7B97;" class="headerlink" title="&#x65F6;&#x95F4;&#x5DEE;&#x8BA1;&#x7B97;"></a>&#x65F6;&#x95F4;&#x5DEE;&#x8BA1;&#x7B97;</h4><p><code>double difftime(time_t time1, time_t time2)</code></p>
+<p>&#x8FD4;&#x56DE; time1 &#x548C; time2 &#x4E4B;&#x95F4;&#x76F8;&#x5DEE;&#x7684;&#x79D2;&#x6570; (time1-time2)&#x3002;</p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="keyword">time_t</span> currentTime; <span class="comment">// time.h &#x662F;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x4F53;&#x7C7B;&#x578B;</span></span><br><span class="line">	time(&amp;currentTime); <span class="comment">// &#x5B8C;&#x6210;&#x521D;&#x59CB;&#x5316;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// ctime &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x8868;&#x793A;&#x5F53;&#x5730;&#x65F6;&#x95F4;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5F53;&#x5730;&#x65F6;&#x95F4;&#x662F;&#x57FA;&#x4E8E;&#x53C2;&#x6570; timer</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;current time = %s&quot;</span>, ctime(&amp;currentTime));</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/12.png" alt=""></p>
+<p>&#x8BA1;&#x7B97;&#x67D0;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x6267;&#x884C;&#x65F6;&#x95F4;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">function</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">10000000</span>; i++) {</span><br><span class="line">		<span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; <span class="number">10</span>; j++) {</span><br><span class="line">			sum += j;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="keyword">time_t</span> startTime, endTime; </span><br><span class="line">	</span><br><span class="line">	<span class="keyword">double</span> costTime;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;function is begining...\n&quot;</span>);</span><br><span class="line">	time(&amp;startTime); <span class="comment">// &#x8BB0;&#x5F55;&#x5F00;&#x59CB;&#x65F6;&#x95F4;</span></span><br><span class="line"></span><br><span class="line">	function(); <span class="comment">// &#x6267;&#x884C;&#x51FD;&#x6570;</span></span><br><span class="line"></span><br><span class="line">	time(&amp;endTime); <span class="comment">// &#x8BB0;&#x5F55;&#x7ED3;&#x675F;&#x65F6;&#x95F4;</span></span><br><span class="line"></span><br><span class="line">	costTime = difftime(endTime, startTime);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;cost time = %f\n&quot;</span>, costTime);</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/13.png" alt=""></p>
+<h2 id="&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;"><a href="#&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;" class="headerlink" title="&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;"></a>&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;</h2><p>&#x4F7F;&#x7528;&#x5E93;&#x51FD;&#x6570;&#x4E4B;&#x524D;&#xFF0C;&#x5E94;&#x8BE5;&#x7528;<code>#include</code>&#x5F15;&#x5165;&#x5BF9;&#x5E94;&#x7684;&#x5934;&#x6587;&#x4EF6;&#x3002;&#x8FD9;&#x79CD;&#x4EE5;<code>#</code>&#x53F7;&#x5F00;&#x5934;&#x7684;&#x547D;&#x4EE4;&#x79F0;&#x4E3A;&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;&#x3002;</p>
+<p>&#x8FD9;&#x4E9B;&#x5728;&#x7F16;&#x8BD1;&#x4E4B;&#x524D;&#x5BF9;&#x6E90;&#x6587;&#x4EF6;&#x8FDB;&#x884C;&#x7B80;&#x5355;&#x52A0;&#x5DE5;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x5C31;&#x79F0;&#x4E3A;<code>&#x9884;&#x5904;&#x7406;</code>&#xFF08;&#x5373;&#x9884;&#x5148;&#x5904;&#x7406;&#x3001;&#x63D0;&#x524D;&#x5904;&#x7406;&#xFF09;&#x3002;</p>
+<p>&#x9884;&#x5904;&#x7406;&#x4E3B;&#x8981;&#x662F;&#x5904;&#x7406;&#x4EE5;<code>#</code>&#x5F00;&#x5934;&#x7684;&#x547D;&#x4EE4;&#xFF0C;&#x4F8B;&#x5982; #include &lt;stdio.h&gt; &#x7B49;&#x3002;&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;&#x8981;&#x653E;&#x5728;&#x6240;&#x6709;&#x51FD;&#x6570;&#x4E4B;&#x5916;&#xFF0C;&#x800C;&#x4E14;&#x4E00;&#x822C;&#x90FD;&#x653E;&#x5728;&#x6E90;&#x6587;&#x4EF6;&#x7684;&#x524D;&#x9762;&#x3002;</p>
+<p>&#x9884;&#x5904;&#x7406;&#x662F; C &#x8BED;&#x8A00;&#x7684;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x529F;&#x80FD;&#xFF0C;&#x7531;&#x9884;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x5B8C;&#x6210;&#x3002;<strong>&#x5F53;&#x5BF9;&#x4E00;&#x4E2A;&#x6E90;&#x6587;&#x4EF6;&#x8FDB;&#x884C;&#x7F16;&#x8BD1;&#x65F6;&#xFF0C; &#x7CFB;&#x7EDF;&#x5C06;&#x81EA;&#x52A8;&#x8C03;&#x7528;&#x9884;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x5BF9;&#x6E90;&#x7A0B;&#x5E8F;&#x4E2D;&#x7684;&#x9884;&#x5904;&#x7406;&#x90E8;&#x5206;&#x4F5C;&#x5904;&#x7406;&#xFF0C;&#x5904;&#x7406;&#x5B8C;&#x6BD5;&#x81EA;&#x52A8;&#x8FDB;&#x5165;&#x5BF9;&#x6E90;&#x7A0B;&#x5E8F;&#x7684;&#x7F16;&#x8BD1;&#x3002;</strong></p>
+<p>C &#x8BED;&#x8A00;&#x63D0;&#x4F9B;&#x4E86;&#x591A;&#x79CD;&#x9884;&#x5904;&#x7406;&#x529F;&#x80FD;&#xFF0C;&#x5982;&#x5B8F;&#x5B9A;&#x4E49;&#x3001;&#x6587;&#x4EF6;&#x5305;&#x542B;&#x3001;&#x6761;&#x4EF6;&#x7F16;&#x8BD1;&#x7B49;&#xFF0C;&#x5408;&#x7406;&#x5730;&#x4F7F;&#x7528;&#x5B83;&#x4EEC;&#x4F1A;&#x4F7F;&#x7F16;&#x5199;&#x7684;&#x7A0B;&#x5E8F;&#x4FBF;&#x4E8E;&#x9605;&#x8BFB;&#x3001;&#x4FEE;&#x6539;&#x3001;&#x79FB;&#x690D;&#x548C;&#x8C03;&#x8BD5;&#xFF0C;&#x4E5F;&#x6709;&#x5229;&#x4E8E;&#x6A21;&#x5757;&#x5316;&#x7A0B;&#x5E8F;&#x8BBE;&#x8BA1;&#x3002;</p>
+<p>&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF1A;</p>
+<p>&#x5F00;&#x53D1;&#x4E00;&#x4E2A;C&#x8BED;&#x8A00;&#x7A0B;&#x5E8F;&#xFF0C;&#x8BA9;&#x5B83;&#x6682;&#x505C; 5 &#x79D2;&#x4EE5;&#x540E;&#x518D;&#x8F93;&#x51FA;&#x5185;&#x5BB9; &#x201C;hello world&#x201D;&#xFF0C;&#x5E76;&#x4E14;&#x8981;&#x6C42;&#x8DE8;&#x5E73;&#x53F0;&#xFF0C;&#x5728; Windows &#x548C; Linux &#x4E0B;&#x90FD;&#x80FD;&#x8FD0;&#x884C;&#xFF0C;&#x5982;&#x4F55;&#x5904;&#x7406;&#xFF1F;</p>
+<p>&#x63D0;&#x793A;&#xFF1A;</p>
+<p>Windows &#x5E73;&#x53F0;&#x4E0B;&#x7684;&#x6682;&#x505C;&#x51FD;&#x6570;&#x7684;&#x539F;&#x578B;&#x662F;<code>void Sleep(DWORD dwMilliseconds)</code>&#xFF0C;&#x53C2;&#x6570;&#x7684;&#x5355;&#x4F4D;&#x662F;&#x201D;&#x6BEB;&#x79D2;&#x201D;&#xFF0C;&#x4F4D;&#x4E8E;<code>&lt;windows.h&gt;</code>&#x5934;&#x6587;&#x4EF6;&#x3002;</p>
+<p>Linux &#x5E73;&#x53F0;&#x4E0B;&#x6682;&#x505C;&#x51FD;&#x6570;&#x7684;&#x539F;&#x578B;&#x662F;<code>unsigned int sleep (unsigned int seconds)</code>&#xFF0C;&#x53C2;&#x6570;&#x7684;&#x5355;&#x4F4D;&#x662F;&#x201D;&#x79D2;&#x201D;&#xFF0C;&#x4F4D;&#x4E8E;<code>&lt;unistd.h&gt;</code>&#x5934;&#x6587;&#x4EF6;&#x3002;</p>
+<p><code>#if</code>&#x3001;<code>#elif</code>&#x3001;<code>#endif</code>&#x5C31;&#x662F;&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;&#xFF0C;&#x5B83;&#x4EEC;&#x90FD;&#x662F;&#x5728;&#x7F16;&#x8BD1;&#x4E4B;&#x524D;&#x7531;&#x9884;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x6765;&#x6267;&#x884C;&#x7684;&#x3002;</p>
+<p>&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> _WIN32</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> __linux__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="comment">// &#x4E0D;&#x540C;&#x7684;&#x5E73;&#x53F0;&#x4E0B;&#x8C03;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x51FD;&#x6570;</span></span><br><span class="line">	<span class="meta">#<span class="meta-keyword">if</span> _WIN32 <span class="comment">// &#x8BC6;&#x522B; windows &#x5E73;&#x53F0;</span></span></span><br><span class="line">	Sleep(<span class="number">5000</span>);</span><br><span class="line">	<span class="meta">#<span class="meta-keyword">elif</span> __linux__ <span class="comment">// &#x8BC6;&#x522B; linux &#x5E73;&#x53F0;</span></span></span><br><span class="line">	sleep(<span class="number">5</span>);</span><br><span class="line">	<span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x8FF0;&#x6E90;&#x6587;&#x4EF6;&#x5728;&#x9884;&#x7F16;&#x8BD1;&#x4E4B;&#x540E;&#x7684;&#x6E90;&#x7801;&#x4E2D;&#xFF0C;&#x4F1A;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;&#x5E73;&#x53F0;&#x751F;&#x6210;&#x5BF9;&#x5E94;&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x5982; windows &#x5E73;&#x53F0;&#x5219;&#x4F1A;&#x751F;&#x6210;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	Sleep(<span class="number">5000</span>);	</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="&#x5B8F;&#x5B9A;&#x4E49;"><a href="#&#x5B8F;&#x5B9A;&#x4E49;" class="headerlink" title="&#x5B8F;&#x5B9A;&#x4E49;"></a>&#x5B8F;&#x5B9A;&#x4E49;</h2><h3 id="&#x5B8F;&#x5B9A;&#x4E49;&#x547D;&#x4EE4;"><a href="#&#x5B8F;&#x5B9A;&#x4E49;&#x547D;&#x4EE4;" class="headerlink" title="&#x5B8F;&#x5B9A;&#x4E49;&#x547D;&#x4EE4;"></a>&#x5B8F;&#x5B9A;&#x4E49;&#x547D;&#x4EE4;</h3><p><code>#define</code>&#x53EB;&#x505A;&#x5B8F;&#x5B9A;&#x4E49;&#x547D;&#x4EE4;&#xFF0C;&#x5B83;&#x4E5F;&#x662F; C &#x8BED;&#x8A00;&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;&#x7684;&#x4E00;&#x79CD;&#x3002;&#x6240;&#x8C13;&#x5B8F;&#x5B9A;&#x4E49;&#xFF0C; &#x5C31;&#x662F;&#x7528;&#x4E00;&#x4E2A;&#x6807;&#x8BC6;&#x7B26;&#x6765;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x540E;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#x51FA;&#x73B0;&#x4E86;&#x8BE5;&#x6807;&#x8BC6;&#x7B26;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x5168;&#x90E8;&#x66FF;&#x6362;&#x6210;&#x6307;&#x5B9A;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x3002;</p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 100</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">20</span> + N; <span class="comment">// int sum = 20 + 100</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, sum);</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/14.png" alt=""></p>
+<p>&#x4ECE;&#x4E0A;&#x8FF0;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x53EF;&#x4EE5;&#x5F97;&#x51FA;&#x7ED3;&#x8BBA;&#xFF1A;</p>
+<ul>
+<li><code>int sum = 20 + N</code>&#xFF0C;<code>N</code>&#x88AB; 100 &#x4EE3;&#x66FF;&#x4E86;&#x3002;</li>
+<li><code>#define N 100</code>&#x5C31;&#x662F;&#x5B8F;&#x5B9A;&#x4E49;&#xFF0C;<code>N</code>&#x4E3A;&#x5B8F;&#x540D;&#xFF0C;100 &#x662F;&#x5B8F;&#x7684;&#x5185;&#x5BB9;&#xFF08;&#x5B8F;&#x6240;&#x8868;&#x793A;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF09;&#x3002;&#x5728;&#x9884;&#x5904;&#x7406;&#x9636;&#x6BB5;&#xFF0C;&#x5BF9;<br>&#x7A0B;&#x5E8F;&#x4E2D;&#x6240;&#x6709;&#x51FA;&#x73B0;&#x7684;<code>&#x5B8F;&#x540D;</code>&#xFF0C;&#x9884;&#x5904;&#x7406;&#x5668;&#x90FD;&#x4F1A;&#x7528;&#x5B8F;&#x5B9A;&#x4E49;&#x4E2D;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x53BB;&#x4EE3;&#x6362;&#xFF0C;&#x8FD9;&#x79F0;&#x4E3A;<code>&#x5B8F;&#x66FF;&#x6362;</code>&#x6216;<code>&#x5B8F;&#x5C55;&#x5F00;</code>&#x3002;</li>
+<li>&#x5B8F;&#x5B9A;&#x4E49;&#x662F;&#x7531;&#x6E90;&#x7A0B;&#x5E8F;&#x4E2D;&#x7684;&#x5B8F;&#x5B9A;&#x4E49;&#x547D;&#x4EE4;<code>#define</code>&#x5B8C;&#x6210;&#x7684;&#xFF0C;<strong>&#x5B8F;&#x66FF;&#x6362;&#x662F;&#x7531;&#x9884;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x5B8C;&#x6210;&#x7684;&#x3002;</strong></li>
+</ul>
+<h3 id="&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x5F62;&#x5F0F;"><a href="#&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x5F62;&#x5F0F;" class="headerlink" title="&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x5F62;&#x5F0F;"></a>&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x5F62;&#x5F0F;</h3><p>#define &#x5B8F;&#x540D; &#x5B57;&#x7B26;&#x4E32;</p>
+<p><code>#</code>&#x8868;&#x793A;&#x8FD9;&#x662F;&#x4E00;&#x6761;&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;&#x90FD;&#x4EE5; # &#x5F00;&#x5934;&#x3002;&#x5B8F;&#x540D;&#x662F;&#x6807;&#x8BC6;&#x7B26;&#x7684;&#x4E00;&#x79CD;&#xFF0C;&#x547D;&#x540D;&#x89C4;&#x5219;&#x548C;&#x53D8;&#x91CF;&#x76F8;&#x540C;&#x3002;&#x5B57;&#x7B26;&#x4E32;&#x53EF;&#x4EE5;&#x662F;&#x6570;&#x5B57;&#x3001;&#x8868;&#x8FBE;&#x5F0F;&#x3001;if &#x8BED;&#x53E5;&#x3001;&#x51FD;&#x6570;&#x7B49;</p>
+<p>&#x8FD9;&#x91CC;&#x6240;&#x8BF4;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x662F;&#x4E00;&#x822C;&#x610F;&#x4E49;&#x4E0A;&#x7684;&#x5B57;&#x7B26;&#x5E8F;&#x5217;&#xFF0C;&#x4E0D;&#x8981;&#x548C; C &#x8BED;&#x8A00;&#x4E2D;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x7B49;&#x540C;&#xFF0C;&#x5B83;&#x4E0D;&#x9700;&#x8981;&#x53CC;&#x5F15;&#x53F7;</p>
+<p>&#x7A0B;&#x5E8F;&#x4E2D;&#x53CD;&#x590D;&#x4F7F;&#x7528;&#x7684;&#x8868;&#x8FBE;&#x5F0F;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5B8F;&#x5B9A;&#x4E49;</p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x5B8F;&#x5C55;&#x5F00;&#x4EC5;&#x4EC5;&#x662F;&#x6E90;&#x7801;&#x7EA7;&#x522B;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x66FF;&#x6362;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> M (m*m+3*m)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N n*n+3*n </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="keyword">int</span> sum1, sum2, m, n;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;input a number: &quot;</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;m, &amp;n);</span><br><span class="line">	</span><br><span class="line">	sum1 = <span class="number">3</span>*M + <span class="number">4</span>*M + <span class="number">5</span>*M; <span class="comment">// &#x5B8F;&#x5C55;&#x5F00;&#x4E3A;&#xFF1A;3*(m*m+3*m) + 4*M(m*m+3*m) + 5*(m*m+3*m)</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;sum1 = %d\n&quot;</span>, sum1);</span><br><span class="line">	</span><br><span class="line">	sum2 = <span class="number">3</span>*N + <span class="number">4</span>*N + <span class="number">5</span>*N; <span class="comment">// &#x5B8F;&#x5C55;&#x5F00;&#x4E3A;&#xFF1A;3*n*n+3*n + 4*n*n+3*n + 5*n*n+3*n</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;sum2 = %d\n&quot;</span>, sum2);</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/15.png" alt=""></p>
+<h3 id="&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;"><a href="#&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;" class="headerlink" title="&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;"></a>&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h3><p>&#x5B8F;&#x5B9A;&#x4E49;&#x662F;&#x7528;&#x5B8F;&#x540D;&#x6765;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5728;&#x5B8F;&#x5C55;&#x5F00;&#x65F6;&#x53C8;&#x4EE5;&#x8BE5;&#x5B57;&#x7B26;&#x4E32;&#x53D6;&#x4EE3;&#x5B8F;&#x540D;&#xFF0C;&#x8FD9;&#x53EA;&#x662F;&#x4E00;&#x79CD;&#x7B80;&#x5355;&#x7684;&#x66FF;&#x6362;&#x3002;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x53EF;&#x4EE5;&#x542B;&#x4EFB;&#x4F55;&#x5B57;&#x7B26;&#xFF0C; &#x5B83;&#x53EF;&#x4EE5;&#x662F;&#x5E38;&#x6570;&#x3001;&#x8868;&#x8FBE;&#x5F0F;&#x3001;if &#x8BED;&#x53E5;&#x3001;&#x51FD;&#x6570;&#x7B49;&#xFF0C;&#x9884;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x5BF9;&#x5B83;&#x4E0D;&#x4F5C;&#x4EFB;&#x4F55;&#x68C0;&#x67E5;&#xFF0C;&#x5982;&#x6709;&#x9519;&#x8BEF;&#xFF0C;&#x53EA;&#x80FD;&#x5728;&#x7F16;&#x8BD1;&#x5DF2;&#x88AB;&#x5B8F;&#x5C55;&#x5F00;&#x540E;&#x7684;&#x6E90;&#x7A0B;&#x5E8F;&#x65F6;&#x53D1;&#x73B0;&#x3002;</p>
+<p>&#x5B8F;&#x5B9A;&#x4E49;&#x4E0D;&#x662F;&#x8BF4;&#x660E;&#x6216;&#x8BED;&#x53E5;&#xFF0C;&#x5728;&#x884C;&#x672B;&#x4E0D;&#x5FC5;&#x52A0;&#x5206;&#x53F7;&#xFF0C;&#x5982;&#x52A0;&#x4E0A;&#x5206;&#x53F7;&#x5219;&#x8FDE;&#x5206;&#x53F7;&#x4E5F;&#x4E00;&#x8D77;&#x66FF;&#x6362;</p>
+<p><strong>&#x5B8F;&#x5B9A;&#x4E49;&#x5FC5;&#x987B;&#x5199;&#x5728;&#x51FD;&#x6570;&#x4E4B;&#x5916;&#xFF0C;&#x5176;&#x4F5C;&#x7528;&#x57DF;&#x4E3A;&#x5B8F;&#x5B9A;&#x4E49;&#x547D;&#x4EE4;&#x8D77;&#x5230;&#x6E90;&#x7A0B;&#x5E8F;&#x7ED3;&#x675F;</strong>&#x3002;&#x5982;&#x8981;&#x7EC8;&#x6B62;&#x5176;&#x4F5C;&#x7528;&#x57DF;&#x53EF;&#x4F7F;&#x7528;<code>#undef</code>&#x547D;&#x4EE4;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.14159</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">function</span><span class="params">()</span> </span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;PI = %f&quot;</span>, PI);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> PI <span class="comment">// &#x53D6;&#x6D88;&#x5B8F;&#x5B9A;&#x4E49;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;PI=%f&quot;</span>, PI); <span class="comment">// &#x9519;&#x8BEF;! &#x8FD9;&#x91CC;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#x5230;&#x5DF2;&#x7ECF;&#x53D6;&#x6D88;&#x5B8F;&#x5B9A;&#x4E49; PI &#x4E86;</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4EE3;&#x7801;&#x4E2D;&#x7684;&#x5B8F;&#x540D;&#x5982;&#x679C;&#x88AB;&#x5F15;&#x53F7;&#x5305;&#x56F4;&#xFF0C;&#x90A3;&#x4E48;&#x9884;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x4E0D;&#x5BF9;&#x5176;&#x4F5C;&#x5B8F;&#x4EE3;&#x66FF;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OK 200</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;OK\n&quot;</span>); <span class="comment">// &#x88AB;&#x53CC;&#x5F15;&#x53F7;&#x62EC;&#x8D77;&#x6765;&#x7684;&#x5B8F;&#x540D;&#x4E0D;&#x4F1A;&#x88AB;&#x5B8F;&#x5C55;&#x5F00;</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5B8F;&#x5B9A;&#x4E49;&#x5141;&#x8BB8;&#x5D4C;&#x5957;&#xFF0C;&#x5728;&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5DF2;&#x7ECF;&#x5B9A;&#x4E49;&#x7684;&#x5B8F;&#x540D;&#xFF0C;&#x5728;&#x5B8F;&#x5C55;&#x5F00;&#x65F6;&#x7531;&#x9884;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x5C42;&#x5C42;&#x4EE3;&#x6362;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.1415926</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> S PI*y*y</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E60;&#x60EF;&#x4E0A; &#x5B8F;&#x540D;&#x7528;&#x5927;&#x5199;&#x5B57;&#x6BCD;&#x8868;&#x793A;&#xFF0C;&#x4EE5;&#x4FBF;&#x4E8E;&#x4E0E;&#x53D8;&#x91CF;&#x533A;&#x522B;&#x3002;&#x4F46;&#x4E5F;&#x5141;&#x8BB8;&#x7528;&#x5C0F;&#x5199;&#x5B57;&#x6BCD;</p>
+<p>&#x53EF;&#x7528;&#x5B8F;&#x5B9A;&#x4E49;&#x8868;&#x793A;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF0C;&#x4F7F;&#x4E66;&#x5199;&#x65B9;&#x4FBF;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UINT unsigned int</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">	UINT a, b; <span class="comment">// &#x5B8F;&#x66FF;&#x6362; unsigned int a, b;</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5B8F;&#x5B9A;&#x4E49;&#x8868;&#x793A;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x548C;&#x7528;<code>typedef</code>&#x5B9A;&#x4E49;&#x6570;&#x636E;&#x8BF4;&#x660E;&#x7B26;&#x7684;&#x533A;&#x522B;&#xFF1A;&#x5B8F;&#x5B9A;&#x4E49;&#x53EA;&#x662F;&#x7B80;&#x5355;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x66FF;&#x6362;&#xFF0C;&#x7531;&#x9884;&#x5904;&#x7406;&#x5668;&#x6765;&#x5904;&#x7406;&#xFF1B;&#x800C; typedef &#x662F;&#x5728;&#x7F16;&#x8BD1;&#x9636;&#x6BB5;&#x7531;&#x7F16;&#x8BD1;&#x5668;&#x5904;&#x7406;&#x7684;&#xFF0C;&#x5B83;&#x5E76;&#x4E0D;&#x662F;&#x7B80;&#x5355;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x66FF;&#x6362;&#xFF0C;&#x800C;&#x7ED9;&#x539F;&#x6709;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x8D77;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x540D;&#x5B57;&#xFF0C;&#x5C06;&#x5B83;&#x4F5C;&#x4E3A;&#x4E00;&#x79CD;&#x65B0;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x3002;</p>
+<h3 id="&#x5E26;&#x53C2;&#x6570;&#x7684;&#x5B8F;&#x5B9A;&#x4E49;"><a href="#&#x5E26;&#x53C2;&#x6570;&#x7684;&#x5B8F;&#x5B9A;&#x4E49;" class="headerlink" title="&#x5E26;&#x53C2;&#x6570;&#x7684;&#x5B8F;&#x5B9A;&#x4E49;"></a>&#x5E26;&#x53C2;&#x6570;&#x7684;&#x5B8F;&#x5B9A;&#x4E49;</h3><p> C &#x8BED;&#x8A00;&#x5141;&#x8BB8;&#x5B8F;&#x5E26;&#x6709;&#x53C2;&#x6570;&#x3002;&#x5728;&#x5B8F;&#x5B9A;&#x4E49;&#x4E2D;&#x7684;&#x53C2;&#x6570;&#x79F0;&#x4E3A;<code>&#x5F62;&#x5F0F;&#x53C2;&#x6570;</code>&#xFF0C;&#x5728;&#x5B8F;&#x8C03;&#x7528;&#x4E2D;&#x7684;&#x53C2;&#x6570;&#x79F0;&#x4E3A;<code>&#x5B9E;&#x9645;&#x53C2;&#x6570;</code>&#xFF0C;&#x8FD9;&#x70B9;&#x548C;&#x51FD;&#x6570;&#x6709;&#x4E9B;&#x7C7B;&#x4F3C;</p>
+<p>&#x5BF9;&#x5E26;&#x53C2;&#x6570;&#x7684;&#x5B8F;&#xFF0C;&#x5728;&#x5C55;&#x5F00;&#x8FC7;&#x7A0B;&#x4E2D;&#x4E0D;&#x4EC5;&#x8981;&#x8FDB;&#x884C;&#x5B57;&#x7B26;&#x4E32;&#x66FF;&#x6362;&#xFF0C;&#x8FD8;&#x8981;&#x7528;&#x5B9E;&#x53C2;&#x53BB;&#x66FF;&#x6362;&#x5F62;&#x53C2;</p>
+<p>&#x5E26;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x4E00;&#x822C;&#x5F62;&#x5F0F;&#x4E3A;<code>#define &#x5B8F;&#x540D;( &#x5F62;&#x53C2;&#x5217;&#x8868;) &#x5B57;&#x7B26;&#x4E32;</code>&#xFF0C;&#x5728;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x53EF;&#x4EE5;&#x542B;&#x6709;&#x5404;&#x4E2A;&#x5F62;&#x53C2;</p>
+<p>&#x5E26;&#x53C2;&#x5B8F;&#x8C03;&#x7528;&#x7684;&#x4E00;&#x822C;&#x5F62;&#x5F0F;&#x4E3A;&#xFF1A;<code>&#x5B8F;&#x540D;( &#x5B9E;&#x53C2;&#x5217;&#x8868;)</code></p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX(a, b) (a &gt; b) ? a : b</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="keyword">int</span> x , y, max;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;input two numbers: &quot;</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;x, &amp;y);</span><br><span class="line"></span><br><span class="line">	max = MAX(x, y);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;max = %d\n&quot;</span>, max);</span><br><span class="line">	</span><br><span class="line">	getchar();</span><br><span class="line">	getchar();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/16.png" alt=""></p>
+<h3 id="&#x5E26;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;"><a href="#&#x5E26;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;" class="headerlink" title="&#x5E26;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;"></a>&#x5E26;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h3><p>&#x5E26;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#x4E2D;&#xFF0C;&#x5F62;&#x53C2;&#x4E4B;&#x95F4;&#x53EF;&#x4EE5;&#x51FA;&#x73B0;&#x7A7A;&#x683C;&#xFF0C;&#x4F46;&#x662F;&#x5B8F;&#x540D;&#x548C;&#x5F62;&#x53C2;&#x5217;&#x8868;&#x4E4B;&#x95F4;&#x4E0D;&#x80FD;&#x6709;&#x7A7A;&#x683C;&#x51FA;&#x73B0;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX(a, b) (a &gt; b) ? a : b </span></span><br><span class="line"><span class="comment">// &#x4E0A;&#x8FF0;&#x5982;&#x679C;&#x5199;&#x6210;&#x4E86;&#x4E0B;&#x9762;&#x8FD9;&#x6837;&#xFF1A;&#x5B8F;&#x540D;&#x548C;&#x53C2;&#x6570;&#x5217;&#x8868;&#x4E4B;&#x95F4;&#x6709;&#x7A7A;&#x683C;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX (a, b) (a &gt; b) ? a : b</span></span><br><span class="line"><span class="comment">// &#x5C06;&#x88AB;&#x8BA4;&#x4E3A;&#x662F;&#x65E0;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#xFF0C;&#x5B8F;&#x540D; MAX &#x4EE3;&#x8868;&#x5B57;&#x7B26;&#x4E32;(a, b) (a&gt;b) ? a : b</span></span><br><span class="line"><span class="comment">// &#x800C;&#x4E0D;&#x662F; : MAX(a, b) &#x4EE3;&#x8868; (a&gt;b) ? a : b &#x4E86;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5728;&#x5E26;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#x4E2D;&#xFF0C;&#x4E0D;&#x4F1A;&#x4E3A;&#x5F62;&#x5F0F;&#x53C2;&#x6570;&#x5206;&#x914D;&#x5185;&#x5B58;&#xFF0C;&#x56E0;&#x6B64;&#x4E0D;&#x5FC5;&#x6307;&#x660E;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x3002;&#x800C;&#x5728;&#x5B8F;&#x8C03;&#x7528;&#x4E2D;&#xFF0C;&#x5B9E;&#x53C2;&#x5305;&#x542B;&#x4E86;&#x5177;&#x4F53;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x8981;&#x7528;&#x5B83;&#x4EEC;&#x53BB;&#x66FF;&#x6362;&#x5F62;&#x53C2;&#xFF0C;&#x56E0;&#x6B64;&#x5B9E;&#x53C2;&#x5FC5;&#x987B;&#x8981;&#x6307;&#x660E;&#x6570;&#x636E;&#x7C7B;&#x578B;</p>
+<p>&#x5728;&#x5B8F;&#x5B9A;&#x4E49;&#x4E2D;&#xFF0C;&#x5B57;&#x7B26;&#x4E32;&#x5185;&#x7684;&#x5F62;&#x53C2;&#x901A;&#x5E38;&#x8981;&#x7528;&#x62EC;&#x53F7;&#x62EC;&#x8D77;&#x6765;&#x4EE5;&#x907F;&#x514D;&#x51FA;&#x9519;&#x3002;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SQ1(y) (y) * (y)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SQ2(x) x * x</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="keyword">int</span> a, sq1, sq2;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;input a number: &quot;</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a);</span><br><span class="line"></span><br><span class="line">	sq1 = SQ1(a + <span class="number">1</span>); <span class="comment">// &#x5B8F;&#x5C55;&#x5F00;&#xFF1A;(a + 1) * (a + 1)</span></span><br><span class="line">	sq2 = SQ2(a + <span class="number">1</span>); <span class="comment">// &#x5B8F;&#x5C55;&#x5F00;&#xFF1A;a + 1 * a + 1</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;sq1 = %d\n&quot;</span>, sq1);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;sq2 = %d\n&quot;</span>, sq2);</span><br><span class="line">	</span><br><span class="line">	system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/17.png" alt=""></p>
+<h3 id="&#x5E26;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#x548C;&#x51FD;&#x6570;&#x7684;&#x533A;&#x522B;"><a href="#&#x5E26;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#x548C;&#x51FD;&#x6570;&#x7684;&#x533A;&#x522B;" class="headerlink" title="&#x5E26;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#x548C;&#x51FD;&#x6570;&#x7684;&#x533A;&#x522B;"></a>&#x5E26;&#x53C2;&#x5B8F;&#x5B9A;&#x4E49;&#x548C;&#x51FD;&#x6570;&#x7684;&#x533A;&#x522B;</h3><p>&#x5B8F;&#x5C55;&#x5F00;&#x4EC5;&#x4EC5;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x66FF;&#x6362;&#xFF0C;&#x4E0D;&#x4F1A;&#x5BF9;&#x8868;&#x8FBE;&#x5F0F;&#x8FDB;&#x884C;&#x8BA1;&#x7B97;&#xFF1B;&#x5B8F;&#x5728;&#x7F16;&#x8BD1;&#x4E4B;&#x524D;&#x5C31;&#x88AB;&#x5904;&#x7406;&#x6389;&#x4E86;&#xFF0C;&#x5B83;&#x6CA1;&#x6709;&#x673A;&#x4F1A;&#x53C2;&#x4E0E;&#x7F16;&#x8BD1;&#xFF0C;&#x4E5F;&#x4E0D;&#x4F1A;&#x5360;&#x7528;&#x5185;&#x5B58;&#x3002;</p>
+<p>&#x51FD;&#x6570;&#x662F;&#x4E00;&#x6BB5;&#x53EF;&#x4EE5;&#x91CD;&#x590D;&#x4F7F;&#x7528;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x4F1A;&#x88AB;&#x7F16;&#x8BD1;&#xFF0C;&#x4F1A;&#x7ED9;&#x5B83;&#x5206;&#x914D;&#x5185;&#x5B58;&#xFF0C;&#x6BCF;&#x6B21;&#x8C03;&#x7528;&#x51FD;&#x6570;&#xFF0C;&#x5C31;&#x662F;&#x6267;&#x884C;&#x8FD9;&#x5757;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x4EE3;&#x7801;</p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SQ</span><span class="params">(<span class="keyword">int</span> y)</span> </span>{</span><br><span class="line">	<span class="keyword">return</span> ((y)*(y));</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i &lt;= <span class="number">5</span>) {</span><br><span class="line">		<span class="comment">// &#x56E0;&#x4E3A;i++&#x662F;&#x540E;&#x81EA;&#x589E;&#xFF0C;&#x6240;&#x4EE5;&#x4F1A;&#x5148;&#x8FDB;&#x884C;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x518D;&#x81EA;&#x589E;</span></span><br><span class="line">		<span class="comment">// &#x7531;&#x4E8E;&#x81EA;&#x589E;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x6240;&#x4EE5;&#x8F93;&#x51FA;&#x7684;&#x65F6;&#x5019;&#x8981;&#x51CF;&#x4E00;&#x4E0B;&#xFF0C;&#x8868;&#x793A;&#x5F53;&#x65F6;&#x8C03;&#x7528;&#x51FD;&#x6570;&#x65F6;&#x7684;&#x503C;</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d^2 = %d\n&quot;</span>, (i<span class="number">-1</span>), SQ(i++));</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/18.png" alt=""></p>
+<p>&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<p><img src="/2019/11/18/053/images/19.png" alt=""></p>
+<h2 id="&#x5E38;&#x89C1;&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;"><a href="#&#x5E38;&#x89C1;&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;" class="headerlink" title="&#x5E38;&#x89C1;&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;"></a>&#x5E38;&#x89C1;&#x9884;&#x5904;&#x7406;&#x547D;&#x4EE4;</h2><p>&#x9884;&#x5904;&#x7406;&#x6307;&#x4EE4;&#x662F;&#x4EE5;<code>#</code>&#x53F7;&#x5F00;&#x5934;&#x7684;&#x4EE3;&#x7801;&#x884C;&#xFF0C;<code>#</code>&#x53F7;&#x5FC5;&#x987B;&#x662F;&#x8BE5;&#x884C;&#x9664;&#x4E86;&#x4EFB;&#x4F55;&#x7A7A;&#x767D;&#x5B57;&#x7B26;&#x5916;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x3002;</p>
+<p><code>#</code>&#x540E;&#x662F;&#x6307;&#x4EE4;&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x5728;&#x5173;&#x952E;&#x5B57;&#x548C;<code>#</code>&#x53F7;&#x4E4B;&#x95F4;&#x5141;&#x8BB8;&#x5B58;&#x5728;&#x4EFB;&#x610F;&#x4E2A;&#x6570;&#x7684;&#x7A7A;&#x767D;&#x5B57;&#x7B26;&#xFF0C;&#x6574;&#x884C;&#x8BED;&#x53E5;&#x6784;&#x6210;&#x4E86;&#x4E00;&#x6761;&#x9884;&#x5904;&#x7406;&#x6307;&#x4EE4;&#xFF0C;&#x8BE5;&#x6307;&#x4EE4;&#x5C06;&#x5728;&#x7F16;&#x8BD1;&#x5668;&#x8FDB;&#x884C;&#x7F16;&#x8BD1;&#x4E4B;&#x524D;&#x5BF9;&#x6E90;&#x4EE3;&#x7801;&#x505A;&#x67D0;&#x4E9B;&#x8F6C;&#x6362;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x6307;&#x4EE4;</th>
+<th>&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>#</td>
+<td>&#x7A7A;&#x6307;&#x4EE4;&#xFF0C;&#x65E0;&#x4EFB;&#x4F55;&#x6548;&#x679C;</td>
+</tr>
+<tr>
+<td>#include</td>
+<td>&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x6E90;&#x4EE3;&#x7801;&#x6587;&#x4EF6;</td>
+</tr>
+<tr>
+<td>#define</td>
+<td>&#x5B9A;&#x4E49;&#x5B8F;</td>
+</tr>
+<tr>
+<td>#undef</td>
+<td>&#x53D6;&#x6D88;&#x5DF2;&#x5B9A;&#x4E49;&#x7684;&#x5B8F;</td>
+</tr>
+<tr>
+<td>#if</td>
+<td>&#x5982;&#x679C;&#x7ED9;&#x5B9A;&#x6761;&#x4EF6;&#x4E3A;&#x771F;&#xFF0C;&#x5219;&#x7F16;&#x8BD1;&#x4E0B;&#x9762;&#x4EE3;&#x7801;</td>
+</tr>
+<tr>
+<td>#ifdef</td>
+<td>&#x5982;&#x679C;&#x5B8F;&#x5DF2;&#x7ECF;&#x5B9A;&#x4E49;&#xFF0C;&#x5219;&#x7F16;&#x8BD1;&#x4E0B;&#x9762;&#x4EE3;&#x7801;</td>
+</tr>
+<tr>
+<td>#ifndef</td>
+<td>&#x5982;&#x679C;&#x5B8F;&#x6CA1;&#x6709;&#x5B9A;&#x4E49;&#xFF0C;&#x5219;&#x7F16;&#x8BD1;&#x4E0B;&#x9762;&#x4EE3;&#x7801;</td>
+</tr>
+<tr>
+<td>#elif</td>
+<td>&#x5982;&#x679C;&#x524D;&#x9762;&#x7684;<code>#if</code>&#x7ED9;&#x5B9A;&#x6761;&#x4EF6;&#x4E0D;&#x4E3A;&#x771F;&#xFF0C;&#x5F53;&#x524D;&#x6761;&#x4EF6;&#x4E3A;&#x771F;&#xFF0C;&#x5219;&#x7F16;&#x8BD1;&#x4E0B;&#x9762;&#x4EE3;&#x7801;</td>
+</tr>
+<tr>
+<td>#endif</td>
+<td>&#x7ED3;&#x675F;&#x4E00;&#x4E2A;<code>#if &#x2026; #else</code>&#x6761;&#x4EF6;&#x7F16;&#x8BD1;&#x5757;</td>
+</tr>
+</tbody>
+</table>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-11-18</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-11-18</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/11/18/053/">C 语言中的细节知识点</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2019/11/18/053/" title="C 语言中的细节知识点">https://woodwhales.github.io/2019/11/18/053/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2019/11/18/053/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C-语言/" rel="tag"><i class="fa fa-tag"></i> C 语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/11/052/" rel="next" title="git 设置本地配置多个账户对应不同的 ssh key">
+                <i class="fa fa-chevron-left"></i> git 设置本地配置多个账户对应不同的 ssh key
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常量的定义"><span class="nav-text">常量的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#const"><span class="nav-text">const</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#define"><span class="nav-text">#define</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-和-define-的区别"><span class="nav-text">const 和 #define 的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取模运算符"><span class="nav-text">取模运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算术运算中的自动类型转换"><span class="nav-text">算术运算中的自动类型转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自增-自减运算"><span class="nav-text">自增/自减运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量和指针"><span class="nav-text">变量和指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static-关键字"><span class="nav-text">static 关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#局部变量使用-static"><span class="nav-text">局部变量使用 static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局变量使用-static"><span class="nav-text">全局变量使用 static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数使用-static"><span class="nav-text">函数使用 static</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统函数库"><span class="nav-text">系统函数库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#string-h-字符串函数库"><span class="nav-text">string.h 字符串函数库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#得到字符串的长度"><span class="nav-text">得到字符串的长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拷贝字符串"><span class="nav-text">拷贝字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接字符串"><span class="nav-text">连接字符串</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#time-h-时间日期函数库"><span class="nav-text">time.h 时间日期函数库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#获取当前时间"><span class="nav-text">获取当前时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时间差计算"><span class="nav-text">时间差计算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预处理命令"><span class="nav-text">预处理命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宏定义"><span class="nav-text">宏定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#宏定义命令"><span class="nav-text">宏定义命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#宏定义的形式"><span class="nav-text">宏定义的形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#宏定义的注意事项"><span class="nav-text">宏定义的注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带参数的宏定义"><span class="nav-text">带参数的宏定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带参宏定义的注意事项"><span class="nav-text">带参宏定义的注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带参宏定义和函数的区别"><span class="nav-text">带参宏定义和函数的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见预处理命令"><span class="nav-text">常见预处理命令</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>
