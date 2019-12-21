@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.github.io/"/>
-  <updated>2019-12-10T12:20:49.675Z</updated>
+  <updated>2019-12-21T15:30:42.940Z</updated>
   <id>https://woodwhales.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SpringBoot Layui ThymeLeaf 一点点学习心得</title>
+    <link href="https://woodwhales.github.io/2019/12/21/056/"/>
+    <id>https://woodwhales.github.io/2019/12/21/056/</id>
+    <published>2019-12-21T15:27:00.000Z</published>
+    <updated>2019-12-21T15:30:42.940Z</updated>
+    
+    <summary type="html">
+    
+      SpringBoot + Layui + ThymeLeaf 整合，完成批量创建，下拉多选，复选框动态加载功能
+    
+    </summary>
+    
+      <category term="springboot" scheme="https://woodwhales.github.io/categories/springboot/"/>
+    
+    
+      <category term="layui" scheme="https://woodwhales.github.io/tags/layui/"/>
+    
+  </entry>
   
   <entry>
     <title>Apache Kafka 学习笔记</title>
@@ -393,26 +413,6 @@
     
     
       <category term="dubbo" scheme="https://woodwhales.github.io/tags/dubbo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浅析分布式缓存</title>
-    <link href="https://woodwhales.github.io/2019/06/28/035/"/>
-    <id>https://woodwhales.github.io/2019/06/28/035/</id>
-    <published>2019-06-28T12:39:14.000Z</published>
-    <updated>2019-06-28T13:03:52.234Z</updated>
-    
-    <summary type="html">
-    
-      互联网Java工程师面试突击训练第1季-学习笔记
-    
-    </summary>
-    
-      <category term="分布式" scheme="https://woodwhales.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-    
-      <category term="redis" scheme="https://woodwhales.github.io/tags/redis/"/>
     
   </entry>
   
