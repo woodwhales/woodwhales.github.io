@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://woodwhales.github.io/resources/index.html</loc>
+    
+    <lastmod>2020-02-16T02:29:35.677Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://woodwhales.github.io/tools/index.html</loc>
+    
+    <lastmod>2020-02-16T02:28:32.726Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://woodwhales.github.io/2019/12/21/056/</loc>
     
     <lastmod>2019-12-22T07:18:18.357Z</lastmod>
@@ -30,23 +44,9 @@
   </url>
   
   <url>
-    <loc>https://woodwhales.github.io/tools/index.html</loc>
-    
-    <lastmod>2019-12-06T13:47:16.236Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://woodwhales.github.io/2019/01/13/017/</loc>
     
     <lastmod>2019-12-02T13:41:09.347Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://woodwhales.github.io/resources/index.html</loc>
-    
-    <lastmod>2019-11-30T12:59:44.242Z</lastmod>
     
   </url>
   
