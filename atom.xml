@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.github.io/"/>
-  <updated>2020-02-26T05:39:50.475Z</updated>
+  <updated>2020-02-27T07:00:20.951Z</updated>
   <id>https://woodwhales.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySQL 5.7 绿色安装(for windows)</title>
+    <link href="https://woodwhales.github.io/2020/02/27/058/"/>
+    <id>https://woodwhales.github.io/2020/02/27/058/</id>
+    <published>2020-02-27T06:58:00.000Z</published>
+    <updated>2020-02-27T07:00:20.951Z</updated>
+    
+    <summary type="html">
+    
+      MySQL 5.7 zip 安装包安装教程
+    
+    </summary>
+    
+      <category term="软件安装" scheme="https://woodwhales.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
+    
+    
+      <category term="mysql5.7安装" scheme="https://woodwhales.github.io/tags/mysql5-7%E5%AE%89%E8%A3%85/"/>
+    
+  </entry>
   
   <entry>
     <title>win10重装系统之后的个性化设置</title>
@@ -393,26 +413,6 @@
     
     
       <category term="dubbo" scheme="https://woodwhales.github.io/tags/dubbo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>进击的Java面试</title>
-    <link href="https://woodwhales.github.io/2019/07/02/038/"/>
-    <id>https://woodwhales.github.io/2019/07/02/038/</id>
-    <published>2019-07-02T13:16:10.000Z</published>
-    <updated>2019-07-05T13:14:12.368Z</updated>
-    
-    <summary type="html">
-    
-      Java面试题-学习笔记
-    
-    </summary>
-    
-      <category term="面试题" scheme="https://woodwhales.github.io/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
-    
-    
-      <category term="java" scheme="https://woodwhales.github.io/tags/java/"/>
     
   </entry>
   
