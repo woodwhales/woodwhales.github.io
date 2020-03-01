@@ -126,7 +126,7 @@
 <meta property="og:description" content="前后端常用的接口规范">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://woodwhales.github.io/2019/01/27/021/2019/01/27/021/face.png">
-<meta property="og:updated_time" content="2019-05-30T13:54:43.966Z">
+<meta property="og:updated_time" content="2020-03-01T03:07:21.755Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Restful API 最佳实践">
 <meta name="twitter:description" content="前后端常用的接口规范">
@@ -496,7 +496,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="/2019/01/27/021/face.png" rel="gallery_ck75gnix8000dq4wcq3qwcne2" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="/2019/01/27/021/face.png" rel="gallery_ck78ibgb7000e0owch6tbu146" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="/2019/01/27/021/face.png" itemprop="contentUrl">
               </a>
             
@@ -625,7 +625,7 @@
 <p>&#x6CE8;&#x610F;&#xFF1A;data&#x548C;errors&#x5E94;&#x8BE5;&#x4E92;&#x65A5;&#xFF0C;&#x4E0D;&#x80FD;&#x518D;&#x4E00;&#x4E2A;&#x6587;&#x6863;&#x4E2D;&#x540C;&#x65F6;&#x5B58;&#x5728;&#xFF0C;meta&#x5728;&#x9879;&#x76EE;&#x5B9E;&#x9645;&#x4E0A;&#x7528;&#x7684;&#x5F88;&#x5C11;&#xFF0C;&#x53EA;&#x6709;&#x7279;&#x522B;&#x60C5;&#x51B5;&#x624D;&#x9700;&#x8981;&#x7528;&#x5230;&#xFF0C;&#x6BD4;&#x5982;&#x8FD4;&#x56DE;&#x670D;&#x52A1;&#x5668;&#x7684;&#x4E00;&#x4E9B;&#x4FE1;&#x606F;&#x3002;</p>
 </blockquote>
 <h5 id="2-3-data&#x5C5E;&#x6027;"><a href="#2-3-data&#x5C5E;&#x6027;" class="headerlink" title="2.3 data&#x5C5E;&#x6027;"></a>2.3 data&#x5C5E;&#x6027;</h5><p>&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;data&#x7684;&#x5BF9;&#x8C61;&#x683C;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x6709;&#x6548;&#x4FE1;&#x606F;&#x4E00;&#x822C;&#x90FD;&#x653E;&#x5728;attributes&#x4E2D;&#x3002;</p>
-<p><img src="/2019/01/27/021/1.png" alt="data&#x5C5E;&#x6027;"></p>
+<p><img src="/2019/01/27/021/images/1.png" alt="data&#x5C5E;&#x6027;"></p>
 <ul>
 <li><p>id&#x663E;&#x800C;&#x6613;&#x89C1;&#x4E3A;&#x552F;&#x4E00;&#x6807;&#x8BC6;&#xFF0C;&#x53EF;&#x4EE5;&#x4E3A;&#x6570;&#x5B57;&#x4E5F;&#x53EF;&#x4EE5;&#x4E3A;hash&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x53D6;&#x51B3;&#x4E8E;&#x540E;&#x7AEF;&#x5B9E;&#x73B0;</p>
 </li>
@@ -637,7 +637,7 @@
 </li>
 </ul>
 <h5 id="2-4-errors&#x5C5E;&#x6027;"><a href="#2-4-errors&#x5C5E;&#x6027;" class="headerlink" title="2.4 errors&#x5C5E;&#x6027;"></a>2.4 errors&#x5C5E;&#x6027;</h5><p>&#x8FD9;&#x91CC;&#x7684;errors&#x548C;data&#x6709;&#x4E00;&#x70B9;&#x4E0D;&#x540C;&#xFF0C;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#x8FD4;&#x56DE;&#x503C;&#x4E2D;errors&#x4F5C;&#x4E3A;&#x5217;&#x8868;&#x5B58;&#x5728;&#xFF0C;&#x56E0;&#x4E3A;&#x9488;&#x5BF9;&#x6BCF;&#x4E2A;&#x8D44;&#x6E90;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x591A;&#x4E2A;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x3002;&#x6700;&#x5178;&#x578B;&#x7684;&#x4F8B;&#x5B50;&#x4E3A;&#xFF0C;&#x6211;&#x4EEC;&#x8BF7;&#x6C42;&#x7684;&#x5BF9;&#x8C61;&#x4E2D;&#x67D0;&#x4E9B;&#x5B57;&#x6BB5;&#x4E0D;&#x7B26;&#x5408;&#x9A8C;&#x8BC1;&#x8981;&#x6C42;&#xFF0C;&#x8FD9;&#x91CC;&#x9700;&#x8981;&#x8FD4;&#x56DE;&#x9A8C;&#x8BC1;&#x4FE1;&#x606F;&#xFF0C;&#x4F46;&#x662F;HTTP&#x72B6;&#x6001;&#x7801;&#x4F1A;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x901A;&#x7528;&#x7684;401&#xFF0C;&#x7136;&#x540E;&#x628A;&#x5177;&#x4F53;&#x7684;&#x9A8C;&#x8BC1;&#x4FE1;&#x606F;&#x5728;errors&#x7ED9;&#x51FA;&#x6765;&#x3002;</p>
-<p><img src="/2019/01/27/021/2.png" alt="errors&#x5C5E;&#x6027;"></p>
+<p><img src="/2019/01/27/021/images/2.png" alt="errors&#x5C5E;&#x6027;"></p>
 <p>&#x5728;title&#x5B57;&#x6BB5;&#x4E2D;&#x7ED9;&#x51FA;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x5728;&#x672C;&#x5730;&#x6216;&#x8005;&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x60F3;&#x6253;&#x51FA;&#x66F4;&#x591A;&#x7684;&#x8C03;&#x8BD5;&#x5806;&#x6808;&#x4FE1;&#x606F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x589E;&#x52A0;&#x4E00;&#x4E2A;detail&#x5B57;&#x6BB5;&#x8BA9;&#x8C03;&#x8BD5;&#x66F4;&#x52A0;&#x65B9;&#x4FBF;&#x3002;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x4E00;&#x70B9;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x5728;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x5C4F;&#x853D;&#x90E8;&#x5206;&#x654F;&#x611F;&#x4FE1;&#x606F;&#xFF0C;detail&#x5B57;&#x6BB5;&#x6700;&#x597D;&#x5728;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4E0D;&#x53EF;&#x89C1;&#x3002;</p>
 <h4 id="3-&#x5E38;&#x7528;&#x7684;&#x8FD4;&#x56DE;&#x7801;"><a href="#3-&#x5E38;&#x7528;&#x7684;&#x8FD4;&#x56DE;&#x7801;" class="headerlink" title="3 &#x5E38;&#x7528;&#x7684;&#x8FD4;&#x56DE;&#x7801;"></a>3 &#x5E38;&#x7528;&#x7684;&#x8FD4;&#x56DE;&#x7801;</h4><ul>
 <li>&#x4E0D;&#x8981;&#x53D1;&#x751F;&#x4E86;&#x9519;&#x8BEF;&#x4F46;&#x7ED9;2xx&#x54CD;&#x5E94;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x80FD;&#x4F1A;&#x7F13;&#x5B58;&#x6210;&#x529F;&#x7684;http&#x8BF7;&#x6C42;&#xFF1B;</li>
@@ -738,8 +738,8 @@
 			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
 				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
 				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
-				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-05-30</text>
-				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-05-30</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2020-03-01</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2020-03-01</text>
 			</g>
 			
 		</svg>

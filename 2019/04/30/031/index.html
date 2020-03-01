@@ -126,7 +126,7 @@
 <meta property="og:description" content="OAuth 2.0 授权认证全详解">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://woodwhales.github.io/2019/04/30/031/2019/04/30/031/face.png">
-<meta property="og:updated_time" content="2019-05-30T14:20:39.624Z">
+<meta property="og:updated_time" content="2020-03-01T03:10:45.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OAuth 2.0 授权认证详解">
 <meta name="twitter:description" content="OAuth 2.0 授权认证全详解">
@@ -496,7 +496,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="/2019/04/30/031/face.png" rel="gallery_ck75gnkhu004lq4wcunpobaz0" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="/2019/04/30/031/face.png" rel="gallery_ck78ibhob004k0owcsawv9wr5" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="/2019/04/30/031/face.png" itemprop="contentUrl">
               </a>
             
@@ -532,7 +532,7 @@
 <h2 id="&#x4E8C;&#x3001;OAuth-&#x7684;&#x6388;&#x6743;&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;"><a href="#&#x4E8C;&#x3001;OAuth-&#x7684;&#x6388;&#x6743;&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;" class="headerlink" title="&#x4E8C;&#x3001;OAuth &#x7684;&#x6388;&#x6743;&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;"></a>&#x4E8C;&#x3001;OAuth &#x7684;&#x6388;&#x6743;&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;</h2><h3 id="2-1-&#x8BA4;&#x8BC1;&#x601D;&#x8DEF;"><a href="#2-1-&#x8BA4;&#x8BC1;&#x601D;&#x8DEF;" class="headerlink" title="2.1 &#x8BA4;&#x8BC1;&#x601D;&#x8DEF;"></a>2.1 &#x8BA4;&#x8BC1;&#x601D;&#x8DEF;</h3><p>OAuth &#x5728;&#x201D;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#x4E0E;&#x201D;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x201D;&#x4E4B;&#x95F4;&#xFF0C;&#x8BBE;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A; <strong>&#x6388;&#x6743;&#x5C42;</strong>&#xFF08;authorization  layer&#xFF09;&#x3002;&#x201D;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x767B;&#x5F55;&#x201D;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x201D;&#xFF0C;&#x53EA;&#x80FD;&#x767B;&#x5F55;&#x6388;&#x6743;&#x5C42;&#xFF0C;&#x4EE5;&#x6B64;&#x5C06;&#x7528;&#x6237;&#x4E0E;&#x5BA2;&#x6237;&#x7AEF;&#x533A;&#x5206;&#x5F00;&#x6765;&#x3002;&#x201D;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#x767B;&#x5F55;&#x6388;&#x6743;&#x5C42;&#x6240;&#x7528;&#x7684;&#x4EE4;&#x724C;&#xFF08;token&#xFF09;&#xFF0C;&#x4E0E;&#x7528;&#x6237;&#x7684;&#x5BC6;&#x7801;&#x4E0D;&#x540C;&#x3002;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x5728;&#x767B;&#x5F55;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6307;&#x5B9A;&#x6388;&#x6743;&#x5C42;&#x4EE4;&#x724C;&#x7684;&#x6743;&#x9650;&#x8303;&#x56F4;&#x548C;&#x6709;&#x6548;&#x671F;&#x3002;</p>
 <p>&#x201C;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#x767B;&#x5F55;&#x6388;&#x6743;&#x5C42;&#x4EE5;&#x540E;&#xFF0C;&#x201D;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x201D;&#x6839;&#x636E;&#x4EE4;&#x724C;&#x7684;&#x6743;&#x9650;&#x8303;&#x56F4;&#x548C;&#x6709;&#x6548;&#x671F;&#xFF0C;&#x5411;&#x201D;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#x5F00;&#x653E;&#x7528;&#x6237;&#x50A8;&#x5B58;&#x7684;&#x8D44;&#x6599;&#x3002;</p>
 <h3 id="2-2-&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;"><a href="#2-2-&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;" class="headerlink" title="2.2 &#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;"></a>2.2 &#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;</h3><p>&#x5B98;&#x65B9; RFC 6749 &#x6587;&#x4EF6;&#x4E2D;&#x7684; OAuth 2.0 &#x6D41;&#x7A0B;&#x56FE;&#x6709;&#x70B9;&#x6666;&#x6DA9;&#xFF0C;&#x4F18;&#x5316;&#x4E86; &#x4E00;&#x4E0B;&#xFF1A;</p>
-<p><img src="/2019/04/30/031/oauth-1.png" alt=""></p>
+<p><img src="/2019/04/30/031/images/oauth-1.png" alt=""></p>
 <blockquote>
 <ol>
 <li>&#x7528;&#x6237;&#x8BBF;&#x95EE;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF08;&#x7B80;&#x79F0;&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#xFF09;&#x4EE5;&#x540E;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x8981;&#x6C42;&#x7528;&#x6237;&#x7ED9;&#x4E88;&#x6388;&#x6743;&#x3002;</li>
@@ -551,7 +551,7 @@
 <h3 id="3-4-&#x5BA2;&#x6237;&#x7AEF;&#x6A21;&#x5F0F;&#xFF08;client-credentials&#xFF09;"><a href="#3-4-&#x5BA2;&#x6237;&#x7AEF;&#x6A21;&#x5F0F;&#xFF08;client-credentials&#xFF09;" class="headerlink" title="3.4 &#x5BA2;&#x6237;&#x7AEF;&#x6A21;&#x5F0F;&#xFF08;client credentials&#xFF09;"></a>3.4 &#x5BA2;&#x6237;&#x7AEF;&#x6A21;&#x5F0F;&#xFF08;client credentials&#xFF09;</h3><p>&#x6700;&#x540E;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x662F;&#x51ED;&#x8BC1;&#x5F0F;&#xFF08;client credentials&#xFF09;&#xFF0C;&#x9002;&#x7528;&#x4E8E;&#x6CA1;&#x6709;&#x524D;&#x7AEF;&#x7684;&#x547D;&#x4EE4;&#x884C;&#x5E94;&#x7528;&#xFF0C;&#x5373;&#x5728;&#x547D;&#x4EE4;&#x884C;&#x4E0B;&#x8BF7;&#x6C42;&#x4EE4;&#x724C;&#x3002;</p>
 <h2 id="&#x56DB;&#x3001;&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x8BE6;&#x89E3;"><a href="#&#x56DB;&#x3001;&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x8BE6;&#x89E3;" class="headerlink" title="&#x56DB;&#x3001;&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x8BE6;&#x89E3;"></a>&#x56DB;&#x3001;&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x8BE6;&#x89E3;</h2><h3 id="4-1-&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;"><a href="#4-1-&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;" class="headerlink" title="4.1 &#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;"></a>4.1 &#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;</h3><p>&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#xFF08;authorization code&#xFF09;&#x662F;&#x529F;&#x80FD;&#x6700;&#x5B8C;&#x6574;&#x3001;&#x6D41;&#x7A0B;&#x6700;&#x4E25;&#x5BC6;&#x5B89;&#x5168;&#x7684;&#x6388;&#x6743;&#x6A21;&#x5F0F;&#x3002;&#x5B83;&#x7684;&#x7279;&#x70B9;&#x5C31;&#x662F;&#x901A;&#x8FC7;&#x5BA2;&#x6237;&#x7AEF;&#x7684; <strong>&#x540E;&#x53F0;&#x670D;&#x52A1;&#x5668;</strong>&#xFF0C;&#x4E0E;&#x201D;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x5546;&#x201D;&#x7684;&#x8BA4;&#x8BC1;&#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x4E92;&#x52A8;&#x3002;</p>
 <p>&#x6CE8;&#x610F;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x9002;&#x7528;&#x4E8E;&#x90A3;&#x4E9B;&#x6709;&#x540E;&#x7AEF;&#x7684; Web &#x5E94;&#x7528;&#x3002;&#x6388;&#x6743;&#x7801;&#x901A;&#x8FC7;&#x524D;&#x7AEF;&#x4F20;&#x9001;&#xFF0C;&#x4EE4;&#x724C;&#x5219;&#x662F;&#x50A8;&#x5B58;&#x5728;&#x540E;&#x7AEF;&#xFF0C;&#x800C;&#x4E14;&#x6240;&#x6709;&#x4E0E;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x7684;&#x901A;&#x4FE1;&#x90FD;&#x5728;&#x540E;&#x7AEF;&#x5B8C;&#x6210;&#x3002;&#x8FD9;&#x6837;&#x7684;&#x524D;&#x540E;&#x7AEF;&#x5206;&#x79BB;&#xFF0C;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x4EE4;&#x724C;&#x6CC4;&#x6F0F;&#x3002;</p>
-<p><img src="/2019/04/30/031/oauth-2.png" alt=""></p>
+<p><img src="/2019/04/30/031/images/oauth-2.png" alt=""></p>
 <p>&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
 <blockquote>
 <ol>
@@ -653,7 +653,7 @@
 </ol>
 <p>&#x5B89;&#x5168;&#x65E0;&#x5C0F;&#x4E8B;&#xFF0C;&#x8FD9;&#x65B9;&#x9762;&#x662F;&#x8981;&#x9760;&#x5404;&#x65B9;&#x9762;&#xFF08;&#x5F00;&#x653E;&#x5E73;&#x53F0;&#xFF0C;&#x7B2C;&#x4E09;&#x65B9;&#x5F00;&#x53D1;&#x8005;&#xFF09;&#x5171;&#x540C;&#x9632;&#x8303;&#x7684;&#x3002;</p>
 <h3 id="6-2-&#x653B;&#x51FB;&#x6D41;&#x7A0B;"><a href="#6-2-&#x653B;&#x51FB;&#x6D41;&#x7A0B;" class="headerlink" title="6.2 &#x653B;&#x51FB;&#x6D41;&#x7A0B;"></a>6.2 &#x653B;&#x51FB;&#x6D41;&#x7A0B;</h3><p>&#x5047;&#x8BBE;&#x6709;&#x7528;&#x6237;&#x5F20;&#x4E09;&#xFF0C;&#x653B;&#x51FB;&#x8005;&#x674E;&#x56DB;&#xFF0C;&#x7B2C;&#x4E09;&#x65B9;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x5E94;&#x7528;&#xFF08;&#x5B83;&#x96C6;&#x6210;&#x4E86;&#x7B2C;&#x4E09;&#x65B9;&#x793E;&#x4EA4;&#x8D26;&#x53F7;&#x767B;&#x5F55;&#xFF0C;&#x5E76;&#x4E14;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x5C06;&#x793E;&#x4EA4;&#x8D26;&#x53F7;&#x548C;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x4E2D;&#x7684;&#x8D26;&#x53F7;&#x8FDB;&#x884C;&#x7ED1;&#x5B9A;&#xFF09;&#xFF0C;&#x4EE5;&#x53CA; OAuth2 &#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005; Google&#x3002;</p>
-<p><img src="/2019/04/30/031/oauth-3.png" alt=""></p>
+<p><img src="/2019/04/30/031/images/oauth-3.png" alt=""></p>
 <p><strong>&#x6B65;&#x9AA4;1</strong></p>
 <p>&#x653B;&#x51FB;&#x8005;&#x674E;&#x56DB;&#x767B;&#x5F55;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x7F51;&#x7AD9;&#xFF0C;&#x5E76;&#x4E14;&#x9009;&#x62E9;&#x7ED1;&#x5B9A;&#x81EA;&#x5DF1;&#x7684; Google &#x8D26;&#x53F7;</p>
 <p><strong>&#x6B65;&#x9AA4;2</strong></p>
@@ -669,7 +669,7 @@
 <p><strong>&#x6B65;&#x9AA4;7</strong></p>
 <p>&#x201C;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x7F51;&#x7AD9;&#x5C06;&#x674E;&#x56DB;&#x7684; Google &#x8D26;&#x53F7;&#x540C;&#x5F20;&#x4E09;&#x7684;&#x201D;&#x4E91;&#x51B2;&#x5370;&#x201D;&#x8D26;&#x53F7;&#x5173;&#x8054;&#x7ED1;&#x5B9A;&#x8D77;&#x6765;&#xFF0C;&#x4ECE;&#x6B64;&#x4EE5;&#x540E;&#xFF0C;&#x674E;&#x56DB;&#x5C31;&#x53EF;&#x4EE5;&#x7528;&#x81EA;&#x5DF1;&#x7684; Google &#x8D26;&#x53F7;&#x901A;&#x8FC7; OAuth &#x767B;&#x5F55;&#x5230;&#x5F20;&#x4E09;&#x5728; &#x201C;&#x4E91;&#x51B2;&#x5370;&#x201D; &#x7F51;&#x7AD9;&#x4E2D;&#x7684;&#x8D26;&#x53F7;&#xFF0C;&#x5802;&#x800C;&#x7687;&#x4E4B;&#x7684;&#x5192;&#x5145;&#x5F20;&#x4E09;&#x7684;&#x8EAB;&#x4EFD;&#x6267;&#x884C;&#x5404;&#x79CD;&#x64CD;&#x4F5C;&#x3002;</p>
 <p>&#x4ECE;&#x6574;&#x4F53;&#x4E0A;&#x6765;&#x770B;&#xFF0C;&#x672C;&#x6B21; CSRF &#x653B;&#x51FB;&#x7684;&#x65F6;&#x5E8F;&#x56FE;&#x5E94;&#x8BE5;&#x662F;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x6837;&#x5B50;&#x7684;&#xFF1A;</p>
-<p><img src="/2019/04/30/031/oauth-4.png" alt=""></p>
+<p><img src="/2019/04/30/031/images/oauth-4.png" alt=""></p>
 <p>&#x4ECE;&#x4E0A;&#x56FE;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x9020;&#x6210; CSRF &#x653B;&#x51FB;&#x6F0F;&#x6D1E;&#x95EE;&#x9898;&#x7684;&#x5173;&#x952E;&#x70B9;&#x5728;&#x4E8E;&#xFF0C;OAuth2 &#x7684;&#x8BA4;&#x8BC1;&#x6D41;&#x7A0B;&#x662F;&#x5206;&#x4E3A;&#x597D;&#x51E0;&#x6B65;&#x6765;&#x5B8C;&#x6210;&#x7684;&#xFF0C;&#x5728;&#x4E0A;&#x4E00;&#x7AE0;&#x8282;&#x6388;&#x6743;&#x7801;&#x6A21;&#x5F0F;&#x6D41;&#x7A0B;&#x4E2D;&#x7684;&#x6D41;&#x7A0B;&#x56FE;&#x4E2D;&#x7684;&#x7B2C; 4&#x6B65;&#x9AA4;&#x4E2D;&#xFF0C;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x5728;&#x6536;&#x5230;&#x4E00;&#x4E2A; GET &#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x9664;&#x4E86;&#x80FD;&#x77E5;&#x9053;&#x5F53;&#x524D;&#x7528;&#x6237;&#x7684; cookie&#xFF0C;&#x4EE5;&#x53CA; URL &#x4E2D;&#x7684;<code>Authorization Code</code>&#x4E4B;&#x5916;&#xFF0C;&#x96BE;&#x4EE5;&#x5206;&#x8FA8;&#x51FA;&#x8FD9;&#x4E2A;&#x8BF7;&#x6C42;&#x5230;&#x5E95;&#x662F;&#x7528;&#x6237;&#x672C;&#x4EBA;&#x7684;&#x610F;&#x613F;&#xFF0C;&#x8FD8;&#x662F;&#x653B;&#x51FB;&#x8005;&#x5229;&#x7528;&#x7528;&#x6237;&#x7684;&#x8EAB;&#x4EFD;&#x4F2A;&#x9020;&#x51FA;&#x6765;&#x7684;&#x8BF7;&#x6C42;&#x3002;</p>
 <p>&#x4E8E;&#x662F;&#xFF0C;&#x653B;&#x51FB;&#x8005;&#x5C31;&#x80FD;&#x4F7F;&#x7528;&#x79FB;&#x82B1;&#x63A5;&#x6728;&#x7684;&#x624B;&#x6BB5;&#xFF0C;&#x63D0;&#x524D;&#x51C6;&#x5907;&#x4E00;&#x4E2A;&#x542B;&#x6709;&#x81EA;&#x5DF1;&#x7684;<code>Authorization Code</code>&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x8BA9;&#x53D7;&#x5BB3;&#x8005;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x6765;&#x63A5;&#x7740;&#x5B8C;&#x6210;&#x540E;&#x7EED;&#x7684;&#x4EE4;&#x724C;&#x7533;&#x8BF7;&#x6D41;&#x7A0B;&#x3002;</p>
 <h3 id="6-3-&#x89E3;&#x51B3;&#x65B9;&#x6848;"><a href="#6-3-&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="6.3 &#x89E3;&#x51B3;&#x65B9;&#x6848;"></a>6.3 &#x89E3;&#x51B3;&#x65B9;&#x6848;</h3><p>&#x8981;&#x9632;&#x6B62;&#x8FD9;&#x6837;&#x7684;&#x653B;&#x51FB;&#x5176;&#x5B9E;&#x5F88;&#x5BB9;&#x6613;&#xFF0C;&#x4F5C;&#x4E3A;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#x7684;&#x5F00;&#x53D1;&#x8005;&#xFF0C;&#x53EA;&#x9700;&#x5728; OAuth &#x8BA4;&#x8BC1;&#x8FC7;&#x7A0B;&#x4E2D;&#x52A0;&#x5165;<code>state</code>&#x53C2;&#x6570;&#xFF0C;&#x5E76;&#x9A8C;&#x8BC1;&#x5B83;&#x7684;&#x53C2;&#x6570;&#x503C;&#x5373;&#x53EF;&#x3002;&#x5177;&#x4F53;&#x7EC6;&#x8282;&#x5982;&#x4E0B;&#xFF1A;</p>
@@ -750,8 +750,8 @@
 			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
 				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
 				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
-				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2019-05-30</text>
-				<text x="915" y="140" textlength="650" transform="scale(.1)">2019-05-30</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2020-03-01</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2020-03-01</text>
 			</g>
 			
 		</svg>
