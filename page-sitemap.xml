@@ -2,62 +2,62 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://www.woodwhales.cn</loc>
+        <loc>https://woodwhales.github.io</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
     
     <url>
-        <loc>https://www.woodwhales.cn/baidu_verify_yres1O8iqP.html</loc>
+        <loc>https://woodwhales.github.io/baidu_verify_yres1O8iqP.html</loc>
         <lastmod>2020-03-15T02:57:01.605Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://www.woodwhales.cn/resources/</loc>
+        <loc>https://woodwhales.github.io/resources/</loc>
         <lastmod>2020-02-16T02:29:35.677Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://www.woodwhales.cn/tools/</loc>
+        <loc>https://woodwhales.github.io/tools/</loc>
         <lastmod>2020-02-16T02:28:32.726Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://www.woodwhales.cn/about/</loc>
+        <loc>https://woodwhales.github.io/about/</loc>
         <lastmod>2018-12-25T14:45:06.445Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://www.woodwhales.cn/top/</loc>
+        <loc>https://woodwhales.github.io/top/</loc>
         <lastmod>2018-12-23T12:43:54.889Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://www.woodwhales.cn/categories/</loc>
+        <loc>https://woodwhales.github.io/categories/</loc>
         <lastmod>2018-12-22T14:02:06.556Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://www.woodwhales.cn/archives/</loc>
+        <loc>https://woodwhales.github.io/archives/</loc>
         <lastmod>2018-12-22T13:38:46.857Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://www.woodwhales.cn/tags/</loc>
+        <loc>https://woodwhales.github.io/tags/</loc>
         <lastmod>2018-12-22T13:38:03.131Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>

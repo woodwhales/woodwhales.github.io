@@ -3,22 +3,22 @@
 
 
     <sitemap>
-        <loc>https://www.woodwhales.cn/post-sitemap.xml</loc>
+        <loc>https://woodwhales.github.io/post-sitemap.xml</loc>
         <lastmod>2020-03-15T02:30:14.394Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>https://www.woodwhales.cn/page-sitemap.xml</loc>
+        <loc>https://woodwhales.github.io/page-sitemap.xml</loc>
         <lastmod>2020-03-15T02:57:01.605Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>https://www.woodwhales.cn/category-sitemap.xml</loc>
+        <loc>https://woodwhales.github.io/category-sitemap.xml</loc>
         <lastmod>2018-12-31T16:00:00.000Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>https://www.woodwhales.cn/tag-sitemap.xml</loc>
+        <loc>https://woodwhales.github.io/tag-sitemap.xml</loc>
         <lastmod>2018-12-25T16:00:00.000Z</lastmod>
     </sitemap>
 
