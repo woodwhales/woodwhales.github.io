@@ -178,7 +178,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
 	<div class="bg_content">
 		<canvas id="canvas"></canvas>
@@ -192,7 +192,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -354,20 +354,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2019/07/06/042/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="木鲸鱼">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="woodwhale's blog">
     </span>
 
@@ -410,7 +410,7 @@
                 <span class="post-meta-item-text">分类</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
                   <a href="/categories/Spring/" itemprop="url" rel="index">
                     <span itemprop="name">Spring</span>
                   </a>
@@ -492,11 +492,11 @@
 
       
       
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@005/042/face.png" rel="gallery_ck7sf7i1f003eykw6b9i5glqt" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@005/042/face.png" rel="gallery_ck7sfjhkc003fcgw66ruy7i7b" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@005/042/face.png" itemprop="contentUrl">
               </a>
             
@@ -545,7 +545,7 @@
 <p>&#x4EE5;&#x524D;&#x662F;&#x5728;xml&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x91CC;&#x9762;&#x5199;&#x5305;&#x626B;&#x63CF;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x914D;&#x7F6E;&#x7C7B;&#x91CC;&#x9762;&#x5199;&#x5305;&#x626B;&#x63CF;&#xFF1A;</p>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(basePackages = {<span class="string">&quot;org.woodwhale.king.code01&quot;</span>})</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig2</span> </span>{</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p><code>@ComponentScan</code>&#x6CE8;&#x89E3;&#x4F1A;&#x626B;&#x63CF;&#x5F53;&#x524D;&#x5305;&#x53CA;&#x5176;&#x5B50;&#x5305;&#x7684;&#x6240;&#x6709;&#x5E26;<code>@Component</code>&#x3001;<code>@Controller</code>&#x3001;<code>@Service</code>&#x3001;<code>@Repository</code>&#x6CE8;&#x89E3;&#x7684;&#x7EC4;&#x4EF6;&#x3002;</p>
-<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@005/042/images/01.png" alt></p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@005/042/images/01.png" alt=""></p>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testComponentScan</span><span class="params">()</span> </span>{</span><br><span class="line">    ApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(AppConfig2.class);</span><br><span class="line">    String[] definitionNames = applicationContext.getBeanDefinitionNames();</span><br><span class="line">    <span class="keyword">for</span> (String name : definitionNames) {</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
 <blockquote>
@@ -889,7 +889,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
             
