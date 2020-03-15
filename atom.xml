@@ -5,9 +5,9 @@
   <subtitle>技术改变生活</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://woodwhales.github.io/"/>
+  <link href="https://www.woodwhales.cn/"/>
   <updated>2020-03-15T02:30:14.394Z</updated>
-  <id>https://woodwhales.github.io/</id>
+  <id>https://www.woodwhales.cn/</id>
   
   <author>
     <name>木鲸鱼</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>自定义 spring-boot-starter</title>
-    <link href="https://woodwhales.github.io/2020/03/15/063/"/>
-    <id>https://woodwhales.github.io/2020/03/15/063/</id>
+    <link href="https://www.woodwhales.cn/2020/03/15/063/"/>
+    <id>https://www.woodwhales.cn/2020/03/15/063/</id>
     <published>2020-03-15T01:45:00.000Z</published>
     <updated>2020-03-15T02:30:14.394Z</updated>
     
@@ -29,17 +29,17 @@
     
     </summary>
     
-      <category term="Spring Boot" scheme="https://woodwhales.github.io/categories/Spring-Boot/"/>
+      <category term="Spring Boot" scheme="https://www.woodwhales.cn/categories/Spring-Boot/"/>
     
     
-      <category term="spring-boot-starter" scheme="https://woodwhales.github.io/tags/spring-boot-starter/"/>
+      <category term="spring-boot-starter" scheme="https://www.woodwhales.cn/tags/spring-boot-starter/"/>
     
   </entry>
   
   <entry>
     <title>构建工具maven及gradle的安装及IDE配置</title>
-    <link href="https://woodwhales.github.io/2020/03/14/062/"/>
-    <id>https://woodwhales.github.io/2020/03/14/062/</id>
+    <link href="https://www.woodwhales.cn/2020/03/14/062/"/>
+    <id>https://www.woodwhales.cn/2020/03/14/062/</id>
     <published>2020-03-14T04:06:00.000Z</published>
     <updated>2020-03-14T15:55:42.599Z</updated>
     
@@ -49,17 +49,17 @@
     
     </summary>
     
-      <category term="软件安装" scheme="https://woodwhales.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
+      <category term="软件安装" scheme="https://www.woodwhales.cn/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
     
     
-      <category term="构建工具设置" scheme="https://woodwhales.github.io/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E8%AE%BE%E7%BD%AE/"/>
+      <category term="构建工具设置" scheme="https://www.woodwhales.cn/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E8%AE%BE%E7%BD%AE/"/>
     
   </entry>
   
   <entry>
     <title>优秀字体集锦</title>
-    <link href="https://woodwhales.github.io/2020/03/04/061/"/>
-    <id>https://woodwhales.github.io/2020/03/04/061/</id>
+    <link href="https://www.woodwhales.cn/2020/03/04/061/"/>
+    <id>https://www.woodwhales.cn/2020/03/04/061/</id>
     <published>2020-03-04T03:40:00.000Z</published>
     <updated>2020-03-04T04:08:31.044Z</updated>
     
@@ -69,17 +69,17 @@
     
     </summary>
     
-      <category term="字体集锦" scheme="https://woodwhales.github.io/categories/%E5%AD%97%E4%BD%93%E9%9B%86%E9%94%A6/"/>
+      <category term="字体集锦" scheme="https://www.woodwhales.cn/categories/%E5%AD%97%E4%BD%93%E9%9B%86%E9%94%A6/"/>
     
     
-      <category term="字体" scheme="https://woodwhales.github.io/tags/%E5%AD%97%E4%BD%93/"/>
+      <category term="字体" scheme="https://www.woodwhales.cn/tags/%E5%AD%97%E4%BD%93/"/>
     
   </entry>
   
   <entry>
     <title>IDEA 常用设置</title>
-    <link href="https://woodwhales.github.io/2020/03/03/060/"/>
-    <id>https://woodwhales.github.io/2020/03/03/060/</id>
+    <link href="https://www.woodwhales.cn/2020/03/03/060/"/>
+    <id>https://www.woodwhales.cn/2020/03/03/060/</id>
     <published>2020-03-03T07:15:00.000Z</published>
     <updated>2020-03-03T07:21:05.372Z</updated>
     
@@ -89,17 +89,17 @@
     
     </summary>
     
-      <category term="软件安装" scheme="https://woodwhales.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
+      <category term="软件安装" scheme="https://www.woodwhales.cn/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
     
     
-      <category term="IDEA设置" scheme="https://woodwhales.github.io/tags/IDEA%E8%AE%BE%E7%BD%AE/"/>
+      <category term="IDEA设置" scheme="https://www.woodwhales.cn/tags/IDEA%E8%AE%BE%E7%BD%AE/"/>
     
   </entry>
   
   <entry>
     <title>STS 常用设置</title>
-    <link href="https://woodwhales.github.io/2020/02/27/059/"/>
-    <id>https://woodwhales.github.io/2020/02/27/059/</id>
+    <link href="https://www.woodwhales.cn/2020/02/27/059/"/>
+    <id>https://www.woodwhales.cn/2020/02/27/059/</id>
     <published>2020-02-27T14:13:00.000Z</published>
     <updated>2020-03-02T01:19:59.525Z</updated>
     
@@ -109,17 +109,17 @@
     
     </summary>
     
-      <category term="软件安装" scheme="https://woodwhales.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
+      <category term="软件安装" scheme="https://www.woodwhales.cn/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
     
     
-      <category term="STS设置" scheme="https://woodwhales.github.io/tags/STS%E8%AE%BE%E7%BD%AE/"/>
+      <category term="STS设置" scheme="https://www.woodwhales.cn/tags/STS%E8%AE%BE%E7%BD%AE/"/>
     
   </entry>
   
   <entry>
     <title>MySQL 5.7 绿色安装(for windows)</title>
-    <link href="https://woodwhales.github.io/2020/02/27/058/"/>
-    <id>https://woodwhales.github.io/2020/02/27/058/</id>
+    <link href="https://www.woodwhales.cn/2020/02/27/058/"/>
+    <id>https://www.woodwhales.cn/2020/02/27/058/</id>
     <published>2020-02-27T06:58:00.000Z</published>
     <updated>2020-03-02T01:08:14.043Z</updated>
     
@@ -129,17 +129,17 @@
     
     </summary>
     
-      <category term="软件安装" scheme="https://woodwhales.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
+      <category term="软件安装" scheme="https://www.woodwhales.cn/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
     
     
-      <category term="mysql5.7安装" scheme="https://woodwhales.github.io/tags/mysql5-7%E5%AE%89%E8%A3%85/"/>
+      <category term="mysql5.7安装" scheme="https://www.woodwhales.cn/tags/mysql5-7%E5%AE%89%E8%A3%85/"/>
     
   </entry>
   
   <entry>
     <title>win10重装系统之后的个性化设置</title>
-    <link href="https://woodwhales.github.io/2020/02/26/057/"/>
-    <id>https://woodwhales.github.io/2020/02/26/057/</id>
+    <link href="https://www.woodwhales.cn/2020/02/26/057/"/>
+    <id>https://www.woodwhales.cn/2020/02/26/057/</id>
     <published>2020-02-26T05:30:00.000Z</published>
     <updated>2020-03-02T01:07:31.864Z</updated>
     
@@ -149,17 +149,17 @@
     
     </summary>
     
-      <category term="软件安装" scheme="https://woodwhales.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
+      <category term="软件安装" scheme="https://www.woodwhales.cn/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
     
     
-      <category term="重装系统" scheme="https://woodwhales.github.io/tags/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/"/>
+      <category term="重装系统" scheme="https://www.woodwhales.cn/tags/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   
   <entry>
     <title>SpringBoot Layui ThymeLeaf 一点点学习心得</title>
-    <link href="https://woodwhales.github.io/2019/12/21/056/"/>
-    <id>https://woodwhales.github.io/2019/12/21/056/</id>
+    <link href="https://www.woodwhales.cn/2019/12/21/056/"/>
+    <id>https://www.woodwhales.cn/2019/12/21/056/</id>
     <published>2019-12-21T15:27:00.000Z</published>
     <updated>2020-03-04T04:09:58.545Z</updated>
     
@@ -169,17 +169,17 @@
     
     </summary>
     
-      <category term="springboot" scheme="https://woodwhales.github.io/categories/springboot/"/>
+      <category term="springboot" scheme="https://www.woodwhales.cn/categories/springboot/"/>
     
     
-      <category term="layui" scheme="https://woodwhales.github.io/tags/layui/"/>
+      <category term="layui" scheme="https://www.woodwhales.cn/tags/layui/"/>
     
   </entry>
   
   <entry>
     <title>Apache Kafka 学习笔记</title>
-    <link href="https://woodwhales.github.io/2019/12/01/055/"/>
-    <id>https://woodwhales.github.io/2019/12/01/055/</id>
+    <link href="https://www.woodwhales.cn/2019/12/01/055/"/>
+    <id>https://www.woodwhales.cn/2019/12/01/055/</id>
     <published>2019-12-01T15:30:00.000Z</published>
     <updated>2020-03-01T14:19:05.760Z</updated>
     
@@ -189,17 +189,17 @@
     
     </summary>
     
-      <category term="Kafka" scheme="https://woodwhales.github.io/categories/Kafka/"/>
+      <category term="Kafka" scheme="https://www.woodwhales.cn/categories/Kafka/"/>
     
     
-      <category term="Kafka" scheme="https://woodwhales.github.io/tags/Kafka/"/>
+      <category term="Kafka" scheme="https://www.woodwhales.cn/tags/Kafka/"/>
     
   </entry>
   
   <entry>
     <title>计算机语言及操作系统发展史</title>
-    <link href="https://woodwhales.github.io/2019/11/24/054/"/>
-    <id>https://woodwhales.github.io/2019/11/24/054/</id>
+    <link href="https://www.woodwhales.cn/2019/11/24/054/"/>
+    <id>https://www.woodwhales.cn/2019/11/24/054/</id>
     <published>2019-11-24T15:53:00.000Z</published>
     <updated>2020-03-01T14:19:05.753Z</updated>
     
@@ -209,17 +209,17 @@
     
     </summary>
     
-      <category term="Linux" scheme="https://woodwhales.github.io/categories/Linux/"/>
+      <category term="Linux" scheme="https://www.woodwhales.cn/categories/Linux/"/>
     
     
-      <category term="Linux" scheme="https://woodwhales.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://www.woodwhales.cn/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>C 语言中的细节知识点</title>
-    <link href="https://woodwhales.github.io/2019/11/18/053/"/>
-    <id>https://woodwhales.github.io/2019/11/18/053/</id>
+    <link href="https://www.woodwhales.cn/2019/11/18/053/"/>
+    <id>https://www.woodwhales.cn/2019/11/18/053/</id>
     <published>2019-11-17T17:23:00.000Z</published>
     <updated>2020-03-01T14:19:05.736Z</updated>
     
@@ -229,17 +229,17 @@
     
     </summary>
     
-      <category term="C 语言" scheme="https://woodwhales.github.io/categories/C-%E8%AF%AD%E8%A8%80/"/>
+      <category term="C 语言" scheme="https://www.woodwhales.cn/categories/C-%E8%AF%AD%E8%A8%80/"/>
     
     
-      <category term="C 语言" scheme="https://woodwhales.github.io/tags/C-%E8%AF%AD%E8%A8%80/"/>
+      <category term="C 语言" scheme="https://www.woodwhales.cn/tags/C-%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>git 设置本地配置多个账户对应不同的 ssh key</title>
-    <link href="https://woodwhales.github.io/2019/11/11/052/"/>
-    <id>https://woodwhales.github.io/2019/11/11/052/</id>
+    <link href="https://www.woodwhales.cn/2019/11/11/052/"/>
+    <id>https://www.woodwhales.cn/2019/11/11/052/</id>
     <published>2019-11-10T16:25:00.000Z</published>
     <updated>2020-03-01T14:18:01.702Z</updated>
     
@@ -249,17 +249,17 @@
     
     </summary>
     
-      <category term="git" scheme="https://woodwhales.github.io/categories/git/"/>
+      <category term="git" scheme="https://www.woodwhales.cn/categories/git/"/>
     
     
-      <category term="git" scheme="https://woodwhales.github.io/tags/git/"/>
+      <category term="git" scheme="https://www.woodwhales.cn/tags/git/"/>
     
   </entry>
   
   <entry>
     <title>ElasticSearch 学习笔记之安装详解</title>
-    <link href="https://woodwhales.github.io/2019/11/04/051/"/>
-    <id>https://woodwhales.github.io/2019/11/04/051/</id>
+    <link href="https://www.woodwhales.cn/2019/11/04/051/"/>
+    <id>https://www.woodwhales.cn/2019/11/04/051/</id>
     <published>2019-11-04T13:20:00.000Z</published>
     <updated>2020-03-01T14:19:05.731Z</updated>
     
@@ -269,17 +269,17 @@
     
     </summary>
     
-      <category term="Elastic Stack" scheme="https://woodwhales.github.io/categories/Elastic-Stack/"/>
+      <category term="Elastic Stack" scheme="https://www.woodwhales.cn/categories/Elastic-Stack/"/>
     
     
-      <category term="ElasticSearch" scheme="https://woodwhales.github.io/tags/ElasticSearch/"/>
+      <category term="ElasticSearch" scheme="https://www.woodwhales.cn/tags/ElasticSearch/"/>
     
   </entry>
   
   <entry>
     <title>JDK 1.8 新特性</title>
-    <link href="https://woodwhales.github.io/2019/11/03/050/"/>
-    <id>https://woodwhales.github.io/2019/11/03/050/</id>
+    <link href="https://www.woodwhales.cn/2019/11/03/050/"/>
+    <id>https://www.woodwhales.cn/2019/11/03/050/</id>
     <published>2019-11-03T10:00:00.000Z</published>
     <updated>2020-03-01T14:12:25.187Z</updated>
     
@@ -289,17 +289,17 @@
     
     </summary>
     
-      <category term="Java 新特性" scheme="https://woodwhales.github.io/categories/Java-%E6%96%B0%E7%89%B9%E6%80%A7/"/>
+      <category term="Java 新特性" scheme="https://www.woodwhales.cn/categories/Java-%E6%96%B0%E7%89%B9%E6%80%A7/"/>
     
     
-      <category term="JDK 1.8" scheme="https://woodwhales.github.io/tags/JDK-1-8/"/>
+      <category term="JDK 1.8" scheme="https://www.woodwhales.cn/tags/JDK-1-8/"/>
     
   </entry>
   
   <entry>
     <title>常用Java代码示例</title>
-    <link href="https://woodwhales.github.io/2019/09/28/044/"/>
-    <id>https://woodwhales.github.io/2019/09/28/044/</id>
+    <link href="https://www.woodwhales.cn/2019/09/28/044/"/>
+    <id>https://www.woodwhales.cn/2019/09/28/044/</id>
     <published>2019-09-28T12:12:14.000Z</published>
     <updated>2020-03-01T14:09:58.916Z</updated>
     
@@ -309,17 +309,17 @@
     
     </summary>
     
-      <category term="Java" scheme="https://woodwhales.github.io/categories/Java/"/>
+      <category term="Java" scheme="https://www.woodwhales.cn/categories/Java/"/>
     
     
-      <category term="代码规范" scheme="https://woodwhales.github.io/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/"/>
+      <category term="代码规范" scheme="https://www.woodwhales.cn/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/"/>
     
   </entry>
   
   <entry>
     <title>漫谈密码技术</title>
-    <link href="https://woodwhales.github.io/2019/09/27/049/"/>
-    <id>https://woodwhales.github.io/2019/09/27/049/</id>
+    <link href="https://www.woodwhales.cn/2019/09/27/049/"/>
+    <id>https://www.woodwhales.cn/2019/09/27/049/</id>
     <published>2019-09-27T14:50:00.000Z</published>
     <updated>2020-03-01T14:12:25.167Z</updated>
     
@@ -329,17 +329,17 @@
     
     </summary>
     
-      <category term="信息安全" scheme="https://woodwhales.github.io/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/"/>
+      <category term="信息安全" scheme="https://www.woodwhales.cn/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/"/>
     
     
-      <category term="密码" scheme="https://woodwhales.github.io/tags/%E5%AF%86%E7%A0%81/"/>
+      <category term="密码" scheme="https://www.woodwhales.cn/tags/%E5%AF%86%E7%A0%81/"/>
     
   </entry>
   
   <entry>
     <title>浅析理解HashMap</title>
-    <link href="https://woodwhales.github.io/2019/08/18/048/"/>
-    <id>https://woodwhales.github.io/2019/08/18/048/</id>
+    <link href="https://www.woodwhales.cn/2019/08/18/048/"/>
+    <id>https://www.woodwhales.cn/2019/08/18/048/</id>
     <published>2019-08-18T13:25:00.000Z</published>
     <updated>2020-03-01T14:12:25.152Z</updated>
     
@@ -349,17 +349,17 @@
     
     </summary>
     
-      <category term="Java集合" scheme="https://woodwhales.github.io/categories/Java%E9%9B%86%E5%90%88/"/>
+      <category term="Java集合" scheme="https://www.woodwhales.cn/categories/Java%E9%9B%86%E5%90%88/"/>
     
     
-      <category term="HashMap" scheme="https://woodwhales.github.io/tags/HashMap/"/>
+      <category term="HashMap" scheme="https://www.woodwhales.cn/tags/HashMap/"/>
     
   </entry>
   
   <entry>
     <title>人生苦短，转行程序员要趁早(下)</title>
-    <link href="https://woodwhales.github.io/2019/08/03/047/"/>
-    <id>https://woodwhales.github.io/2019/08/03/047/</id>
+    <link href="https://www.woodwhales.cn/2019/08/03/047/"/>
+    <id>https://www.woodwhales.cn/2019/08/03/047/</id>
     <published>2019-08-03T10:30:00.000Z</published>
     <updated>2020-03-01T14:12:25.138Z</updated>
     
@@ -369,17 +369,17 @@
     
     </summary>
     
-      <category term="随笔杂谈" scheme="https://woodwhales.github.io/categories/%E9%9A%8F%E7%AC%94%E6%9D%82%E8%B0%88/"/>
+      <category term="随笔杂谈" scheme="https://www.woodwhales.cn/categories/%E9%9A%8F%E7%AC%94%E6%9D%82%E8%B0%88/"/>
     
     
-      <category term="转行" scheme="https://woodwhales.github.io/tags/%E8%BD%AC%E8%A1%8C/"/>
+      <category term="转行" scheme="https://www.woodwhales.cn/tags/%E8%BD%AC%E8%A1%8C/"/>
     
   </entry>
   
   <entry>
     <title>Spring Jpa Data 快速入门指南</title>
-    <link href="https://woodwhales.github.io/2019/08/02/046/"/>
-    <id>https://woodwhales.github.io/2019/08/02/046/</id>
+    <link href="https://www.woodwhales.cn/2019/08/02/046/"/>
+    <id>https://www.woodwhales.cn/2019/08/02/046/</id>
     <published>2019-08-02T13:50:00.000Z</published>
     <updated>2020-03-01T14:12:25.120Z</updated>
     
@@ -389,17 +389,17 @@
     
     </summary>
     
-      <category term="SpringBoot" scheme="https://woodwhales.github.io/categories/SpringBoot/"/>
+      <category term="SpringBoot" scheme="https://www.woodwhales.cn/categories/SpringBoot/"/>
     
     
-      <category term="jpa" scheme="https://woodwhales.github.io/tags/jpa/"/>
+      <category term="jpa" scheme="https://www.woodwhales.cn/tags/jpa/"/>
     
   </entry>
   
   <entry>
     <title>JNI技术实战</title>
-    <link href="https://woodwhales.github.io/2019/07/07/045/"/>
-    <id>https://woodwhales.github.io/2019/07/07/045/</id>
+    <link href="https://www.woodwhales.cn/2019/07/07/045/"/>
+    <id>https://www.woodwhales.cn/2019/07/07/045/</id>
     <published>2019-07-07T12:50:00.000Z</published>
     <updated>2020-03-01T14:12:25.106Z</updated>
     
@@ -409,10 +409,10 @@
     
     </summary>
     
-      <category term="JNI" scheme="https://woodwhales.github.io/categories/JNI/"/>
+      <category term="JNI" scheme="https://www.woodwhales.cn/categories/JNI/"/>
     
     
-      <category term="JNI" scheme="https://woodwhales.github.io/tags/JNI/"/>
+      <category term="JNI" scheme="https://www.woodwhales.cn/tags/JNI/"/>
     
   </entry>
   
