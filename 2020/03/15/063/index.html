@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="spring-boot-starter, 自定义, IDEA开发starter, spring-boot-autoconfigure, autoconfigure, starter, 自定义springboot启动器, 自定义启动器">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="手把手使用 IDEA 自定义 spring-boot-starter 完成 demo 演示及日志打印服务">
+<meta name="keywords" content="spring-boot-starter, 自定义, IDEA开发starter, spring-boot-autoconfigure, autoconfigure, starter, 自定义springboot启动器, 自定义启动器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义 spring-boot-starter">
+<meta property="og:url" content="https://woodwhales.github.io/2020/03/15/063/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="手把手使用 IDEA 自定义 spring-boot-starter 完成 demo 演示及日志打印服务">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/face.png">
+<meta property="og:updated_time" content="2020-03-15T01:58:08.229Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义 spring-boot-starter">
+<meta name="twitter:description" content="手把手使用 IDEA 自定义 spring-boot-starter 完成 demo 演示及日志打印服务">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.github.io/2020/03/15/063/">
+
+
+
+
+
+  <title>自定义 spring-boot-starter | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br>
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br>
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.github.io/2020/03/15/063/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自定义 spring-boot-starter</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-15T09:45:00+08:00">
+                2020-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/03/15/063/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/03/15/063/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/03/15/063/" class="leancloud_visitors" data-flag-title="自定义 spring-boot-starter">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  2.2k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  手把手使用 IDEA 自定义 spring-boot-starter 完成 demo 演示及日志打印服务
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/face.png" rel="gallery_ck7se2kd9004wu4w6ry3k4mfr" itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <h3 id="&#x57FA;&#x7840;&#x77E5;&#x8BC6;"><a href="#&#x57FA;&#x7840;&#x77E5;&#x8BC6;" class="headerlink" title="&#x57FA;&#x7840;&#x77E5;&#x8BC6;"></a>&#x57FA;&#x7840;&#x77E5;&#x8BC6;</h3><h4 id="&#x91CD;&#x8981;&#x7EC4;&#x4EF6;"><a href="#&#x91CD;&#x8981;&#x7EC4;&#x4EF6;" class="headerlink" title="&#x91CD;&#x8981;&#x7EC4;&#x4EF6;"></a>&#x91CD;&#x8981;&#x7EC4;&#x4EF6;</h4><p>&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684; Spring Boot Starter &#x4E00;&#x822C;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x6838;&#x5FC3;&#x7EC4;&#x4EF6;&#xFF1A;</p>
+<ul>
+<li><strong>autoconfigure</strong> &#x6A21;&#x5757;&#xFF1A;&#x5305;&#x542B;&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x7684;&#x4EE3;&#x7801;</li>
+<li><strong>starter</strong> &#x6A21;&#x5757;&#xFF1A;&#x63D0;&#x4F9B;&#x5BF9; <strong>autoconfigure</strong> &#x6A21;&#x5757;&#x7684;&#x4F9D;&#x8D56;&#xFF0C;&#x4EE5;&#x53CA;&#x4E00;&#x4E9B;&#x5176;&#x5B83;&#x7684;&#x4F9D;&#x8D56;</li>
+</ul>
+<p>&#xFF08;PS&#xFF1A;&#x5982;&#x679C;&#x4E0D;&#x9700;&#x8981;&#x533A;&#x5206;&#x8FD9;&#x4E24;&#x4E2A;&#x6982;&#x5FF5;&#x7684;&#x8BDD;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5C06;&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x4EE3;&#x7801;&#x6A21;&#x5757;&#x4E0E;&#x4F9D;&#x8D56;&#x7BA1;&#x7406;&#x6A21;&#x5757;&#x5408;&#x5E76;&#x6210;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#xFF09;</p>
+<p>&#x7B80;&#x800C;&#x8A00;&#x4E4B;&#xFF0C;&#x5176;&#x4ED6;&#x670D;&#x52A1;&#x9700;&#x8981;&#x542F;&#x52A8;&#x5668;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5F15;&#x5165;&#x4E00;&#x4E2A; starter &#x5C31;&#x591F;&#x4E86;</p>
+<h4 id="&#x547D;&#x540D;&#x89C4;&#x5219;"><a href="#&#x547D;&#x540D;&#x89C4;&#x5219;" class="headerlink" title="&#x547D;&#x540D;&#x89C4;&#x5219;"></a>&#x547D;&#x540D;&#x89C4;&#x5219;</h4><p>Spring Boot &#x63D0;&#x4F9B;&#x7684; starter &#x662F;&#x4EE5;<code>spring-boot-starter-xxx</code>&#x7684;&#x65B9;&#x5F0F;&#x547D;&#x540D;&#x3002;&#x5B98;&#x65B9;&#x5EFA;&#x8BAE;&#x81EA;&#x5B9A;&#x4E49;&#x7684; starter &#x4F7F;&#x7528;<code>xxx-spring-boot-starter</code>&#x547D;&#x540D;&#x89C4;&#x5219;&#x3002;&#x4EE5;&#x533A;&#x5206; Spring Boot&#x751F;&#x6001;&#x63D0;&#x4F9B;&#x7684; starter&#x3002;</p>
+<h3 id="&#x5DE5;&#x7A0B;&#x67B6;&#x6784;&#x8BF4;&#x660E;"><a href="#&#x5DE5;&#x7A0B;&#x67B6;&#x6784;&#x8BF4;&#x660E;" class="headerlink" title="&#x5DE5;&#x7A0B;&#x67B6;&#x6784;&#x8BF4;&#x660E;"></a>&#x5DE5;&#x7A0B;&#x67B6;&#x6784;&#x8BF4;&#x660E;</h3><p>&#x6839;&#x636E;&#x4E0A;&#x4FE9;&#x8282;&#x7684;&#x63CF;&#x8FF0;&#xFF0C;&#x7528;&#x4E00;&#x5F20;&#x56FE;&#x6765;&#x63CF;&#x8FF0;&#xFF0C;&#x5C31;&#x662F;&#x8981;&#x81EA;&#x5DF1;&#x7F16;&#x5199;&#xFF1A;&#x7EA2;&#x8272;&#x7684;<code>woodwhales-spring-boot-autoconfigure</code>&#x548C;&#x7C89;&#x8272;&#x7684;<code>woodwhales-spring-boot-starter</code>&#xFF0C;&#x5C06; woodwhales-spring-boot-starter &#x5DE5;&#x7A0B;&#x6253;&#x5305;&#x6210; jar &#x4F9B;&#x5176;&#x4ED6;&#x5DE5;&#x7A0B;&#x4F9D;&#x8D56;&#x4F7F;&#x7528;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"></span><br><span class="line">node &quot;&#x81EA;&#x5B9A;&#x4E49; spring-boot-starter&quot; {</span><br><span class="line">[woodwhales-spring-boot-starter] as starter #Pink</span><br><span class="line">[woodwhales-spring-boot-autoconfigure] as autoconfigure #Tomato</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">node &quot;&#x5176;&#x4ED6;&#x5DE5;&#x7A0B;&quot; {</span><br><span class="line">[spring-boot-starter-web] as web</span><br><span class="line">[xxx-spring-boot-starter] as myStarter</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">starter -left-&gt; autoconfigure</span><br><span class="line">myStarter .down.&gt; () pom: pom &#x4F9D;&#x8D56;&#x81EA;&#x5B9A;&#x4E49;starter</span><br><span class="line"></span><br><span class="line">pom -left-&gt; starter</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x5DE5;&#x7A0B;&#x7ED3;&#x6784;&#x51C6;&#x5907;"><a href="#&#x5DE5;&#x7A0B;&#x7ED3;&#x6784;&#x51C6;&#x5907;" class="headerlink" title="&#x5DE5;&#x7A0B;&#x7ED3;&#x6784;&#x51C6;&#x5907;"></a>&#x5DE5;&#x7A0B;&#x7ED3;&#x6784;&#x51C6;&#x5907;</h3><p>&#x7B14;&#x8005;&#x4F7F;&#x7528; IDEA &#x5F00;&#x53D1;&#x5DE5;&#x5177;&#x6F14;&#x793A;&#xFF0C;&#x4F7F;&#x7528; STS 4 &#x4E5F;&#x53EF;&#x4EE5;&#x3002;</p>
+<blockquote>
+<p>&#x5F00;&#x53D1;&#x5DE5;&#x5177;&#x7684;&#x5E38;&#x7528;&#x914D;&#x7F6E;&#x53C2;&#x89C1;&#x8FD9;&#x4FE9;&#x7BC7;&#x535A;&#x6587;&#xFF1A;<a href="https://woodwhales.cn/2020/03/03/060/" target="_blank" rel="noopener">IDEA &#x5E38;&#x7528;&#x8BBE;&#x7F6E;</a>&#x548C;<a href="https://woodwhales.cn/2020/02/27/059/" target="_blank" rel="noopener">STS &#x5E38;&#x7528;&#x8BBE;&#x7F6E;</a></p>
+</blockquote>
+<p>&#x5728;&#x81EA;&#x5DF1;&#x559C;&#x6B22;&#x7684;&#x5730;&#x65B9;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x540D;&#x79F0;&#x4E3A;<code>woodwhles-spring-boot-starter</code>&#x7684;&#x7A7A;&#x5DE5;&#x7A0B;&#x76EE;&#x5F55;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//1.png" style="zoom:75%;"><br>&#x5728;&#x7A7A;&#x5DE5;&#x7A0B;&#x4E2D;&#x6DFB;&#x52A0;&#x65B0;&#x7684;&#x5DE5;&#x7A0B;&#x6A21;&#x5757;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//3.png" alt></p>
+<h3 id="woodwhales-spring-boot-starter-&#x5DE5;&#x7A0B;&#x642D;&#x5EFA;"><a href="#woodwhales-spring-boot-starter-&#x5DE5;&#x7A0B;&#x642D;&#x5EFA;" class="headerlink" title="woodwhales-spring-boot-starter &#x5DE5;&#x7A0B;&#x642D;&#x5EFA;"></a>woodwhales-spring-boot-starter &#x5DE5;&#x7A0B;&#x642D;&#x5EFA;</h3><p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5E72;&#x51C0;&#x7684; maven &#x5DE5;&#x7A0B;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//4.png" style="zoom:75%;"></p>
+<p>&#x6307;&#x5B9A;&#x5DE5;&#x7A0B;&#x7684;&#x76EE;&#x5F55;&#x53CA; maven &#x5750;&#x6807;&#x4FE1;&#x606F;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//5.png" alt="5" style="zoom:75%;"></p>
+<p>&#x521B;&#x5EFA;&#x6210;&#x529F;&#x4E4B;&#x540E;&#x7A7A;&#x5DE5;&#x7A0B;&#x4E2D;&#x591A;&#x4E86;&#x4E00;&#x4E2A;<code>woodwhles-spring-boot-starter</code>&#x7684;&#x6A21;&#x5757;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//6.png" style="zoom:75%;"></p>
+<h3 id="woodwhales-spring-boot-autoconfigure-&#x5DE5;&#x7A0B;&#x642D;&#x5EFA;"><a href="#woodwhales-spring-boot-autoconfigure-&#x5DE5;&#x7A0B;&#x642D;&#x5EFA;" class="headerlink" title="woodwhales-spring-boot-autoconfigure &#x5DE5;&#x7A0B;&#x642D;&#x5EFA;"></a>woodwhales-spring-boot-autoconfigure &#x5DE5;&#x7A0B;&#x642D;&#x5EFA;</h3><p>&#x7EE7;&#x7EED;&#x5728;&#x7A7A;&#x5DE5;&#x7A0B;&#x4E2D;&#x521B;&#x5EFA;&#x6A21;&#x5757;&#xFF0C;&#x8FD9;&#x6B21;&#x4F7F;&#x7528; Spring Initializr &#x5FEB;&#x901F;&#x521B;&#x5EFA; autoconfigure &#x5DE5;&#x7A0B;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//7.png" style="zoom:75%;"></p>
+<p>&#x6307;&#x5B9A;&#x597D; maven &#x5750;&#x6807;&#x4FE1;&#x606F;&#x53CA;&#x5DE5;&#x7A0B;&#x540D;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//8.png" style="zoom:75%;"></p>
+<p>&#x53EA;&#x6DFB;&#x52A0;<code>spring-boot-configuration-processor</code>&#x4F9D;&#x8D56;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//9.png" style="zoom:75%;"></p>
+<p>&#x6700;&#x540E;&#x6CE8;&#x610F;&#x68C0;&#x67E5;&#x5F53;&#x524D;&#x5DE5;&#x7A0B;&#x662F;&#x4E0D;&#x662F;&#x88AB;&#x521B;&#x5EFA;&#x5728;&#x7A7A;&#x5DE5;&#x7A0B;&#x4E2D;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//10.png" style="zoom:75%;"></p>
+<p>woodwhales-spring-boot-autoconfigure &#x5DE5;&#x7A0B;&#x4E2D;&#x5C06;&#x65E0;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x5220;&#x9664;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//11.png" style="zoom:75%;"></p>
+<p>&#x518D;&#x5C06; woodwhales-spring-boot-autoconfigure &#x5DE5;&#x7A0B;&#x4E2D; pom &#x4F9D;&#x8D56;&#x4E2D;&#x7684;&#x6784;&#x5EFA;&#x5DE5;&#x5177;&#x63D2;&#x4EF6;&#x53CA; spring-boot-starter-test &#x4F9D;&#x8D56;&#x5220;&#x9664;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//12.png" style="zoom:75%;"></p>
+<p>&#x6700;&#x540E;&#x5728; woodwhales-spring-boot-starter &#x5DE5;&#x7A0B;&#x4E2D;&#x5F15;&#x5165; woodwhales-spring-boot-autoconfigure &#x5DE5;&#x7A0B;&#x4F9D;&#x8D56;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//13.png" style="zoom:75%;"></p>
+<p>&#x4E0A;&#x8FF0;&#x7684;&#x5DE5;&#x7A0B;&#x73AF;&#x5883;&#x51C6;&#x5907;&#x597D;&#x4E4B;&#x540E;&#xFF0C;&#x5F00;&#x59CB;&#x7F16;&#x5199;&#x5BF9;&#x5E94;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6216;&#x8005;&#x4E1A;&#x52A1;&#x4EE3;&#x7801;&#x3002;</p>
+<p>&#x4E3A;&#x4E86;&#x7F16;&#x8BD1;&#x4E0D;&#x4F1A;&#x62A5;&#x8B66;&#x544A;&#xFF0C;&#x53EF;&#x4EE5;&#x589E;&#x52A0; jdk &#x7248;&#x672C;&#x548C;&#x5B57;&#x7B26;&#x96C6;&#x7EA6;&#x675F;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x7F16;&#x5199;&#x4E1A;&#x52A1;&#x914D;&#x7F6E;&#x7C7B;-HelloProperties"><a href="#&#x7F16;&#x5199;&#x4E1A;&#x52A1;&#x914D;&#x7F6E;&#x7C7B;-HelloProperties" class="headerlink" title="&#x7F16;&#x5199;&#x4E1A;&#x52A1;&#x914D;&#x7F6E;&#x7C7B; HelloProperties"></a>&#x7F16;&#x5199;&#x4E1A;&#x52A1;&#x914D;&#x7F6E;&#x7C7B; HelloProperties</h3><p>&#x5B9A;&#x4E49;&#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#x7C7B;&#xFF0C;&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#x7C7B;&#x53EF;&#x4EE5;&#x8BFB;&#x53D6;&#x5230;&#x5F15;&#x7528;&#x4E86;&#x672C;&#x81EA;&#x5B9A;&#x4E49; starter &#x7684;&#x5DE5;&#x7A0B;&#x4E2D;&#x7684;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: woodwhales-spring-boot-starter</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.3.14 17:30</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(<span class="string">&quot;woodwhales.hello&quot;</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloProperties</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String prefix;</span><br><span class="line">    <span class="keyword">private</span> String suffix;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPrefix</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> prefix;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPrefix</span><span class="params">(String prefix)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.prefix = prefix;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getSuffix</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> suffix;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSuffix</span><span class="params">(String suffix)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.suffix = suffix;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x7F16;&#x5199;&#x4E1A;&#x52A1;&#x7C7B;-HelloService"><a href="#&#x7F16;&#x5199;&#x4E1A;&#x52A1;&#x7C7B;-HelloService" class="headerlink" title="&#x7F16;&#x5199;&#x4E1A;&#x52A1;&#x7C7B; HelloService"></a>&#x7F16;&#x5199;&#x4E1A;&#x52A1;&#x7C7B; HelloService</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: woodwhales-spring-boot-starter</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.3.14 17:31</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloService</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> HelloProperties helloProperties;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HelloService</span><span class="params">()</span> </span>{</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HelloService</span><span class="params">(HelloProperties helloProperties)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.helloProperties = helloProperties;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">(String name)</span> </span>{</span><br><span class="line">        Objects.requireNonNull(helloProperties, <span class="string">&quot;&#x8BFB;&#x53D6;&#x7528;&#x6237;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5931;&#x8D25;&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> String.format(<span class="string">&quot;%s - %s - %s&quot;</span>, helloProperties.getPrefix(), name, helloProperties.getSuffix());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x7F16;&#x5199;&#x81EA;&#x52A8;&#x6CE8;&#x5165;&#x914D;&#x7F6E;&#x7C7B;-HelloServiceAutoConfiguration"><a href="#&#x7F16;&#x5199;&#x81EA;&#x52A8;&#x6CE8;&#x5165;&#x914D;&#x7F6E;&#x7C7B;-HelloServiceAutoConfiguration" class="headerlink" title="&#x7F16;&#x5199;&#x81EA;&#x52A8;&#x6CE8;&#x5165;&#x914D;&#x7F6E;&#x7C7B; HelloServiceAutoConfiguration"></a>&#x7F16;&#x5199;&#x81EA;&#x52A8;&#x6CE8;&#x5165;&#x914D;&#x7F6E;&#x7C7B; HelloServiceAutoConfiguration</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.EnableConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: woodwhales-spring-boot-starter</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.3.14 17:37</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnWebApplication</span> <span class="comment">// &#x53EA;&#x6709;&#x662F;web&#x5E94;&#x7528;&#x624D;&#x751F;&#x6548;</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(HelloProperties.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloServiceAutoConfiguration</span> </span>{</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> HelloProperties helloProperties;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> HelloService <span class="title">helloService</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> HelloService(helloProperties);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p><strong>@Configuration</strong></p>
+<p><code>@Configuration</code>&#x6CE8;&#x89E3;&#x7684;&#x4F5C;&#x7528;&#x7B49;&#x540C;&#x4E8E; xml &#x4E2D;&#x7684;<code>&lt;beans&gt;</code>&#x6807;&#x7B7E;</p>
+<p><strong>@EnableConfigurationProperties</strong></p>
+<p><code>@EnableConfigurationProperties</code>&#x6CE8;&#x89E3;&#x662F;&#x7528;&#x6765;&#x5F00;&#x542F;&#x5BF9; 3 &#x6B65;&#x9AA4;&#x4E2D;<code>@ConfigurationProperties</code>&#x6CE8;&#x89E3;&#x914D;&#x7F6E; Bean &#x7684;&#x652F;&#x6301;&#x3002;&#x4E5F;&#x5C31;&#x662F;<code>@EnableConfigurationProperties</code>&#x6CE8;&#x89E3;&#x544A;&#x8BC9; Spring Boot &#x80FD;&#x652F;&#x6301;<code>@ConfigurationProperties</code>&#x3002;</p>
+<p>&#x5F53;&#x7136;&#x4E86;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;<code>@ConfigurationProperties</code>&#x6CE8;&#x89E3;&#x7684;&#x7C7B;&#x4E0A;&#x6DFB;&#x52A0;<code>@Configuration</code>&#x6216;&#x8005;<code>@Component</code>&#x6CE8;&#x89E3;&#x3002;</p>
+</blockquote>
+<h3 id="&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x7C7B;&#x88C5;&#x914D;&#x751F;&#x6548;"><a href="#&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x7C7B;&#x88C5;&#x914D;&#x751F;&#x6548;" class="headerlink" title="&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x7C7B;&#x88C5;&#x914D;&#x751F;&#x6548;"></a>&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x7C7B;&#x88C5;&#x914D;&#x751F;&#x6548;</h3><p>&#x8981;&#x60F3;&#x4E0A;&#x8FF0;&#x7684;&#x6B65;&#x9AA4;&#x80FD;&#x751F;&#x6548;&#x5C31;&#x8981;&#x5728;<code>resources</code>&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x4E0B;&#x521B;&#x5EFA;<code>META-INF</code>&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x518D;&#x521B;&#x5EFA;&#x540D;&#x79F0;&#x4E3A;<code>spring.factories</code>&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x5C06;&#x4E0A;&#x8FF0;&#x7684;&#x81EA;&#x52A8;&#x6CE8;&#x5165;&#x914D;&#x7F6E;&#x7C7B;&#x914D;&#x7F6E;&#x5230; spring boot &#x4E2D;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\</span><br><span class="line">org.woodwhales.starter.HelloServiceAutoConfiguration</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6700;&#x7EC8;&#x6548;&#x679C;&#x5982;&#x56FE;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//14.png" style="zoom:75%;"></p>
+<h3 id="&#x6253;&#x5305;&#x4E0E;&#x6D4B;&#x8BD5;"><a href="#&#x6253;&#x5305;&#x4E0E;&#x6D4B;&#x8BD5;" class="headerlink" title="&#x6253;&#x5305;&#x4E0E;&#x6D4B;&#x8BD5;"></a>&#x6253;&#x5305;&#x4E0E;&#x6D4B;&#x8BD5;</h3><p>&#x5148;&#x5C06;<code>woodwhales-spring-boot-autoconfigure</code>&#x5DE5;&#x7A0B;&#x6253;&#x5305;&#x5B89;&#x88C5;&#x5230;&#x672C;&#x5730; maven &#x4ED3;&#x5E93;&#xFF0C;&#x518D;&#x6253;&#x5305;&#x5B89;&#x88C5;<code>woodwhales-spring-boot-starter</code>&#xFF0C;&#x7F16;&#x5199;&#x7B80;&#x5355;&#x7684;web&#x5DE5;&#x7A0B;&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<p>&#x5F15;&#x5165;&#x4F9D;&#x8D56;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.woodwhales.starter<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>woodwhales-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8083</span></span><br><span class="line"><span class="attr">  address:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line"><span class="attr">woodwhales:</span></span><br><span class="line"><span class="attr">  hello:</span></span><br><span class="line"><span class="attr">    prefix:</span> <span class="string">hi</span></span><br><span class="line"><span class="attr">    suffix:</span> <span class="string">welcome</span> <span class="string">to</span> <span class="string">woodwhales&apos;s</span> <span class="string">blog</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x63A7;&#x5236;&#x5C42;&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"><span class="keyword">import</span> org.woodwhales.starter.HelloService;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: woodwhales-spring-boot-starter-test</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.3.14 18:12</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>{</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> HelloService helloService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">&quot;/{name}&quot;</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(@PathVariable(name = <span class="string">&quot;name&quot;</span>)</span> String name) </span>{</span><br><span class="line">        <span class="keyword">return</span> helloService.sayHello(name);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>postman &#x6D4B;&#x8BD5;&#x6210;&#x529F;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.63/063/images//15.png" alt></p>
+<h3 id="&#x5E94;&#x7528;&#x573A;&#x666F;"><a href="#&#x5E94;&#x7528;&#x573A;&#x666F;" class="headerlink" title="&#x5E94;&#x7528;&#x573A;&#x666F;"></a>&#x5E94;&#x7528;&#x573A;&#x666F;</h3><p>&#x81EA;&#x5B9A;&#x4E49;&#x542F;&#x52A8;&#x5668;&#x4E00;&#x822C;&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF1A;&#x52A8;&#x6001;&#x6570;&#x636E;&#x6E90;&#x3001;&#x767B;&#x5F55;&#x6A21;&#x5757;&#x3001;&#x57FA;&#x4E8E;AOP&#x6280;&#x672F;&#x5B9E;&#x73B0;&#x65E5;&#x5FD7;&#x5207;&#x9762;&#x7B49;&#x3002;</p>
+<h4 id="&#x65E5;&#x5FD7;&#x8BB0;&#x5F55;&#x670D;&#x52A1;"><a href="#&#x65E5;&#x5FD7;&#x8BB0;&#x5F55;&#x670D;&#x52A1;" class="headerlink" title="&#x65E5;&#x5FD7;&#x8BB0;&#x5F55;&#x670D;&#x52A1;"></a>&#x65E5;&#x5FD7;&#x8BB0;&#x5F55;&#x670D;&#x52A1;</h4><p>&#x7531;&#x4E8E;&#x65E5;&#x5FD7;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x5230;&#x65E5;&#x5FD7;&#x6253;&#x5370;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x5F15;&#x5165;&#x4E00;&#x4E9B;&#x5176;&#x4ED6;&#x5DE5;&#x5177;&#xFF0C;&#x65B9;&#x4FBF;&#x5F00;&#x53D1;&#xFF1A;</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span><span class="comment">&lt;!-- &#x9632;&#x6B62;&#x5C06;spring-boot-starter-web&#x4F9D;&#x8D56;&#x4F20;&#x9012;&#x5230;&#x5176;&#x4ED6;&#x6A21;&#x5757;&#x4E2D; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span><span class="comment">&lt;!-- &#x9632;&#x6B62;&#x5C06;lombok&#x4F9D;&#x8D56;&#x4F20;&#x9012;&#x5230;&#x5176;&#x4ED6;&#x6A21;&#x5757;&#x4E2D; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.58<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span><span class="comment">&lt;!-- &#x9632;&#x6B62;&#x5C06;fastjson&#x4F9D;&#x8D56;&#x4F20;&#x9012;&#x5230;&#x5176;&#x4ED6;&#x6A21;&#x5757;&#x4E2D; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5BF9;&#x4E0A;&#x8FF0;&#x7684;&#x542F;&#x52A8;&#x5668;&#x8FDB;&#x884C;&#x5347;&#x7EA7;&#x6539;&#x9020;&#xFF1A;&#x589E;&#x52A0;&#x81EA;&#x5B9A;&#x4E49;&#x7684;<code>@MyLog</code>&#x6CE8;&#x89E3;&#xFF0C;&#x5B9E;&#x73B0;&#x4E1A;&#x52A1;&#x5DE5;&#x7A0B;&#x5728;&#x5BF9;&#x5E94;&#x7684;&#x65B9;&#x6CD5;&#x4E0A;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x6CE8;&#x89E3;&#x5C31;&#x80FD;&#x6253;&#x5370;&#x65E5;&#x5FD7;&#xFF1A;</p>
+<h5 id="&#x7F16;&#x5199;-MyLog-&#x6CE8;&#x89E3;"><a href="#&#x7F16;&#x5199;-MyLog-&#x6CE8;&#x89E3;" class="headerlink" title="&#x7F16;&#x5199; @MyLog &#x6CE8;&#x89E3;"></a>&#x7F16;&#x5199; @MyLog &#x6CE8;&#x89E3;</h5><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: woodwhales-spring-boot-starter</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.3.14 18:34</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyLog {</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#x65B9;&#x6CD5;&#x63CF;&#x8FF0;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">String <span class="title">desc</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="&#x7F16;&#x5199;-MyLogInterceptor-&#x62E6;&#x622A;&#x5668;"><a href="#&#x7F16;&#x5199;-MyLogInterceptor-&#x62E6;&#x622A;&#x5668;" class="headerlink" title="&#x7F16;&#x5199; MyLogInterceptor &#x62E6;&#x622A;&#x5668;"></a>&#x7F16;&#x5199; MyLogInterceptor &#x62E6;&#x622A;&#x5668;</h5><p>&#x62E6;&#x622A;&#x5668;&#x62E6;&#x622A;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x83B7;&#x53D6;&#x65B9;&#x6CD5;&#x4E0A;&#x7684;&#x6CE8;&#x89E3;&#x4FE1;&#x606F;&#xFF0C;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E86; @MyLog &#x6CE8;&#x89E3;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x6253;&#x5370;&#x65E5;&#x5FD7;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.method.HandlerMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.handler.HandlerInterceptorAdapter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: woodwhales-spring-boot-starter</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.3.14 18:40</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyLogInterceptor</span> <span class="keyword">extends</span> <span class="title">HandlerInterceptorAdapter</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Long&gt; startTimeThreadLocal = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">        HandlerMethod handlerMethod = (HandlerMethod) handler;</span><br><span class="line">        Method method = handlerMethod.getMethod();</span><br><span class="line">        MyLog myLog = method.getAnnotation(MyLog.class);</span><br><span class="line">        <span class="keyword">if</span> (Objects.nonNull(myLog)) {</span><br><span class="line">            <span class="comment">// &#x8BB0;&#x5F55;&#x65B9;&#x6CD5;&#x6267;&#x884C;&#x8D77;&#x59CB;&#x65F6;&#x95F4;</span></span><br><span class="line">            startTimeThreadLocal.set(System.currentTimeMillis());</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>{</span><br><span class="line">        HandlerMethod handlerMethod = (HandlerMethod) handler;</span><br><span class="line">        Method method = handlerMethod.getMethod();</span><br><span class="line">        MyLog myLog = method.getAnnotation(MyLog.class);</span><br><span class="line">        <span class="keyword">if</span> (Objects.nonNull(myLog)) {</span><br><span class="line">            <span class="comment">//  &#x83B7;&#x53D6;&#x65B9;&#x6CD5;&#x6267;&#x884C;&#x8D77;&#x59CB;&#x65F6;&#x95F4;</span></span><br><span class="line">            <span class="keyword">long</span> startTime = startTimeThreadLocal.get();</span><br><span class="line">            <span class="keyword">long</span> expendTime = System.currentTimeMillis() - startTime;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//  &#x6253;&#x5370;&#x53C2;&#x6570;</span></span><br><span class="line">            String requestUri = request.getRequestURI();</span><br><span class="line">            String methodName = method.getDeclaringClass().getName() + <span class="string">&quot;#&quot;</span> + method.getName();</span><br><span class="line">            String methodDesc = myLog.desc();</span><br><span class="line">            String parameters = JSON.toJSONString(request.getParameterMap());</span><br><span class="line">            log.info(<span class="string">&quot;\n&#x63CF;&#x8FF0;&#xFF1A;{}\n&#x8DEF;&#x5F84;: {}\n&#x65B9;&#x6CD5;: {}\n&#x53C2;&#x6570;&#xFF1A;{}\n&#x8017;&#x65F6;&#xFF1A;{}&quot;</span>, methodDesc, requestUri, methodName, parameters, expendTime);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="&#x62E6;&#x622A;&#x5668;&#x88C5;&#x914D;"><a href="#&#x62E6;&#x622A;&#x5668;&#x88C5;&#x914D;" class="headerlink" title="&#x62E6;&#x622A;&#x5668;&#x88C5;&#x914D;"></a>&#x62E6;&#x622A;&#x5668;&#x88C5;&#x914D;</h5><p>&#x5C06;&#x62E6;&#x622A;&#x5668;&#x6CE8;&#x5165; InterceptorRegistry &#x4E2D;&#xFF1A;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.InterceptorRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: woodwhales-spring-boot-starter</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.3.14 18:48</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyLogAutoConfiguration</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>{</span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> MyLogInterceptor());</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="&#x5C06;&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x7C7B;&#x88C5;&#x914D;&#x751F;&#x6548;"><a href="#&#x5C06;&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x7C7B;&#x88C5;&#x914D;&#x751F;&#x6548;" class="headerlink" title="&#x5C06;&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x7C7B;&#x88C5;&#x914D;&#x751F;&#x6548;"></a>&#x5C06;&#x81EA;&#x52A8;&#x914D;&#x7F6E;&#x7C7B;&#x88C5;&#x914D;&#x751F;&#x6548;</h5><p><code>spring.factories</code>&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x589E;&#x52A0;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\</span><br><span class="line">org.woodwhales.starter.HelloServiceAutoConfiguration,\</span><br><span class="line">org.woodwhales.starter.log.MyLogAutoConfiguration</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="&#x6D4B;&#x8BD5;"><a href="#&#x6D4B;&#x8BD5;" class="headerlink" title="&#x6D4B;&#x8BD5;"></a>&#x6D4B;&#x8BD5;</h5><p>&#x65E5;&#x5FD7;&#x6253;&#x5370;&#xFF1A;</p>
+<figure class="highlight"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2020-03-14 20:18:09.679  INFO 3820 --- [0.0-8083-exec-2] o.w.starter.log.MyLogInterceptor         : &#x63CF;&#x8FF0;&#xFF1A;&#x67E5;&#x8BE2;&#x7528;&#x6237;</span><br><span class="line">2020-03-14 20:18:09.680  INFO 3820 --- [0.0-8083-exec-2] o.w.starter.log.MyLogInterceptor         : &#x8DEF;&#x5F84;&#xFF1A;/user/list/</span><br><span class="line">2020-03-14 20:18:09.680  INFO 3820 --- [0.0-8083-exec-2] o.w.starter.log.MyLogInterceptor         : &#x65B9;&#x6CD5;&#xFF1A;org.woodwhales.starter.controller.UserController#list</span><br><span class="line">2020-03-14 20:18:09.680  INFO 3820 --- [0.0-8083-exec-2] o.w.starter.log.MyLogInterceptor         : &#x53C2;&#x6570;&#xFF1A;{}</span><br><span class="line">2020-03-14 20:18:09.680  INFO 3820 --- [0.0-8083-exec-2] o.w.starter.log.MyLogInterceptor         : &#x8017;&#x65F6;&#xFF1A;2</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD9;&#x4E2A;&#x65E5;&#x5FD7;&#x6253;&#x5370;&#x6CA1;&#x6709;&#x6253;&#x5370;&#x8BF7;&#x6C42;&#x4F53;&#x6570;&#x636E;&#xFF0C;&#x5982;&#x679C;&#x60F3;&#x770B;&#x652F;&#x6301;&#x6253;&#x5370;&#x8BF7;&#x6C42;&#x6570;&#x636E;&#x7684;&#x65E5;&#x5FD7;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x8BF7;&#x79FB;&#x6B65;&#x5230;&#xFF1A;</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2020-03-15</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2020-03-15</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/03/15/063/">自定义 spring-boot-starter</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2020/03/15/063/" title="自定义 spring-boot-starter">https://woodwhales.github.io/2020/03/15/063/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.github.io/2020/03/15/063/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spring-boot-starter/" rel="tag"><i class="fa fa-tag"></i> spring-boot-starter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/14/062/" rel="next" title="构建工具maven及gradle的安装及IDE配置">
+                <i class="fa fa-chevron-left"></i> 构建工具maven及gradle的安装及IDE配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://fivecoder.com/2019-ncov" title="2019-nCoV疫情实时动态" rel="external nofollow" target="_blank">2019-nCoV疫情实时动态</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://fivecoder.com/maven-tools" title="maven-tools mvn命令生成工具" rel="external nofollow" target="_blank">maven-tools mvn命令生成工具</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重要组件"><span class="nav-text">重要组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名规则"><span class="nav-text">命名规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工程架构说明"><span class="nav-text">工程架构说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工程结构准备"><span class="nav-text">工程结构准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#woodwhales-spring-boot-starter-工程搭建"><span class="nav-text">woodwhales-spring-boot-starter 工程搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#woodwhales-spring-boot-autoconfigure-工程搭建"><span class="nav-text">woodwhales-spring-boot-autoconfigure 工程搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写业务配置类-HelloProperties"><span class="nav-text">编写业务配置类 HelloProperties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写业务类-HelloService"><span class="nav-text">编写业务类 HelloService</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写自动注入配置类-HelloServiceAutoConfiguration"><span class="nav-text">编写自动注入配置类 HelloServiceAutoConfiguration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动配置类装配生效"><span class="nav-text">自动配置类装配生效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包与测试"><span class="nav-text">打包与测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-text">应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#日志记录服务"><span class="nav-text">日志记录服务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#编写-MyLog-注解"><span class="nav-text">编写 @MyLog 注解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编写-MyLogInterceptor-拦截器"><span class="nav-text">编写 MyLogInterceptor 拦截器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#拦截器装配"><span class="nav-text">拦截器装配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#将自动配置类装配生效"><span class="nav-text">将自动配置类装配生效</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试"><span class="nav-text">测试</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>
