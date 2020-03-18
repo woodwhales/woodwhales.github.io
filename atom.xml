@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-03-15T02:30:14.394Z</updated>
+  <updated>2020-03-18T08:00:41.070Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>xshell安装与激活</title>
+    <link href="https://woodwhales.cn/2020/03/18/064/"/>
+    <id>https://woodwhales.cn/2020/03/18/064/</id>
+    <published>2020-03-18T07:45:00.000Z</published>
+    <updated>2020-03-18T08:00:41.070Z</updated>
+    
+    <summary type="html">
+    
+      xshell 安装、激活及颜色配置方案配置
+    
+    </summary>
+    
+      <category term="软件安装" scheme="https://woodwhales.cn/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
+    
+    
+      <category term="xshell" scheme="https://woodwhales.cn/tags/xshell/"/>
+    
+  </entry>
   
   <entry>
     <title>自定义 spring-boot-starter</title>
@@ -393,26 +413,6 @@
     
     
       <category term="jpa" scheme="https://woodwhales.cn/tags/jpa/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JNI技术实战</title>
-    <link href="https://woodwhales.cn/2019/07/07/045/"/>
-    <id>https://woodwhales.cn/2019/07/07/045/</id>
-    <published>2019-07-07T12:50:00.000Z</published>
-    <updated>2020-03-01T14:12:25.106Z</updated>
-    
-    <summary type="html">
-    
-      JNI 技术之用 Visual Studio 2010 (C++) 生成 DLL 实战详解
-    
-    </summary>
-    
-      <category term="JNI" scheme="https://woodwhales.cn/categories/JNI/"/>
-    
-    
-      <category term="JNI" scheme="https://woodwhales.cn/tags/JNI/"/>
     
   </entry>
   
