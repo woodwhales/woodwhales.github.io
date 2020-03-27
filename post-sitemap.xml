@@ -8,6 +8,20 @@
     </url>
 
     <url>
+        <loc>https://woodwhales.cn/2018/12/17/005/</loc>
+        <lastmod>2020-03-27T03:04:26.505Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+        <image:image>
+
+            <image:loc>https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@001/005/face.png</image:loc>
+
+        </image:image>
+
+    </url>
+
+    <url>
         <loc>https://woodwhales.cn/2020/02/26/057/</loc>
         <lastmod>2020-03-21T01:49:20.892Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -800,20 +814,6 @@
         <image:image>
 
             <image:loc>https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@001/006/face.png</image:loc>
-
-        </image:image>
-
-    </url>
-
-    <url>
-        <loc>https://woodwhales.cn/2018/12/17/005/</loc>
-        <lastmod>2020-03-01T13:09:50.843Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-        <image:image>
-
-            <image:loc>https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@001/005/face.png</image:loc>
 
         </image:image>
 
