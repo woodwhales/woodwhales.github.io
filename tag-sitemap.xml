@@ -136,13 +136,6 @@
     </url>
 
     <url>
-        <loc>https://woodwhales.cn/tags/%E7%BB%84%E4%BB%B6%E8%A3%85%E9%85%8D/</loc>
-        <lastmod>2020-03-01T14:09:53.401Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://woodwhales.cn/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</loc>
         <lastmod>2020-03-01T14:09:58.916Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -234,13 +227,6 @@
     </url>
 
     <url>
-        <loc>https://woodwhales.cn/tags/mysql5-7%E5%AE%89%E8%A3%85/</loc>
-        <lastmod>2020-03-02T01:08:14.043Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://woodwhales.cn/tags/swagger/</loc>
         <lastmod>2020-03-02T01:10:38.066Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -264,13 +250,6 @@
     <url>
         <loc>https://woodwhales.cn/tags/STS%E8%AE%BE%E7%BD%AE/</loc>
         <lastmod>2020-03-02T01:19:59.525Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://woodwhales.cn/tags/IDEA%E8%AE%BE%E7%BD%AE/</loc>
-        <lastmod>2020-03-03T07:21:05.372Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -327,6 +306,27 @@
     <url>
         <loc>https://woodwhales.cn/tags/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</loc>
         <lastmod>2020-03-27T03:04:26.505Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://woodwhales.cn/tags/%E7%BB%84%E4%BB%B6%E8%A3%85%E9%85%8D/</loc>
+        <lastmod>2020-04-02T02:14:41.580Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://woodwhales.cn/tags/IDEA%E8%AE%BE%E7%BD%AE/</loc>
+        <lastmod>2020-04-05T04:17:19.830Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://woodwhales.cn/tags/mysql5-7%E5%AE%89%E8%A3%85/</loc>
+        <lastmod>2020-04-05T04:21:31.341Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
