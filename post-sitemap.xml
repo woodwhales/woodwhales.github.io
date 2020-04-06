@@ -8,6 +8,34 @@
     </url>
 
     <url>
+        <loc>https://woodwhales.cn/2020/04/06/065/</loc>
+        <lastmod>2020-04-06T08:20:09.827Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+        <image:image>
+
+            <image:loc>https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.65.02/058/face.png</image:loc>
+
+        </image:image>
+
+    </url>
+
+    <url>
+        <loc>https://woodwhales.cn/2019/01/13/016/</loc>
+        <lastmod>2020-04-06T02:40:42.026Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+        <image:image>
+
+            <image:loc>https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@002/016/face.png</image:loc>
+
+        </image:image>
+
+    </url>
+
+    <url>
         <loc>https://woodwhales.cn/2020/02/27/058/</loc>
         <lastmod>2020-04-05T04:21:31.341Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -688,20 +716,6 @@
         <image:image>
 
             <image:loc>https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@002/018/face.png</image:loc>
-
-        </image:image>
-
-    </url>
-
-    <url>
-        <loc>https://woodwhales.cn/2019/01/13/016/</loc>
-        <lastmod>2020-03-01T13:26:59.737Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-        <image:image>
-
-            <image:loc>https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@002/016/face.png</image:loc>
 
         </image:image>
 

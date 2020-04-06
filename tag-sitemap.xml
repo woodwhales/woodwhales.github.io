@@ -52,13 +52,6 @@
     </url>
 
     <url>
-        <loc>https://woodwhales.cn/tags/Ndoe-js/</loc>
-        <lastmod>2020-03-01T13:26:59.737Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://woodwhales.cn/tags/DDD/</loc>
         <lastmod>2020-03-01T13:28:20.327Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -327,6 +320,20 @@
     <url>
         <loc>https://woodwhales.cn/tags/mysql5-7%E5%AE%89%E8%A3%85/</loc>
         <lastmod>2020-04-05T04:21:31.341Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://woodwhales.cn/tags/Ndoe-js/</loc>
+        <lastmod>2020-04-06T02:40:42.026Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://woodwhales.cn/tags/zookeeper/</loc>
+        <lastmod>2020-04-06T08:20:09.827Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

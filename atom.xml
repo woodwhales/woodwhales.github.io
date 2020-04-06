@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-03-18T08:00:41.070Z</updated>
+  <updated>2020-04-06T08:20:09.827Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>zookeeper window环境安装、集成为windows服务、单机伪集群搭建</title>
+    <link href="https://woodwhales.cn/2020/04/06/065/"/>
+    <id>https://woodwhales.cn/2020/04/06/065/</id>
+    <published>2020-04-06T08:05:00.000Z</published>
+    <updated>2020-04-06T08:20:09.827Z</updated>
+    
+    <summary type="html">
+    
+      zookeeper 在windows系统中的安装，集成为windows服务（可以后台运行），单机伪集群搭建，zookeeper 可视化工具推荐
+    
+    </summary>
+    
+      <category term="zookeeper" scheme="https://woodwhales.cn/categories/zookeeper/"/>
+    
+    
+      <category term="zookeeper" scheme="https://woodwhales.cn/tags/zookeeper/"/>
+    
+  </entry>
   
   <entry>
     <title>xshell安装与激活</title>
@@ -393,26 +413,6 @@
     
     
       <category term="转行" scheme="https://woodwhales.cn/tags/%E8%BD%AC%E8%A1%8C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring Jpa Data 快速入门指南</title>
-    <link href="https://woodwhales.cn/2019/08/02/046/"/>
-    <id>https://woodwhales.cn/2019/08/02/046/</id>
-    <published>2019-08-02T13:50:00.000Z</published>
-    <updated>2020-03-01T14:12:25.120Z</updated>
-    
-    <summary type="html">
-    
-      简化数据库操作，快速CRUD
-    
-    </summary>
-    
-      <category term="SpringBoot" scheme="https://woodwhales.cn/categories/SpringBoot/"/>
-    
-    
-      <category term="jpa" scheme="https://woodwhales.cn/tags/jpa/"/>
     
   </entry>
   
