@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-04-06T08:20:09.827Z</updated>
+  <updated>2020-04-07T06:08:51.947Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kakfa 快速入门（windows 环境）</title>
+    <link href="https://woodwhales.cn/2020/04/07/066/"/>
+    <id>https://woodwhales.cn/2020/04/07/066/</id>
+    <published>2020-04-07T06:00:00.000Z</published>
+    <updated>2020-04-07T06:08:51.947Z</updated>
+    
+    <summary type="html">
+    
+      kafka windows 环境快速搭建，快速入门示例
+    
+    </summary>
+    
+      <category term="kafka" scheme="https://woodwhales.cn/categories/kafka/"/>
+    
+    
+      <category term="kafka" scheme="https://woodwhales.cn/tags/kafka/"/>
+    
+  </entry>
   
   <entry>
     <title>zookeeper window环境安装、集成为windows服务、单机伪集群搭建</title>
@@ -393,26 +413,6 @@
     
     
       <category term="HashMap" scheme="https://woodwhales.cn/tags/HashMap/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>人生苦短，转行程序员要趁早(下)</title>
-    <link href="https://woodwhales.cn/2019/08/03/047/"/>
-    <id>https://woodwhales.cn/2019/08/03/047/</id>
-    <published>2019-08-03T10:30:00.000Z</published>
-    <updated>2020-03-01T14:12:25.138Z</updated>
-    
-    <summary type="html">
-    
-      关于自学编程的一点心得，献给自学编程的你我
-    
-    </summary>
-    
-      <category term="随笔杂谈" scheme="https://woodwhales.cn/categories/%E9%9A%8F%E7%AC%94%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="转行" scheme="https://woodwhales.cn/tags/%E8%BD%AC%E8%A1%8C/"/>
     
   </entry>
   
