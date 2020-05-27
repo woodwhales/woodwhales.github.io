@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA">
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4">
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="docker, 安装 docker, docker 镜像, docker 容器, docker 仓库">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="要了解云容器技术，Docker 的安装及基本概念介绍">
+<meta name="keywords" content="docker, 安装 docker, docker 镜像, docker 容器, docker 仓库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 安装与入门">
+<meta property="og:url" content="https://woodwhales.cn/2020/05/28/069/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="要了解云容器技术，Docker 的安装及基本概念介绍">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/face.png">
+<meta property="og:updated_time" content="2020-05-27T16:43:35.810Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker 安装与入门">
+<meta name="twitter:description" content="要了解云容器技术，Docker 的安装及基本概念介绍">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2020/05/28/069/">
+
+
+
+  <meta name="baidu-site-verification" content="yres1O8iqP">
+
+
+
+  <title>Docker 安装与入门 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br>
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br>
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2020/05/28/069/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker 安装与入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-28T00:33:00+08:00">
+                2020-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/05/28/069/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/05/28/069/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/05/28/069/" class="leancloud_visitors" data-flag-title="Docker 安装与入门">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  2.8k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  要了解云容器技术，Docker 的安装及基本概念介绍
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/face.png" rel="gallery_ckapkyrp7005hnkw6a7dc2oxk" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <p>Docker &#x662F;&#x4E00;&#x4E2A;&#x5F00;&#x6E90;&#x7684;&#x5546;&#x4E1A;&#x4EA7;&#x54C1;&#xFF0C;&#x6709;&#x4E24;&#x4E2A;&#x7248;&#x672C;&#xFF1A;&#x793E;&#x533A;&#x7248;&#xFF08;Community Edition&#xFF0C;&#x7F29;&#x5199;&#x4E3A; CE&#xFF09;&#x548C;&#x4F01;&#x4E1A;&#x7248;&#xFF08;Enterprise Edition&#xFF0C;&#x7F29;&#x5199;&#x4E3A; EE&#xFF09;&#x3002;&#x4F01;&#x4E1A;&#x7248;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E9B;&#x6536;&#x8D39;&#x670D;&#x52A1;&#xFF0C;&#x4E2A;&#x4EBA;&#x5F00;&#x53D1;&#x8005;&#x4E00;&#x822C;&#x7528;&#x4E0D;&#x5230;&#x3002;</p>
+<h2 id="&#x5B89;&#x88C5;-Docker-CE&#xFF08;centos-7&#xFF09;"><a href="#&#x5B89;&#x88C5;-Docker-CE&#xFF08;centos-7&#xFF09;" class="headerlink" title="&#x5B89;&#x88C5; Docker-CE&#xFF08;centos 7&#xFF09;"></a>&#x5B89;&#x88C5; Docker-CE&#xFF08;centos 7&#xFF09;</h2><blockquote>
+<p>Docker CE &#x5B89;&#x88C5;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><p>centos &#x73AF;&#x5883;&#xFF1A;<a href="https://docs.docker.com/engine/install/centos/" target="_blank" rel="noopener">https://docs.docker.com/engine/install/centos/</a></p>
+</li>
+<li><p>windows &#x73AF;&#x5883;&#xFF1A;<a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">https://docs.docker.com/docker-for-windows/install/</a></p>
+</li>
+</ul>
+<p>&#x6CE8;&#x610F;&#xFF1A;docker &#x8981;&#x6C42; centos &#x7CFB;&#x7EDF;&#x5FC5;&#x987B;&#x662F; centos 7 &#x7248;&#x672C;&#x4EE5;&#x4E0A;&#xFF0C;windows &#x7CFB;&#x7EDF;&#x5FC5;&#x987B;&#x662F; win10 &#x4E13;&#x4E1A;&#x7248;&#x3001;&#x4F01;&#x4E1A;&#x7248;&#x6216;&#x6559;&#x80B2;&#x7248;&#x3002;</p>
+</blockquote>
+<h3 id="&#x5378;&#x8F7D;&#x65E7;&#x7684;-docker"><a href="#&#x5378;&#x8F7D;&#x65E7;&#x7684;-docker" class="headerlink" title="&#x5378;&#x8F7D;&#x65E7;&#x7684; docker"></a>&#x5378;&#x8F7D;&#x65E7;&#x7684; docker</h3><p>&#x5982;&#x679C;&#x7CFB;&#x7EDF;&#x4E2D;&#x5B58;&#x5728;&#x8001;&#x7248;&#x672C;&#x7684; docker &#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4E0B;&#x9762;&#x547D;&#x4EE4;&#x5378;&#x8F7D;&#x65E7;&#x7684; docker&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x5B89;&#x88C5;-docker"><a href="#&#x5B89;&#x88C5;-docker" class="headerlink" title="&#x5B89;&#x88C5; docker"></a>&#x5B89;&#x88C5; docker</h3><blockquote>
+<p>yum &#x963F;&#x91CC;&#x4E91;&#x955C;&#x50CF;&#x8BBE;&#x7F6E;&#xFF1A;<a href="https://developer.aliyun.com/mirror/centos" target="_blank" rel="noopener">https://developer.aliyun.com/mirror/centos</a></p>
+</blockquote>
+<p>&#x6B65;&#x9AA4;1&#xFF1A;&#x5B89;&#x88C5; docker &#x8F6F;&#x4EF6;&#x4F9D;&#x8D56;&#x7684;&#x5DE5;&#x5177;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6B65;&#x9AA4;2&#xFF1A;&#x8BBE;&#x7F6E; docker &#x5B89;&#x88C5;&#x6E90;&#xFF0C;&#x4F7F;&#x7528;&#x963F;&#x91CC;&#x4E91;&#x955C;&#x50CF;&#x5B89;&#x88C5;&#x6E90;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6B65;&#x9AA4;3&#xFF1A;&#x8BBE;&#x7F6E; yum &#x4F7F;&#x7528;&#x6700;&#x5FEB;&#x7684;&#x5B89;&#x88C5;&#x6E90;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum makecache fast</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6B65;&#x9AA4;4&#xFF1A;&#x6267;&#x884C;&#x4E0B;&#x9762;&#x547D;&#x4EE4;&#xFF0C;&#x5B89;&#x88C5; docker-ce</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y docker-ce</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5B89;&#x88C5;&#x6210;&#x529F;&#x4E4B;&#x540E;&#xFF0C;&#x63A7;&#x5236;&#x53F0;&#x63D0;&#x793A;&#x7C7B;&#x4F3C;&#x5982;&#x4E0B;&#x4FE1;&#x606F;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/images/01.png" alt=""></p>
+<h3 id="docker-&#x670D;&#x52A1;&#x76F8;&#x5173;&#x547D;&#x4EE4;"><a href="#docker-&#x670D;&#x52A1;&#x76F8;&#x5173;&#x547D;&#x4EE4;" class="headerlink" title="docker &#x670D;&#x52A1;&#x76F8;&#x5173;&#x547D;&#x4EE4;"></a>docker &#x670D;&#x52A1;&#x76F8;&#x5173;&#x547D;&#x4EE4;</h3><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker.service	 			# &#x542F;&#x52A8;docker&#x670D;&#x52A1;</span><br><span class="line">systemctl stop docker.service	 			# &#x505C;&#x6B62;docker&#x670D;&#x52A1;</span><br><span class="line">systemctl restart docker.service 			# &#x91CD;&#x542F;docker&#x670D;&#x52A1;</span><br><span class="line"></span><br><span class="line">systemctl status docker.service	 			# &#x67E5;&#x770B;docker&#x670D;&#x52A1;&#x8FD0;&#x884C;&#x72B6;&#x6001;</span><br><span class="line"></span><br><span class="line">systemctl enable docker.service	 			# &#x8BBE;&#x7F6E;&#x5F00;&#x673A;&#x81EA;&#x52A8;&#x542F;&#x52A8;docker&#x670D;&#x52A1;</span><br><span class="line">systemctl disable docker.service 			# &#x8BBE;&#x7F6E;&#x7981;&#x6B62;&#x5F00;&#x673A;&#x81EA;&#x52A8;&#x542F;&#x52A8;docker&#x670D;&#x52A1;</span><br><span class="line"></span><br><span class="line">systemctl is-enabled docker.service        	# &#x67E5;&#x770B;docker&#x670D;&#x52A1;&#x662F;&#x5426;&#x81EA;&#x542F;&#x52A8;</span><br><span class="line">systemctl list-dependencies docker.service 	# &#x5217;&#x51FA;docker&#x670D;&#x52A1;&#x5C42;&#x7EA7;&#x548C;&#x4F9D;&#x8D56;&#x5173;&#x7CFB;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> &#x5176;&#x4ED6;&#x547D;&#x4EE4;</span><br><span class="line">systemctl list-units --type=service    		# &#x5217;&#x51FA;&#x7CFB;&#x7EDF;&#x6240;&#x6709;&#x670D;&#x52A1;&#x7684;&#x542F;&#x52A8;&#x60C5;&#x51B5;</span><br><span class="line">systemctl list-unit-files|grep enabled 		# &#x5217;&#x51FA;&#x6240;&#x6709;&#x81EA;&#x542F;&#x52A8;&#x670D;&#x52A1;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x8BBE;&#x7F6E;&#x963F;&#x91CC;&#x4E91;&#x5BB9;&#x5668;&#x955C;&#x50CF;&#x4EE3;&#x7406;"><a href="#&#x8BBE;&#x7F6E;&#x963F;&#x91CC;&#x4E91;&#x5BB9;&#x5668;&#x955C;&#x50CF;&#x4EE3;&#x7406;" class="headerlink" title="&#x8BBE;&#x7F6E;&#x963F;&#x91CC;&#x4E91;&#x5BB9;&#x5668;&#x955C;&#x50CF;&#x4EE3;&#x7406;"></a>&#x8BBE;&#x7F6E;&#x963F;&#x91CC;&#x4E91;&#x5BB9;&#x5668;&#x955C;&#x50CF;&#x4EE3;&#x7406;</h3><p>&#x8BBF;&#x95EE;&#xFF1A;<a href="https://cr.console.aliyun.com/" target="_blank" rel="noopener">https://cr.console.aliyun.com/</a></p>
+<p>&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x4E0A;&#x8FF0;&#x5730;&#x5740;&#x9700;&#x8981;&#x6CE8;&#x518C;&#x963F;&#x91CC;&#x4E91;&#x8D26;&#x53F7;&#xFF0C;&#x5E76;&#x5F00;&#x901A;&#xFF1A;&#x5BB9;&#x5668;&#x955C;&#x50CF;&#x670D;&#x52A1;&#x3002;</p>
+<p>&#x6309;&#x7167;&#x963F;&#x91CC;&#x4E91;&#x6587;&#x6863;&#x9009;&#x62E9;&#x5BF9;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x811A;&#x672C;&#x6267;&#x884C;&#xFF0C;&#x5373;&#x53EF;&#x8BBE;&#x7F6E;&#x963F;&#x91CC;&#x4E91;&#x955C;&#x50CF;&#x52A0;&#x901F;&#x670D;&#x52A1;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/images/02.png" alt=""></p>
+<p>&#x62C9;&#x53D6; docker &#x955C;&#x50CF;&#x5E76;&#x8FD0;&#x884C;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull hello-world</span><br><span class="line">docker run hello-world</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD0;&#x884C;&#x6548;&#x679C;&#x754C;&#x9762;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/images/03.png" alt=""></p>
+<h2 id="Docker-&#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;"><a href="#Docker-&#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;" class="headerlink" title="Docker &#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;"></a>Docker &#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;</h2><p><code>Docker</code> &#x4E2D;&#x5305;&#x62EC;&#x4E09;&#x4E2A;&#x57FA;&#x672C;&#x7684;&#x6982;&#x5FF5;&#xFF1A;</p>
+<ul>
+<li><code>Image</code>(&#x955C;&#x50CF;)</li>
+<li><code>Container</code>(&#x5BB9;&#x5668;)</li>
+<li><code>Repository</code>(&#x4ED3;&#x5E93;)</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/images/04.png" alt=""></p>
+<p>&#x955C;&#x50CF;&#x662F; <code>Docker</code> &#x8FD0;&#x884C;&#x5BB9;&#x5668;&#x7684;&#x524D;&#x63D0;&#xFF0C;&#x4ED3;&#x5E93;&#x662F;&#x5B58;&#x653E;&#x955C;&#x50CF;&#x7684;&#x573A;&#x6240;&#xFF0C;&#x53EF;&#x89C1;&#x955C;&#x50CF;&#x66F4;&#x662F; <code>Docker</code> &#x7684;&#x6838;&#x5FC3;&#x3002;</p>
+<h3 id="Image-&#x955C;&#x50CF;"><a href="#Image-&#x955C;&#x50CF;" class="headerlink" title="Image (&#x955C;&#x50CF;)"></a>Image (&#x955C;&#x50CF;)</h3><blockquote>
+<p>docker &#x5B98;&#x7F51;&#x955C;&#x50CF;&#x5730;&#x5740;&#xFF1A;<a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a></p>
+</blockquote>
+<p><code>Docker</code> &#x955C;&#x50CF;&#x53EF;&#x4EE5;&#x770B;&#x4F5C;&#x662F;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF0C;&#x9664;&#x4E86;&#x63D0;&#x4F9B;&#x5BB9;&#x5668;&#x8FD0;&#x884C;&#x65F6;&#x6240;&#x9700;&#x7684;&#x7A0B;&#x5E8F;&#x3001;&#x5E93;&#x3001;&#x8D44;&#x6E90;&#x3001;&#x914D;&#x7F6E;&#x7B49;&#x6587;&#x4EF6;&#x5916;&#xFF0C;&#x8FD8;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E9B;&#x4E3A;&#x8FD0;&#x884C;&#x65F6;&#x51C6;&#x5907;&#x7684;&#x4E00;&#x4E9B;&#x914D;&#x7F6E;&#x53C2;&#x6570;&#xFF08;&#x5982;&#x533F;&#x540D;&#x5377;&#x3001;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x3001;&#x7528;&#x6237;&#x7B49;&#xFF09;&#x3002;&#x955C;&#x50CF;&#x4E0D;&#x5305;&#x542B;&#x4EFB;&#x4F55;&#x52A8;&#x6001;&#x6570;&#x636E;&#xFF0C;&#x5176;&#x5185;&#x5BB9;&#x5728;&#x6784;&#x5EFA;&#x4E4B;&#x540E;&#x4E5F;&#x4E0D;&#x4F1A;&#x88AB;&#x6539;&#x53D8;&#x3002;</p>
+<p>&#x955C;&#x50CF;<code>&#xFF08;Image&#xFF09;</code>&#x5C31;&#x662F;&#x4E00;&#x5806;&#x53EA;&#x8BFB;&#x5C42;<code>&#xFF08;read-only layer&#xFF09;</code>&#x7684;&#x7EDF;&#x4E00;&#x89C6;&#x89D2;&#xFF0C;&#x4E5F;&#x8BB8;&#x8FD9;&#x4E2A;&#x5B9A;&#x4E49;&#x6709;&#x4E9B;&#x96BE;&#x4EE5;&#x7406;&#x89E3;&#xFF0C;&#x4E0B;&#x9762;&#x7684;&#x8FD9;&#x5F20;&#x56FE;&#x80FD;&#x591F;&#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x7406;&#x89E3;&#x955C;&#x50CF;&#x7684;&#x5B9A;&#x4E49;&#x3002;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/images/05.png" alt=""></p>
+<p>&#x4ECE;&#x5DE6;&#x8FB9;&#x6211;&#x4EEC;&#x770B;&#x5230;&#x4E86;&#x591A;&#x4E2A;&#x53EA;&#x8BFB;&#x5C42;&#xFF0C;&#x5B83;&#x4EEC;&#x91CD;&#x53E0;&#x5728;&#x4E00;&#x8D77;&#x3002;&#x9664;&#x4E86;&#x6700;&#x4E0B;&#x9762;&#x4E00;&#x5C42;&#xFF0C;&#x5176;&#x5B83;&#x5C42;&#x90FD;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;&#x6307;&#x9488;&#x6307;&#x5411;&#x4E0B;&#x4E00;&#x5C42;&#x3002;&#x8FD9;&#x4E9B;&#x5C42;&#x662F;<code>Docker</code> &#x5185;&#x90E8;&#x7684;&#x5B9E;&#x73B0;&#x7EC6;&#x8282;&#xFF0C;&#x5E76;&#x4E14;&#x80FD;&#x591F;&#x5728;&#x4E3B;&#x673A;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E0A;&#x8BBF;&#x95EE;&#x5230;&#x3002;&#x7EDF;&#x4E00;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF; <code>(union file system)</code> &#x6280;&#x672F;&#x80FD;&#x591F;&#x5C06;&#x4E0D;&#x540C;&#x7684;&#x5C42;&#x6574;&#x5408;&#x6210;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF0C;&#x4E3A;&#x8FD9;&#x4E9B;&#x5C42;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x7EDF;&#x4E00;&#x7684;&#x89C6;&#x89D2;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x9690;&#x85CF;&#x4E86;&#x591A;&#x5C42;&#x7684;&#x5B58;&#x5728;&#xFF0C;&#x5728;&#x7528;&#x6237;&#x7684;&#x89D2;&#x5EA6;&#x770B;&#x6765;&#xFF0C;&#x53EA;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x56FE;&#x7247;&#x7684;&#x53F3;&#x8FB9;&#x770B;&#x5230;&#x8FD9;&#x4E2A;&#x89C6;&#x89D2;&#x7684;&#x5F62;&#x5F0F;&#x3002;</p>
+<h3 id="Container-&#x5BB9;&#x5668;"><a href="#Container-&#x5BB9;&#x5668;" class="headerlink" title="Container (&#x5BB9;&#x5668;)"></a>Container (&#x5BB9;&#x5668;)</h3><p>&#x5BB9;&#x5668; <code>(container)</code> &#x7684;&#x5B9A;&#x4E49;&#x548C;&#x955C;&#x50CF; <code>(image)</code> &#x51E0;&#x4E4E;&#x4E00;&#x6A21;&#x4E00;&#x6837;&#xFF0C;&#x4E5F;&#x662F;&#x4E00;&#x5806;&#x5C42;&#x7684;&#x7EDF;&#x4E00;&#x89C6;&#x89D2;&#xFF0C;&#x552F;&#x4E00;&#x533A;&#x522B;&#x5728;&#x4E8E;&#x5BB9;&#x5668;&#x7684;&#x6700;&#x4E0A;&#x9762;&#x90A3;&#x4E00;&#x5C42;&#x662F;&#x53EF;&#x8BFB;&#x53EF;&#x5199;&#x7684;&#x3002;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/images/06.png" alt=""></p>
+<p>&#x7531;&#x4E8E;&#x5BB9;&#x5668;&#x7684;&#x5B9A;&#x4E49;&#x5E76;&#x6CA1;&#x6709;&#x63D0;&#x53CA;&#x662F;&#x5426;&#x8981;&#x8FD0;&#x884C;&#x5BB9;&#x5668;&#xFF0C;&#x6240;&#x4EE5;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x5BB9;&#x5668; = &#x955C;&#x50CF; + &#x8BFB;&#x5199;&#x5C42;&#x3002;</p>
+<h3 id="Repository-&#x4ED3;&#x5E93;"><a href="#Repository-&#x4ED3;&#x5E93;" class="headerlink" title="Repository (&#x4ED3;&#x5E93;)"></a>Repository (&#x4ED3;&#x5E93;)</h3><p><code>Docker</code> &#x4ED3;&#x5E93;&#x662F;&#x96C6;&#x4E2D;&#x5B58;&#x653E;&#x955C;&#x50CF;&#x6587;&#x4EF6;&#x7684;&#x573A;&#x6240;&#x3002;&#x955C;&#x50CF;&#x6784;&#x5EFA;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x5F88;&#x5BB9;&#x6613;&#x7684;&#x5728;&#x5F53;&#x524D;&#x5BBF;&#x4E3B;&#x4E0A;&#x8FD0;&#x884C;&#xFF0C;&#x4F46;&#x662F;&#xFF0C; &#x5982;&#x679C;&#x9700;&#x8981;&#x5728;&#x5176;&#x5B83;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x955C;&#x50CF;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x96C6;&#x4E2D;&#x7684;&#x5B58;&#x50A8;&#x3001;&#x5206;&#x53D1;&#x955C;&#x50CF;&#x7684;&#x670D;&#x52A1;&#xFF0C;<code>Docker Registry</code> (&#x4ED3;&#x5E93;&#x6CE8;&#x518C;&#x670D;&#x52A1;&#x5668;)&#x5C31;&#x662F;&#x8FD9;&#x6837;&#x7684;&#x670D;&#x52A1;&#x3002;&#x6709;&#x65F6;&#x5019;&#x4F1A;&#x628A;&#x4ED3;&#x5E93; <code>(Repository)</code> &#x548C;&#x4ED3;&#x5E93;&#x6CE8;&#x518C;&#x670D;&#x52A1;&#x5668; <code>(Registry)</code> &#x6DF7;&#x4E3A;&#x4E00;&#x8C08;&#xFF0C;&#x5E76;&#x4E0D;&#x4E25;&#x683C;&#x533A;&#x5206;&#x3002;<code>Docker</code> &#x4ED3;&#x5E93;&#x7684;&#x6982;&#x5FF5;&#x8DDF; <code>Git</code> &#x7C7B;&#x4F3C;&#xFF0C;&#x6CE8;&#x518C;&#x670D;&#x52A1;&#x5668;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A; <code>GitHub</code> &#x8FD9;&#x6837;&#x7684;&#x6258;&#x7BA1;&#x670D;&#x52A1;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x4E00;&#x4E2A; <code>Docker Registry</code> &#x4E2D;&#x53EF;&#x4EE5;&#x5305;&#x542B;&#x591A;&#x4E2A;&#x4ED3;&#x5E93; <code>(Repository)</code> &#xFF0C;&#x6BCF;&#x4E2A;&#x4ED3;&#x5E93;&#x53EF;&#x4EE5;&#x5305;&#x542B;&#x591A;&#x4E2A;&#x6807;&#x7B7E; <code>(Tag)</code>&#xFF0C;&#x6BCF;&#x4E2A;&#x6807;&#x7B7E;&#x5BF9;&#x5E94;&#x7740;&#x4E00;&#x4E2A;&#x955C;&#x50CF;&#x3002;&#x6240;&#x4EE5;&#x8BF4;&#xFF0C;&#x955C;&#x50CF;&#x4ED3;&#x5E93;&#x662F; <code>Docker</code> &#x7528;&#x6765;&#x96C6;&#x4E2D;&#x5B58;&#x653E;&#x955C;&#x50CF;&#x6587;&#x4EF6;&#x7684;&#x5730;&#x65B9;&#x7C7B;&#x4F3C;&#x4E8E;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x5E38;&#x7528;&#x7684;&#x4EE3;&#x7801;&#x4ED3;&#x5E93;&#x3002;</p>
+<p>&#x901A;&#x5E38;&#xFF0C;<strong>&#x4E00;&#x4E2A;&#x4ED3;&#x5E93;&#x4F1A;&#x5305;&#x542B;&#x540C;&#x4E00;&#x4E2A;&#x8F6F;&#x4EF6;&#x4E0D;&#x540C;&#x7248;&#x672C;&#x7684;&#x955C;&#x50CF;</strong>&#xFF0C;&#x800C;<strong>&#x6807;&#x7B7E;&#x5C31;&#x5E38;&#x7528;&#x4E8E;&#x5BF9;&#x5E94;&#x8BE5;&#x8F6F;&#x4EF6;&#x7684;&#x5404;&#x4E2A;&#x7248;&#x672C;</strong> &#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>&lt;&#x4ED3;&#x5E93;&#x540D;&gt;:&lt;&#x6807;&#x7B7E;&gt;</code>&#x7684;&#x683C;&#x5F0F;&#x6765;&#x6307;&#x5B9A;&#x5177;&#x4F53;&#x662F;&#x8FD9;&#x4E2A;&#x8F6F;&#x4EF6;&#x54EA;&#x4E2A;&#x7248;&#x672C;&#x7684;&#x955C;&#x50CF;&#x3002;&#x5982;&#x679C;&#x4E0D;&#x7ED9;&#x51FA;&#x6807;&#x7B7E;&#xFF0C;&#x5C06;&#x4EE5; <code>latest</code> &#x4F5C;&#x4E3A;&#x9ED8;&#x8BA4;&#x6807;&#x7B7E;.&#x3002;</p>
+<p>&#x4ED3;&#x5E93;&#x53C8;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E24;&#x79CD;&#x5F62;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li><code>public</code>(&#x516C;&#x6709;&#x4ED3;&#x5E93;)</li>
+<li><code>private</code>(&#x79C1;&#x6709;&#x4ED3;&#x5E93;)</li>
+</ul>
+<p><code>Docker Registry</code> &#x516C;&#x6709;&#x4ED3;&#x5E93;&#x662F;&#x5F00;&#x653E;&#x7ED9;&#x7528;&#x6237;&#x4F7F;&#x7528;&#x3001;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x7BA1;&#x7406;&#x955C;&#x50CF;&#x7684; <code>Registry</code> &#x670D;&#x52A1;&#x3002;&#x4E00;&#x822C;&#x8FD9;&#x7C7B;&#x516C;&#x5F00;&#x670D;&#x52A1;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x514D;&#x8D39;&#x4E0A;&#x4F20;&#x3001;&#x4E0B;&#x8F7D;&#x516C;&#x5F00;&#x7684;&#x955C;&#x50CF;&#xFF0C;&#x5E76;&#x53EF;&#x80FD;&#x63D0;&#x4F9B;&#x6536;&#x8D39;&#x670D;&#x52A1;&#x4F9B;&#x7528;&#x6237;&#x7BA1;&#x7406;&#x79C1;&#x6709;&#x955C;&#x50CF;&#x3002;</p>
+<p>&#x9664;&#x4E86;&#x4F7F;&#x7528;&#x516C;&#x5F00;&#x670D;&#x52A1;&#x5916;&#xFF0C;&#x7528;&#x6237;&#x8FD8;&#x53EF;&#x4EE5;&#x5728;&#x672C;&#x5730;&#x642D;&#x5EFA;&#x79C1;&#x6709; <code>Docker Registry</code> &#x3002;<code>Docker</code> &#x5B98;&#x65B9;&#x63D0;&#x4F9B;&#x4E86; <code>Docker Registry</code> &#x955C;&#x50CF;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x505A;&#x4E3A;&#x79C1;&#x6709; <code>Registry</code> &#x670D;&#x52A1;&#x3002;&#x5F53;&#x7528;&#x6237;&#x521B;&#x5EFA;&#x4E86;&#x81EA;&#x5DF1;&#x7684;&#x955C;&#x50CF;&#x4E4B;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; <code>push</code> &#x547D;&#x4EE4;&#x5C06;&#x5B83;&#x4E0A;&#x4F20;&#x5230;&#x516C;&#x6709;&#x6216;&#x8005;&#x79C1;&#x6709;&#x4ED3;&#x5E93;&#xFF0C;&#x8FD9;&#x6837;&#x4E0B;&#x6B21;&#x5728;&#x53E6;&#x5916;&#x4E00;&#x53F0;&#x673A;&#x5668;&#x4E0A;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x955C;&#x50CF;&#x65F6;&#x5019;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x4ECE;&#x4ED3;&#x5E93;&#x4E0A; <code>pull</code> &#x4E0B;&#x6765;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x4E3B;&#x8981;&#x628A; <code>Docker</code> &#x7684;&#x4E00;&#x4E9B;&#x5E38;&#x89C1;&#x6982;&#x5FF5;&#x5982; <code>Image</code> &#xFF0C; <code>Container</code> &#xFF0C; <code>Repository</code> &#x505A;&#x4E86;&#x8BE6;&#x7EC6;&#x7684;&#x9610;&#x8FF0;&#xFF0C;&#x4E5F;&#x4ECE;&#x4F20;&#x7EDF;&#x865A;&#x62DF;&#x5316;&#x65B9;&#x5F0F;&#x7684;&#x89D2;&#x5EA6;&#x9610;&#x8FF0;&#x4E86; <code>docker</code> &#x7684;&#x4F18;&#x52BF;&#xFF0C;&#x6211;&#x4EEC;&#x4ECE;&#x4E0B;&#x56FE;&#x53EF;&#x4EE5;&#x76F4;&#x89C2;&#x5730;&#x770B;&#x5230; <code>Docker</code> &#x7684;&#x67B6;&#x6784;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/images/07.png" alt=""></p>
+<p><code>Docker</code> &#x4F7F;&#x7528; <code>C/S</code> &#x7ED3;&#x6784;&#xFF0C;&#x5373;<strong>&#x5BA2;&#x6237;&#x7AEF;/&#x670D;&#x52A1;&#x5668;</strong>&#x4F53;&#x7CFB;&#x7ED3;&#x6784;&#x3002; <code>Docker</code> &#x5BA2;&#x6237;&#x7AEF;&#x4E0E; <code>Docker</code> &#x670D;&#x52A1;&#x5668;&#x8FDB;&#x884C;&#x4EA4;&#x4E92;&#xFF0C;Docker&#x670D;&#x52A1;&#x7AEF;&#x8D1F;&#x8D23;&#x6784;&#x5EFA;&#x3001;&#x8FD0;&#x884C;&#x548C;&#x5206;&#x53D1; <code>Docker</code> &#x955C;&#x50CF;&#x3002; <code>Docker</code> &#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x670D;&#x52A1;&#x7AEF;&#x53EF;&#x4EE5;&#x8FD0;&#x884C;&#x5728;&#x4E00;&#x53F0;&#x673A;&#x5668;&#x4E0A;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>RESTful</code> &#x3001; <code>stock</code> &#x6216;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#x4E0E;&#x8FDC;&#x7A0B; <code>Docker</code> &#x670D;&#x52A1;&#x7AEF;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#x3002;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@007.69/069/images/08.png" alt=""></p>
+<p>&#x8FD9;&#x5F20;&#x56FE;&#x5C55;&#x793A;&#x4E86; <code>Docker</code> &#x5BA2;&#x6237;&#x7AEF;&#x3001;&#x670D;&#x52A1;&#x7AEF;&#x548C; <code>Docker</code> &#x4ED3;&#x5E93;&#xFF08;&#x5373; <code>Docker Hub</code> &#x548C; <code>Docker Cloud</code> &#xFF09;&#xFF0C;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;<code>Docker</code> &#x4F1A;&#x5728; <code>Docker</code> &#x4E2D;&#x592E;&#x4ED3;&#x5E93;&#x5BFB;&#x627E;&#x955C;&#x50CF;&#x6587;&#x4EF6;&#xFF0C;&#x8FD9;&#x79CD;&#x5229;&#x7528;&#x4ED3;&#x5E93;&#x7BA1;&#x7406;&#x955C;&#x50CF;&#x7684;&#x8BBE;&#x8BA1;&#x7406;&#x5FF5;&#x7C7B;&#x4F3C;&#x4E8E; <code>Git</code> &#xFF0C;&#x5F53;&#x7136;&#x8FD9;&#x4E2A;&#x4ED3;&#x5E93;&#x662F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6765;&#x6307;&#x5B9A;&#x7684;&#xFF0C;&#x751A;&#x81F3;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;&#x79C1;&#x6709;&#x4ED3;&#x5E93;&#x3002;</p>
+<h2 id="&#x5E38;&#x7528;&#x547D;&#x4EE4;"><a href="#&#x5E38;&#x7528;&#x547D;&#x4EE4;" class="headerlink" title="&#x5E38;&#x7528;&#x547D;&#x4EE4;"></a>&#x5E38;&#x7528;&#x547D;&#x4EE4;</h2><h3 id="Docker&#x5BB9;&#x5668;&#x4FE1;&#x606F;"><a href="#Docker&#x5BB9;&#x5668;&#x4FE1;&#x606F;" class="headerlink" title="Docker&#x5BB9;&#x5668;&#x4FE1;&#x606F;"></a>Docker&#x5BB9;&#x5668;&#x4FE1;&#x606F;</h3><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker version	# &#x67E5;&#x770B;docker&#x5BB9;&#x5668;&#x7248;&#x672C;</span><br><span class="line">docker info  	# &#x67E5;&#x770B;docker&#x5BB9;&#x5668;&#x4FE1;&#x606F;</span><br><span class="line">docker --help	# &#x67E5;&#x770B;docker&#x5BB9;&#x5668;&#x5E2E;&#x52A9;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x955C;&#x50CF;&#x64CD;&#x4F5C;"><a href="#&#x955C;&#x50CF;&#x64CD;&#x4F5C;" class="headerlink" title="&#x955C;&#x50CF;&#x64CD;&#x4F5C;"></a>&#x955C;&#x50CF;&#x64CD;&#x4F5C;</h3><blockquote>
+<p>&#x63D0;&#x793A;&#xFF1A;&#x5BF9;&#x4E8E;&#x955C;&#x50CF;&#x7684;&#x64CD;&#x4F5C;&#x53EF;&#x4F7F;&#x7528;&#x955C;&#x50CF;&#x540D;&#x3001;&#x955C;&#x50CF;&#x957F;ID&#x548C;&#x77ED;ID&#x3002;</p>
+</blockquote>
+<h4 id="&#x955C;&#x50CF;&#x67E5;&#x770B;"><a href="#&#x955C;&#x50CF;&#x67E5;&#x770B;" class="headerlink" title="&#x955C;&#x50CF;&#x67E5;&#x770B;"></a>&#x955C;&#x50CF;&#x67E5;&#x770B;</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker images				# &#x5217;&#x51FA;&#x672C;&#x5730;images</span><br><span class="line">docker images -a			# &#x542B;&#x4E2D;&#x95F4;&#x6620;&#x50CF;&#x5C42;</span><br><span class="line">docker images -q			# &#x53EA;&#x663E;&#x793A;&#x955C;&#x50CF;ID</span><br><span class="line">docker images -qa   		# &#x542B;&#x4E2D;&#x95F4;&#x6620;&#x50CF;&#x5C42;</span><br><span class="line">docker images --digests		# &#x663E;&#x793A;&#x955C;&#x50CF;&#x6458;&#x8981;&#x4FE1;&#x606F;(DIGEST&#x5217;)</span><br><span class="line">docker images --no-trunc	# &#x663E;&#x793A;&#x955C;&#x50CF;&#x5B8C;&#x6574;&#x4FE1;&#x606F;</span><br><span class="line">docker history -H redis		# &#x663E;&#x793A;&#x6307;&#x5B9A;&#x955C;&#x50CF;&#x7684;&#x5386;&#x53F2;&#x521B;&#x5EFA;&#xFF1B;&#x53C2;&#x6570;&#xFF1A;-H &#x955C;&#x50CF;&#x5927;&#x5C0F;&#x548C;&#x65E5;&#x671F;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;true&#xFF1B;--no-trunc  &#x663E;&#x793A;&#x5B8C;&#x6574;&#x7684;&#x63D0;&#x4EA4;&#x8BB0;&#x5F55;&#xFF1B;-q  &#x4EC5;&#x5217;&#x51FA;&#x63D0;&#x4EA4;&#x8BB0;&#x5F55;ID</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x955C;&#x50CF;&#x641C;&#x7D22;"><a href="#&#x955C;&#x50CF;&#x641C;&#x7D22;" class="headerlink" title="&#x955C;&#x50CF;&#x641C;&#x7D22;"></a>&#x955C;&#x50CF;&#x641C;&#x7D22;</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker search mysql						# &#x641C;&#x7D22;&#x4ED3;&#x5E93;MySQL&#x955C;&#x50CF;</span><br><span class="line">docker search --filter=stars=600 mysql	# --filter=stars=600&#xFF1A;&#x53EA;&#x663E;&#x793A; starts&gt;=600 &#x7684;&#x955C;&#x50CF;</span><br><span class="line">docker search --no-trunc mysql			# --no-trunc &#x663E;&#x793A;&#x955C;&#x50CF;&#x5B8C;&#x6574; DESCRIPTION &#x63CF;&#x8FF0;</span><br><span class="line">docker search  --automated mysql		# --automated &#xFF1A;&#x53EA;&#x5217;&#x51FA; AUTOMATED=OK &#x7684;&#x955C;&#x50CF;</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x955C;&#x50CF;&#x4E0B;&#x8F7D;"><a href="#&#x955C;&#x50CF;&#x4E0B;&#x8F7D;" class="headerlink" title="&#x955C;&#x50CF;&#x4E0B;&#x8F7D;"></a>&#x955C;&#x50CF;&#x4E0B;&#x8F7D;</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis			# &#x4E0B;&#x8F7D;Redis&#x5B98;&#x65B9;&#x6700;&#x65B0;&#x955C;&#x50CF;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#xFF1A;docker pull redis:latest</span><br><span class="line">docker pull -a redis		# &#x4E0B;&#x8F7D;&#x4ED3;&#x5E93;&#x6240;&#x6709;Redis&#x955C;&#x50CF;</span><br><span class="line">docker pull bitnami/redis	# &#x4E0B;&#x8F7D;&#x79C1;&#x4EBA;&#x4ED3;&#x5E93;&#x955C;&#x50CF;</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x955C;&#x50CF;&#x5220;&#x9664;"><a href="#&#x955C;&#x50CF;&#x5220;&#x9664;" class="headerlink" title="&#x955C;&#x50CF;&#x5220;&#x9664;"></a>&#x955C;&#x50CF;&#x5220;&#x9664;</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker rmi redis					# &#x5355;&#x4E2A;&#x955C;&#x50CF;&#x5220;&#x9664;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#xFF1A;docker rmi redis:latest</span><br><span class="line">docker rmi -f redis					# &#x5F3A;&#x5236;&#x5220;&#x9664;(&#x9488;&#x5BF9;&#x57FA;&#x4E8E;&#x955C;&#x50CF;&#x6709;&#x8FD0;&#x884C;&#x7684;&#x5BB9;&#x5668;&#x8FDB;&#x7A0B;)</span><br><span class="line">docker rmi -f redis tomcat nginx	# &#x591A;&#x4E2A;&#x955C;&#x50CF;&#x5220;&#x9664;&#xFF0C;&#x4E0D;&#x540C;&#x955C;&#x50CF;&#x95F4;&#x4EE5;&#x7A7A;&#x683C;&#x95F4;&#x9694;</span><br><span class="line">docker rmi -f $(docker images -q)	# &#x5220;&#x9664;&#x672C;&#x5730;&#x5168;&#x90E8;&#x955C;&#x50CF;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x955C;&#x50CF;&#x64CD;&#x4F5C;-1"><a href="#&#x955C;&#x50CF;&#x64CD;&#x4F5C;-1" class="headerlink" title="&#x955C;&#x50CF;&#x64CD;&#x4F5C;"></a>&#x955C;&#x50CF;&#x64CD;&#x4F5C;</h3><blockquote>
+<p>&#x63D0;&#x793A;&#xFF1A;&#x5BF9;&#x4E8E;&#x5BB9;&#x5668;&#x7684;&#x64CD;&#x4F5C;&#x53EF;&#x4F7F;&#x7528;CONTAINER ID &#x6216; NAMES&#x3002;</p>
+</blockquote>
+<h4 id="&#x5BB9;&#x5668;&#x542F;&#x52A8;"><a href="#&#x5BB9;&#x5668;&#x542F;&#x52A8;" class="headerlink" title="&#x5BB9;&#x5668;&#x542F;&#x52A8;"></a>&#x5BB9;&#x5668;&#x542F;&#x52A8;</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -i -t --name mycentos	# &#x65B0;&#x5EFA;&#x5E76;&#x542F;&#x52A8;&#x5BB9;&#x5668;&#xFF0C;&#x53C2;&#x6570;&#xFF1A;-i  &#x4EE5;&#x4EA4;&#x4E92;&#x6A21;&#x5F0F;&#x8FD0;&#x884C;&#x5BB9;&#x5668;&#xFF1B;-t  &#x4E3A;&#x5BB9;&#x5668;&#x91CD;&#x65B0;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x4F2A;&#x8F93;&#x5165;&#x7EC8;&#x7AEF;&#xFF1B;--name  &#x4E3A;&#x5BB9;&#x5668;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x540D;&#x79F0;</span><br><span class="line">docker run -d mycentos				# &#x540E;&#x53F0;&#x542F;&#x52A8;&#x5BB9;&#x5668;&#xFF0C;&#x53C2;&#x6570;&#xFF1A;-d  &#x5DF2;&#x5B88;&#x62A4;&#x65B9;&#x5F0F;&#x542F;&#x52A8;&#x5BB9;&#x5668;</span><br><span class="line">docker start redis					# &#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x5DF2;&#x7ECF;&#x88AB;&#x505C;&#x6B62;&#x7684;&#x5BB9;&#x5668;</span><br><span class="line">docker restart redis				# &#x91CD;&#x542F;&#x5BB9;&#x5668;</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x67E5;&#x770B;&#x5BB9;&#x5668;"><a href="#&#x67E5;&#x770B;&#x5BB9;&#x5668;" class="headerlink" title="&#x67E5;&#x770B;&#x5BB9;&#x5668;"></a>&#x67E5;&#x770B;&#x5BB9;&#x5668;</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker ps				# &#x67E5;&#x770B;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x5BB9;&#x5668;</span><br><span class="line">docker ps -q			# &#x67E5;&#x770B;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x5BB9;&#x5668;&#x7684;ID</span><br><span class="line">docker ps -a			# &#x67E5;&#x770B;&#x6B63;&#x5728;&#x8FD0;&#x884C;+&#x5386;&#x53F2;&#x8FD0;&#x884C;&#x8FC7;&#x7684;&#x5BB9;&#x5668;</span><br><span class="line">docker ps -s			# &#x663E;&#x793A;&#x8FD0;&#x884C;&#x5BB9;&#x5668;&#x603B;&#x6587;&#x4EF6;&#x5927;&#x5C0F;</span><br><span class="line">docker ps -l			# &#x663E;&#x793A;&#x6700;&#x8FD1;&#x521B;&#x5EFA;&#x5BB9;&#x5668;</span><br><span class="line">docker ps -n 3			# &#x663E;&#x793A;&#x6700;&#x8FD1;&#x521B;&#x5EFA;&#x7684;3&#x4E2A;&#x5BB9;&#x5668;</span><br><span class="line">docker ps --no-trunc 	# &#x4E0D;&#x622A;&#x65AD;&#x8F93;&#x51FA;</span><br><span class="line">docker inspect redis	# &#x83B7;&#x53D6;&#x955C;&#x50CF;redis&#x7684;&#x5143;&#x4FE1;&#x606F;</span><br><span class="line">docker inspect --format=&apos;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&apos; redis # &#x83B7;&#x53D6;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x5BB9;&#x5668;redis&#x7684; IP</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x5BB9;&#x5668;&#x7684;&#x505C;&#x6B62;&#x4E0E;&#x5220;&#x9664;"><a href="#&#x5BB9;&#x5668;&#x7684;&#x505C;&#x6B62;&#x4E0E;&#x5220;&#x9664;" class="headerlink" title="&#x5BB9;&#x5668;&#x7684;&#x505C;&#x6B62;&#x4E0E;&#x5220;&#x9664;"></a>&#x5BB9;&#x5668;&#x7684;&#x505C;&#x6B62;&#x4E0E;&#x5220;&#x9664;</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker stop redis					# &#x505C;&#x6B62;&#x4E00;&#x4E2A;&#x8FD0;&#x884C;&#x4E2D;&#x7684;&#x5BB9;&#x5668;</span><br><span class="line">docker kill redis					# &#x6740;&#x6389;&#x4E00;&#x4E2A;&#x8FD0;&#x884C;&#x4E2D;&#x7684;&#x5BB9;&#x5668;</span><br><span class="line">docker rm redis						# &#x5220;&#x9664;&#x4E00;&#x4E2A;&#x5DF2;&#x505C;&#x6B62;&#x7684;&#x5BB9;&#x5668;</span><br><span class="line">docker rm -f redis					# &#x5220;&#x9664;&#x4E00;&#x4E2A;&#x8FD0;&#x884C;&#x4E2D;&#x7684;&#x5BB9;&#x5668;</span><br><span class="line">docker rm -f $(docker ps -a -q)		# &#x5220;&#x9664;&#x591A;&#x4E2A;&#x5BB9;&#x5668;</span><br><span class="line">docker ps -a -q | xargs docker rm 	# &#x5220;&#x9664;&#x591A;&#x4E2A;&#x5BB9;&#x5668;</span><br><span class="line">docker rm -l db 					# -l &#x79FB;&#x9664;&#x5BB9;&#x5668;&#x95F4;&#x7684;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#xFF0C;&#x8FDE;&#x63A5;&#x540D;&#x4E3A; db</span><br><span class="line">docker rm -v redis					# -v &#x5220;&#x9664;&#x5BB9;&#x5668;&#xFF0C;&#x5E76;&#x5220;&#x9664;&#x5BB9;&#x5668;&#x6302;&#x8F7D;&#x7684;&#x6570;&#x636E;&#x5377;</span><br></pre></td></tr></tbody></table></figure>
+<p>#  ##&#x67E5;&#x770B;docker&#x5BB9;&#x5668;&#x4FE1;&#x606F; docker info ##&#x67E5;&#x770B;docker&#x5BB9;&#x5668;&#x5E2E;&#x52A9; docker &#x2013;help</p>
+<h2 id="&#x53C2;&#x8003;&#x6587;&#x6863;"><a href="#&#x53C2;&#x8003;&#x6587;&#x6863;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x6863;"></a>&#x53C2;&#x8003;&#x6587;&#x6863;</h2><p><a href="https://juejin.im/post/5d4522c1f265da03e05af5f5" target="_blank" rel="noopener">10&#x5206;&#x949F;&#x5FEB;&#x901F;&#x638C;&#x63E1;Docker&#x5FC5;&#x5907;&#x57FA;&#x7840;&#x77E5;&#x8BC6;</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html" target="_blank" rel="noopener">Docker &#x5165;&#x95E8;&#x6559;&#x7A0B;</a></p>
+<p><a href="https://yeasy.gitbook.io/docker_practice/" target="_blank" rel="noopener">Docker &#x2014; &#x4ECE;&#x5165;&#x95E8;&#x5230;&#x5B9E;&#x8DF5;</a></p>
+<p><a href="https://www.cnblogs.com/ECJTUACM-873284962/p/9789130.html" target="_blank" rel="noopener">&#x8FD9;&#x53EF;&#x80FD;&#x662F;&#x6700;&#x4E3A;&#x8BE6;&#x7EC6;&#x7684;Docker&#x5165;&#x95E8;&#x5410;&#x8840;&#x603B;&#x7ED3;</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2020-05-28</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2020-05-28</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/05/28/069/">Docker 安装与入门</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2020/05/28/069/" title="Docker 安装与入门">https://woodwhales.cn/2020/05/28/069/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2020/05/28/069/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"><i class="fa fa-tag"></i> docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/06/068/" rel="next" title="2020 年的第一次青年危机">
+                <i class="fa fa-chevron-left"></i> 2020 年的第一次青年危机
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://fivecoder.com/2019-ncov" title="2019-nCoV疫情实时动态" rel="external nofollow" target="_blank">2019-nCoV疫情实时动态</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://fivecoder.com/maven-tools" title="maven-tools mvn命令生成工具" rel="external nofollow" target="_blank">maven-tools mvn命令生成工具</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Docker-CE（centos-7）"><span class="nav-text">安装 Docker-CE（centos 7）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载旧的-docker"><span class="nav-text">卸载旧的 docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-docker"><span class="nav-text">安装 docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-服务相关命令"><span class="nav-text">docker 服务相关命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置阿里云容器镜像代理"><span class="nav-text">设置阿里云容器镜像代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-的基本概念"><span class="nav-text">Docker 的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Image-镜像"><span class="nav-text">Image (镜像)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Container-容器"><span class="nav-text">Container (容器)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repository-仓库"><span class="nav-text">Repository (仓库)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker容器信息"><span class="nav-text">Docker容器信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像操作"><span class="nav-text">镜像操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像查看"><span class="nav-text">镜像查看</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像搜索"><span class="nav-text">镜像搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像下载"><span class="nav-text">镜像下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像删除"><span class="nav-text">镜像删除</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像操作-1"><span class="nav-text">镜像操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#容器启动"><span class="nav-text">容器启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看容器"><span class="nav-text">查看容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器的停止与删除"><span class="nav-text">容器的停止与删除</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>
