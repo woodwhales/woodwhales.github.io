@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-05-27T16:43:35.810Z</updated>
+  <updated>2020-07-05T14:42:54.155Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LRU算法的Java实现（两种实现+增强实现）</title>
+    <link href="https://woodwhales.cn/2020/07/05/070/"/>
+    <id>https://woodwhales.cn/2020/07/05/070/</id>
+    <published>2020-07-05T14:00:00.000Z</published>
+    <updated>2020-07-05T14:42:54.155Z</updated>
+    
+    <summary type="html">
+    
+      缓存基础，LRU算法
+    
+    </summary>
+    
+      <category term="算法" scheme="https://woodwhales.cn/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="LRU算法" scheme="https://woodwhales.cn/tags/LRU%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker 安装与入门</title>
@@ -393,26 +413,6 @@
     
     
       <category term="ElasticSearch" scheme="https://woodwhales.cn/tags/ElasticSearch/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JDK 1.8 新特性</title>
-    <link href="https://woodwhales.cn/2019/11/03/050/"/>
-    <id>https://woodwhales.cn/2019/11/03/050/</id>
-    <published>2019-11-03T10:00:00.000Z</published>
-    <updated>2020-03-01T14:12:25.187Z</updated>
-    
-    <summary type="html">
-    
-      浅聊 JDK 1.8 新特性
-    
-    </summary>
-    
-      <category term="Java 新特性" scheme="https://woodwhales.cn/categories/Java-%E6%96%B0%E7%89%B9%E6%80%A7/"/>
-    
-    
-      <category term="JDK 1.8" scheme="https://woodwhales.cn/tags/JDK-1-8/"/>
     
   </entry>
   
