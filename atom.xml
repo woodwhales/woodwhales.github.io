@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-07-05T14:42:54.155Z</updated>
+  <updated>2020-07-05T15:28:11.747Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java 的四种引用</title>
+    <link href="https://woodwhales.cn/2020/07/05/071/"/>
+    <id>https://woodwhales.cn/2020/07/05/071/</id>
+    <published>2020-07-05T15:30:00.000Z</published>
+    <updated>2020-07-05T15:28:11.747Z</updated>
+    
+    <summary type="html">
+    
+      Java 的四种引用：强、软、弱、虚引用
+    
+    </summary>
+    
+      <category term="Java引用" scheme="https://woodwhales.cn/categories/Java%E5%BC%95%E7%94%A8/"/>
+    
+    
+      <category term="Java 的四种引用" scheme="https://woodwhales.cn/tags/Java-%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>LRU算法的Java实现（两种实现+增强实现）</title>
@@ -393,26 +413,6 @@
     
     
       <category term="git" scheme="https://woodwhales.cn/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ElasticSearch 学习笔记之安装详解</title>
-    <link href="https://woodwhales.cn/2019/11/04/051/"/>
-    <id>https://woodwhales.cn/2019/11/04/051/</id>
-    <published>2019-11-04T13:20:00.000Z</published>
-    <updated>2020-03-01T14:19:05.731Z</updated>
-    
-    <summary type="html">
-    
-      ElasticSearch 学习笔记之安装详解
-    
-    </summary>
-    
-      <category term="Elastic Stack" scheme="https://woodwhales.cn/categories/Elastic-Stack/"/>
-    
-    
-      <category term="ElasticSearch" scheme="https://woodwhales.cn/tags/ElasticSearch/"/>
     
   </entry>
   
