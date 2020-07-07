@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-07-05T15:28:11.747Z</updated>
+  <updated>2020-07-06T15:00:14.404Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Guava EventBus 使用介绍及自实现详解</title>
+    <link href="https://woodwhales.cn/2020/07/06/072/"/>
+    <id>https://woodwhales.cn/2020/07/06/072/</id>
+    <published>2020-07-06T15:00:00.000Z</published>
+    <updated>2020-07-06T15:00:14.404Z</updated>
+    
+    <summary type="html">
+    
+      Guava EventBus，内存级别消息发布/订阅模型
+    
+    </summary>
+    
+      <category term="Guava" scheme="https://woodwhales.cn/categories/Guava/"/>
+    
+    
+      <category term="Guava EventBus" scheme="https://woodwhales.cn/tags/Guava-EventBus/"/>
+    
+  </entry>
   
   <entry>
     <title>Java 的四种引用</title>
@@ -393,26 +413,6 @@
     
     
       <category term="C 语言" scheme="https://woodwhales.cn/tags/C-%E8%AF%AD%E8%A8%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>git 设置本地配置多个账户对应不同的 ssh key</title>
-    <link href="https://woodwhales.cn/2019/11/11/052/"/>
-    <id>https://woodwhales.cn/2019/11/11/052/</id>
-    <published>2019-11-10T16:25:00.000Z</published>
-    <updated>2020-03-01T14:18:01.702Z</updated>
-    
-    <summary type="html">
-    
-      git 设置本地配置多个账户对应不同的 ssh key
-    
-    </summary>
-    
-      <category term="git" scheme="https://woodwhales.cn/categories/git/"/>
-    
-    
-      <category term="git" scheme="https://woodwhales.cn/tags/git/"/>
     
   </entry>
   
