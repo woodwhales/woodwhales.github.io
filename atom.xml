@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-07-14T03:21:26.272Z</updated>
+  <updated>2020-07-28T14:53:02.335Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>虚拟机安装 centos 7 系统</title>
+    <link href="https://woodwhales.cn/2020/07/28/073/"/>
+    <id>https://woodwhales.cn/2020/07/28/073/</id>
+    <published>2020-07-28T14:50:00.000Z</published>
+    <updated>2020-07-28T14:53:02.335Z</updated>
+    
+    <summary type="html">
+    
+      VMWare 15 虚拟机安装 centos 7 系统详解
+    
+    </summary>
+    
+      <category term="centos" scheme="https://woodwhales.cn/categories/centos/"/>
+    
+    
+      <category term="centos" scheme="https://woodwhales.cn/tags/centos/"/>
+    
+  </entry>
   
   <entry>
     <title>Guava EventBus 使用介绍及自实现详解</title>
@@ -393,26 +413,6 @@
     
     
       <category term="Linux" scheme="https://woodwhales.cn/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C 语言中的细节知识点</title>
-    <link href="https://woodwhales.cn/2019/11/18/053/"/>
-    <id>https://woodwhales.cn/2019/11/18/053/</id>
-    <published>2019-11-17T17:23:00.000Z</published>
-    <updated>2020-03-01T14:19:05.736Z</updated>
-    
-    <summary type="html">
-    
-      C 语言中的细节知识点
-    
-    </summary>
-    
-      <category term="C 语言" scheme="https://woodwhales.cn/categories/C-%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="C 语言" scheme="https://woodwhales.cn/tags/C-%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
