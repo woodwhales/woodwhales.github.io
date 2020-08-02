@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA">
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4">
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="centos, confluence, 安装confluence, confluence破解, atlassian-confluence-6.13.3-x64, atlassian破解, gliffy插件, gliffy破解, atlassian-agent, plantuml-for-confluence, marketplace.atlassian.com, confluence插件, confluence打开慢">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="woodwhale's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="使用 confluence 记录自己的wiki">
+<meta name="keywords" content="centos, confluence, 安装confluence, confluence破解, atlassian-confluence-6.13.3-x64, atlassian破解, gliffy插件, gliffy破解, atlassian-agent, plantuml-for-confluence, marketplace.atlassian.com, confluence插件, confluence打开慢">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos 环境安装 confluence 详解">
+<meta property="og:url" content="https://woodwhales.cn/2020/08/02/074/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="使用 confluence 记录自己的wiki">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@008.074/074/face.png">
+<meta property="og:updated_time" content="2020-08-02T08:09:39.959Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centos 环境安装 confluence 详解">
+<meta name="twitter:description" content="使用 confluence 记录自己的wiki">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@008.074/074/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2020/08/02/074/">
+
+
+
+  <meta name="baidu-site-verification" content="yres1O8iqP">
+
+
+
+  <title>centos 环境安装 confluence 详解 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br>
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br>
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br>
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2020/08/02/074/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="木鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">centos 环境安装 confluence 详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-02T16:10:00+08:00">
+                2020-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/confluence/" itemprop="url" rel="index">
+                    <span itemprop="name">confluence</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/02/074/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/02/074/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/08/02/074/" class="leancloud_visitors" data-flag-title="centos 环境安装 confluence 详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                  2.8k 字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  使用 confluence 记录自己的wiki
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@008.074/074/face.png" rel="gallery_ckdct2emk0063okw6y48u4l5l" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@008.074/074/face.png" itemprop="contentUrl">
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        <blockquote>
+<p>confluence &#x5B98;&#x65B9;&#x5B89;&#x88C5;&#x6307;&#x5357;&#xFF1A;<a href="https://confluence.atlassian.com/alldoc/confluence-documentation-directory-12877996.html" target="_blank" rel="noopener">https://confluence.atlassian.com/alldoc/confluence-documentation-directory-12877996.html</a></p>
+<p>confluence &#x5B98;&#x65B9;&#x5B89;&#x88C5;&#x73AF;&#x5883;&#x8981;&#x6C42;&#x6307;&#x5357;&#xFF1A;<a href="https://confluence.atlassian.com/doc/system-requirements-126517514.html" target="_blank" rel="noopener">https://confluence.atlassian.com/doc/system-requirements-126517514.html</a></p>
+</blockquote>
+<p>&#x7B14;&#x8005;&#x5B89;&#x88C5;&#x7684; confluence &#x7248;&#x672C;&#x4E3A; 6.13.3&#xFF1A;<a href="https://bitbucket.org/atlassian/confluence_docs/downloads/Confluence_6-13-0_CompleteGuide.pdf" target="_blank" rel="noopener">https://bitbucket.org/atlassian/confluence_docs/downloads/Confluence_6-13-0_CompleteGuide.pdf</a></p>
+<blockquote>
+<p>&#x5B89;&#x88C5;&#x5EFA;&#x8BAE;&#xFF1A;&#x7B14;&#x8005;&#x4F7F;&#x7528;&#x7684;centos&#x4E3A; VMware &#x865A;&#x62DF;&#x673A;&#x73AF;&#x5883;&#x642D;&#x5EFA;&#x7684;&#xFF0C;&#x8BBE;&#x7F6E;&#x5185;&#x5B58;&#x5927;&#x5C0F;&#x4E3A; 2G&#xFF0C;&#x4F9D;&#x7136;&#x8FD0;&#x884C;&#x6709;&#x201C;&#x5361;&#x987F;&#x201D;&#x73B0;&#x8C61;&#xFF0C;&#x5982;&#x679C;&#x53EF;&#x7528;&#x5185;&#x5B58;&#x5C0F;&#x4E8E; 2GB&#xFF0C;&#x4E0D;&#x5EFA;&#x8BAE;&#x5B89;&#x88C5;&#x4F7F;&#x7528; confluence&#x3002;</p>
+</blockquote>
+<h2 id="&#x73AF;&#x5883;&#x51C6;&#x5907;"><a href="#&#x73AF;&#x5883;&#x51C6;&#x5907;" class="headerlink" title="&#x73AF;&#x5883;&#x51C6;&#x5907;"></a>&#x73AF;&#x5883;&#x51C6;&#x5907;</h2><h3 id="MySQL-&#x8F6F;&#x4EF6;"><a href="#MySQL-&#x8F6F;&#x4EF6;" class="headerlink" title="MySQL &#x8F6F;&#x4EF6;"></a>MySQL &#x8F6F;&#x4EF6;</h3><p>&#x7B14;&#x8005;&#x4F7F;&#x7528;&#x7684; MySQL &#x7248;&#x672C;&#x4E3A;&#xFF1A;5.7.31&#xFF0C;&#x4F7F;&#x7528; docker &#x5B89;&#x88C5;&#xFF1A;</p>
+<blockquote>
+<p>MySQL &#x5B98;&#x65B9; docker &#x955C;&#x50CF;&#x5730;&#x5740;&#xFF1A;<a href="https://hub.docker.com/_/mysql?tab=tags" target="_blank" rel="noopener">https://hub.docker.com/_/mysql?tab=tags</a></p>
+</blockquote>
+<p>&#x62C9;&#x53D6; MySQL 5.7.13 &#x955C;&#x50CF;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7.31</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="MySQL-&#x9A71;&#x52A8;"><a href="#MySQL-&#x9A71;&#x52A8;" class="headerlink" title="MySQL &#x9A71;&#x52A8;"></a>MySQL &#x9A71;&#x52A8;</h3><blockquote>
+<p>&#x5B98;&#x65B9; MySQL &#x9A71;&#x52A8;&#xFF1A;<a href="https://downloads.mysql.com/archives/c-j/" target="_blank" rel="noopener">https://downloads.mysql.com/archives/c-j/</a></p>
+<p>maven &#x4ED3;&#x5E93;&#x91CC;&#x4E0B;&#x8F7D; MySQL &#x9A71;&#x52A8; &#xFF1A;<a href="https://mvnrepository.com/artifact/mysql/mysql-connector-java" target="_blank" rel="noopener">https://mvnrepository.com/artifact/mysql/mysql-connector-java</a></p>
+</blockquote>
+<p>&#x7B14;&#x8005;&#x4F7F;&#x7528;&#x7684;&#x9A71;&#x52A8;&#x7248;&#x672C;&#x4E3A;&#xFF1A;mysql-connector-java-5.1.48.jar</p>
+<p>&#x56E0;&#x4E3A;&#x5B98;&#x7F51;&#x6587;&#x6863;&#x5DF2;&#x7ECF;&#x8BF4;&#x660E;&#x4E86;&#xFF1A;<a href="https://confluence.atlassian.com/conf613/database-jdbc-drivers-964961299.html" target="_blank" rel="noopener">https://confluence.atlassian.com/conf613/database-jdbc-drivers-964961299.html</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@008.074/074/images/01.png" alt=""></p>
+<h3 id="&#x4EE3;&#x7406;&#x5305;"><a href="#&#x4EE3;&#x7406;&#x5305;" class="headerlink" title="&#x4EE3;&#x7406;&#x5305;"></a>&#x4EE3;&#x7406;&#x5305;</h3><p>&#x7B14;&#x8005;&#x4F7F;&#x7528;&#x7684;&#x4EE3;&#x7406;&#x5305;&#x4E3A;&#xFF1A;atlassian-agent.jar</p>
+<blockquote>
+<p>&#x4EE3;&#x7406;&#x5305;&#x5B98;&#x65B9;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;</p>
+<p><a href="https://gitee.com/pengzhile/atlassian-agent" target="_blank" rel="noopener">https://gitee.com/pengzhile/atlassian-agent</a></p>
+<p><a href="https://zhile.io/2018/12/20/atlassian-license-crack.html" target="_blank" rel="noopener">https://zhile.io/2018/12/20/atlassian-license-crack.html</a></p>
+</blockquote>
+<h3 id="confluence-&#x8F6F;&#x4EF6;"><a href="#confluence-&#x8F6F;&#x4EF6;" class="headerlink" title="confluence &#x8F6F;&#x4EF6;"></a>confluence &#x8F6F;&#x4EF6;</h3><blockquote>
+<p>&#x5B98;&#x65B9;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;<a href="https://www.atlassian.com/software/confluence/download-archives" target="_blank" rel="noopener">https://www.atlassian.com/software/confluence/download-archives</a></p>
+</blockquote>
+<p>&#x7B14;&#x8005;&#x4F7F;&#x7528;&#x7684; confluence &#x7248;&#x672C;&#x4E3A;&#xFF1A;atlassian-confluence-6.13.3-x64</p>
+<p>&#x4E5F;&#x662F;&#x76F4;&#x63A5;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;&#xFF1A;<a href="https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-{version}.bin" target="_blank" rel="noopener">https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-{version}.bin</a> &#x4E0B;&#x8F7D; confluence &#x5B89;&#x88C5;&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#x5F62;&#x5982;&#xFF1A;<a href="https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-6.13.3-x64.bin" target="_blank" rel="noopener">https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-6.13.3-x64.bin</a></p>
+<h2 id="MySQL-&#x5B89;&#x88C5;"><a href="#MySQL-&#x5B89;&#x88C5;" class="headerlink" title="MySQL &#x5B89;&#x88C5;"></a>MySQL &#x5B89;&#x88C5;</h2><p>&#x4E0A;&#x8FF0;&#x62C9;&#x53D6; MySQL &#x955C;&#x50CF;&#x4E4B;&#x540E;&#xFF0C;&#x67E5;&#x770B;&#x672C;&#x5730; docker &#x955C;&#x50CF;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@008.074/074/images/02.png" alt=""></p>
+<h3 id="&#x521B;&#x5EFA;&#x4E34;&#x65F6;-MySQL-&#x5BB9;&#x5668;"><a href="#&#x521B;&#x5EFA;&#x4E34;&#x65F6;-MySQL-&#x5BB9;&#x5668;" class="headerlink" title="&#x521B;&#x5EFA;&#x4E34;&#x65F6; MySQL &#x5BB9;&#x5668;"></a>&#x521B;&#x5EFA;&#x4E34;&#x65F6; MySQL &#x5BB9;&#x5668;</h3><p>&#x5148;&#x521B;&#x5EFA;&#x4E34;&#x65F6; MySQL &#x5BB9;&#x5668;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm --name mysqlTemp -it -v /usr/local/mysql/:/var/lib/mysql  -e MYSQL_ROOT_PASSWORD=123456 {IMAGE ID} /bin/bash</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x8FF0;&#x547D;&#x4EE4;&#x4E2D;&#xFF1A;{IMAGE ID} &#x66FF;&#x6362;&#x6210;&#x4E0A;&#x56FE;&#x4E2D;&#x7684; IMAGE ID&#x3002;</p>
+<p>&#x4E0A;&#x8FF0;&#x547D;&#x4EE4;&#x53C2;&#x6570;&#x8BF4;&#x660E;&#xFF1A;</p>
+<ul>
+<li><p><code>-- rm</code></p>
+<p>&#x9000;&#x51FA;&#x540E;&#x5C31;&#x5220;&#x9664;&#x8BE5;&#x5BB9;&#x5668;</p>
+</li>
+<li><p><code>-v /usr/local/mysql/:/var/lib/ mysql</code> </p>
+<p>&#x88C5;&#x4E3B;&#x673A;&#x76EE;&#x5F55;/usr/local/mysql/&#x6620;&#x5C04;Docker&#x4E2D;&#x7684;/var/lib/mysql&#x76EE;&#x5F55;</p>
+</li>
+<li><p><code>-it</code> </p>
+<p>&#x4EA4;&#x4E92;&#x6A21;&#x5F0F;</p>
+</li>
+<li><p><code>/bin/bash</code> </p>
+<p>&#x8FDB;&#x5165; bash &#x547D;&#x4EE4;&#x6A21;&#x5F0F;</p>
+</li>
+</ul>
+<p>&#x4E0A;&#x8FF0;&#x547D;&#x4EE4;&#x6267;&#x884C;&#x6210;&#x529F;&#x4E4B;&#x540E;&#xFF0C;&#x5C31;&#x8FDB;&#x5165;&#x4E86; docker &#x5BB9;&#x5668;&#x5185;&#x90E8;&#x3002;&#x67E5;&#x770B; my.cnf &#x6587;&#x4EF6;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/mysql/my.cnf</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x51FA;&#x73B0;&#x5F62;&#x5982;&#x4E0B;&#x56FE;&#x7684;&#x5185;&#x5BB9;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@008.074/074/images/03.png" alt=""></p>
+<p>&#x5982;&#x679C;&#x662F;&#x5B8C;&#x6574;&#x7684; my.cnf &#x6587;&#x4EF6;&#xFF0C;&#x76F4;&#x63A5;&#x628A;&#x8BE5; my.cnf &#x590D;&#x5236;&#x5230; docker &#x5BB9;&#x5668;&#x5916;&#x9762;&#x53BB;&#x3002;&#x5982;&#x679C;&#x4E0D;&#x662F;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x628A; includedir &#x76EE;&#x5F55;&#x4E00;&#x8D77;&#x590D;&#x5230;&#x4E3B;&#x673A;&#x3002;</p>
+<h3 id="&#x4ECE;&#x5BB9;&#x5668;&#x4E2D;&#x83B7;&#x53D6;-MySQL-&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5230;&#x5BBF;&#x4E3B;&#x673A;"><a href="#&#x4ECE;&#x5BB9;&#x5668;&#x4E2D;&#x83B7;&#x53D6;-MySQL-&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5230;&#x5BBF;&#x4E3B;&#x673A;" class="headerlink" title="&#x4ECE;&#x5BB9;&#x5668;&#x4E2D;&#x83B7;&#x53D6; MySQL &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5230;&#x5BBF;&#x4E3B;&#x673A;"></a>&#x4ECE;&#x5BB9;&#x5668;&#x4E2D;&#x83B7;&#x53D6; MySQL &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5230;&#x5BBF;&#x4E3B;&#x673A;</h3><p>&#x628A; docker &#x4E2D;&#x7684; /etc/mysql/my.cnf &#x6587;&#x4EF6;&#x62F7;&#x8D1D;&#x5230; docker &#x7684;/var/lib/mysql &#x76EE;&#x5F55;&#x4E2D;&#xFF1A;&#x53CA;&#x4E3B;&#x673A;&#x7684; /usr/local/mysql/ &#x76EE;&#x5F55;&#x4E2D;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/mysql/my.cnf /var/lib/mysql</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x628A; docker &#x4E2D; includedir &#x76EE;&#x5F55;&#x590D;&#x5236;&#x51FA;&#x53BB;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -R /etc/mysql/conf.d/ /var/lib/mysql/conf.d</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x9000;&#x51FA; bash&#xFF0C;docker &#x4E2D;&#x4E34;&#x65F6;&#x7528;&#x7684; mysqlTemp &#x4F1A;&#x88AB;&#x5220;&#x9664;&#x3002;&#x6B64;&#x65F6;&#x67E5;&#x770B;&#x4E3B;&#x673A;&#x4E2D;&#x7684; /usr/local/mysql/ &#x76EE;&#x5F55;&#x4E0B;&#x6709; mysql &#x6240;&#x6709;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node04 ~]# ls /usr/local/mysql/</span><br><span class="line">conf.d  my.cnf</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x4FEE;&#x6539;&#x5BBF;&#x4E3B;&#x673A;-MySQL-&#x914D;&#x7F6E;"><a href="#&#x4FEE;&#x6539;&#x5BBF;&#x4E3B;&#x673A;-MySQL-&#x914D;&#x7F6E;" class="headerlink" title="&#x4FEE;&#x6539;&#x5BBF;&#x4E3B;&#x673A; MySQL &#x914D;&#x7F6E;"></a>&#x4FEE;&#x6539;&#x5BBF;&#x4E3B;&#x673A; MySQL &#x914D;&#x7F6E;</h3><p>&#x4FEE;&#x6539; MySQL &#x914D;&#x7F6E;&#xFF0C;&#x5728; my.cnf &#x6587;&#x4EF6;&#x4E2D;&#x589E;&#x52A0;&#x914D;&#x7F6E;&#xFF1A;</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">character-set-server</span>=utf8</span><br><span class="line"><span class="attr">collation-server</span>=utf8_bin</span><br><span class="line"><span class="attr">default-storage-engine</span>=INNODB</span><br><span class="line"><span class="attr">max_allowed_packet</span>=<span class="number">512</span>M</span><br><span class="line"><span class="attr">innodb_log_file_size</span>=<span class="number">2</span>GB</span><br><span class="line"><span class="attr">transaction-isolation</span>=READ-COMMITTED</span><br><span class="line"><span class="attr">binlog_format</span>=row</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x521B;&#x5EFA;-MySQL-&#x5BB9;&#x5668;"><a href="#&#x521B;&#x5EFA;-MySQL-&#x5BB9;&#x5668;" class="headerlink" title="&#x521B;&#x5EFA; MySQL &#x5BB9;&#x5668;"></a>&#x521B;&#x5EFA; MySQL &#x5BB9;&#x5668;</h3><p>&#x6539;&#x5B8C;&#x4E4B;&#x540E;&#xFF0C;&#x521B;&#x5EFA;&#x6B63;&#x5F0F;&#x7684; mysql &#x5BB9;&#x5668;&#xFF1A;</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -v /usr/<span class="built_in">local</span>/mysql/data:/var/lib/mysql -v /usr/<span class="built_in">local</span>/mysql/my.cnf:/etc/mysql/my.cnf -v /usr/<span class="built_in">local</span>/mysql/conf.d:/etc/mysql/conf.d --restart=always -d {IMAGE ID}</span><br></pre></td></tr></tbody></table></figure>
+<p>{IMAGE ID} &#x8868;&#x793A; MySQL &#x955C;&#x50CF;&#x7684;&#x955C;&#x50CF; ID&#x3002;</p>
+<p>&#x5982;&#x679C; my.cnf &#x662F;&#x5B8C;&#x6574;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x8FD9;&#x91CC;&#x4E0D;&#x9700;&#x8981;&#x6620;&#x5C04; conf.d &#x548C; mysql.conf.d &#x8FD9;&#x4FE9;&#x4E2A;&#x76EE;&#x5F55;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -v /usr/local/mysql/data:/var/lib/mysql -v /usr/local/mysql/my.cnf:/etc/mysql/my.cnf -d {IMAGE ID}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x53C2;&#x6570;&#x8BF4;&#x660E;&#xFF1A;</p>
+<ul>
+<li><p><code>--name</code></p>
+<p>  &#x5BB9;&#x5668;&#x540D;&#x79F0;</p>
+</li>
+<li><p><code>-p</code></p>
+<p>  &#x7AEF;&#x53E3;&#x6620;&#x5C04;</p>
+</li>
+<li><p><code>-v</code></p>
+<p>  &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6620;&#x5C04;&#xFF1A;&#x5C06; &#x5BBF;&#x4E3B;&#x673A;&#x4E0A;&#x4FEE;&#x6539;&#x7684;&#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x6620;&#x5C04;&#x5230; &#x5BB9;&#x5668;&#x4E2D;</p>
+</li>
+<li><p><code>-e</code></p>
+<p>  MYSQL_ROOT_PASSWORD &#x8BBE;&#x7F6E;root&#x5BC6;&#x7801;</p>
+</li>
+<li><p><code>-d</code></p>
+<p>  &#x5B88;&#x62A4;&#x8FDB;&#x7A0B;&#x6A21;&#x5F0F;&#x8FD0;&#x884C;</p>
+</li>
+</ul>
+<h2 id="&#x5B89;&#x88C5;-confluence"><a href="#&#x5B89;&#x88C5;-confluence" class="headerlink" title="&#x5B89;&#x88C5; confluence"></a>&#x5B89;&#x88C5; confluence</h2><p>&#x5C06;&#x4E0B;&#x8F7D;&#x597D;&#x7684; confluence &#x5B89;&#x88C5;&#x5305;&#x3001;MySQL &#x9A71;&#x52A8;&#x3001;&#x4EE3;&#x7406;&#x5305;&#x90FD;&#x4E0A;&#x4F20;&#x5230; centos &#x4E0A;&#xFF0C;&#x7B14;&#x8005;&#x81EA;&#x5DF1;&#x521B;&#x5EFA;&#x4E86; /data/confluence &#x76EE;&#x5F55;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@008.074/074/images/04.png" alt=""></p>
+<p>&#x4E0A;&#x56FE;&#x4E2D;&#xFF1A;atlassian-agent-v1.2.3.tar.gz &#x6587;&#x4EF6;&#x4F7F;&#x7528;&#xFF1A;tar -zxvf atlassian-agent-v1.2.3.tar.gz &#x547D;&#x4EE4;&#x89E3;&#x538B;&#x5373;&#x53EF;&#x7684;&#x5F97;&#x5230;&#xFF1A;atlassian-agent-v1.2.3 &#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x3002;</p>
+<h3 id="&#x6DFB;&#x52A0;&#x8FD0;&#x884C;&#x6743;&#x9650;"><a href="#&#x6DFB;&#x52A0;&#x8FD0;&#x884C;&#x6743;&#x9650;" class="headerlink" title="&#x6DFB;&#x52A0;&#x8FD0;&#x884C;&#x6743;&#x9650;"></a>&#x6DFB;&#x52A0;&#x8FD0;&#x884C;&#x6743;&#x9650;</h3><p>&#x521A;&#x4E0A;&#x4F20;&#x7684; confluence &#x5B89;&#x88C5;&#x5305;&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x8FD0;&#x884C;&#x6743;&#x9650;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x atlassian-confluence-6.13.3-x64.bin</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD0;&#x884C;&#x6587;&#x4EF6;&#x5F97;&#x5230;&#x4E0B;&#x9762;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;Confluence&#x7684;&#x5B89;&#x88C5;&#x8DEF;&#x5F84;&#xFF0C;<br>&#x9ED8;&#x8BA4;&#x7A0B;&#x5E8F;&#xFF1A;/opt/atlassian/confluence<br>&#x9ED8;&#x8BA4;&#x6570;&#x636E;&#xFF1A;/var/atlassian/application-data/confluence</p>
+<h3 id="&#x5B89;&#x88C5;"><a href="#&#x5B89;&#x88C5;" class="headerlink" title="&#x5B89;&#x88C5;"></a>&#x5B89;&#x88C5;</h3><p>&#x8FD0;&#x884C; atlassian-confluence-6.13.3-x64.bin&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./atlassian-confluence-6.13.3-x64.bin</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x8FD0;&#x884C;&#x65E5;&#x5FD7;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">[root@node04 confluence]# ./atlassian-confluence-6.13.3-x64.bin </span><br><span class="line">Unpacking JRE ...</span><br><span class="line">Starting Installer ...</span><br><span class="line"></span><br><span class="line">This will install Confluence 6.13.3 on your computer.</span><br><span class="line">OK [o, Enter], Cancel [c]</span><br><span class="line">o</span><br><span class="line">Click Next to continue, or Cancel to exit Setup.</span><br><span class="line"></span><br><span class="line">Choose the appropriate installation or upgrade option.</span><br><span class="line">Please choose one of the following:</span><br><span class="line">Express Install (uses default settings) [1], </span><br><span class="line">Custom Install (recommended for advanced users) [2, Enter], </span><br><span class="line">Upgrade an existing Confluence installation [3]</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">See where Confluence will be installed and the settings that will be used.</span><br><span class="line">Installation Directory: /opt/atlassian/confluence </span><br><span class="line">Home Directory: /var/atlassian/application-data/confluence </span><br><span class="line">HTTP Port: 8090 </span><br><span class="line">RMI Port: 8000 </span><br><span class="line">Install as service: Yes </span><br><span class="line">Install [i, Enter], Exit [e]</span><br><span class="line">i</span><br><span class="line"></span><br><span class="line">Extracting files ...</span><br><span class="line">                                                                           </span><br><span class="line"></span><br><span class="line">Please wait a few moments while we configure Confluence.</span><br><span class="line"></span><br><span class="line">Installation of Confluence 6.13.3 is complete</span><br><span class="line">Start Confluence now?</span><br><span class="line">Yes [y, Enter], No [n]</span><br><span class="line">n</span><br><span class="line"></span><br><span class="line">Installation of Confluence 6.13.3 is complete</span><br><span class="line">Finishing installation ...</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5B89;&#x88C5;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> netstat -tunlp | grep 8090</span></span><br><span class="line">tcp6       0      0 :::8090                 :::*                    LISTEN      2573/java</span><br></pre></td></tr></tbody></table></figure>
+<p>Confluence &#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x4F4D;&#x7F6E;&#xFF1A;/usr/local/atlassian/confluence/logs/catalina.out</p>
+<h3 id="&#x542F;&#x52A8;-confluence"><a href="#&#x542F;&#x52A8;-confluence" class="headerlink" title="&#x542F;&#x52A8; confluence"></a>&#x542F;&#x52A8; confluence</h3><h4 id="windows-&#x73AF;&#x5883;"><a href="#windows-&#x73AF;&#x5883;" class="headerlink" title="windows &#x73AF;&#x5883;"></a>windows &#x73AF;&#x5883;</h4><p>&#x8FDB;&#x5165;&#x5230;&#x670D;&#x52A1;&#x7BA1;&#x7406;&#x7684;&#x754C;&#x9762;&#xFF08;&#x6211;&#x7684;&#x7535;&#x8111; -&gt; &#x53F3;&#x952E; -&gt; &#x7BA1;&#x7406; -&gt; &#x670D;&#x52A1;&#x6216;&#x8005;services.msc&#xFF09;&#x627E;&#x5230;confluence &#x7684;&#x670D;&#x52A1;&#xFF0C;&#x5728;&#x8FD9;&#x91CC;&#x542F;&#x52A8;&#x5173;&#x95ED;&#x670D;&#x52A1;&#x3002;</p>
+<h4 id="linux-&#x73AF;&#x5883;"><a href="#linux-&#x73AF;&#x5883;" class="headerlink" title="linux &#x73AF;&#x5883;"></a>linux &#x73AF;&#x5883;</h4><h5 id="root-&#x6743;&#x9650;"><a href="#root-&#x6743;&#x9650;" class="headerlink" title="root &#x6743;&#x9650;"></a>root &#x6743;&#x9650;</h5><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">&#x9700;&#x8981;&#x7BA1;&#x7406;&#x5458;&#x6743;&#x9650;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">&#x5173;&#x95ED;&#x670D;&#x52A1;</span></span><br><span class="line">service confluence stop</span><br><span class="line"><span class="meta">#</span><span class="bash">&#x542F;&#x52A8;&#x670D;&#x52A1;</span></span><br><span class="line">service confluence start</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">&#x9700;&#x8981;&#x7BA1;&#x7406;&#x5458;&#x6743;&#x9650;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">&#x5173;&#x95ED;&#x670D;&#x52A1;</span></span><br><span class="line">/etc/init.d/confluence stop</span><br><span class="line"><span class="meta">#</span><span class="bash">&#x542F;&#x52A8;&#x670D;&#x52A1;</span></span><br><span class="line">/etc/init.d/confluence start</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="&#x975E;-root-&#x6743;&#x9650;"><a href="#&#x975E;-root-&#x6743;&#x9650;" class="headerlink" title="&#x975E; root &#x6743;&#x9650;"></a>&#x975E; root &#x6743;&#x9650;</h5><p>&#x5982;&#x679C;&#x4E0D;&#x662F; root &#x7528;&#x6237;&#x5B89;&#x88C5;&#x7684;&#x8BDD;&#xFF0C;confluence &#x8FD9;&#x4E2A;&#x670D;&#x52A1;&#x53EF;&#x80FD;&#x4E0D;&#x4F1A;&#x88AB;&#x6CE8;&#x518C;&#x5230; service &#x4E0A;&#xFF0C;&#x6240;&#x4EE5;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x90FD;&#x4E0D;&#x80FD;&#x7528;&#x3002;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">&#x975E;root&#x7528;&#x6237;&#x5B89;&#x88C5;,&#x4EE5;&#x6211;&#x7684;&#x5B89;&#x88C5;&#x8DEF;&#x5F84;&#x4E3A;&#x4F8B;&#xFF1A;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">&#x5173;&#x95ED;&#x670D;&#x52A1;</span></span><br><span class="line">/opt/atlassian/confluence/bin/stop-confluence.sh</span><br><span class="line"><span class="meta">#</span><span class="bash">&#x542F;&#x52A8;&#x670D;&#x52A1;</span></span><br><span class="line">/opt/atlassian/confluence/bin/start-confluence.sh</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7B14;&#x8005;&#x5B89;&#x88C5;&#x7684;&#x73AF;&#x5883;&#x662F; linux&#xFF0C;&#x542F;&#x52A8;&#x65E5;&#x5FD7;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@node04 confluence]# service confluence start</span><br><span class="line">Warning: confluence.service changed on disk. Run &apos;systemctl daemon-reload&apos; to reload units.</span><br><span class="line"></span><br><span class="line">To run Confluence in the foreground, start the server with start-confluence.sh -fg</span><br><span class="line">executing using dedicated user: confluence</span><br><span class="line">If you encounter issues starting up Confluence, please see the Installation guide at http://confluence.atlassian.com/display/DOC/Confluence+Installation+Guide</span><br><span class="line"></span><br><span class="line">Server startup logs are located in /opt/atlassian/confluence/logs/catalina.out</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">Using Java: /opt/atlassian/confluence/jre//bin/java</span><br><span class="line">2020-08-01 15:23:57,626 INFO [main] [atlassian.confluence.bootstrap.SynchronyProxyWatchdog] A Context element for ${confluence.context.path}/synchrony-proxy is found in /opt/atlassian/confluence/conf/server.xml. No further action is required</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">Using CATALINA_BASE:   /opt/atlassian/confluence</span><br><span class="line">Using CATALINA_HOME:   /opt/atlassian/confluence</span><br><span class="line">Using CATALINA_TMPDIR: /opt/atlassian/confluence/temp</span><br><span class="line">Using JRE_HOME:        /opt/atlassian/confluence/jre/</span><br><span class="line">Using CLASSPATH:       /opt/atlassian/confluence/bin/bootstrap.jar:/opt/atlassian/confluence/bin/tomcat-juli.jar</span><br><span class="line">Using CATALINA_PID:    /opt/atlassian/confluence/work/catalina.pid</span><br><span class="line">Tomcat started.</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x8FF0;&#x65E5;&#x5FD7;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x8FD0;&#x884C;&#x65E5;&#x5FD7;&#x5728;&#xFF1A;/opt/atlassian/confluence/logs/catalina.out &#x6587;&#x4EF6;&#x4E2D;&#x3002;</p>
+<h3 id="&#x4EE3;&#x7406;"><a href="#&#x4EE3;&#x7406;" class="headerlink" title="&#x4EE3;&#x7406;"></a>&#x4EE3;&#x7406;</h3><p>&#x5728; /opt/atlassian/confluence/bin/setenv.sh &#x6587;&#x4EF6;&#x4E2D;&#x589E;&#x52A0;&#x5982;&#x4E0B;&#x547D;&#x4EE4;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /opt/atlassian/confluence/bin/setenv.sh</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x5728;&#x6587;&#x4EF6;&#x6700;&#x672B;&#x5C3E;&#x589E;&#x52A0;&#x4E00;&#x884C;&#x4E0B;&#x9762;&#x7684;&#x4EE3;&#x7801;</span></span><br><span class="line">export JAVA_OPTS=&quot;-javaagent:/data/confluence/atlassian-agent.jar ${JAVA_OPTS}&quot;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7B14;&#x8005;&#x7684;&#x4EE3;&#x7406;&#x5305;&#x8DEF;&#x5F84;&#x662F;&#xFF1A;/data/confluence/atlassian-agent.jar&#xFF0C;&#x8BFB;&#x8005;&#x53EF;&#x4EE5;&#x66F4;&#x6362;&#x6210;&#x81EA;&#x5DF1;&#x7684;&#x4EE3;&#x7406;&#x5305;&#x4F4D;&#x7F6E;&#x3002;<a href="">&#x672C;&#x7AD9;&#x4E0B;&#x8F7D;</a></p>
+<p>&#x518D;&#x6B21;&#x542F;&#x52A8; confluence&#xFF0C;&#x67E5;&#x770B;&#x542F;&#x52A8;&#x65E5;&#x5FD7;&#xFF0C;&#x770B;&#x5230;<code>=== agent working ===</code>&#x5B57;&#x6837;&#xFF0C;&#x8868;&#x793A;&#x4EE3;&#x7406;&#x6210;&#x529F;&#x3002;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep javaagent</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x68C0;&#x67E5;&#x4EE3;&#x7406;&#x662F;&#x5426;&#x6210;&#x529F;&#x3002;</p>
+<h3 id="&#x9632;&#x706B;&#x5899;&#x8BBE;&#x7F6E;"><a href="#&#x9632;&#x706B;&#x5899;&#x8BBE;&#x7F6E;" class="headerlink" title="&#x9632;&#x706B;&#x5899;&#x8BBE;&#x7F6E;"></a>&#x9632;&#x706B;&#x5899;&#x8BBE;&#x7F6E;</h3><p>&#x7B14;&#x8005;&#x4F7F;&#x7528;&#x7684;&#x73AF;&#x5883;&#x662F;&#x865A;&#x62DF;&#x673A;&#x4E2D;&#x7684;&#x73AF;&#x5883;&#xFF0C;&#x56E0;&#x6B64;&#x76F4;&#x63A5;&#x628A;&#x9632;&#x706B;&#x5899;&#x5173;&#x95ED;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x5F00;&#x653E;&#x67D0;&#x4E2A;&#x5177;&#x4F53;&#x7684;&#x7AEF;&#x53E3;&#xFF0C;&#x53C2;&#x8003;&#x4E0B;&#x9762;&#x7684;&#x547D;&#x4EE4;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> &#x67E5;&#x770B;&#x9632;&#x706B;&#x5899;&#x72B6;&#x6001;</span></span><br><span class="line">systemctl status firewalld.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x5F00;&#x542F;&#x9632;&#x706B;&#x5899;&#xFF1A;</span></span><br><span class="line">systemctl start firewalld.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x5173;&#x95ED;&#x9632;&#x706B;&#x5899;&#xFF1A;</span></span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x91CD;&#x542F;&#x9632;&#x706B;&#x5899;&#xFF1A;</span></span><br><span class="line">systemctl restart firewalld.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x7981;&#x6B62;&#x5F00;&#x673A;&#x542F;&#x52A8;&#xFF1A;</span></span><br><span class="line">systemctl disable firewalld.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x5F00;&#x542F;&#x5F00;&#x673A;&#x542F;&#x52A8;&#xFF1A;</span></span><br><span class="line">systemctl enable firewalld.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x67E5;&#x770B;&#x9632;&#x706B;&#x5899;&#x6240;&#x6709;&#x5F00;&#x653E;&#x7684;&#x7AEF;&#x53E3;</span></span><br><span class="line">firewall-cmd --zone=public --list-ports</span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x5F00;&#x653E;8090&#x7AEF;&#x53E3;</span></span><br><span class="line">firewall-cmd --zone=public --add-port=8090/tcp --permanent   </span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x914D;&#x7F6E;&#x7ACB;&#x5373;&#x751F;&#x6548;</span></span><br><span class="line">firewall-cmd --reload</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x67E5;&#x770B;&#x76D1;&#x542C;&#x7684;&#x7AEF;&#x53E3;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> centos7&#x9ED8;&#x8BA4;&#x6CA1;&#x6709; netstat &#x547D;&#x4EE4;&#xFF0C;&#x9700;&#x8981;&#x5B89;&#x88C5; net-tools &#x5DE5;&#x5177;&#xFF0C;yum install -y net-tools</span></span><br><span class="line">netstat -lnpt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x68C0;&#x67E5;&#x7AEF;&#x53E3;&#x88AB;&#x54EA;&#x4E2A;&#x8FDB;&#x7A0B;&#x5360;&#x7528;</span></span><br><span class="line">netstat -lnpt |grep 8090</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x67E5;&#x770B;&#x8FDB;&#x7A0B;&#x7684;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;</span></span><br><span class="line">ps &#x8FDB;&#x7A0B;&#x53F7;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x4E2D;&#x6B62;&#x8FDB;&#x7A0B;</span></span><br><span class="line">kill -9 &#x8FDB;&#x7A0B;&#x53F7;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x6FC0;&#x6D3B;&#x8BBE;&#x7F6E;"><a href="#&#x6FC0;&#x6D3B;&#x8BBE;&#x7F6E;" class="headerlink" title="&#x6FC0;&#x6D3B;&#x8BBE;&#x7F6E;"></a>&#x6FC0;&#x6D3B;&#x8BBE;&#x7F6E;</h3><p>&#x542F;&#x52A8; confluence &#x4E4B;&#x540E;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x8F93;&#x5165; ip:8090 &#x6253;&#x5F00; confluence &#x7684;&#x914D;&#x7F6E;&#x9875;&#x9762;&#xFF0C;&#x7B2C;&#x4E00;&#x6B21;&#x8BBF;&#x95EE;&#x6D4F;&#x89C8;&#x5668;&#x51FA;&#x73B0;&#x521D;&#x59CB;&#x5316;&#x914D;&#x7F6E;&#x9875;&#x9762;&#xFF0C;&#x7B14;&#x8005;&#x9009;&#x62E9;&#x4E2D;&#x6587;&#x73AF;&#x5883;&#xFF0C;&#x9009;&#x62E9;&#x4EA7;&#x54C1;&#x5B89;&#x88C5;&#xFF0C;&#x51FA;&#x73B0;&#x5982;&#x4E0B;&#x754C;&#x9762;&#xFF1A;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store@008.074/074/images/05.png" alt=""></p>
+<p>&#x4E0A;&#x56FE;&#x4E2D;&#x7684;&#x670D;&#x52A1;&#x5668; ID &#x5F88;&#x5173;&#x952E;&#xFF0C;&#x4E00;&#x5B9A;&#x8981;&#x8BB0;&#x5F55;&#x597D;&#x3002;</p>
+<p>&#x5F53;&#x4F60;&#x8BD5;&#x7740;&#x6267;&#x884C; java -jar /data/confluence/atlassian-agent.jar &#x65F6;&#x5E94;&#x8BE5;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8F93;&#x51FA;&#x7684;KeyGen&#x53C2;&#x6570;&#x5E2E;&#x52A9;&#x3002;&#x7531;&#x4E8E;&#x6B64;&#x5904;&#x662F;&#x7834;&#x89E3;confluence,&#x9009;&#x62E9;conf&#x5373;&#x53EF;&#xFF0C;&#x5177;&#x4F53;&#x547D;&#x4EE4;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p>&#x5C06;server ID&#x590D;&#x5236;&#xFF08;-m &#x90AE;&#x7BB1; -n &#x7528;&#x6237;&#x540D; -o &#x516C;&#x53F8;&#x540D; -s SERVER ID&#xFF09;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar /data/confluence/atlassian-agent.jar -p conf -m woodwhales@163.com -n woodwhales -o https://woodwhales.cn/ -s AAAA-BBBB-CCCC-DDDD</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;"><a href="#&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;" class="headerlink" title="&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;"></a>&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;</h3><p>&#x9009;&#x62E9; MySQL &#x6570;&#x636E;&#x5E93;&#xFF0C;&#x9700;&#x8981;&#x5B89;&#x88C5; MySQL &#x9A71;&#x52A8;&#xFF1A;</p>
+<p>&#x5C06;&#x4E0B;&#x8F7D;&#x7684; mysql-connector-java-5.1.42-bin.jar &#x590D;&#x5236;&#x5230; /opt/atlassian/confluence/confluence/WEB-INF/lib &#x76EE;&#x5F55;&#x5E76;&#x91CD;&#x542F;&#x670D;&#x52A1;&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /data/confluence/mysql-connector-java-5.1.42.jar /opt/atlassian/confluence/confluence/WEB-INF/lib/</span><br><span class="line">service confluence restart</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="&#x6027;&#x80FD;&#x4F18;&#x5316;"><a href="#&#x6027;&#x80FD;&#x4F18;&#x5316;" class="headerlink" title="&#x6027;&#x80FD;&#x4F18;&#x5316;"></a>&#x6027;&#x80FD;&#x4F18;&#x5316;</h2><h3 id="&#x8BBE;&#x7F6E;JVM&#x8FD0;&#x884C;&#x5185;&#x5B58;&#x53C2;&#x6570;"><a href="#&#x8BBE;&#x7F6E;JVM&#x8FD0;&#x884C;&#x5185;&#x5B58;&#x53C2;&#x6570;" class="headerlink" title="&#x8BBE;&#x7F6E;JVM&#x8FD0;&#x884C;&#x5185;&#x5B58;&#x53C2;&#x6570;"></a>&#x8BBE;&#x7F6E;JVM&#x8FD0;&#x884C;&#x5185;&#x5B58;&#x53C2;&#x6570;</h3><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/atlassian/confluence/bin/setenv.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x4FEE;&#x6539; Xms &#x548C; Xmx &#x53C2;&#x6570;</span></span><br><span class="line">CATALINA_OPTS=&quot;-Xms4096m -Xmx8192m -XX:+UseG1GC ${CATALINA_OPTS}&quot;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6C60;&#x53C2;&#x6570;"><a href="#&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6C60;&#x53C2;&#x6570;" class="headerlink" title="&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6C60;&#x53C2;&#x6570;"></a>&#x8BBE;&#x7F6E;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6C60;&#x53C2;&#x6570;</h3><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim /var/atlassian/application-data/confluence/confluence.cfg.xml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> &#x4FEE;&#x6539;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6C60;&#x53C2;&#x6570;</span></span><br><span class="line"> &lt;property name=&quot;hibernate.c3p0.acquire_increment&quot;&gt;10&lt;/property&gt;         #&#x9ED8;&#x8BA4;&#x4E3A;1</span><br><span class="line">    &lt;property name=&quot;hibernate.c3p0.idle_test_period&quot;&gt;100&lt;/property&gt;</span><br><span class="line">    &lt;property name=&quot;hibernate.c3p0.max_size&quot;&gt;60&lt;/property&gt;</span><br><span class="line">    &lt;property name=&quot;hibernate.c3p0.max_statements&quot;&gt;60&lt;/property&gt;         #&#x9ED8;&#x8BA4;&#x4E3A;0</span><br><span class="line">    &lt;property name=&quot;hibernate.c3p0.min_size&quot;&gt;20&lt;/property&gt;</span><br><span class="line">    &lt;property name=&quot;hibernate.c3p0.timeout&quot;&gt;120&lt;/property&gt;               #&#x9ED8;&#x8BA4;&#x4E3A;30</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x6570;&#x636E;&#x94FE;&#x63A5;-useSSL-&#x914D;&#x7F6E;"><a href="#&#x6570;&#x636E;&#x94FE;&#x63A5;-useSSL-&#x914D;&#x7F6E;" class="headerlink" title="&#x6570;&#x636E;&#x94FE;&#x63A5; useSSL &#x914D;&#x7F6E;"></a>&#x6570;&#x636E;&#x94FE;&#x63A5; useSSL &#x914D;&#x7F6E;</h3><p>&#x7531;&#x4E8E;&#x4F7F;&#x7528;&#x4E86; MySQL 5.7.31&#xFF0C;&#x6240;&#x4EE5;&#x6570;&#x636E;&#x5E93;&#x94FE;&#x63A5;&#x914D;&#x7F6E;&#x5FC5;&#x987B;&#x663E;&#x793A;&#x8BBE;&#x7F6E; useSSL</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:mysql://127.0.0.1:3306/confluence?useSSL=false&lt;/property&gt;</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="&#x5378;&#x8F7D;-confluence"><a href="#&#x5378;&#x8F7D;-confluence" class="headerlink" title="&#x5378;&#x8F7D; confluence"></a>&#x5378;&#x8F7D; confluence</h2><p>confluence &#x9ED8;&#x8BA4;&#x5B89;&#x88C5;&#x8DEF;&#x5F84;&#x4E3A; /opt/atlassian/confluence/&#xFF1A;</p>
+<p>&#x5230;&#x5B89;&#x88C5;&#x8DEF;&#x5F84;&#x4E0B;&#xFF0C;&#x8FD0;&#x884C; uninstall&#xFF1A;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/atlassian/confluence/uninstall</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7136;&#x540E;&#x624B;&#x52A8;&#x5220;&#x9664;&#x4E24;&#x4E2A;&#x8DEF;&#x5F84;&#x7684;&#x6587;&#x4EF6;</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/atlassian/</span><br><span class="line">rm -rf /opt/atlassian/confluence/</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x53E6;&#xFF0C;&#x8FDB;&#x5165; /etc/init.d/ &#x5220;&#x9664;&#x591A;&#x4F59;&#x7684; confluence &#x5F00;&#x673A;&#x542F;&#x52A8;&#x9879;</p>
+<blockquote>
+<p>windows&#x4E0A;&#x4E5F;&#x662F;&#x8FD9;&#x4E48;&#x5378;&#x8F7D;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x5728;Windows&#x4E0A;&#x7684;&#x8BDD;&#x9700;&#x8981;&#x91CD;&#x542F;&#x7535;&#x8111;&#x3002;</p>
+</blockquote>
+<h2 id="&#x63D2;&#x4EF6;&#x5B89;&#x88C5;"><a href="#&#x63D2;&#x4EF6;&#x5B89;&#x88C5;" class="headerlink" title="&#x63D2;&#x4EF6;&#x5B89;&#x88C5;"></a>&#x63D2;&#x4EF6;&#x5B89;&#x88C5;</h2><p>&#x5B98;&#x65B9;&#x63D2;&#x4EF6;&#x5E02;&#x573A;&#xFF1A;<a href="https://marketplace.atlassian.com/" target="_blank" rel="noopener">https://marketplace.atlassian.com/</a></p>
+<h3 id="Gliffy-Diagrams"><a href="#Gliffy-Diagrams" class="headerlink" title="Gliffy Diagrams"></a>Gliffy Diagrams</h3><p>&#x5B98;&#x65B9;&#x5B89;&#x88C5;&#x6307;&#x5357;&#xFF1A;<a href="https://support.gliffy.com/hc/en-us/articles/217895178-Confluence-Plugin-Installation-Update-Instructions-" target="_blank" rel="noopener">https://support.gliffy.com/hc/en-us/articles/217895178-Confluence-Plugin-Installation-Update-Instructions-</a></p>
+<p>&#x63D2;&#x4EF6;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;<a href="https://marketplace.atlassian.com/plugins/com.gliffy.integration.confluence/versions" target="_blank" rel="noopener">https://marketplace.atlassian.com/plugins/com.gliffy.integration.confluence/versions</a></p>
+<h3 id="Balsamiq-Wireframes"><a href="#Balsamiq-Wireframes" class="headerlink" title="Balsamiq Wireframes"></a>Balsamiq Wireframes</h3><p>&#x63D2;&#x4EF6;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;<a href="https://marketplace.atlassian.com/apps/256/balsamiq-wireframes-confluence-server/version-history" target="_blank" rel="noopener">https://marketplace.atlassian.com/apps/256/balsamiq-wireframes-confluence-server/version-history</a></p>
+<h3 id="PlantUML"><a href="#PlantUML" class="headerlink" title="PlantUML"></a>PlantUML</h3><p>&#x63D2;&#x4EF6;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;<a href="https://marketplace.atlassian.com/apps/41025/plantuml-for-confluence/version-history" target="_blank" rel="noopener">https://marketplace.atlassian.com/apps/41025/plantuml-for-confluence/version-history</a></p>
+<h2 id="&#x53C2;&#x8003;&#x8D44;&#x6599;"><a href="#&#x53C2;&#x8003;&#x8D44;&#x6599;" class="headerlink" title="&#x53C2;&#x8003;&#x8D44;&#x6599;"></a>&#x53C2;&#x8003;&#x8D44;&#x6599;</h2><p><a href="https://liangfu.wang/2020/01/22/CentOS-7-6-&#x5B89;&#x88C5;-Confluence-7-2/" target="_blank" rel="noopener">https://liangfu.wang/2020/01/22/CentOS-7-6-&#x5B89;&#x88C5;-Confluence-7-2/</a></p>
+<p><a href="https://www.tracymc.cn/archives/1507" target="_blank" rel="noopener">https://www.tracymc.cn/archives/1507</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<lineargradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+				<stop offset="1" stop-opacity=".1"/>
+			</lineargradient>
+			<clippath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"/>
+			</clippath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"/>
+				<path fill="#97CA00" d="M55 0h75v20H55z"/>
+				<path fill="url(#b)" d="M0 0h130v20H0z"/>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textlength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textlength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textlength="650" transform="scale(.1)">2020-08-02</text>
+				<text x="915" y="140" textlength="650" transform="scale(.1)">2020-08-02</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/08/02/074/">centos 环境安装 confluence 详解</a></p>
+  <p><span>本文作者:</span><a href="/" title="访问 木鲸鱼 的个人博客">木鲸鱼</a></p>
+  <p><span>微信公号:</span>木鲸鱼 | woodwhales</p>
+  <p><span>原始链接:</span><a href="/2020/08/02/074/" title="centos 环境安装 confluence 详解">https://woodwhales.cn/2020/08/02/074/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2020/08/02/074/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/confluence/" rel="tag"><i class="fa fa-tag"></i> confluence</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/28/073/" rel="next" title="虚拟机安装 centos 7 系统">
+                <i class="fa fa-chevron-left"></i> 虚拟机安装 centos 7 系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar-woodwhale.png" alt="木鲸鱼">
+            
+              <p class="site-author-name" itemprop="name">木鲸鱼</p>
+              <p class="site-description motion-element" itemprop="description">好记性不如烂笔头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://fivecoder.com/2019-ncov" title="2019-nCoV疫情实时动态" rel="external nofollow" target="_blank">2019-nCoV疫情实时动态</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://fivecoder.com/maven-tools" title="maven-tools mvn命令生成工具" rel="external nofollow" target="_blank">maven-tools mvn命令生成工具</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-软件"><span class="nav-text">MySQL 软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-驱动"><span class="nav-text">MySQL 驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理包"><span class="nav-text">代理包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#confluence-软件"><span class="nav-text">confluence 软件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-安装"><span class="nav-text">MySQL 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建临时-MySQL-容器"><span class="nav-text">创建临时 MySQL 容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从容器中获取-MySQL-配置文件到宿主机"><span class="nav-text">从容器中获取 MySQL 配置文件到宿主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改宿主机-MySQL-配置"><span class="nav-text">修改宿主机 MySQL 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-MySQL-容器"><span class="nav-text">创建 MySQL 容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-confluence"><span class="nav-text">安装 confluence</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加运行权限"><span class="nav-text">添加运行权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-confluence"><span class="nav-text">启动 confluence</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#windows-环境"><span class="nav-text">windows 环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux-环境"><span class="nav-text">linux 环境</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#root-权限"><span class="nav-text">root 权限</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非-root-权限"><span class="nav-text">非 root 权限</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理"><span class="nav-text">代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防火墙设置"><span class="nav-text">防火墙设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活设置"><span class="nav-text">激活设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置数据库"><span class="nav-text">设置数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能优化"><span class="nav-text">性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置JVM运行内存参数"><span class="nav-text">设置JVM运行内存参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置数据库连接池参数"><span class="nav-text">设置数据库连接池参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据链接-useSSL-配置"><span class="nav-text">数据链接 useSSL 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卸载-confluence"><span class="nav-text">卸载 confluence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件安装"><span class="nav-text">插件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Gliffy-Diagrams"><span class="nav-text">Gliffy Diagrams</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Balsamiq-Wireframes"><span class="nav-text">Balsamiq Wireframes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PlantUML"><span class="nav-text">PlantUML</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz", "QjMAV3Hw76n6nhrDaxLtfoPE");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

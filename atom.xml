@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-07-28T14:53:02.335Z</updated>
+  <updated>2020-08-02T08:09:39.959Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>centos 环境安装 confluence 详解</title>
+    <link href="https://woodwhales.cn/2020/08/02/074/"/>
+    <id>https://woodwhales.cn/2020/08/02/074/</id>
+    <published>2020-08-02T08:10:00.000Z</published>
+    <updated>2020-08-02T08:09:39.959Z</updated>
+    
+    <summary type="html">
+    
+      使用 confluence 记录自己的wiki
+    
+    </summary>
+    
+      <category term="confluence" scheme="https://woodwhales.cn/categories/confluence/"/>
+    
+    
+      <category term="confluence" scheme="https://woodwhales.cn/tags/confluence/"/>
+    
+  </entry>
   
   <entry>
     <title>虚拟机安装 centos 7 系统</title>
@@ -393,26 +413,6 @@
     
     
       <category term="Kafka" scheme="https://woodwhales.cn/tags/Kafka/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>计算机语言及操作系统发展史</title>
-    <link href="https://woodwhales.cn/2019/11/24/054/"/>
-    <id>https://woodwhales.cn/2019/11/24/054/</id>
-    <published>2019-11-24T15:53:00.000Z</published>
-    <updated>2020-03-01T14:19:05.753Z</updated>
-    
-    <summary type="html">
-    
-      计算机语言发展史，Linux 发展史、家族史，Windows 发展史，UNIX 编程艺术，Linux设备驱动程序
-    
-    </summary>
-    
-      <category term="Linux" scheme="https://woodwhales.cn/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="https://woodwhales.cn/tags/Linux/"/>
     
   </entry>
   
