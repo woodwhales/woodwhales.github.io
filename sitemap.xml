@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://woodwhales.cn/setup/index.html</loc>
+    
+    <lastmod>2020-08-02T10:40:59.064Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://woodwhales.cn/tools/index.html</loc>
+    
+    <lastmod>2020-08-02T08:47:27.246Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://woodwhales.cn/2020/08/02/074/</loc>
     
     <lastmod>2020-08-02T08:18:02.134Z</lastmod>
@@ -516,13 +530,6 @@
     <loc>https://woodwhales.cn/resources/index.html</loc>
     
     <lastmod>2020-02-16T02:29:35.677Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://woodwhales.cn/tools/index.html</loc>
-    
-    <lastmod>2020-02-16T02:28:32.726Z</lastmod>
     
   </url>
   
