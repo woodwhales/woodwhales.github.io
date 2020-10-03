@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-08-02T08:18:02.134Z</updated>
+  <updated>2020-10-03T17:11:15.433Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring 源码（spring-5.2.9.RELEASE）编译及 IDEA 环境搭建</title>
+    <link href="https://woodwhales.cn/2020/10/04/075/"/>
+    <id>https://woodwhales.cn/2020/10/04/075/</id>
+    <published>2020-10-04T12:10:04.000Z</published>
+    <updated>2020-10-03T17:11:15.433Z</updated>
+    
+    <summary type="html">
+    
+      Spring 源码编译及 IDEA 环境搭建，基于 spring-5.2.9.RELEASE、IDEA 2020.2
+    
+    </summary>
+    
+      <category term="Spring 源码" scheme="https://woodwhales.cn/categories/Spring-%E6%BA%90%E7%A0%81/"/>
+    
+    
+      <category term="Spring 源码编译" scheme="https://woodwhales.cn/tags/Spring-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/"/>
+    
+  </entry>
   
   <entry>
     <title>centos 环境安装 confluence 详解</title>
@@ -393,26 +413,6 @@
     
     
       <category term="layui" scheme="https://woodwhales.cn/tags/layui/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Apache Kafka 学习笔记</title>
-    <link href="https://woodwhales.cn/2019/12/01/055/"/>
-    <id>https://woodwhales.cn/2019/12/01/055/</id>
-    <published>2019-12-01T15:30:00.000Z</published>
-    <updated>2020-03-01T14:19:05.760Z</updated>
-    
-    <summary type="html">
-    
-      认识消息引擎系统，浅析 Apache Kafka
-    
-    </summary>
-    
-      <category term="Kafka" scheme="https://woodwhales.cn/categories/Kafka/"/>
-    
-    
-      <category term="Kafka" scheme="https://woodwhales.cn/tags/Kafka/"/>
     
   </entry>
   
