@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-10-03T17:11:15.433Z</updated>
+  <updated>2020-10-04T14:20:26.179Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Visual Studio Code（vsCode） 下 C/C++ 环境搭建</title>
+    <link href="https://woodwhales.cn/2020/10/04/076/"/>
+    <id>https://woodwhales.cn/2020/10/04/076/</id>
+    <published>2020-10-04T14:13:00.000Z</published>
+    <updated>2020-10-04T14:20:26.179Z</updated>
+    
+    <summary type="html">
+    
+      基于 vsCode 的 C/C++ 环境搭建，vsCode 配置及插件配置设置
+    
+    </summary>
+    
+      <category term="C/C++" scheme="https://woodwhales.cn/categories/C-C/"/>
+    
+    
+      <category term="vsCode C/C++ 环境搭建" scheme="https://woodwhales.cn/tags/vsCode-C-C-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring 源码（spring-5.2.9.RELEASE）编译及 IDEA 环境搭建</title>
@@ -393,26 +413,6 @@
     
     
       <category term="重装系统" scheme="https://woodwhales.cn/tags/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot Layui ThymeLeaf 一点点学习心得</title>
-    <link href="https://woodwhales.cn/2019/12/21/056/"/>
-    <id>https://woodwhales.cn/2019/12/21/056/</id>
-    <published>2019-12-21T15:27:00.000Z</published>
-    <updated>2020-03-04T04:09:58.545Z</updated>
-    
-    <summary type="html">
-    
-      SpringBoot + Layui + ThymeLeaf 整合，完成批量创建，下拉多选，复选框动态加载功能
-    
-    </summary>
-    
-      <category term="springboot" scheme="https://woodwhales.cn/categories/springboot/"/>
-    
-    
-      <category term="layui" scheme="https://woodwhales.cn/tags/layui/"/>
     
   </entry>
   
