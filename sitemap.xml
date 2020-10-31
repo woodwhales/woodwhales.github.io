@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://woodwhales.cn/about/index.html</loc>
+    
+    <lastmod>2020-10-31T04:20:17.116Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://woodwhales.cn/2020/10/04/076/</loc>
     
     <lastmod>2020-10-04T14:20:26.179Z</lastmod>
@@ -558,13 +565,6 @@
     <loc>https://woodwhales.cn/2018/11/30/007/</loc>
     
     <lastmod>2018-12-25T16:00:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://woodwhales.cn/about/index.html</loc>
-    
-    <lastmod>2018-12-25T14:45:06.445Z</lastmod>
     
   </url>
   
