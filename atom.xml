@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-10-04T14:20:26.179Z</updated>
+  <updated>2020-11-17T16:16:34.892Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>手写业务数据处理小工具</title>
+    <link href="https://woodwhales.cn/2020/11/17/077/"/>
+    <id>https://woodwhales.cn/2020/11/17/077/</id>
+    <published>2020-11-17T15:38:00.000Z</published>
+    <updated>2020-11-17T16:16:34.892Z</updated>
+    
+    <summary type="html">
+    
+      手写业务数据处理小工具：list 集合转 map / 分组 / 去重，枚举转 map
+    
+    </summary>
+    
+      <category term="Java" scheme="https://woodwhales.cn/categories/Java/"/>
+    
+    
+      <category term="Java小工具" scheme="https://woodwhales.cn/tags/Java%E5%B0%8F%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>Visual Studio Code（vsCode） 下 C/C++ 环境搭建</title>
@@ -393,26 +413,6 @@
     
     
       <category term="mysql5.7安装" scheme="https://woodwhales.cn/tags/mysql5-7%E5%AE%89%E8%A3%85/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>win10重装系统之后的个性化设置</title>
-    <link href="https://woodwhales.cn/2020/02/26/057/"/>
-    <id>https://woodwhales.cn/2020/02/26/057/</id>
-    <published>2020-02-26T05:30:00.000Z</published>
-    <updated>2020-04-08T03:44:56.807Z</updated>
-    
-    <summary type="html">
-    
-      针对开发者一份个性化设置
-    
-    </summary>
-    
-      <category term="软件安装" scheme="https://woodwhales.cn/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
-    
-    
-      <category term="重装系统" scheme="https://woodwhales.cn/tags/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   
