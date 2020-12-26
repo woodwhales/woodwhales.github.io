@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-11-17T16:16:34.892Z</updated>
+  <updated>2020-12-26T11:14:52.037Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -17,11 +17,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Spring Boot 工程常见开发技巧</title>
+    <link href="https://woodwhales.cn/2020/12/26/078/"/>
+    <id>https://woodwhales.cn/2020/12/26/078/</id>
+    <published>2020-12-26T11:05:00.000Z</published>
+    <updated>2020-12-26T11:14:52.037Z</updated>
+    
+    <summary type="html">
+    
+      service层参数@Valid校验
+    
+    </summary>
+    
+      <category term="Java" scheme="https://woodwhales.cn/categories/Java/"/>
+    
+    
+      <category term="Spring Boot" scheme="https://woodwhales.cn/tags/Spring-Boot/"/>
+    
+  </entry>
+  
+  <entry>
     <title>手写业务数据处理小工具</title>
     <link href="https://woodwhales.cn/2020/11/17/077/"/>
     <id>https://woodwhales.cn/2020/11/17/077/</id>
     <published>2020-11-17T15:38:00.000Z</published>
-    <updated>2020-11-17T16:16:34.892Z</updated>
+    <updated>2020-11-18T06:38:26.198Z</updated>
     
     <summary type="html">
     
@@ -393,26 +413,6 @@
     
     
       <category term="STS设置" scheme="https://woodwhales.cn/tags/STS%E8%AE%BE%E7%BD%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL 5.7 绿色安装(for windows)</title>
-    <link href="https://woodwhales.cn/2020/02/27/058/"/>
-    <id>https://woodwhales.cn/2020/02/27/058/</id>
-    <published>2020-02-27T06:58:00.000Z</published>
-    <updated>2020-04-05T04:21:31.341Z</updated>
-    
-    <summary type="html">
-    
-      MySQL 5.7 zip 安装包安装教程
-    
-    </summary>
-    
-      <category term="软件安装" scheme="https://woodwhales.cn/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
-    
-    
-      <category term="mysql5.7安装" scheme="https://woodwhales.cn/tags/mysql5-7%E5%AE%89%E8%A3%85/"/>
     
   </entry>
   

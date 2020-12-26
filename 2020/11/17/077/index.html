@@ -132,7 +132,7 @@
 <meta property="og:description" content="手写业务数据处理小工具：list 集合转 map / 分组 / 去重，枚举转 map">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store02@077/077/images/face.png">
-<meta property="og:updated_time" content="2020-11-17T16:16:34.892Z">
+<meta property="og:updated_time" content="2020-11-18T06:38:26.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手写业务数据处理小工具">
 <meta name="twitter:description" content="手写业务数据处理小工具：list 集合转 map / 分组 / 去重，枚举转 map">
@@ -524,7 +524,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store02@077/077/images/face.png" rel="gallery_ckhm6jags0068bsu97v2k7cpk" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store02@077/077/images/face.png" rel="gallery_ckj5ly2xa006ewgu972ew91ov" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://cdn.jsdelivr.net/gh/woodwhales/woodwhales-images-store02@077/077/images/face.png" itemprop="contentUrl">
               </a>
             
@@ -569,7 +569,6 @@
 <p>&#x5229;&#x7528; EnumSet &#x7C7B;&#x7684; allOf() &#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x679A;&#x4E3E;&#x7684; Class &#x7C7B;&#x578B;&#x83B7;&#x53D6;&#x8BE5;&#x679A;&#x4E3E;&#x7684;&#x6240;&#x6709;&#x679A;&#x4E3E;&#x5B9E;&#x4F8B;&#x3002;&#x5F53;&#x62FF;&#x5230;&#x96C6;&#x5408;&#x679A;&#x4E3E;&#x6570;&#x636E;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; stream &#x8FDB;&#x884C;&#x96C6;&#x5408;&#x8F6C; map&#x3002;</p>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataTool</span> </span>{</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#x679A;&#x4E3E;&#x8F6C; map &#x96C6;&#x5408;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sourceEnumClass &#x6570;&#x636E;&#x6E90;&#x679A;&#x4E3E; Class&#x7C7B;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> keyMapper map &#x96C6;&#x5408;&#x4E2D;&#x7684; key &#x83B7;&#x53D6;&#x89C4;&#x5219;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &lt;K&gt; map &#x96C6;&#x5408;&#x4E2D;&#x7684; key &#x7C7B;&#x578B;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &lt;T&gt; map &#x96C6;&#x5408;&#x4E2D;&#x7684; value &#x7C7B;&#x578B;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;K, T extends Enum&lt;T&gt;&gt; <span class="function">Map&lt;K, T&gt; <span class="title">enumMap</span><span class="params">(Class&lt;T&gt; sourceEnumClass,</span></span></span><br><span class="line"><span class="function"><span class="params">                                                         Function&lt;? <span class="keyword">super</span> T, ? extends K&gt; keyMapper)</span> </span>{</span><br><span class="line">        EnumSet&lt;T&gt; enumSet = EnumSet.allOf(sourceEnumClass);</span><br><span class="line">        <span class="keyword">return</span> enumSet.stream().collect(Collectors.toMap(keyMapper, Function.identity()));</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>&#x6E90;&#x7801;&#x53C2;&#x89C1;&#xFF1A;<a href="https://github.com/woodwhales/woodwhales-common/blob/master/src/main/java/org/woodwhales/business/DataTool.java" target="_blank" rel="noopener">src/main/java/org/woodwhales/business/DataTool.java</a></p>
-<p><code></code></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -694,6 +693,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/12/26/078/" rel="prev" title="Spring Boot 工程常见开发技巧">
+                Spring Boot 工程常见开发技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -774,7 +777,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
