@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://woodwhales.cn/"/>
-  <updated>2020-12-26T11:14:52.037Z</updated>
+  <updated>2021-02-16T05:02:54.470Z</updated>
   <id>https://woodwhales.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python函数定义、函数参数定义、函数相关变量知识点总结</title>
+    <link href="https://woodwhales.cn/2021/02/16/079/"/>
+    <id>https://woodwhales.cn/2021/02/16/079/</id>
+    <published>2021-02-16T04:56:00.000Z</published>
+    <updated>2021-02-16T05:02:54.470Z</updated>
+    
+    <summary type="html">
+    
+      Python函数定义、函数参数定义、函数相关变量知识点总结
+    
+    </summary>
+    
+      <category term="Python" scheme="https://woodwhales.cn/categories/Python/"/>
+    
+    
+      <category term="Python函数" scheme="https://woodwhales.cn/tags/Python%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring Boot 工程常见开发技巧</title>
@@ -393,26 +413,6 @@
     
     
       <category term="IDEA设置" scheme="https://woodwhales.cn/tags/IDEA%E8%AE%BE%E7%BD%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>STS 常用设置</title>
-    <link href="https://woodwhales.cn/2020/02/27/059/"/>
-    <id>https://woodwhales.cn/2020/02/27/059/</id>
-    <published>2020-02-27T14:13:00.000Z</published>
-    <updated>2020-03-02T01:19:59.525Z</updated>
-    
-    <summary type="html">
-    
-      STS/Eclipse IDE工具常用设置
-    
-    </summary>
-    
-      <category term="软件安装" scheme="https://woodwhales.cn/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
-    
-    
-      <category term="STS设置" scheme="https://woodwhales.cn/tags/STS%E8%AE%BE%E7%BD%AE/"/>
     
   </entry>
   
