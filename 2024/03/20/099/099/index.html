@@ -128,7 +128,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://image.woodwhales.cn/099/face.png">
 <meta property="article:published_time" content="2024-03-20T09:13:00.000Z">
-<meta property="article:modified_time" content="2024-03-22T07:01:59.728Z">
+<meta property="article:modified_time" content="2024-04-22T07:08:48.629Z">
 <meta property="article:author" content="木鲸鱼">
 <meta property="article:tag" content="yolov8">
 <meta name="twitter:card" content="summary">
@@ -522,7 +522,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 target="_blank" href="https://image.woodwhales.cn/099/face.png" rel="gallery_clv4yzdws00defw2m3gjnfq6n noopener"
+                 target="_blank" href="https://image.woodwhales.cn/099/face.png" rel="gallery_clvamabua00djgg2m4dc76q1e noopener"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://image.woodwhales.cn/099/face.png" itemprop="contentUrl"/>
               </a>
@@ -554,7 +554,7 @@
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"></span><br><span class="line">shutil.rmtree(matplotlib.get_cachedir())</span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="步骤4：检查中文字体是否生效"><a href="#步骤4：检查中文字体是否生效" class="headerlink" title="步骤4：检查中文字体是否生效"></a>步骤4：检查中文字体是否生效</h1><p>执行下述 python 脚本：</p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>([f <span class="keyword">for</span> f <span class="keyword">in</span> matplotlib.font_manager.fontManager.ttflist <span class="keyword">if</span> <span class="string">'Microsoft YaHei'</span> <span class="keyword">in</span> f.name])</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.font_manager</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>([f <span class="keyword">for</span> f <span class="keyword">in</span> matplotlib.font_manager.fontManager.ttflist <span class="keyword">if</span> <span class="string">'Microsoft YaHei'</span> <span class="keyword">in</span> f.name])</span><br></pre></td></tr></tbody></table></figure>
 
 <p>可以得到对应字体信息：</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[FontEntry(fname='C:\\programs\\anaconda3\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\Microsoft YaHei.ttf', name='Microsoft YaHei', style='normal', variant='normal', weight=400, stretch='normal', size='scalable'), FontEntry(fname='C:\\Windows\\Fonts\\msyhbd.ttc', name='Microsoft YaHei', style='normal', variant='normal', weight=700, stretch='normal', size='scalable'), FontEntry(fname='C:\\Windows\\Fonts\\msyh.ttc', name='Microsoft YaHei', style='normal', variant='normal', weight=400, stretch='normal', size='scalable'), FontEntry(fname='C:\\Windows\\Fonts\\msyhl.ttc', name='Microsoft YaHei', style='normal', variant='normal', weight=290, stretch='normal', size='scalable')]</span><br></pre></td></tr></tbody></table></figure>
@@ -588,8 +588,8 @@
 			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
 				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
 				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
-				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2024-03-22</text>
-				<text x="915" y="140" textLength="650" transform="scale(.1)">2024-03-22</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2024-04-22</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2024-04-22</text>
 			</g>
 			
 		</svg>
