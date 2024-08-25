@@ -9,7 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#fff">
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
 
 
 
@@ -512,7 +513,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 target="_blank" href="https://image.woodwhales.cn/030/face.png" rel="gallery_clqwc78rv002mdwv8hzzb0bn1 noopener"
+                 target="_blank" href="https://image.woodwhales.cn/030/face.png" rel="gallery_cm09lmpgo002tckv8eonifd7s noopener"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://image.woodwhales.cn/030/face.png" itemprop="contentUrl"/>
               </a>
@@ -525,6 +526,8 @@
       
 
       
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
         <p>在 Spring Security 中基于表单的认证模式，默认就是密码帐号登录认证，那么对于短信验证码+登录的方式，Spring Security 没有现成的接口可以使用，所以需要自己的封装一个类似的认证过滤器和认证处理器实现短信认证。</p>
 <h2 id="短信验证码认证"><a href="#短信验证码认证" class="headerlink" title="短信验证码认证"></a>短信验证码认证</h2><h3 id="验证码对象类设计"><a href="#验证码对象类设计" class="headerlink" title="验证码对象类设计"></a>验证码对象类设计</h3><p>和图片验证码一样，需要自己封装一个验证码对象，用来生成手机验证码并发送给手机。因为图片验证码和手机验证码对象的区别就在于前者多了个图片对象，所以两者共同部分抽象出来可以设计成一个<code>ValidateCode</code>类，这个类里面只存放验证码和过期时间，短信验证码直接使用这个类即可：</p>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.LocalDateTime;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ValidateCode</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String code;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> LocalDateTime expireTime;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ValidateCode</span><span class="params">(String code, <span class="type">int</span> expireIn)</span>{</span><br><span class="line">        <span class="built_in">this</span>.code = code;</span><br><span class="line">        <span class="built_in">this</span>.expireTime = LocalDateTime.now().plusSeconds(expireIn);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isExpried</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> LocalDateTime.now().isAfter(getExpireTime());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">ValidateCode</span><span class="params">(String code, LocalDateTime expireTime)</span> {</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.code = code;</span><br><span class="line">		<span class="built_in">this</span>.expireTime = expireTime;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
@@ -732,6 +735,9 @@
 
 
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
         </div>
         
           
@@ -780,7 +786,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -791,7 +797,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -802,7 +808,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">80</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -951,6 +957,8 @@
       
 
     </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
   </aside>
 
 
