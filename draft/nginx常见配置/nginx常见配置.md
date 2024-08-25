@@ -1,12 +1,10 @@
-nginx 官网：https://nginx.org
+> nginx 官网：https://nginx.org
+>
+> 安装包下载地址：https://nginx.org/en/download.html
 
-安装包下载地址：https://nginx.org/en/download.html
+推荐下载 Mainline version，笔者以 [nginx/Windows-1.27.1](https://nginx.org/download/nginx-1.27.1.zip) 为例：
 
-## windows 平台
-
-推荐下载 Mainline version，以 [nginx/Windows-1.27.1](https://nginx.org/download/nginx-1.27.1.zip) 为例：
-
-### 目录结构
+## 目录结构
 
 下图为 vsCode 打开 nginx-1.27.1 程序目录文件夹视图：
 
@@ -48,15 +46,34 @@ http {
 
 上述配置，默认监听 80 端口，请求异常状态码为：500、502、503、504 时，均展示 html 文件目录中的 50x.html
 
-### 自定义 nginx 配置
+## 自定义 nginx 配置效果
 
-![](images/02.png)
+自定义配置达到效果如下图：
 
-### 自定义反向代理
+![](images/04.png)
+
+监听 82 端口：
+
+- /html 代理本地 html 静态页面
+- /file 代理本地文件资源
+- /api 代理本地 web 服务
+
+### 步骤1：指定加载自定义配置文件
+
+在 conf/nginx.conf 配置中包含指定配置文件目录：
+
+```conf
+    # 添加自定义 nginx 配置目录
+    include ../conf.d/*.conf;
+```
+
+在 nginx 配置根目录中创建：conf.d 文件目录，nginx 运行时会加载这个目录下的所有 nginx 配置文件
 
 ![](images/03.png)
 
-在 my.conf 配置文件中，配置如下：
+### 步骤2：自定义反向代理
+
+在 conf.d/my.conf 配置文件中配置自定义 server 配置：
 
 ```conf
 # 自定义 nginx 配置
@@ -85,20 +102,6 @@ server {
     }
 
     location /api/ {
-        # Add CORS headers
-        add_header 'Access-Control-Allow-Origin' '*' always;
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, OPTIONS' always;
-        add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization, X-Auth-Token' always;
-        add_header 'Access-Control-Allow-Credentials' 'false' always;
-
-        # Handle preflight requests
-        if ($request_method = 'OPTIONS') {
-            add_header 'Access-Control-Allow-Origin' '*';
-            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, OPTIONS';
-            add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization, X-Auth-Token';
-            return 204;
-        }        
-
 		proxy_set_header Host $http_host;
 		proxy_set_header X-Real-IP $remote_addr;
 		proxy_set_header REMOTE-HOST $remote_addr;
@@ -109,5 +112,4 @@ server {
 }
 ```
 
-## linux 平台
-
+![](images/02.png)
