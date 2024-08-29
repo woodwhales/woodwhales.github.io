@@ -129,7 +129,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://image.woodwhales.cn/076/face.jpg">
 <meta property="article:published_time" content="2020-10-04T14:13:00.000Z">
-<meta property="article:modified_time" content="2024-01-01T06:51:06.642Z">
+<meta property="article:modified_time" content="2024-08-29T16:45:38.681Z">
 <meta property="article:author" content="木鲸鱼">
 <meta property="article:tag" content="vsCode C&#x2F;C++ 环境搭建">
 <meta name="twitter:card" content="summary">
@@ -513,7 +513,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 target="_blank" href="https://image.woodwhales.cn/076/face.jpg" rel="gallery_cm09pvbis006i70v869kzhhlx noopener"
+                 target="_blank" href="https://image.woodwhales.cn/076/face.jpg" rel="gallery_cm0finyn5006k0ov8dszp84bj noopener"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://image.woodwhales.cn/076/face.jpg" itemprop="contentUrl"/>
               </a>
@@ -532,8 +532,11 @@
 <p>本文教程参考官方文档：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/config-mingw">https://code.visualstudio.com/docs/cpp/config-mingw</a></p>
 </blockquote>
 <h2 id="安装-Visual-Studio-Code"><a href="#安装-Visual-Studio-Code" class="headerlink" title="安装 Visual Studio Code"></a>安装 Visual Studio Code</h2><p>Visual Studio Code 下载地址：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a></p>
-<p>安装插件：<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">C/C++ extension for VS Code</a></p>
+<p>安装插件：<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">C/C++</a></p>
 <img src="https://image.woodwhales.cn/076/images/01.png" style="zoom: 50%;">
+
+<p>安装插件：<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack">C/C++ Extension Pack</a></p>
+<img src="https://image.woodwhales.cn/076/images/17.png" style="zoom: 50%;">
 
 <p>安装插件：<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner">Code Runner</a></p>
 <img src="https://image.woodwhales.cn/076/images/02.png" style="zoom:50%;">
@@ -546,7 +549,7 @@
 <p>配置系统环境变量：<code>Mingw-w64</code></p>
 <img src="https://image.woodwhales.cn/076/images/04.png" style="zoom:50%;">
 
-<p>将创建好的环境变量配置到 Path 中：</p>
+<p>将创建好的环境变量配置到 Path 中：<code>%Mingw-w64%\bin</code></p>
 <img src="https://image.woodwhales.cn/076/images/05.png" style="zoom:50%;">
 
 <p>配置好 Mingw-w64 系统环境变量之后，打开 cmd 或者 windows terminal 终端窗口，执行如下命令可可以查看 gcc/g++ 编译器版本：</p>
@@ -562,12 +565,36 @@
 
 <img src="https://image.woodwhales.cn/076/images/09.png" style="zoom:50%;">
 
-<h2 id="运行-C-文件"><a href="#运行-C-文件" class="headerlink" title="运行 C 文件"></a>运行 C 文件</h2><p>步骤1：使用 vsCode 创建一个 c 文件：</p>
+<p>解决中文乱码问题：</p>
+<p>步骤1：点击 vsCode 设置：</p>
+<img src="https://image.woodwhales.cn/076/images/22.png" style="zoom:50%;">
+
+<p>步骤2：搜索 code-runner 扩展设置，找到 <code>Executor Map</code>配置：</p>
+<img src="https://image.woodwhales.cn/076/images/23.png" style="zoom:50%;">
+
+<p>步骤3：在<code>code-runner.executorMap</code>配置项中对 C、C++ 添加<code>&amp;&amp; chcp 65001</code>参数：</p>
+<img src="https://image.woodwhales.cn/076/images/24.png" style="zoom:50%;">
+
+<h3 id="C-C-插件配置"><a href="#C-C-插件配置" class="headerlink" title="C/C++ 插件配置"></a>C/C++ 插件配置</h3><p>按下<code>Ctrl + Shift + P</code>键位，输入<code>c/c++</code>，选择：<code>C/C++:Edit Configurations(UI)</code></p>
+<img src="https://image.woodwhales.cn/076/images/18.png" style="zoom:50%;">
+
+<p>更改编译器路径和 IntelliSense 模式：</p>
+<img src="https://image.woodwhales.cn/076/images/19.png" style="zoom:50%;">
+
+<p>下滑设置 c、c++ 的标准：</p>
+<img src="https://image.woodwhales.cn/076/images/20.png" style="zoom:50%;">
+
+<p>设置完成后，我们可以看到，在<code>.vscode</code>文件夹下自动生成了<code>c_cpp_properties.json</code>文件：</p>
+<img src="https://image.woodwhales.cn/076/images/21.png" style="zoom:50%;">
+
+
+
+<h2 id="运行-C-文件"><a href="#运行-C-文件" class="headerlink" title="运行 C 文件"></a>运行 C 文件</h2><p>步骤1：使用 vsCode 创建一个 mian.c 文件：</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> {</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"woodwhales.cn"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <img src="https://image.woodwhales.cn/076/images/10.png" style="zoom: 50%;">
 
-<p>步骤2：创建配置任务文件：在 “终端” 菜单中选择 “配置任务”</p>
+<p>步骤2：创建配置任务文件：在 “Terminal” 菜单中选择 “配置任务”</p>
 <img src="https://image.woodwhales.cn/076/images/11.png" style="zoom: 50%;">
 
 <p>点击 “C/C++”，vsCode 自动生成配置文件：</p>
@@ -576,13 +603,100 @@
 <img src="https://image.woodwhales.cn/076/images/13.png" style="zoom: 50%;">
 
 <p>步骤3：执行 C 文件：</p>
-<img src="https://image.woodwhales.cn/076/images/14.png" style="zoom: 50%;">
+<ul>
+<li>方式1：右击鼠标，选择 Run Code 进行程序执行</li>
+</ul>
+<img src="https://image.woodwhales.cn/076/images/14-1.png" style="zoom: 50%;">
 
+<ul>
+<li>方式2：</li>
+</ul>
 <p>也可以点击按钮执行：</p>
-<img src="https://image.woodwhales.cn/076/images/16.png" style="zoom:50%;">
+<img src="https://image.woodwhales.cn/076/images/14-2.png" style="zoom:50%;">
+
+<p>程序执行成功可以在控制台看见输出结果：</p>
+<img src="https://image.woodwhales.cn/076/images/14-3.png" style="zoom:50%;">
 
 <p>步骤5：生成可执行文件：ctrl + shift + B</p>
 <img src="https://image.woodwhales.cn/076/images/15.png" style="zoom:50%;">
+
+<h2 id="Debug-配置"><a href="#Debug-配置" class="headerlink" title="Debug 配置"></a>Debug 配置</h2><p>在<code>Run</code>菜单项中选择<code>Add Configration</code>：</p>
+<img src="https://image.woodwhales.cn/076/images/25.png" style="zoom:50%;">
+
+<p>选择<code>C++(GDB/LLDB)</code>：</p>
+<img src="https://image.woodwhales.cn/076/images/26.png" style="zoom:50%;">
+
+<p>此时，会生成一个<code>launch.json</code>文件，但是它的内容是空的。</p>
+<p>此时，再次重复上述操作，在<code>configurations</code>配置项中输入字母 C，在快捷选项中选择：<code>C/C++：(gdb)Launch</code>：</p>
+<img src="https://image.woodwhales.cn/076/images/28.png" style="zoom:50%;">
+
+<p>默认配置如下：</p>
+<img src="https://image.woodwhales.cn/076/images/29.png" style="zoom:50%;">
+
+<p>修改上述参数配置模板</p>
+<ul>
+<li><p>修改点1</p>
+<ul>
+<li>文件：launch.json</li>
+<li>参数项：configurations.name</li>
+<li>参数值：Debug</li>
+<li>说明：配置名称</li>
+</ul>
+</li>
+<li><p>修改点2</p>
+<ul>
+<li>文件：launch.json</li>
+<li>参数项：configurations.program</li>
+<li>参数值：${fileDirname}/${fileBasenameNoExtension}.exe</li>
+<li>说明：可执行程序路径</li>
+</ul>
+</li>
+<li><p>修改点3</p>
+<ul>
+<li>文件：launch.json</li>
+<li>参数项：configurations.externalConsole</li>
+<li>参数值：true</li>
+<li>说明：true 表示从外部终端执行，false表示从 VsCode的集成终端执行，可随自己喜好配置</li>
+</ul>
+</li>
+<li><p>修改点4</p>
+<ul>
+<li>文件：launch.json</li>
+<li>参数项：configurations.miDebuggerPath</li>
+<li>参数值：C:\programs\mingw64\bin\gdb.exe</li>
+<li>说明：gdb.exe  文件路径</li>
+</ul>
+</li>
+<li><p>修改点5</p>
+<ul>
+<li>文件：launch.json</li>
+<li>参数项：configurations.preLaunchTask</li>
+<li>参数值：task_g++</li>
+<li>说明：这项在默认模板中没有，需要手动添加出来。调试会话开始前要运行的任务，指定任务名称，必须和修改点 6 保持一致</li>
+</ul>
+</li>
+<li><p>修改点6</p>
+<ul>
+<li>文件：tasks.json</li>
+<li>参数项：tasks.label</li>
+<li>参数值：task_g++</li>
+<li>说明：和修改点5的参数值保持一致</li>
+</ul>
+</li>
+</ul>
+<p>上述配置修改点如图：</p>
+<img src="https://image.woodwhales.cn/076/images/30.png" style="zoom:50%;">
+
+<p>创建测试文件 test.c ：</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="type">int</span> a=<span class="number">10</span>, b=<span class="number">20</span>;</span><br><span class="line">    <span class="type">int</span> c=a+b;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>先对需要 debug 的地方打上断点，再按键 F5 或者点击 Debug 图标对程序进行 debug 调试：</p>
+<img src="https://image.woodwhales.cn/076/images/31.png" style="zoom:50%;">
+
+<img src="https://image.woodwhales.cn/076/images/32.png" style="zoom:50%;">
+
+<p>debug 调试页面如下：</p>
+<img src="https://image.woodwhales.cn/076/images/33.png" style="zoom:50%;">
       
     </div>
     
@@ -609,8 +723,8 @@
 			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
 				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
 				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
-				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2024-01-01</text>
-				<text x="915" y="140" textLength="650" transform="scale(.1)">2024-01-01</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2024-08-30</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2024-08-30</text>
 			</g>
 			
 		</svg>
@@ -937,7 +1051,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Visual-Studio-Code"><span class="nav-text">安装 Visual Studio Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Mingw-w64"><span class="nav-text">安装 Mingw-w64</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visual-Studio-Code-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE"><span class="nav-text">Visual Studio Code 常用设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Visual-Studio-Code-%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E4%BF%9D%E5%AD%98"><span class="nav-text">Visual Studio Code 设置自动保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Code-Runner-%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="nav-text">Code Runner 插件配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-C-%E6%96%87%E4%BB%B6"><span class="nav-text">运行 C 文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Visual-Studio-Code"><span class="nav-text">安装 Visual Studio Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Mingw-w64"><span class="nav-text">安装 Mingw-w64</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visual-Studio-Code-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE"><span class="nav-text">Visual Studio Code 常用设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Visual-Studio-Code-%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E4%BF%9D%E5%AD%98"><span class="nav-text">Visual Studio Code 设置自动保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Code-Runner-%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="nav-text">Code Runner 插件配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-C-%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="nav-text">C&#x2F;C++ 插件配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-C-%E6%96%87%E4%BB%B6"><span class="nav-text">运行 C 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debug-%E9%85%8D%E7%BD%AE"><span class="nav-text">Debug 配置</span></a></li></ol></div>
             
 
           </div>
