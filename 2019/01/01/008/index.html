@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="java, redis, nosql, 缓存, 高并发, 集群" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="分布式缓存数据库的典范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis 学习笔记 | 安装与启动">
+<meta property="og:url" content="https://woodwhales.cn/2019/01/01/008/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="分布式缓存数据库的典范">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/008/face.png">
+<meta property="article:published_time" content="2019-01-01T10:03:00.000Z">
+<meta property="article:modified_time" content="2018-12-31T16:00:00.000Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/008/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2019/01/01/008/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>redis 学习笔记 | 安装与启动 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2019/01/01/008/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">redis 学习笔记 | 安装与启动</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-01T18:03:00+08:00">
+                2019-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/01/008/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/01/008/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  分布式缓存数据库的典范
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/008/face.png" rel="gallery_cmb21nrh7000nm8v83sl45xq5 noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/008/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <h4 id="一、下载"><a href="#一、下载" class="headerlink" title="一、下载"></a>一、下载</h4><p>官网地址：<a target="_blank" rel="noopener" href="https://redis.io/">https://redis.io/</a></p>
+<p>目前最新稳定版本是：<code>redis-5.0.3</code></p>
+<p>下载链接：<a target="_blank" rel="noopener" href="http://download.redis.io/releases/redis-5.0.3.tar.gz">http://download.redis.io/releases/redis-5.0.3.tar.gz</a></p>
+<p>官方快速入门文档：<a target="_blank" rel="noopener" href="https://redis.io/topics/quickstart">https://redis.io/topics/quickstart</a></p>
+<blockquote>
+<p>如果不想安装 redis，官网提供了个网页版体验模拟器：<a target="_blank" rel="noopener" href="https://redis.io/commands">Web Redis</a> </p>
+</blockquote>
+<h4 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h4><p><strong>步骤 1：</strong> 本文安装环境为：<code>CentOS Linux release 7.4.1708 (Core)</code></p>
+<figure class="highlight shell"><figcaption><span>查看 linux 系统版本</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/redhat-release</span><br><span class="line">或者</span><br><span class="line">cat /proc/version</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤 2：</strong> 将 gz 安装包在<code>/usr/</code>目录下进行解压：</p>
+<figure class="highlight shell"><figcaption><span>解压 redis 安装包</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvzf redis-stable.tar.gz</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤 3：</strong> 编译</p>
+<p>进入 redis 安装文件夹，执行<code>make</code>命令进行编译：</p>
+<figure class="highlight shell"><figcaption><span>编译 redis</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></tbody></table></figure>
+
+<p>编译完成之后，出现下面的信息提示，就表示安装成功：</p>
+<figure class="highlight shell"><figcaption><span>编译完成之后的日志提示</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    CC redis-benchmark.o</span><br><span class="line">    LINK redis-benchmark</span><br><span class="line">    INSTALL redis-check-rdb</span><br><span class="line">    INSTALL redis-check-aof</span><br><span class="line"></span><br><span class="line">Hint: It's a good idea to run 'make test' ;)</span><br><span class="line"></span><br><span class="line">make[1]: Leaving directory `/usr/redis-5.0.3/src'</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤4：</strong> 编译完成之后，会在当前目录下生成了一个<code>src</code>文件，进入此目录进行安装操作：</p>
+<figure class="highlight shell"><figcaption><span>安装redis</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd src/</span><br><span class="line">make install</span><br></pre></td></tr></tbody></table></figure>
+
+<p>提示下面信息，表示安装成功：</p>
+<figure class="highlight shell"><figcaption><span>安装完成后的日志提示</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">    CC Makefile.dep</span><br><span class="line"></span><br><span class="line">Hint: It's a good idea to run 'make test' ;)</span><br><span class="line"></span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br><span class="line">    INSTALL install</span><br></pre></td></tr></tbody></table></figure>
+
+<p>并且可以在<code>src</code>目录下看到：<code>redis-server</code>和<code>redis-cli</code>等可执行文件。 </p>
+<p>另外，在<code>/usr/local/bin/</code>文件目录下已经存在了下面这些可执行文件：</p>
+<figure class="highlight shell"><figcaption><span>redis 安装之后的 src 文件目录结构</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis-benchmark  # Redis服务器端启动程序</span><br><span class="line">redis-check-aof  # Redis客户端操作工具。也可以用telnet根据其纯文本协议来操作</span><br><span class="line">redis-check-rdb  # Redis性能测试工具</span><br><span class="line">redis-cli        # 数据修复工具</span><br><span class="line">redis-server     # 检查导出工具</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>注意：</p>
+<p>1、make 安装过程如果报找不到 cc 命令错：<br><code>/bin/sh: cc: command not found</code><br>上面的错误提示表示系统没有 gcc 编译器，需要安装 gcc 编译器：&nbsp;<code>yum install gcc</code></p>
+<p>2、安装 gcc 编译工具之后，继续出现下面错误：<br><code>zmalloc.h:50:31: error: jemalloc/jemalloc.h: No such file or directory</code><br>则需要将&nbsp;<code>make</code>&nbsp;命令改为&nbsp;<code>make MALLOC=libc</code> 再执行<br>或者使用 <code>make distclean</code> 进行清理再执行&nbsp;<code>make</code>&nbsp;命令</p>
+</blockquote>
+<h4 id="三、启动"><a href="#三、启动" class="headerlink" title="三、启动"></a>三、启动</h4><p>在<code>src</code>目录下必须先启动服务：</p>
+<figure class="highlight shell"><figcaption><span>启动 redis</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server</span><br></pre></td></tr></tbody></table></figure>
+
+<p>系统提示了 redis 启动画面，即可表示启动成功：</p>
+<figure class="highlight shell"><figcaption><span>redis 启动日志</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon src]# ./redis-server</span><br><span class="line">5688:C 27 Dec 2018 02:00:10.120 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">5688:C 27 Dec 2018 02:00:10.120 # Redis version=5.0.3, bits=64, commit=00000000, modified=0, pid=5688, just started</span><br><span class="line">5688:C 27 Dec 2018 02:00:10.120 # Warning: no config file specified, using the default config. In order to specify a config file use ./redis-server /path/to/redis.conf</span><br><span class="line">5688:M 27 Dec 2018 02:00:10.121 * Increased maximum number of open files to 10032 (it was originally set to 1024).</span><br><span class="line">                _._</span><br><span class="line">           _.-``__ ''-._</span><br><span class="line">      _.-``    `.  `_.  ''-._           Redis 5.0.3 (00000000/0) 64 bit</span><br><span class="line">  .-`` .-```.  ```\/    _.,_ ''-._</span><br><span class="line"> (    '      ,       .-`  | `,    )     Running in standalone mode</span><br><span class="line"> |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379</span><br><span class="line"> |    `-._   `._    /     _.-'    |     PID: 5688</span><br><span class="line">  `-._    `-._  `-./  _.-'    _.-'</span><br><span class="line"> |`-._`-._    `-.__.-'    _.-'_.-'|</span><br><span class="line"> |    `-._`-._        _.-'_.-'    |           http://redis.io</span><br><span class="line">  `-._    `-._`-.__.-'_.-'    _.-'</span><br><span class="line"> |`-._`-._    `-.__.-'    _.-'_.-'|</span><br><span class="line"> |    `-._`-._        _.-'_.-'    |</span><br><span class="line">  `-._    `-._`-.__.-'_.-'    _.-'</span><br><span class="line">      `-._    `-.__.-'    _.-'</span><br><span class="line">          `-._        _.-'</span><br><span class="line">              `-.__.-'</span><br><span class="line"></span><br><span class="line">5688:M 27 Dec 2018 02:00:10.122 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.</span><br><span class="line">5688:M 27 Dec 2018 02:00:10.122 # Server initialized</span><br><span class="line">5688:M 27 Dec 2018 02:00:10.122 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.</span><br><span class="line">5688:M 27 Dec 2018 02:00:10.122 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.</span><br><span class="line">5688:M 27 Dec 2018 02:00:10.122 * Ready to accept connections</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意：redis 服务默认端口是：<code>6379</code>，此时进程一直停留在了 redis 服务界面，如果要停止就得<code>ctrl + C</code>强行终止程序。</p>
+<blockquote>
+<p>验证启动是否成功：<br>1、查看是否有redis服务 ： <code>ps -ef | grep redis</code><br>2、查看端口：<code>netstat -tunpl | grep 6379</code></p>
+</blockquote>
+<h4 id="四、设置后台运行"><a href="#四、设置后台运行" class="headerlink" title="四、设置后台运行"></a>四、设置后台运行</h4><p>回到 redis 安装目录，在此目录下，会存在一个<code>redis.conf</code>配置文件，修改配置信息设置 redis 服务为后台启动，将<code>daemonize</code>的属性由<code>no</code>改为<code>yes</code>：</p>
+<figure class="highlight plaintext"><figcaption><span>redis 后台启动配置设置</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># By default Redis does not run as a daemon. Use 'yes' if you need it.</span><br><span class="line"># Note that Redis will write a pid file in /var/run/redis.pid when daemonized.</span><br><span class="line">daemonize yes</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>注意：每次修改完<code>redis.conf</code>文件需要重启 redis 并读取最新的配置文件。</p>
+</blockquote>
+<h4 id="五、设置快捷启动"><a href="#五、设置快捷启动" class="headerlink" title="五、设置快捷启动"></a>五、设置快捷启动</h4><p>将 redis 安装文件目录中的<code>redis.conf</code>文件复制一份到<code>/etc/</code>目录：</p>
+<figure class="highlight shell"><figcaption><span>复制一份原生配置到系统配置目录</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp ./redis.conf /etc/</span><br></pre></td></tr></tbody></table></figure>
+
+<p>进入<code>/usr/local/bin</code>目录，启动 redis 服务：</p>
+<figure class="highlight shell"><figcaption><span>启动 redis</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/bin</span><br><span class="line">./redis-server /etc/redis.conf</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果启动成功，则提示下面信息：</p>
+<figure class="highlight shell"><figcaption><span>redis 启动成功的系统日志</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon src]# cd /usr/local/bin/</span><br><span class="line">[root@bogon bin]# redis-server /etc/redis.conf</span><br><span class="line">5780:C 27 Dec 2018 02:28:34.575 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span><br><span class="line">5780:C 27 Dec 2018 02:28:34.576 # Redis version=5.0.3, bits=64, commit=00000000, modified=0, pid=5780, just started</span><br><span class="line">5780:C 27 Dec 2018 02:28:34.576 # Configuration loaded</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="六、查看-redis-服务启动情况"><a href="#六、查看-redis-服务启动情况" class="headerlink" title="六、查看 redis 服务启动情况"></a>六、查看 redis 服务启动情况</h4><figure class="highlight shell"><figcaption><span>检查 redis 是否启动</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep redis</span><br></pre></td></tr></tbody></table></figure>
+
+<p>看到下面信息也表示 redis 服务启动成功：</p>
+<figure class="highlight shell"><figcaption><span>redis 进程日志</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon bin]# ps -ef | grep redis</span><br><span class="line">root       5781      1  0 02:28 ?        00:00:00 redis-server 127.0.0.1:6379</span><br><span class="line">root       5786   1229  0 02:29 pts/0    00:00:00 grep --color=auto redis</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="七、开启防火墙端口"><a href="#七、开启防火墙端口" class="headerlink" title="七、开启防火墙端口"></a>七、开启防火墙端口</h4><figure class="highlight shell"><figcaption><span>开启端口</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">永久开启 6379 端口</span></span><br><span class="line">firewall-cmd --zone=public --add-port=6379/tcp --permanent</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重启端口</span></span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="八、使用-redis-cli-连接-redis-服务"><a href="#八、使用-redis-cli-连接-redis-服务" class="headerlink" title="八、使用 redis-cli 连接 redis 服务"></a>八、使用 redis-cli 连接 redis 服务</h4><p>在<code>/usr/local/bin</code>目录下，存在 redis 的客户端可执行文件：<code>redis-cli</code></p>
+<blockquote>
+<p>redis-cli 执行命令：<code>redis-cli -h 主机IP -p 端口号 -a 密码</code><br>例： redis-cli -h 127.0.0.1 -p 6379 -a root123</p>
+</blockquote>
+<p>使用<code>redis-cli</code>连接 redis 服务，进行 ping-pong 测试及插入 key-value 进行进测试：</p>
+<figure class="highlight shell"><figcaption><span>客户端连接 redis</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon bin]# redis-cli -h 127.0.0.1 -p 6379</span><br><span class="line">127.0.0.1:6379&gt; set mykey abc</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get mykey</span><br><span class="line">"abc"</span><br><span class="line">127.0.0.1:6379&gt; shutdown</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>注意：<br><code>redis-cli</code>连接 redis 服务成功之后，会进入服务 IP + 端口的命令控制台，<br>停止 redis 服务命令：<code>shutdown</code><br>退出当前<code>redis-cli</code>与 redis 服务连接命令：<code>quit</code> </p>
+</blockquote>
+<h4 id="九、设置-redis-服务开机自启动"><a href="#九、设置-redis-服务开机自启动" class="headerlink" title="九、设置 redis 服务开机自启动"></a>九、设置 redis 服务开机自启动</h4><p>让 redis 服务开机运行，可以将其添加到<code>rc.local</code>文件，或者将其添加为系统的 service 服务。</p>
+<p><strong>1. 配置 rc.local 文件</strong></p>
+<p>本文使用<code>rc.local</code>的方式，命令： </p>
+<figure class="highlight shell"><figcaption><span>配置 redis 启动命令到系统启动文件内</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo "/usr/local/bin/redis-server /etc/redis.conf" &gt;&gt; /etc/rc.local</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>2. 配置到 service 服务</strong></p>
+<blockquote>
+<p>配置到系统服务的基本原理：<br>系统开机启动时会去加载<code>/etc/init.d/</code>文件目录下面的所有脚本文件，通常每个脚本文件会自定义实现程序的启动；若想将新的程序开机自启动，只需在该目录下添加一个自定义启动程序的脚本，然后设置相应启动规则即可。 </p>
+</blockquote>
+<p>如在这里我们在<code>/etc/init.d/</code>文件目录下（和<code>/etc/rc.d/init.d/</code>目录相同）创建一个<code>redis</code>脚本，</p>
+<p>比较方便的是：在 redis 安装目录下的<code>utils</code>目录下存在一个：<code>redis_init_script</code>可执行脚本，将其拷贝到<code>&nbsp; /etc/init.d</code> 下，并修改名字为<code>redis</code>： </p>
+<figure class="highlight shell"><figcaption><span>复制 redis 启动脚本</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/redis-5.0.3/utils/redis_init_script /etc/init.d/redis</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在脚本文件中增加启动注释信息（下方的最后两行）：</p>
+<figure class="highlight shell"><figcaption><span>增加系统 chkconfig 注释</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># Simple Redis init.d script conceived to work on Linux systems</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">as it does use of the /proc filesystem.</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">chkconfig: 2345 90 10</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">description: Redis is a persistent key-value database</span></span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>说明：redis 服务必须在运行级 2，3，4，5 下被启动或关闭，启动的优先级是 90，关闭的优先级是 10。 </p>
+</blockquote>
+<p>修改该脚本中<code>CONF</code>的配置文件路径为本地自定义的配置文件路径： </p>
+<figure class="highlight shell"><figcaption><span>自定义配置路径</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONF="/etc/redis.conf"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>配置脚本文件初始化及设置开机自启：</p>
+<figure class="highlight shell"><figcaption><span>授权脚本并设置开机自启</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /etc/init.d/redis</span><br><span class="line">chkconfig redis on</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight shell"><figcaption><span>chkconfig 常用命令</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --list			    #列出所有的系统服务</span><br><span class="line">chkconfig --add httpd			#增加httpd服务</span><br><span class="line">chkconfig --del httpd			#删除httpd服务</span><br><span class="line">chkconfig --level httpd 2345 on  #设置httpd在运行级别为2、3、4、5的情况下都是on（开启）的状态</span><br><span class="line">chkconfig --list			    #列出系统所有的服务启动情况</span><br><span class="line">chkconfig --list mysqld          #列出mysqld服务设置情况</span><br><span class="line">chkconfig --level 35 mysqld on   #设定mysqld在等级3和5为开机运行服务，--level 35表示操作只在等级3和5执行，on表示启动，off表示关闭</span><br><span class="line">chkconfig mysqld on              #设定mysqld在各等级为on，“各等级”包括2、3、4、5等级</span><br><span class="line"></span><br><span class="line">等级0表示：表示关机</span><br><span class="line">等级1表示：单用户模式</span><br><span class="line">等级2表示：无网络连接的多用户命令行模式</span><br><span class="line">等级3表示：有网络连接的多用户命令行模式</span><br><span class="line">等级4表示：不可用</span><br><span class="line">等级5表示：带图形界面的多用户模式</span><br><span class="line">等级6表示：重新启动</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>测试脚本运行情况，启动：<code>service redis start</code>，停止：<code>service redis stop</code></p>
+<figure class="highlight shell"><figcaption><span>redis 服务脚本启动或停止</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service redis start</span><br><span class="line">service redis stop</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="十、设置密码"><a href="#十、设置密码" class="headerlink" title="十、设置密码"></a>十、设置密码</h4><p><strong>1. 初始化 redis 密码</strong></p>
+<p>redis 没有实现访问控制这个功能，但是它提供了一个轻量级的认证方式，可以编辑<code>redis.conf</code>配置来启用认证。在<code>redis.conf</code>配置文件中找到<code>requirepass</code>：</p>
+<figure class="highlight plaintext"><figcaption><span>密码配置</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># requirepass foobared</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将其注释符号去掉，并修改成自己的密码，如：<code>requirepass root123</code>即可。</p>
+<p>配置修改完毕之后，需要重新启动 redis 服务。 </p>
+<blockquote>
+<p>注意：</p>
+<p>redis 查询速度极快，<code>auth</code>这种命令每秒能处理 10w 次以上，简单的 redis 的密码极容易被攻击者暴破，因此建议<code>requirepass</code>至少长度 20 位以上，为方便可使用一个特殊串 sha256sum 命令生成64位的无特殊字符串。</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash"><span class="built_in">echo</span> <span class="string">"dfasdERQEWRQEW31341dfadsfadsf"</span> | <span class="built_in">sha256sum</span></span></span><br><span class="line">af970b3691a0774b2a5adae1375e14cd9e5db3591564f0eb789c2324cc02362f</span><br></pre></td></tr></tbody></table></figure>
+</blockquote>
+<p><strong>2. 不重启 redis 设置密码</strong> </p>
+<p>在配置文件中配置<code>requirepass</code>的密码（当 redis 重启时密码依然有效）。 </p>
+<figure class="highlight shell"><figcaption><span>设置密码</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; config set requirepass  ed4c39b015b0e46f074dbfd0a9a4ab278f63340a6d640999f25c68a932fef815 </span><br></pre></td></tr></tbody></table></figure>
+
+<p>查询密码：</p>
+<figure class="highlight shell"><figcaption><span>查询密码</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; config get requirepass</span><br><span class="line">   (error) ERR operation not permitted</span><br></pre></td></tr></tbody></table></figure>
+
+<p>密码验证： </p>
+<figure class="highlight shell"><figcaption><span>密码验证</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; auth ed4c39b015b0e46f074dbfd0a9a4ab278f63340a6d640999f25c68a932fef815</span><br><span class="line"></span><br><span class="line">   OK</span><br></pre></td></tr></tbody></table></figure>
+
+<p>再次查询： </p>
+<figure class="highlight shell"><figcaption><span>查询密码配置</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; config get requirepass</span><br><span class="line">   1) "requirepass"</span><br><span class="line">   2) "ed4c39b015b0e46f074dbfd0a9a4ab278f63340a6d640999f25c68a932fef815"</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>注意：如果配置文件中没添加密码，那么 redis 重启后，密码会失效。 </p>
+</blockquote>
+<p><strong>3. 登陆带密码的 redis</strong></p>
+<p>在登录的时候的时候输入密码： </p>
+<figure class="highlight shell"><figcaption><span>登录时需要密码</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h 127.0.0.1 -p 6379 -a ed4c39b015b0e46f074dbfd0a9a4ab278f63340a6d640999f25c68a932fef815</span><br></pre></td></tr></tbody></table></figure>
+
+<p>先登陆后验证： </p>
+<figure class="highlight shell"><figcaption><span>先验证密码再连接</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -p 6379</span><br><span class="line">redis 127.0.0.1:6379&gt; auth ed4c39b015b0e46f074dbfd0a9a4ab278f63340a6d640999f25c68a932fef815</span><br><span class="line"></span><br><span class="line">   OK</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>AUTH</code>命令跟其他 redis 命令一样，是不加密的，因此不能完全阻止攻击者窃取密码。</p>
+<p>认证层的目标是提供多一层的轻量级保护。如果防火墙或者用来保护 redis 的系统防御外部攻击失败的话，外部用户如果没有通过密码认证还是无法访问 redis 服务。</p>
+<h4 id="十一、禁用或重命名危险命令"><a href="#十一、禁用或重命名危险命令" class="headerlink" title="十一、禁用或重命名危险命令"></a>十一、禁用或重命名危险命令</h4><p>攻击者常利用<code>config / save</code>两个命令完成 redis 攻击 （因为 redis 无用户权限限制），因此建议对这两个危险的命令，使用<code>rename</code>配置项进行禁用或重命名，这样外部不了解重命名规则攻击者，就不能执行这类命令。</p>
+<p>在<code>redis.conf</code>配置文件禁用<code>FLUSHDB</code>、<code>FLUSHALL</code>两个命令，或者重命名<code>CONFIG</code>、<code>SHUTDOWN</code>命令（添加一个特殊的后缀）。这样 redis 服务启动后，只能运行重命名之后的命令，不能执行原始的<code>CONFIG</code>命令：</p>
+<figure class="highlight shell"><figcaption><span>禁用 redis 命令</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">It is also possible to completely <span class="built_in">kill</span> a <span class="built_in">command</span> by renaming it into</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">an empty string:</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">rename-command CONFIG CONFIG_b9fc8327c4dee7</span></span><br><span class="line">rename-command SHUTDOWN SHUTDOWN_b9fc8327c4dee7</span><br><span class="line">rename-command FLUSHDB ""  #禁用此命令</span><br><span class="line">rename-command FLUSHALL ""  #禁用此命令</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意：如果重命名命令之后，再启动 redis 服务报下面错误：</p>
+<figure class="highlight shell"><figcaption><span>重命名命令之后提示错误</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DENIED Redis is running protected mode because protected mode is enabled,</span><br><span class="line">no bind address was specified, no authentication password is requested to clients.</span><br><span class="line">In this mode connections are only accepted from the loopback interface.</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以参见官方文档解释：<a target="_blank" rel="noopener" href="http://redis.io/topics/persistence">http://redis.io/topics/persistence</a></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">############################## APPEND ONLY MODE ###############################</span><br><span class="line"></span><br><span class="line"># 默认情况下，Redis是异步的把数据导出到磁盘上。这种模式在很多应用里已经足够好，但Redis进程</span><br><span class="line"># 出问题或断电时可能造成一段时间的写操作丢失(这取决于配置的save指令)。</span><br><span class="line">#</span><br><span class="line"># AOF是一种提供了更可靠的替代持久化模式，例如使用默认的数据写入文件策略（参见后面的配置）</span><br><span class="line"># 在遇到像服务器断电或单写情况下Redis自身进程出问题但操作系统仍正常运行等突发事件时，Redis</span><br><span class="line"># 能只丢失1秒的写操作。</span><br><span class="line">#</span><br><span class="line"># AOF和RDB持久化能同时启动并且不会有问题。</span><br><span class="line"># 如果AOF开启，那么在启动时Redis将加载AOF文件，它更能保证数据的可靠性。</span><br><span class="line">#</span><br><span class="line"># 请查看 http://redis.io/topics/persistence 来获取更多信息.</span><br><span class="line"></span><br><span class="line">appendonly no</span><br><span class="line"></span><br><span class="line"># 纯累加文件名字（默认："appendonly.aof"）</span><br><span class="line"></span><br><span class="line">appendfilename "appendonly.aof"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>把配置改了<code>appendonly</code>的 yes 改为 no，重启 redis 服务即可。 </p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2019-01-01</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2019-01-01</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/01/01/008/">redis 学习笔记 | 安装与启动</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2019/01/01/008/" title="redis 学习笔记 | 安装与启动">https://woodwhales.cn/2019/01/01/008/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2019/01/01/008/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis/" rel="tag"><i class="fa fa-tag"></i> redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/22/002/" rel="next" title="优秀博客集锦">
+                <i class="fa fa-chevron-left"></i> 优秀博客集锦
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/09/009/" rel="prev" title="我的 2018 与 2019">
+                我的 2018 与 2019 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%8B%E8%BD%BD"><span class="nav-text">一、下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85"><span class="nav-text">二、安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%90%AF%E5%8A%A8"><span class="nav-text">三、启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E8%AE%BE%E7%BD%AE%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C"><span class="nav-text">四、设置后台运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%AE%BE%E7%BD%AE%E5%BF%AB%E6%8D%B7%E5%90%AF%E5%8A%A8"><span class="nav-text">五、设置快捷启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%9F%A5%E7%9C%8B-redis-%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8%E6%83%85%E5%86%B5"><span class="nav-text">六、查看 redis 服务启动情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%BC%80%E5%90%AF%E9%98%B2%E7%81%AB%E5%A2%99%E7%AB%AF%E5%8F%A3"><span class="nav-text">七、开启防火墙端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E4%BD%BF%E7%94%A8-redis-cli-%E8%BF%9E%E6%8E%A5-redis-%E6%9C%8D%E5%8A%A1"><span class="nav-text">八、使用 redis-cli 连接 redis 服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E8%AE%BE%E7%BD%AE-redis-%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="nav-text">九、设置 redis 服务开机自启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81"><span class="nav-text">十、设置密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E7%A6%81%E7%94%A8%E6%88%96%E9%87%8D%E5%91%BD%E5%90%8D%E5%8D%B1%E9%99%A9%E5%91%BD%E4%BB%A4"><span class="nav-text">十一、禁用或重命名危险命令</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

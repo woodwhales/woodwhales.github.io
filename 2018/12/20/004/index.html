@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="java,synchronized,Java,volatitle,并发,同步,编程" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="并发机制的底层实现原理：volatitle 关键字和锁的机制。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发编程的艺术 | 学习笔记（二）">
+<meta property="og:url" content="https://woodwhales.cn/2018/12/20/004/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="并发机制的底层实现原理：volatitle 关键字和锁的机制。">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/004/face.png">
+<meta property="article:published_time" content="2018-12-20T10:03:00.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.161Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="并发编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/004/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2018/12/20/004/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>并发编程的艺术 | 学习笔记（二） | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2018/12/20/004/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">并发编程的艺术 | 学习笔记（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-20T18:03:00+08:00">
+                2018-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">并发编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/20/004/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/20/004/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  并发机制的底层实现原理：volatitle 关键字和锁的机制。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/004/face.png" rel="gallery_cmb21nrgk0003m8v8bamxb596 noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/004/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <h3 id="第2章-Java-并发机制的底层实现原理"><a href="#第2章-Java-并发机制的底层实现原理" class="headerlink" title="第2章　Java 并发机制的底层实现原理"></a>第2章　Java 并发机制的底层实现原理</h3><p>Java 代码在编译后会变成 Java 字节码，字节码被类加载器加载到 JVM 里，JVM 执行字节码，JVM 再将字节码翻译转化为汇编指令，使其在 CPU 上执行。</p>
+<p>Java 中所使用的并发机制依赖于 JVM 的实现和 CPU 的指令。本章将深入底层一起探索下 Java 并发机制的底层实现原理。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/specs/index.html">Java 虚拟机规范官方文档</a></p>
+</blockquote>
+<h4 id="一、volatile-的应用"><a href="#一、volatile-的应用" class="headerlink" title="一、volatile 的应用"></a>一、volatile 的应用</h4><p>在多线程并发编程中 synchronized 和 volatile 都扮演着重要的角色，volatile 是轻量级的 synchronized，它在多处理器开发中保证了共享变量的”可见性”。</p>
+<p><strong>可见性就是当一个线程修改一个共享变量时，另外一个线程能读到这个修改的值。</strong></p>
+<p>如果 volatile 变量修饰符使用恰当的话，它比 synchronized 的使用和执行成本更低，因为它不会引起线程上下文的切换和调度。本文将深入分析在硬件层面上 Intel 处理器是如何实现 volatile 的，通过深入分析帮助我们正确地使用 volatile 变量。</p>
+<blockquote>
+<p>移步阅读笔者之前写过的学习笔记：</p>
+<p>细说Java多线程之内存可见性：学习笔记（一）</p>
+<p>细说Java多线程之内存可见性：学习笔记（二）</p>
+</blockquote>
+<h5 id="1-1-volatile-的定义与实现原理"><a href="#1-1-volatile-的定义与实现原理" class="headerlink" title="1.1 volatile 的定义与实现原理"></a>1.1 volatile 的定义与实现原理</h5><h5 id="1-1-1-volatile-定义"><a href="#1-1-1-volatile-定义" class="headerlink" title="1.1.1 volatile 定义"></a>1.1.1 volatile 定义</h5><p>Java 语言规范第 3 版中对 volatile 的定义如下：Java 编程语言允许线程访问共享变量，为了确保共享变量能被准确和一致地更新，线程应该确保通过排他锁单独获得这个变量。因此 Java 语言提供了 volatile，在某些情况下比 synchronized 锁要更加方便。如果一个字段被声明成 volatile，Java 线程内存模型确保所有线程看到这个变量的值是一致的。</p>
+<blockquote>
+<p>从上述描述中可知：volatile 可以保证共享变量的可见性，并没有保证原子性。</p>
+</blockquote>
+<p><strong>CPU 术语说明：</strong></p>
+<p>volatile 保证线程的可见性，在 JVM 的底层中一定使用到了 CPU 操作指令，因此有必要先了解一下 CPU 中的一些基础术语：</p>
+<ul>
+<li><strong>内存屏障（memory barriers）</strong><br>是一组处理器指令，用于实现对内存操作的顺序限制。</li>
+<li><strong>缓冲行（cache line）</strong><br>缓存中可以分配的最小存储单位。处理器填写缓存线时会加载整个缓存线，需要使用多个主内存的读周期。</li>
+<li><strong>原子操作（atomic operations）</strong><br>不可中断的一个或一系列操作。</li>
+<li><strong>缓冲行填充（cache line fill）</strong><br>当处理器识别到从内存中读取操作数是可缓存的，处理器读取整个缓存行到适当的缓存（L1，L2，L3 的或所有）。</li>
+<li><strong>缓冲命中（cache hit）</strong><br>如果进行高速缓存行填充操作的内存位置仍然是下次处理器访问的地址时，处理器从缓存中读取操作数，而不是从内存读取。</li>
+<li><strong>写命中（write hit）</strong><br>当处理器将操作数写回到一个内存缓存的区域时，它首先会检查这个缓存的内存地址是否在缓存行中，如果存在一个有效的缓存行，则处理器将这个操作数写回到缓存，而不是写回到内存，这个操作被成为写命中。</li>
+<li><strong>写缺失（write misses the cache）</strong><br>一个有效的缓存行被写入到不存在的内存区域。</li>
+</ul>
+<h5 id="1-1-2-volatile-的实现原理"><a href="#1-1-2-volatile-的实现原理" class="headerlink" title="1.1.2 volatile 的实现原理"></a>1.1.2 volatile 的实现原理</h5><p>如果对声明了 volatile 的共享变量进行写操作时，JVM 就会向处理器发送一条 Lock 前缀的指令（JVM 翻译转化成的汇编指令），目的就是将这个变量所在缓存行的数据写回到系统内存。</p>
+<p>当某个线程写完自己工作内存的操作数，并通过 JVM 携带的 Lock 前缀指令告知当前写完的操作数要及时更新到系统内存。</p>
+<p>仅仅这一步还不够，因为其他线程的工作内存中的操作数还是原来的状态，而不是当前系统内存中最新的操作数。同时处理器本身的机制决定了线程之前不能直接通信：为了提高处理速度，处理器不直接和内存进行通信，而是先将系统内存的数据读到内部缓存（L1，L2或其他）后再进行操作，但操作完不知道何时会写到内存。</p>
+<p><strong>那如何保证其他线程操作数之前能拿到最新的操作数呢？</strong></p>
+<p><strong>在多处理器下，为了保证各个处理器的缓存是一致的，就会实现缓存一致性协议</strong>，每个处理器通过嗅探在总线上传播的数据来检查自己缓存的值是不是过期了，当处理器发现自己缓存行对应的内存地址在系统内存中被修改了，就会将当前处理器的缓存行设置成无效状态，当处理器对这个数据进行修改操作的时候，会重新从系统内存中把数据读到处理器缓存里。</p>
+<h5 id="1-1-3-volatile-的两条实现原则"><a href="#1-1-3-volatile-的两条实现原则" class="headerlink" title="1.1.3 volatile 的两条实现原则"></a>1.1.3 volatile 的两条实现原则</h5><ul>
+<li><p><strong>Lock 前缀指令会引起处理器缓存回写到内存</strong></p>
+<p>对于不同的处理器版本，Lock 前缀指令导致在执行指令期间，对声言处理器的<code>LOCK#</code>信号有不同的处理机制：</p>
+<p>对于 Intel 486 和 Pentium 处理器，LOCK# 信号确保在声言该信号期间，处理器可以独占任何共享内存，因为它会<strong>锁住总线</strong>，导致其他 CPU 不能访问总线，不能访问总线就意味着不能访问系统内存。</p>
+<p>在 P 6 和目前的处理器中，如果访问的内存区域已经缓存在处理器内部，则不会声言 LOCK# 信号。它会锁定这块内存区域的缓存并回写到内存，并使用缓存一致性机制来确保修改的原子性，此操作被称为**”缓存锁定”**，缓存一致性机制会阻止同时修改由两个以上处理器缓存的内存区域数据。</p>
+</li>
+<li><p><strong>一个处理器的缓存回写到内存会导致其他处理器的缓存无效</strong></p>
+<p>IA-32 处理器和 Intel 64 处理器使用<code>MESI</code>（修改、独占、共享、无效）控制协议去维护内部缓存和其他处理器缓存的一致性。</p>
+<p><strong>处理器的嗅探技术：</strong></p>
+<p>在多核处理器系统中进行操作的时候，处理器能嗅探其他处理器访问系统内存和它们的内部缓存，以保证它的内部缓存、系统内存和其他处理器的缓存的数据在总线上保持一致。</p>
+<p>例如，在 Pentium 和 P 6 family 处理器中，如果通过嗅探一个处理器来检测其他处理器打算写内存地址（并且这个地址当前处于共享状态），那么正在嗅探的处理器将使它的缓存行无效，在下次访问相同内存地址时，强制执行缓存行填充。</p>
+</li>
+</ul>
+<h5 id="1-1-4-volatile的使用优化"><a href="#1-1-4-volatile的使用优化" class="headerlink" title="1.1.4 volatile的使用优化"></a>1.1.4 volatile的使用优化</h5><p>在 JDK 7 的并发包里新增一个队列集合类<code>Linked-TransferQueue</code>，它在使用 volatile 变量时，用一种追加字节的方式来优化队列出队和入队的性能。</p>
+<p>这个内部类<code>PaddedAtomicReference</code>相对于父类<code>AtomicReference</code>只做了一件事情，就是将共享变量追加到 64 字节。因为目前主流处理器高速缓存行是 64 个字节宽，不支持部分填充缓存行，通过追加到 64 字节的方式填满高速缓冲区的缓存行，避免各元素加载到同一缓存行而互相锁定。</p>
+<blockquote>
+<p>并不是所有的使用 volatile 变量时都应该追加到 64 字节：</p>
+<p>1）对于缓存行非 64 字节宽的处理器。如 P 6 系列和奔腾处理器，它们的 L1 和L2 高速缓存行是32个字节宽。</p>
+<p>2）如果共享变量不被频繁写的话，锁的机率很小，就没必要通过追加字节的方式来避免相互锁定。因为追加字节的方式需要处理器读取更多的字节到高速缓冲区，需要更高的性能消耗。</p>
+</blockquote>
+<p>不过这种追加字节的方式在Java 7下可能不生效，因为Java 7变得更加智慧，它会淘汰或重新排列无用字段，需要使用其他追加字节的方式。</p>
+<h4 id="二、synchronized-的应用"><a href="#二、synchronized-的应用" class="headerlink" title="二、synchronized 的应用"></a>二、synchronized 的应用</h4><p>synchronized 常被称为重量级锁，但是随着 Java SE 1.6 对 synchronized 进行了各种优化之后，有些情况下它就并不那么重了，因为有了偏向锁和轻量级锁，以及锁的存储结构和升级过程。</p>
+<p>Java 中的每一个对象都可以作为锁。具体表现为以下 3 种形式：</p>
+<ul>
+<li>对于普通同步方法，锁是当前实例对象（this）。</li>
+<li>对于静态同步方法，锁是当前类的 Class 对象。</li>
+<li>对于同步方法块，锁是 synchonized 括号里配置的对象。</li>
+</ul>
+<p><strong>synchonized 在 JVM 里的实现原理</strong></p>
+<p>从 JVM 规范中可以看到 Synchonized 在 JVM 里的实现原理：JVM 基于进入和退出<code>Monitor</code>对象来实现方法同步和代码块同步，但两者的实现细节不一样。</p>
+<p>代码块同步是使用<code>monitorenter</code>和<code>monitorexit</code>指令实现的，而方法同步是使用另外一种方式实现（JVM 规范里并没有详细说明），但可以使用这两个指令来实现。</p>
+<p><strong>JVM 里的 Monitor</strong></p>
+<p><code>monitorenter</code>指令是在编译后插入到同步代码块的开始位置，<code>monitorexit</code>指令是插入到方法结束处和异常处。</p>
+<p>JVM 要保证每个 monitorenter 必须有对应的 monitorexit 与之配对。任何对象都有一个 monitor 与之关联，当且一个 monitor 被持有后，它将处于锁定状态。线程执行到 monitorenter 指令时，将会尝试获取对象所对应的 monitor 的所有权，即尝试获得对象的锁。</p>
+<h5 id="2-2-1-Java-对象头"><a href="#2-2-1-Java-对象头" class="headerlink" title="2.2.1 Java 对象头"></a>2.2.1 Java 对象头</h5><p>synchronized 用的锁是存在 Java 对象头里的。Java 对象头针对数组类型对象和非数组类型对象存储的信息不同，前者存 3 个字宽（Word）的信息，后者存 2 个字宽的信息。</p>
+<p>在不同的位数操作系统中，字宽对应的字节大小不同：</p>
+<ul>
+<li>在 32 位虚拟机中，1 字宽等于 4 字节，即 32 bit</li>
+<li>在 64 位虚拟机中，1 字宽等于 8 字节，即 64 bit</li>
+</ul>
+<p>每个字宽中存储着不同的信息标识：</p>
+<p><img src="https://image.woodwhales.cn/004/images/1.png" alt="Java 对象头存储内容"></p>
+<p>在 Java 对象头里的<code>Mark Word</code>里默认存储对象的 HashCode、分代年龄和<strong>锁标记位</strong>。32 位 JVM 的<code>Mark Word</code>的默认存储结构如下图所示：</p>
+<p><img src="https://image.woodwhales.cn/004/images/2.png" alt="32 位 JVM 的 Mark Word 的默认存储结构表"></p>
+<p>在运行期间，Mark Word 里存储的数据会随着锁标志位的变化而变化，以下 4 种数据变化：</p>
+<p><img src="https://image.woodwhales.cn/004/images/3.png" alt="Mark Word 里存储的数据会随锁标志位的变化"></p>
+<p>用一张图来描述上述的各种表结构之间的关系：</p>
+<p><img src="https://image.woodwhales.cn/004/images/4.png" alt="java 对象头 Mark Word 图解"></p>
+<p>在 64 位虚拟机下，Mark Word 是 64 bit 大小的，其存储结构如下表：</p>
+<p><img src="https://image.woodwhales.cn/004/images/5.png" alt="64 位虚拟机中的 Mark Word 存储结构"></p>
+<p>注意：上表中偏向锁的状态的头信息中出现了线程 ID，并且偏向锁的值为 1。</p>
+<h4 id="三、锁的升级与对比"><a href="#三、锁的升级与对比" class="headerlink" title="三、锁的升级与对比"></a>三、锁的升级与对比</h4><p>Java SE 1.6 为了减少获得锁和释放锁带来的性能消耗，引入了”偏向锁”和”轻量级锁”，锁一共有 4 种状态，级别从低到高依次是：无锁状态、偏向锁状态、轻量级锁状态和重量级锁状态。</p>
+<p>这几个状态会随着竞争情况逐渐升级，并且这种升级之后不可降级，因此偏向锁升级成轻量级锁后不能降级成偏向锁。这种锁升级却不能降级的策略，目的是为了提高获得锁和释放锁的效率。</p>
+<h5 id="3-1-偏向锁"><a href="#3-1-偏向锁" class="headerlink" title="3.1 偏向锁"></a>3.1 偏向锁</h5><p>大多数情况下，锁不仅不存在多线程竞争，而且总是由同一线程多次获得，为了让线程获得锁的代价更低而引入了偏向锁。偏向锁在 Java 6 和 Java 7 里是默认启用的，但是它在应用程序启动几秒钟之后才激活。</p>
+<p><strong>3.1.1 偏向锁的初始化</strong></p>
+<p>当一个线程访问同步块并获取锁时，会在对象头和栈帧中的锁记录里存储锁偏向的线程 ID，存储之前会测试一下对象头的 Mark Word 里是否存储着指向当前线程的偏向锁。</p>
+<p>如果测试成功，表示线程已经获得了锁。如果测试失败，则需要再测试一下 Mark Word 中偏向锁的标识是否设置成 1（表示当前是偏向锁）：如果没有设置，则使用CAS竞争锁；如果设置了，则尝试使用 CAS 将对象头的偏向锁指向当前线程。</p>
+<p><strong>3.1.2 偏向锁的撤销</strong></p>
+<p>偏向锁使用了一种等到竞争出现才释放锁的机制，所以<strong>当其他线程尝试竞争偏向锁时，持有偏向锁的线程才会释放锁。</strong></p>
+<p>偏向锁撤销的前提是需要等待全局安全点，即在这个时间点上没有正在执行的字节码。撤销之后的偏向锁会变成无锁状态，即具体 Mark Word 信息体中不含本线程 ID。</p>
+<p>以下为撤销流程文字描述：</p>
+<p>偏向锁撤销时首先暂停拥有偏向锁的线程，然后检查持有偏向锁的线程是否活着，如果线程不处于活动状态，则将对象头设置成无锁状态；如果线程仍然活着，拥有偏向锁的栈会被执行，遍历偏向对象的锁记录，栈中的锁记录和对象头的 Mark Word 要么重新偏向于其他线程，要么恢复到无锁或者标记对象不适合作为偏向锁，最后唤醒暂停的线程。</p>
+<p>下图中的线程 1 演示了偏向锁初始化的流程，线程 2 演示了偏向锁撤销的流程。</p>
+<p><img src="https://image.woodwhales.cn/004/images/6.png" alt="偏向锁的获得和撤销流程"></p>
+<p><strong>3.1.3 偏向锁的关闭</strong></p>
+<p>偏向锁在 Java 6 和 Java 7 里会默认在应用程序启动几秒钟之后激活，可以使用 JVM 参数来关闭延迟：<code>-XX:BiasedLockingStartupDelay=0</code>。</p>
+<p>如果确定应用程序里所有的锁通常情况下处于竞争状态，可以通过 JVM 参数关闭偏向锁：<code>-XX:-UseBiasedLocking=false</code>，那么程序默认会进入轻量级锁状态。</p>
+<h5 id="3-2-自旋锁"><a href="#3-2-自旋锁" class="headerlink" title="3.2 自旋锁"></a>3.2 自旋锁</h5><p>首先，内核态与用户态的切换上不容易优化。但<strong>通过自旋锁，可以减少线程阻塞造成的线程切换</strong>（包括挂起线程和恢复线程）。</p>
+<p>线程的阻塞和唤醒需要 CPU 从用户态转为核心态，频繁的阻塞和唤醒对 CPU 来说是一件负担很重的工作。同时可以发现，很多对象锁的锁定状态只会持续很短的一段时间，例如整数的自加操作，在很短的时间内阻塞并唤醒线程显然不值得，为此引入了自旋锁。</p>
+<p>所谓”自旋”，就是让线程去执行一个无意义的循环，循环结束后再去重新竞争锁，如果竞争不到继续循环，循环过程中线程会一直处于 running 状态，但是基于 JVM 的线程调度，会出让时间片，所以其他线程依旧有申请锁和释放锁的机会。</p>
+<p>自旋锁省去了阻塞锁的时间空间（队列的维护等）开销，但是长时间自旋就变成了”忙式等待”，忙式等待显然还不如阻塞锁。如果持有锁的线程执行的时间超过自旋等待的最大时间扔没有释放锁，就会导致其它争用锁的线程在最大等待时间内还是获取不到锁，这时争用线程会停止自旋进入阻塞状态。</p>
+<p>自旋锁的目的是为了占着 CPU 的资源不释放，等到获取到锁立即进行处理。但是如果自旋执行时间太长，会有大量的线程处于自旋状态占用 CPU 资源，进而会影响整体系统的性能。因此自旋的周期选的额外重要。</p>
+<p>JVM 对于自旋周期的选择，JDK 1.5 中这限度是一定要写死，在 JDK 1.6 引入了<strong>适应性自旋锁</strong>，适应性自旋锁意味着自旋的时间不在是固定的了，而是由前一次在同一个锁上的自旋时间以及锁的拥有者的状态来决定，基本认为一个线程上下文切换的时间是最佳的一个时间，同时 JVM 还针对当前 CPU 的负荷情况做了较多的优化。</p>
+<h5 id="3-3-轻量级锁"><a href="#3-3-轻量级锁" class="headerlink" title="3.3 轻量级锁"></a>3.3 轻量级锁</h5><p>自旋锁的目标是降低线程切换的成本。如果锁竞争激烈，我们不得不依赖于重量级锁，让竞争失败的线程阻塞；如果完全没有实际的锁竞争，那么申请重量级锁都是浪费的。<strong>轻量级锁的目标是，减少无实际竞争情况下，使用重量级锁产生的性能消耗</strong>，包括系统调用引起的内核态与用户态切换、线程阻塞造成的线程切换等。因此轻量级锁是相对于重量级锁而言的。</p>
+<p>轻量级锁是由偏向锁升级来的，偏向锁运行在一个线程进入同步块的情况下，当第二个线程加入锁争用的时候，偏向锁就会升级为轻量级锁。</p>
+<p><strong>轻量级锁的加锁</strong></p>
+<p>线程在执行同步块之前，JVM 会先在当前线程的栈桢中创建用于存储锁记录的空间，并将对象头中的 Mark Word 复制到锁记录中，官方称为 Displaced Mark Word。然后线程尝试使用 CAS 将对象头中的 Mark Word 替换为指向锁记录的指针。</p>
+<ul>
+<li>如果成功，当前线程获得锁。</li>
+<li>如果失败，表示其他线程竞争锁，当前线程便尝试使用自旋来获取锁。</li>
+</ul>
+<blockquote>
+<p>当轻量级锁使用自旋的方式获取锁仍然失败时，表示存在其他线程竞争锁（两条或两条以上的线程竞争同一个锁），则轻量级锁会膨胀成重量级锁。</p>
+</blockquote>
+<p><strong>轻量级锁的解锁</strong></p>
+<p>轻量级解锁时，会使用原子的 CAS 操作来将 Displaced Mark Word 替换回到对象头：</p>
+<ul>
+<li>如果成功，则表示同步过程已完成。</li>
+<li>如果失败，表示当前锁存在竞争，锁就会膨胀成重量级锁。在释放锁的同时，唤醒被挂起的线程。</li>
+</ul>
+<p><strong>轻量锁与偏向锁不同的是：</strong></p>
+<ul>
+<li>轻量级锁每次退出同步块都需要释放锁，而偏向锁是在竞争发生时才释放锁</li>
+<li>每次进入退出同步块都需要 CAS 更新对象头</li>
+<li>争夺轻量级锁失败时，自旋尝试抢占锁</li>
+</ul>
+<p><img src="https://image.woodwhales.cn/004/images/7.png" alt="轻量级锁及膨胀流程图"></p>
+<p>因为自旋会消耗 CPU，为了避免无用的自旋（比如获得锁的线程被阻塞住了），一旦锁升级成重量级锁，就不会再恢复到轻量级锁状态。当锁处于这个状态下，其他线程试图获取锁时，都会被阻塞住，当持有锁的线程释放锁之后会唤醒这些线程，被唤醒的线程就会进行新一轮的夺锁之争。</p>
+<h5 id="3-4-重量级锁"><a href="#3-4-重量级锁" class="headerlink" title="3.4 重量级锁"></a>3.4 重量级锁</h5><p>重量锁在 JVM 中又叫对象监视器（Monitor），它很像 C 中的<code>Mutex</code>，除了具备 Mutex(0|1) 互斥的功能，它还负责实现了 Semaphore （信号量）的功能，也就是说它至少包含一个竞争锁的队列，和一个信号阻塞队列（wait 队列），前者负责做互斥，后一个用于做线程同步。</p>
+<h5 id="3-5-锁的优缺点的对比"><a href="#3-5-锁的优缺点的对比" class="headerlink" title="3.5 锁的优缺点的对比"></a>3.5 锁的优缺点的对比</h5><h6 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h6><ul>
+<li><strong>优点</strong><br>加锁和解锁不需要额外的消耗，和执行非同步方法比仅存在纳秒级的差距。</li>
+<li><strong>缺点</strong><br>如果线程间存在锁竞争，会带来额外的锁撤销的消耗。</li>
+<li><strong>适用场景</strong><br>适用于只有一个线程访问同步块场景。</li>
+</ul>
+<h6 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h6><ul>
+<li><strong>优点</strong><br>竞争的线程不会阻塞，提高了程序的响应速度。</li>
+<li><strong>缺点</strong><br>如果始终得不到锁竞争的线程使用自旋会消耗 CPU。</li>
+<li><strong>适用场景</strong><br>追求响应时间，锁占用时间很短（同步块执行速度非常快）。</li>
+</ul>
+<h6 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h6><ul>
+<li><strong>优点</strong><br>线程竞争不使用自旋，不会消耗 CPU 。</li>
+<li><strong>缺点</strong><br>线程阻塞，响应时间缓慢。</li>
+<li><strong>适用场景</strong><br>追求吞吐量，同步块执行速度较长。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/12/20/004/">并发编程的艺术 | 学习笔记（二）</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2018/12/20/004/" title="并发编程的艺术 | 学习笔记（二）">https://woodwhales.cn/2018/12/20/004/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2018/12/20/004/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 并发编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/18/003/" rel="next" title="并发编程的艺术 | 学习笔记（一）">
+                <i class="fa fa-chevron-left"></i> 并发编程的艺术 | 学习笔记（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/22/002/" rel="prev" title="优秀博客集锦">
+                优秀博客集锦 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC2%E7%AB%A0-Java-%E5%B9%B6%E5%8F%91%E6%9C%BA%E5%88%B6%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-text">第2章　Java 并发机制的底层实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81volatile-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">一、volatile 的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-volatile-%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-text">1.1 volatile 的定义与实现原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-1-volatile-%E5%AE%9A%E4%B9%89"><span class="nav-text">1.1.1 volatile 定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-2-volatile-%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-text">1.1.2 volatile 的实现原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-3-volatile-%E7%9A%84%E4%B8%A4%E6%9D%A1%E5%AE%9E%E7%8E%B0%E5%8E%9F%E5%88%99"><span class="nav-text">1.1.3 volatile 的两条实现原则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-4-volatile%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BC%98%E5%8C%96"><span class="nav-text">1.1.4 volatile的使用优化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81synchronized-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">二、synchronized 的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-Java-%E5%AF%B9%E8%B1%A1%E5%A4%B4"><span class="nav-text">2.2.1 Java 对象头</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%94%81%E7%9A%84%E5%8D%87%E7%BA%A7%E4%B8%8E%E5%AF%B9%E6%AF%94"><span class="nav-text">三、锁的升级与对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-%E5%81%8F%E5%90%91%E9%94%81"><span class="nav-text">3.1 偏向锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-%E8%87%AA%E6%97%8B%E9%94%81"><span class="nav-text">3.2 自旋锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-text">3.3 轻量级锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-text">3.4 重量级锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-5-%E9%94%81%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-text">3.5 锁的优缺点的对比</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="nav-text">偏向锁</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-text">轻量级锁</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-text">重量级锁</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

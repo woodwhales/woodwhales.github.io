@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="kafka, Apache Kafka, 消息引擎系统, 消息引擎, 点对点模型, 发布订阅模型, 消息中间件, 消息队列, messaging system, EMS, ISR, OSR, AR, broker, topic, producer, consumer, segment, .index, .log, 消息位移, offset" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="认识消息引擎系统，浅析 Apache Kafka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache Kafka 学习笔记">
+<meta property="og:url" content="https://woodwhales.cn/2019/12/01/055/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="认识消息引擎系统，浅析 Apache Kafka">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/055/face.png">
+<meta property="article:published_time" content="2019-12-01T15:30:00.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.209Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="Kafka">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/055/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2019/12/01/055/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>Apache Kafka 学习笔记 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2019/12/01/055/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Apache Kafka 学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-01T23:30:00+08:00">
+                2019-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kafka/" itemprop="url" rel="index">
+                    <span itemprop="name">Kafka</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/01/055/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/01/055/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  认识消息引擎系统，浅析 Apache Kafka
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/055/face.png" rel="gallery_cmb21nrim004um8v8hw1p0uhj noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/055/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <p>像 Kafka 这一类的系统国外有专属的名字叫<code>Messaging System</code>，国内很多文献将其简单翻译成消息系统。但这种直白的翻译并不准确，因为它片面强调了消息主体的作用，而忽视了这类系统引以为豪的消息传递属性，就像引擎一样，具备某种能量转换传输的能力，所以翻译成消息引擎反倒更加贴切。</p>
+<h2 id="消息引擎系统"><a href="#消息引擎系统" class="headerlink" title="消息引擎系统"></a>消息引擎系统</h2><p>根据维基百科的定义，<strong>消息引擎系统是一组规范</strong>。企业利用这组规范在不同系统之间传递语义准确的消息，实现松耦合的异步式数据传递。</p>
+<blockquote>
+<p>An <strong>enterprise messaging system</strong> (<strong>EMS</strong>) or messaging system in brief is a set of published enterprise-wide standards that allows organizations to send semantically precise messages between computer systems. </p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Enterprise_messaging_system">https://en.wikipedia.org/wiki/Enterprise_messaging_system</a></p>
+</blockquote>
+<p>上述通俗来说就是：系统 A 发送消息给消息引擎系统，系统 B 从消息引擎系统中读取 A 发送的消息。</p>
+<p>最基础的消息引擎就是做这点事的！不论是上面哪个版本，它们都提到了两个重要的事实：</p>
+<ul>
+<li><p>消息引擎传输的对象是消息；</p>
+</li>
+<li><p>如何传输消息属于消息引擎设计机制的一部分。</p>
+</li>
+</ul>
+<h3 id="常见的消息引擎系统"><a href="#常见的消息引擎系统" class="headerlink" title="常见的消息引擎系统"></a>常见的消息引擎系统</h3><h4 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h4><p><img src="https://image.woodwhales.cn/055/images/1.png"></p>
+<p>官网：<a target="_blank" rel="noopener" href="http://activemq.apache.org/">http://activemq.apache.org/</a></p>
+<p>ActiveMQ 是 Apache 出品，最流行的，能力强劲的开源消息总线。ActiveMQ 是一个完全支持 JMS1.1 和 J2EE 1.4 规范的 JMS Provider 实现，尽管 JMS 规范出台已经是很久的事情了，但是 JMS 在当今的 J2EE 应用中间仍然扮演着特殊的地位。</p>
+<h4 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h4><p><img src="https://image.woodwhales.cn/055/images/2.png"></p>
+<p>官网：<a target="_blank" rel="noopener" href="https://www.rabbitmq.com/">https://www.rabbitmq.com/</a></p>
+<p>RabbitMQ 是流行的开源消息队列系统，用 erlang 语言开发。RabbitMQ 是 AMQP（高级消息队列协议）的标准实现。支持多种客户端，如：Python、Ruby、.NET、Java、JMS、C、PHP、ActionScript、XMPP、STOMP 等，支持 AJAX，持久化。用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不俗。</p>
+<blockquote>
+<p>AMQP 的主要特征是面向消息、队列、路由（包括点对点和发布/订阅）、可靠性、安全。AMQP 协议更多用在企业系统内，对数据一致性、稳定性和可靠性要求很高的场景，对性能和吞吐量的要求还在其次。</p>
+</blockquote>
+<h4 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h4><p><img src="https://image.woodwhales.cn/055/images/3.png"></p>
+<p>Apache Kafka 官网：<a target="_blank" rel="noopener" href="http://kafka.apache.org/">http://kafka.apache.org/</a></p>
+<p>Kafka 是 LinkedIn 开源的高吞吐量的分布式发布-订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据目前归属于 Apache 顶级项目。Apache Kafka 是 Kafka 系列版本中最出名的一个，其他 Kafka 还有 Confluent Kafka、Cloudera/Hortonworks Kafka、CDH/HDP Kafka 等。</p>
+<h4 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h4><p><img src="https://image.woodwhales.cn/055/images/4.png"></p>
+<p>官网：<a target="_blank" rel="noopener" href="http://rocketmq.apache.org/">http://rocketmq.apache.org/</a></p>
+<p>RocketMQ是阿里开源的消息中间件，它是纯Java开发，具有高吞吐量、高可用性、适合大规模分布式系统应用的特点。RocketMQ思路起源于Kafka，但并不是Kafka的一个Copy，它对消息的可靠传输及事务性做了优化，目前在阿里集团被广泛应用于交易、充值、流计算、消息推送、日志流式处理、binglog分发等场景。</p>
+<h4 id="Pulsar"><a href="#Pulsar" class="headerlink" title="Pulsar"></a>Pulsar</h4><p><img src="https://image.woodwhales.cn/055/images/5.png"></p>
+<p>官网：<a target="_blank" rel="noopener" href="https://pulsar.apache.org/">https://pulsar.apache.org/</a></p>
+<p>Pulsar 是 pub-sub 模式的分布式消息平台，拥有灵活的消息模型和直观的客户端 API。Pulsar 由雅虎开发并于 2016 年开源的下一代消息系统，目前是 Apache 软件基金会的孵化器项目。</p>
+<h4 id="ZeroMQ"><a href="#ZeroMQ" class="headerlink" title="ZeroMQ"></a>ZeroMQ</h4><p><img src="https://image.woodwhales.cn/055/images/6.png"></p>
+<p>官网地址：<a target="_blank" rel="noopener" href="https://zeromq.org/">https://zeromq.org/</a></p>
+<p>ZeroMQ 号称最快的消息队列系统，尤其针对大吞吐量的需求场景。ZeroMQ 能够实现 RabbitMQ 不擅长的高级/复杂的队列，但是开发人员需要自己组合多种技术框架，技术上的复杂度是对这 MQ 能够应用成功的挑战。ZeroMQ 具有一个独特的非中间件的模式，你不需要安装和运行一个消息服务器或中间件，因为你的应用程序将扮演这个服务器角色。你只需要简单的引用 ZeroMQ 程序库，可以使用 NuGet 安装，然后你就可以愉快的在应用程序之间发送消息了。但是 ZeroMQ 仅提供非持久性的队列，也就是说如果宕机，数据将会丢失。其中，Twitter 的 Storm 0.9.0 以前的版本中默认使用 ZeroMQ 作为数据流的传输（Storm 从 0.9 版本开始同时支持 ZeroMQ 和 Netty 作为传输模块）。</p>
+<h4 id="常用消息引擎系统对比"><a href="#常用消息引擎系统对比" class="headerlink" title="常用消息引擎系统对比"></a>常用消息引擎系统对比</h4><h5 id="Kafka-vs-RabbitMQ-vs-Pulsar"><a href="#Kafka-vs-RabbitMQ-vs-Pulsar" class="headerlink" title="Kafka vs. RabbitMQ vs. Pulsar"></a>Kafka vs. RabbitMQ vs. Pulsar</h5><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>RabbitMQ</th>
+<th>Kafka</th>
+<th>Pulsar</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储功能</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>特点</td>
+<td>富Broker, 傻消费者</td>
+<td>傻Broker, 富消费者</td>
+<td>傻Broker, 富消费者</td>
+<td></td>
+</tr>
+<tr>
+<td>数据私有-Exclusive</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>数据共享-Shared</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>故障切换-Failover</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>SubScription</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>扩展</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>高吞吐</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>分布式</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>数据回看</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>数据备份</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>数据路由</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td></td>
+</tr>
+<tr>
+<td>生产者</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>消费者</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>Stream</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="RocketMQ-vs-ActiveMQ-vs-Kafka"><a href="#RocketMQ-vs-ActiveMQ-vs-Kafka" class="headerlink" title="RocketMQ vs. ActiveMQ vs. Kafka"></a>RocketMQ vs. ActiveMQ vs. Kafka</h5><blockquote>
+<p>数据来源：<a target="_blank" rel="noopener" href="https://rocketmq.apache.org/docs/motivation/">https://rocketmq.apache.org/docs/motivation/</a></p>
+</blockquote>
+<p><img src="https://image.woodwhales.cn/055/images/7.png"></p>
+<h3 id="消息传输格式"><a href="#消息传输格式" class="headerlink" title="消息传输格式"></a>消息传输格式</h3><p>既然消息引擎是用于在不同系统之间传输消息的，如何设计待传输消息的格式是非常核心且重要的问题：</p>
+<p><strong>Kafka 的消息传输格式使用的是：结构化的纯二进制的字节序列。</strong></p>
+<h3 id="消息传输协议"><a href="#消息传输协议" class="headerlink" title="消息传输协议"></a>消息传输协议</h3><p>消息设计出来之后还不够，消息引擎系统还要设定具体的传输协议，即我用什么方法把消息传输出去。常见的有两种方法：</p>
+<h4 id="点对点模型"><a href="#点对点模型" class="headerlink" title="点对点模型"></a>点对点模型</h4><p>也叫消息队列模型。如果拿上面那个“民间版”的定义来说，那么系统 A 发送的消息只能被系统 B 接收，其他任何系统都不能读取 A 发送的消息。日常生活的例子比如电话客服就属于这种模型：同一个客户呼入电话只能被一位客服人员处理，第二个客服人员不能为该客户服务。</p>
+<p>在点对点消息系统中，消息持久化到一个队列中。此时，将有一个或多个消费者消费队列中的数据。但是一条消息只能被消费一次。当一个消费者消费了队列中的某条数据之后，该条数据则从消息队列中删除。该模式即使有多个消费者同时消费数据，也能保证数据处理的顺序。</p>
+<p><img src="https://image.woodwhales.cn/055/images/01.gif"></p>
+<h4 id="发布-订阅模型"><a href="#发布-订阅模型" class="headerlink" title="发布 / 订阅模型"></a>发布 / 订阅模型</h4><p>与上面不同的是，它有一个主题（Topic）的概念，你可以理解成逻辑语义相近的消息容器。该模型也有发送方和接收方，只不过提法不同。发送方也称为发布者（Publisher），接收方称为订阅者（Subscriber）。和点对点模型不同的是，这个模型可能存在多个发布者向相同的主题发送消息，而订阅者也可能存在多个，它们都能接收到相同主题的消息。生活中的报纸订阅就是一种典型的发布 / 订阅模型。</p>
+<p>在发布-订阅消息系统中，消息被持久化到一个 topic 中。与点对点消息系统不同的是，消费者可以订阅一个或多个 topic，消费者可以消费该 topic 中所有的数据，同一条数据可以被多个消费者消费，数据被消费后不会立马删除。在发布-订阅消息系统中，消息的生产者称为发布者，消费者称为订阅者。</p>
+<p><img src="https://image.woodwhales.cn/055/images/02.gif"></p>
+<p><strong>总结：点对点模式中，生产者发送一条消息到queue，只有一个消费者能收到。发布/订阅模式中，发布者发送到topic的消息，只有订阅了topic的订阅者才会收到消息。</strong>Kafka 同时上述这俩种消息传输模式（协议）。</p>
+<h3 id="使用消息系统的好处"><a href="#使用消息系统的好处" class="headerlink" title="使用消息系统的好处"></a>使用消息系统的好处</h3><p>1、解耦</p>
+<p>在项目启动之初来预测将来项目会碰到什么需求，是极其困难的。消息系统在处理过程中间插入了一个隐含的、基于数据的接口层，两边的处理过程都要实现这一接口。这允许你独立的扩展或修改两边的处理过程，只要确保它们遵守同样的接口约束。</p>
+<p>2、冗余</p>
+<p>有些情况下，处理数据的过程会失败。除非数据被持久化，否则将造成丢失。消息队列把数据进行持久化直到它们已经被完全处理，通过这一方式规避了数据丢失风险。许多消息队列所采用的”插入-获取-删除”范式中，在把一个消息从队列中删除之前，需要你的处理系统明确的指出该消息已经被处理完毕，从而确保你的数据被安全的保存直到你使用完毕。</p>
+<p>3、扩展性</p>
+<p>因为消息队列解耦了你的处理过程，所以增大消息入队和处理的频率是很容易的，只要另外增加处理过程即可。不需要改变代码、不需要调节参数。扩展就像调大电力按钮一样简单。</p>
+<p>4、灵活性 &amp; 峰值处理能力</p>
+<p>在访问量剧增的情况下，应用仍然需要继续发挥作用，但是这样的突发流量并不常见；如果为以能处理这类峰值访问为标准来投入资源随时待命无疑是巨大的浪费。使用消息队列能够使关键组件顶住突发的访问压力，而不会因为突发的超负荷的请求而完全崩溃。</p>
+<p>5、可恢复性</p>
+<p>系统的一部分组件失效时，不会影响到整个系统。消息队列降低了进程间的耦合度，所以即使一个处理消息的进程挂掉，加入队列中的消息仍然可以在系统恢复后被处理。</p>
+<p>6、序保证</p>
+<p>在大多使用场景下，数据处理的顺序都很重要。大部分消息队列本来就是排序的，并且能保证数据会按照特定的顺序来处理。Kafka保证一个Partition内的消息的有序性。</p>
+<p>7、缓冲</p>
+<p>在任何重要的系统中，都会有需要不同的处理时间的元素。例如，加载一张图片比应用过滤器花费更少的时间。消息队列通过一个缓冲层来帮助任务最高效率的执行———写入队列的处理会尽可能的快速。该缓冲有助于控制和优化数据流经过系统的速度。</p>
+<p>8、异步通信</p>
+<p>很多时候，用户不想也不需要立即处理消息。消息队列提供了异步处理机制，允许用户把一个消息放入队列，但并不立即处理它。想向队列中放入多少消息就放多少，然后在需要的时候再去处理它们。</p>
+<p><strong>使用消息引擎系统好处使用简单概括就是削峰填谷、异步解耦</strong>。</p>
+<h2 id="认识-Kafka"><a href="#认识-Kafka" class="headerlink" title="认识 Kafka"></a>认识 Kafka</h2><h3 id="Kafka简介"><a href="#Kafka简介" class="headerlink" title="Kafka简介"></a>Kafka简介</h3><p>Kafka 在设计之初就旨在提供三个方面的特性：</p>
+<ul>
+<li>提供一套 API 实现生产者和消费者；</li>
+<li>降低网络传输和磁盘存储开销；</li>
+<li>实现高伸缩性架构。</li>
+</ul>
+<p>开源之后的 Kafka 被越来越多的公司应用到它们企业内部的数据管道中，特别是在大数据工程领域，Kafka 在承接上下游、串联数据流管道方面发挥了重要的作用：所有的数据几乎都要从一个系统流入 Kafka 然后再流向下游的另一个系统中。</p>
+<p>于是 Kafka 社区于<code>0.10.0.0</code>版本正式推出了流处理组件 Kafka Streams，也正是从这个版本开始，Kafka 正式“变身”为分布式的流处理平台，而不仅仅是消息引擎系统了。今天 Apache Kafka 是和 Apache Storm、Apache Spark 和 Apache Flink 同等级的实时流处理平台。</p>
+<p><strong>简言之，Kafka 是消息引擎系统（Messaging System），也是分布式流处理平台（Distributed Streaming Platform），而是能够实现精确一次（Exactly-once）处理语义的实时流处理平台。</strong></p>
+<blockquote>
+<p>作为流处理平台，Kafka 与其他主流大数据流式计算框架相比，优点如下：</p>
+<ol>
+<li>更容易实现端到端的正确性（Correctness）：要实现正确性和提供能够推导时间的工具。实现正确性是流处理能够匹敌批处理的基石。</li>
+<li>可能助力 Kafka 胜出的第二点是它自己对于流式计算的定位。</li>
+</ol>
+<p>Kafka 除用于消息引擎和流处理平台，而且还能够被用作分布式存储系统。Kafka 作者之一 Jay Kreps 曾经专门写过一篇文章阐述为什么能把 Kafka 用作<a target="_blank" rel="noopener" href="https://www.confluent.io/blog/okay-store-data-apache-kafka/">分布式存储</a>。不过这个功能建议只做了解就好了，目前还从没有谁在实际生产环境中，把 Kafka 当作持久化存储来用 。</p>
+</blockquote>
+<h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><p>Kafka 属于分布式的消息引擎系统，它的主要功能是提供一套完备的消息发布与订阅解决方案。下图能够帮助你形象化地理解下文提到的术语概念：</p>
+<p><img src="https://image.woodwhales.cn/055/images/8.png"></p>
+<h4 id="broker"><a href="#broker" class="headerlink" title="broker"></a>broker</h4><p>Kafka 集群包含一个或多个服务器，服务器节点称为：broker。</p>
+<p>broker 存储 topic 的数据。如果某 topic 有 N 个 partition，集群有 N 个 broker，那么每个 broker 存储该 topic 的一个 partition。</p>
+<p>如果某 topic 有 N 个partition，集群有（N + M）个broker，那么其中有 N 个 broker 存储该 topic 的一个 partition，剩下的 M 个 broker 不存储该 topic 的 partition 数据。</p>
+<p>如果某 topic 有 N 个 partition，集群中 broker 数目少于 N 个，那么一个 broker 存储该 topic 的一个或多个 partition。在实际生产环境中，尽量避免这种情况的发生，这种情况容易导致 Kafka 集群数据不均衡。</p>
+<h4 id="消息"><a href="#消息" class="headerlink" title="消息"></a>消息</h4><p>消息：Record。Kafka 是消息引擎嘛，这里的消息就是指 Kafka 处理的主要对象。</p>
+<p>对应图中的<code>生产者</code>发送到<code>Broker</code>的消息，绿色虚线表示消息发送方向。</p>
+<h4 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h4><p>主题：Topic。主题是承载消息的逻辑容器，在实际使用中多用来区分具体的业务。</p>
+<p>每条发布到Kafka集群的消息都有一个类别，这个类别被称为Topic。（物理上不同Topic的消息分开存储，逻辑上一个Topic的消息虽然保存于一个或多个broker上但用户只需指定消息的Topic即可生产或消费数据而不必关心数据存于何处）</p>
+<h4 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h4><p>分区：Partition。一个有序不变的消息序列。每个主题下可以有多个分区。</p>
+<p>topic 中的数据分割为一个或多个 partition。每个 topic 至少有一个 partition。每个 partition 中的数据使用多个 segment 文件存储。partition 中的数据是有序的，不同 partition 间的数据丢失了数据的顺序。如果 topic 有多个 partition，消费数据时就不能保证数据的顺序。在需要严格保证消息的消费顺序的场景下，需要将 partition 数目设为 1。</p>
+<h4 id="消息位移"><a href="#消息位移" class="headerlink" title="消息位移"></a>消息位移</h4><p>消息位移：Offset。表示分区中每条消息的位置信息，是一个单调递增且不变的值。</p>
+<p>对应图中<code>生产者</code>发送到<code>Broker</code>的消息的位置。</p>
+<h4 id="副本"><a href="#副本" class="headerlink" title="副本"></a>副本</h4><p>副本：Replica。Kafka 中同一条消息能够被拷贝到多个地方以提供数据冗余，这些地方就是所谓的副本。副本还分为领导者副本和追随者副本，各自有不同的角色划分。副本是在分区层级下的，即每个分区可配置多个副本实现高可用。</p>
+<p>对应图中的蓝色消息矩形框。</p>
+<h4 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h4><p>生产者：Producer。向主题发布新消息的应用程序。</p>
+<p>生产者即数据的发布者，该角色将消息发布到 Kafka 的 topic 中。broker 接收到生产者发送的消息后，broker 将该消息<strong>追加</strong>到当前用于追加数据的 segment 文件中。生产者发送的消息，存储到一个 partition 中，生产者也可以指定数据存储的 partition。</p>
+<h4 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h4><p>消费者：Consumer。从主题订阅新消息的应用程序。</p>
+<p>消费者可以从broker中读取数据。消费者可以消费多个topic中的数据。</p>
+<h4 id="消费者位移"><a href="#消费者位移" class="headerlink" title="消费者位移"></a>消费者位移</h4><p>消费者位移：Consumer Offset。表征消费者消费进度，每个消费者都有自己的消费者位移。</p>
+<p>对应图中的<code>消费者组中的消费者</code>的绿色虚线指向的消息的位置。</p>
+<h4 id="消费者组"><a href="#消费者组" class="headerlink" title="消费者组"></a>消费者组</h4><p>消费者组：Consumer Group。多个消费者实例共同组成的一个组，同时消费多个分区以实现高吞吐。</p>
+<p>每个 Consumer 属于一个特定的 Consumer Group（可为每个 Consumer 指定 group name，若不指定 group name 则属于默认的 group）。</p>
+<h4 id="重平衡"><a href="#重平衡" class="headerlink" title="重平衡"></a>重平衡</h4><p>重平衡：Rebalance。消费者组内某个消费者实例挂掉后，其他消费者实例自动重新分配订阅主题分区的过程。Rebalance 是 Kafka 消费者端实现高可用的重要手段。</p>
+<blockquote>
+<p>如果本章节的术语还是一知半解，建议阅读下文 Kafka 体系架构章节，希望帮助你我更好的理解 Kafka 的核心概念。</p>
+</blockquote>
+<h4 id="领导者"><a href="#领导者" class="headerlink" title="领导者"></a>领导者</h4><p>领导者：Leader。</p>
+<p>每个 partition 有多个副本，其中有且仅有一个作为 Leader，Leader 是当前负责数据的读写的 partition。</p>
+<h4 id="追随者"><a href="#追随者" class="headerlink" title="追随者"></a>追随者</h4><p>追随者：Follower。</p>
+<p>每个 partition 有多个副本，除了 Leader，剩余的都是 Follower。</p>
+<p>Follower 跟随 Leader，所有写请求都通过 Leader 路由，数据变更会广播给所有 Follower，Follower 与 Leader 保持数据同步。如果 Leader 失效，则从 Follower 中选举出一个新的 Leader。当 Follower 与 Leader 挂掉、卡住或者同步太慢，leader 会把这个 follower 从<code>in sync replicas（ISR）</code>列表中删除，重新创建一个 Follower。</p>
+<h3 id="Kafka-的种类"><a href="#Kafka-的种类" class="headerlink" title="Kafka 的种类"></a>Kafka 的种类</h3><p>架构师评估流处理平台的时候，框架本身的性能、所提供操作算子（Operator）的丰富程度固然是重要的评判指标，但框架与上下游交互的能力也是非常重要的。能够与之进行数据传输的外部系统越多，围绕它打造的生态圈就越牢固，因而也就有更多的人愿意去使用它，从而形成正向反馈，不断地促进该生态圈的发展。</p>
+<p>就 Kafka 而言，<code>Kafka Connect</code>通过一个个具体的连接器（Connector），串联起上下游的外部系统。整个 Kafka 生态圈如下图所示。这张图中的外部系统只是 Kafka Connect 组件支持的一部分而已。目前还有一个可喜的趋势是使用 Kafka Connect 组件的用户越来越多，相信在未来会有越来越多的人开发自己的连接器。</p>
+<p><img src="https://image.woodwhales.cn/055/images/9.png"></p>
+<p>目前市面上存在多个组织或公司发布不同的 Kafka。如同 Linux 系统一样，由于有不同的公司或组织开发出来 Linux 系统产品有不同的名称，比如我们熟知的 CentOS、RedHat、Ubuntu 等。</p>
+<h4 id="Apache-Kafka"><a href="#Apache-Kafka" class="headerlink" title="Apache Kafka"></a>Apache Kafka</h4><p>自 Kafka 开源伊始，它便在 Apache 基金会孵化并最终毕业成为顶级项目，它也被称为社区版 Kafka。 Apache Kafka 是后面其他所有 Kafka 产品的基础。也就是说，后面提到的发行版要么是原封不动地继承了 Apache Kafka，要么是在此之上扩展了新功能。</p>
+<h4 id="Confluent-Kafka"><a href="#Confluent-Kafka" class="headerlink" title="Confluent Kafka"></a>Confluent Kafka</h4><p>Confluent 公司专注于提供基于 Kafka 的企业级流处理解决方案，该公司主要从事商业化 Kafka 工具开发，并在此基础上发布了 Confluent Kafka。Confluent Kafka 提供了一些 Apache Kafka 没有的高级特性，比如跨数据中心备份、Schema 注册中心以及集群监控工具等。</p>
+<p>Confluent Kafka 是由 Confluent 公司出品，该公司主要从事商业化 Kafka 工具开发，并在此基础上发布了 Confluent Kafka。Confluent Kafka 提供了一些 Apache Kafka 没有的高级特性，比如跨数据中心备份、Schema 注册中心以及集群监控工具等。</p>
+<h4 id="Cloudera-Hortonworks-Kafka"><a href="#Cloudera-Hortonworks-Kafka" class="headerlink" title="Cloudera/Hortonworks Kafka"></a>Cloudera/Hortonworks Kafka</h4><p>Cloudera 提供的 CDH 和 Hortonworks 提供的 HDP 是非常著名的大数据平台，里面集成了目前主流的大数据框架，能够帮助用户实现从分布式存储、集群调度、流处理到机器学习、实时数据库等全方位的数据处理。不管是 CDH 还是 HDP 里面都集成了 Apache Kafka，因此我把这两款产品中的 Kafka 称为 CDH Kafka 和 HDP Kafka。</p>
+<h4 id="产品比较"><a href="#产品比较" class="headerlink" title="产品比较"></a>产品比较</h4><h5 id="Apache-Kafka-1"><a href="#Apache-Kafka-1" class="headerlink" title="Apache Kafka"></a>Apache Kafka</h5><ul>
+<li><p><strong>优势：迭代速度快，社区响应度高，使用它可以让你有更高的把控度。</strong></p>
+<p>它现在依然是开发人数最多、版本迭代速度最快的 Kafka。</p>
+</li>
+<li><p><strong>劣势：仅提供基础核心组件，缺失一些高级的特性。</strong></p>
+<p>仅仅提供最最基础的组件，特别是对于前面提到的 Kafka Connect 而言，社区版 Kafka 只提供一种连接器，在实际使用过程中需要自行编写代码实现。另外没有提供任何监控框架或工具。</p>
+<p>好消息是目前有一些开源的监控框架可以帮助用于监控 Kafka（比如 Kafka manager）。</p>
+</li>
+</ul>
+<blockquote>
+<p>如果仅仅需要一个消息引擎系统亦或是简单的流处理应用场景，同时需要对系统有较大把控度，那么推荐使用 Apache Kafka。</p>
+</blockquote>
+<h5 id="Confluent-Kafka-1"><a href="#Confluent-Kafka-1" class="headerlink" title="Confluent Kafka"></a>Confluent Kafka</h5><ul>
+<li><p><strong>优势：集成了很多高级特性且由 Kafka 原班人马打造，质量上有保证。</strong></p>
+<p>Confluent Kafka 目前分为免费版和企业版两种。</p>
+<p>免费版：和 Apache Kafka 非常相像，除了常规的组件之外，还包含 Schema 注册中心和 REST proxy 两大功能。能帮助开发者集中管理 Kafka 消息格式以实现数据前向 / 后向兼容。免费版包含了更多的连接器，它们都是 Confluent 公司开发并认证过的。</p>
+<p>企业版：用开放 HTTP 接口的方式允许你通过网络访问 Kafka 的各种功能。拥有强大的跨数据中心备份和集群监控功能。</p>
+<p>多个数据中心之间数据的同步以及对集群的监控历来是 Kafka 的痛点，Confluent Kafka 企业版提供了强大的解决方案帮助开发者“干掉”它们。</p>
+</li>
+<li><p><strong>劣势：相关文档资料不全，普及率较低，没有太多可供参考的范例。</strong></p>
+<p>Confluent 公司暂时没有发展国内业务的计划，相关的资料以及技术支持都很欠缺，很多国内 Confluent Kafka 使用者甚至无法找到对应的中文文档，因此目前 Confluent Kafka 在国内的普及率是比较低的。</p>
+</li>
+</ul>
+<blockquote>
+<p>一言以蔽之，如果需要用到 Kafka 的一些高级特性，那么推荐使用 Confluent Kafka。</p>
+</blockquote>
+<h5 id="CDH-HDP-Kafka"><a href="#CDH-HDP-Kafka" class="headerlink" title="CDH/HDP Kafka"></a>CDH/HDP Kafka</h5><ul>
+<li><p><strong>优势：大数据云公司提供的 Kafka，内嵌 Apache Kafka。操作简单，节省运维成本。</strong></p>
+<p>通过便捷化且非常友好的界面操作将 Kafka 的安装、运维、管理、监控全部统一在控制台中，通常不需要进行任何配置就能有效地监控 Kafka。</p>
+</li>
+<li><p><strong>劣势：缺陷在于把控度低，演进速度较慢。</strong></p>
+<p>由于监控封装得太好了，以至于使用者对下层的 Kafka 集群一无所知。并且发布周期和 Apache Kafka 更新周期不同步。</p>
+</li>
+</ul>
+<blockquote>
+<p>简单来说，如果需要快速地搭建消息引擎系统，或者需要搭建的是多框架构成的数据平台且 Kafka 只是其中一个组件，那么推荐使用这些大数据云公司提供的 Kafka。</p>
+</blockquote>
+<h3 id="Kafka-体系架构"><a href="#Kafka-体系架构" class="headerlink" title="Kafka 体系架构"></a>Kafka 体系架构</h3><p><img src="https://image.woodwhales.cn/055/images/03.gif"></p>
+<p>如上图所示，一个典型的 Kafka 体系架构包括若干 Producer（可以是服务器日志，业务数据，页面前端产生的 page view 等等），若干 broker（Kafka支持水平扩展，一般broker数量越多，集群吞吐率越高），若干 Consumer (Group)，以及一个 Zookeeper 集群。</p>
+<ul>
+<li><p>Kafka 通过 Zookeeper 管理集群配置，选举 leader，以及在 consumer group 发生变化时进行 rebalance。</p>
+</li>
+<li><p>Producer 使用 push（推）模式将消息发布到 broker。</p>
+</li>
+<li><p>Consumer 使用 pull（拉）模式从 broker 订阅并消费消息。</p>
+</li>
+</ul>
+<p><strong>名词解释</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Broker</td>
+<td>消息中间件处理节点，一个 Kafka 节点就是一个 broker，一个或者多个 Broker 可以组成一个 Kafka 集群</td>
+</tr>
+<tr>
+<td>Topic</td>
+<td>Kafka 根据 topic 对消息进行归类，发布到 Kafka 集群的每条消息都需要指定一个 topic</td>
+</tr>
+<tr>
+<td>Producer</td>
+<td>消息生产者，向 Broker 发送消息的客户端</td>
+</tr>
+<tr>
+<td>Consumer</td>
+<td>消息消费者，从 Broker 读取消息的客户端</td>
+</tr>
+<tr>
+<td>ConsumerGroup</td>
+<td>每个 Consumer 属于一个特定的 Consumer Group，一条消息可以发送到多个不同的 Consumer</td>
+</tr>
+<tr>
+<td>Partition</td>
+<td>物理上的概念，一个 topic 可以分为多个 partition，每个 partition 内部是有序的</td>
+</tr>
+</tbody></table>
+<p>由上述概念可以了解到：</p>
+<ul>
+<li><p>n 个 Broker 组成一个 Kafka 集群，通常一台机器部署一个 Kafka 实例，一个实例挂了其他实例仍可以使用，体现了Kafka 的高可用性。</p>
+</li>
+<li><p>一个 partition 拥有多个 副本，并且这些副本在的其他 broker 上，体现强容灾能力。</p>
+</li>
+<li><p>partition 在机器磁盘上以 log 体现，采用顺序追加日志的方式添加新消息，实现高吞吐量。</p>
+</li>
+</ul>
+<h3 id="Topic（主题）-Partition（分区）"><a href="#Topic（主题）-Partition（分区）" class="headerlink" title="Topic（主题） &amp; Partition（分区）"></a>Topic（主题） &amp; Partition（分区）</h3><p>Kafka 中的消息以主题为单位进行归类，生产者负责将消息发送到特定的主题（发送到 Kafka 集群中的每一条消息都要指定一个主题），而消息者负责订阅主题并进行消费。</p>
+<p>主题是逻辑上的概念，主题的物理层面就是分区，一个分区只属于单个主题，很多时候把分区称为主题分区（Topic-Partition）。</p>
+<p>一个 topic 可以认为一个一类消息，每个 topic 将被分成多个 partition，每个 partition 在存储层面是 append log文 件。任何发布到此 partition 的消息都会被追加到 log 文件的尾部，每条消息在文件中的位置称为 offset(偏移量)，offset 为一个 long 型的数字，它是消息在分区中的唯一标识，Kafka 通过它来保证消息在分区的顺序性，不过 offset 并不跨越分区，也就是说，Kafka 保证的是分区有序而不是主题有序。</p>
+<blockquote>
+<p>每条消息都被 append 到 partition 中，是<strong>顺序写磁盘</strong>，因此效率非常高（经验证，顺序写磁盘效率比随机写内存还要高，这是 Kafka 高吞吐率的一个很重要的保证）。</p>
+</blockquote>
+<p><img src="https://image.woodwhales.cn/055/images/10.png"></p>
+<p>每一条消息被发送到 broker 中，会根据 partition 规则选择被存储到哪一个 partition。如果 partition 规则设置的合理，所有消息可以均匀分布到不同的 partition 里，这样就实现了水平扩展。（如果一个 topic 对应一个文件，那这个文件所在的机器 I/O 将会成为这个 topic 的性能瓶颈，而 partition 解决了这个问题）。在创建 topic 时可以在<code>$KAFKA_HOME/config/server.properties</code>中指定这个 partition 的数量（如下所示），当然可以在 topic 创建之后去修改 partition 的数量。</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">The default number of <span class="built_in">log</span> partitions per topic. More partitions allow greater</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">parallelism <span class="keyword">for</span> consumption, but this will also result <span class="keyword">in</span> more files across</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">the brokers.</span></span><br><span class="line">num.partitions=4</span><br></pre></td></tr></tbody></table></figure>
+
+<p>默认值是：1，在生产环境注意一定要设置合理值。</p>
+<p>简言之，为提升 Kafka 接收消息的吞量，将消息的主题设置成了分区的物理概念，这些分区都属于同一个主题，对外接收该主题的消息。</p>
+<p>在发送一条消息时，可以指定这个消息的 key，producer 根据这个 key 和 partition 机制来判断这个消息发送到哪个 partition。partition 机制可以通过指定 producer 的<code>partition.class</code>这一参数来指定，该class必须实现<code>kafka.producer.Partitioner</code>接口。</p>
+<p><img src="https://image.woodwhales.cn/055/images/04.gif"></p>
+<p>上面动态图表示的是将产生相同主题的消息轮询发送到不同的该主题的主题分区中。</p>
+<h3 id="Replication（分区的副本）"><a href="#Replication（分区的副本）" class="headerlink" title="Replication（分区的副本）"></a>Replication（分区的副本）</h3><p>Kafka 的高可靠性的保障来源于其健壮的副本（replication）策略。通过调节其副本相关参数，可以使得 Kafka 在性能和可靠性之间运转的游刃有余。Kafka 从 0.8.x 版本开始提供 partition 级别的复制，replication 的数量可以在<code>$KAFKA_HOME/config/server.properties</code>中配置（<code>default.replication.refactor</code>）。</p>
+<p>为了提高消息的可靠性，Kafka 每个 topic 的 partition 有 N 个副本（replicas），其中 N（大于等于1）是 topic 的复制因子（replica fator）的个数。Kafka 通过多副本机制实现故障自动转移，当 Kafka 集群中一个 broker 失效情况下仍然保证服务可用。在 Kafka 中发生复制时确保 partition 的日志能有序地写到其他节点上，N 个 replicas 中，其中一个 replica 为 leader，其他都为 follower，leader 处理 partition 的所有读写请求，与此同时，follower 会被动定期地去复制 leader上的数据。</p>
+<p>如下图所示，Kafka 集群中有 4 个 broker，某 topic 有 3 个 partition，且复制因子即副本个数也为 3：</p>
+<p><img src="https://image.woodwhales.cn/055/images/05.gif"></p>
+<p>Kafka 提供了数据复制算法保证，如果 leader 发生故障或挂掉，一个新 leader 被选举并被接受客户端的消息成功写入。Kafka 确保从同步副本列表中选举一个副本为 leader，或者说 follower 追赶 leader 数据。leader 负责维护和跟踪<code>ISR（In-Sync Replicas的缩写，表示副本同步队列）</code>中所有 follower 滞后的状态。当 producer 发送一条消息到 broker 后，leader 写入消息并复制到所有 follower。消息提交之后才被成功复制到所有的同步副本。消息复制延迟受最慢的 follower 限制，重要的是快速检测慢副本，如果follower “落后”太多或者失效，leader 将会把它从 ISR 中删除。</p>
+<blockquote>
+<p>默认情况下 Kafka 的 replica 数量为 1，即每个 partition 都有一个唯一的 leader，为了确保消息的可靠性，通常应用中将其值（由 broker 的参数<code>offsets.topic.replication.factor</code>指定）大小设置为大于 1，比如 3。</p>
+</blockquote>
+<h3 id="ISR"><a href="#ISR" class="headerlink" title="ISR"></a>ISR</h3><p>ISR、OSR、AR</p>
+<p>ISR（In-Sync Replicas）是指副本同步队列。副本数对 Kafka 的吞吐率是有一定的影响，但极大的增强了可用性。</p>
+<p><img src="https://image.woodwhales.cn/055/images/06.gif"></p>
+<ul>
+<li>分区中的所有副本（replicas）统称为<code>Assigned Replicas</code>，即<code>AR</code>。</li>
+<li>所有与 leader 副本保持一定程度同步的副本（包括 leader 副本在内）组成<code>ISR</code>（In-Sync Replicas），因此 ISR 是 AR 中的一个子集。</li>
+<li>leader 副本负责维护和跟踪 ISR 集合中所有 follower 副本的滞后状态，当 follower 副本落后太多或者失效时，leader 副本会把 follower 剔除出<code>ISR</code>。</li>
+<li>从 ISR 列表中被剔除的 follower 副本会存入<code>OSR（Outof-Sync Replicas）</code>列表，新加入的 follower 也会先存放在<code>OSR</code>中。</li>
+<li>如果 OSR 集合中有 follower 副本“追上”了 leader 副本，那么 leader 副本会把它从 OSR 集合中转移到 ISR 集合中。</li>
+<li>当 leader 副本发生故障时，只有在 ISR 集合中的副本才有资格被选举为新的 leader，而在 OSR 集合中的副本则没有任何机会。默认会从 ISR 集合中选择第一个 follower 副本当新的 leader 副本。</li>
+<li><code>AR = ISR + OSR</code>，正常情况下，所有的 follower 副本都应该与 leader 副本保持一定程度的同步，即 AR = ISR，OSR 集合为空。</li>
+</ul>
+<h4 id="follower-进入-ISR-列表条件"><a href="#follower-进入-ISR-列表条件" class="headerlink" title="follower 进入 ISR 列表条件"></a>follower 进入 ISR 列表条件</h4><p>能够进入 ISR 列表中的条件是可以进行参数配置的：</p>
+<p><strong>replica.lag.time.max.ms 默认值：10000，单位为：毫秒</strong></p>
+<p>该配置表示如果一个 follower 在有一个时间窗口内（默认值为 10 秒）没有发送任意 fetch 请求，leader 就会把这个 follower 从 ISR（in-sync replicas）移除，并存入 OSR 集合。</p>
+<blockquote>
+<p>Kafka 0.9.0.0版本后移除了<code>replica.lag.max.messages</code>参数，只保留了<code>replica.lag.time.max.ms</code>作为 ISR 中副本管理的参数。官方文档说明参见：<a target="_blank" rel="noopener" href="http://kafka.apache.org/090/documentation.html#upgrade_9_breaking">http://kafka.apache.org/090/documentation.html#upgrade_9_breaking</a></p>
+<p><img src="https://image.woodwhales.cn/055/images/11.png"></p>
+<p>Kafka 0.9.0.0版本后移除了 replica.lag.max.messages 参数，只保留了 replica.lag.time.max.ms 作为 ISR 中副本管理的参数。为什么这样做呢？</p>
+<p>replica.lag.max.messages 表示当前某个副本落后 leader 的消息数量超过了这个参数的值，那么 leader 就会把 follower 从 ISR 中删除。</p>
+<p>假设设置 replica.lag.max.messages = 4，那么如果 producer 一次传送至 broker 的消息数量都小于 4 条时，因为在 leader 接受到 producer 发送的消息之后而 follower 副本开始拉取这些消息之前，follower 落后 leader 的消息数不会超过 4 条消息，故此没有 follower 移出 ISR，所以这时候 replica.lag.max.message 的设置似乎是合理的。</p>
+<p>但是 producer 发起瞬时高峰流量，producer 一次发送的消息超过 4 条时，也就是超过 replica.lag.max.messages，此时 follower 都会被认为是与 leader 副本不同步了，从而被踢出了 ISR。</p>
+<p>但实际上这些 follower 都是存活状态的且没有性能问题。那么在之后追上 leader，并被重新加入了 ISR。于是就会出现它们不断地剔出 ISR 然后重新回归 ISR，这无疑增加了无谓的性能损耗。</p>
+<p>而且这个参数是 broker 全局的。设置太大了，影响真正“落后” follower 的移除；设置的太小了，导致 follower 的频繁进出。无法给定一个合适的 replica.lag.max.messages 的值，故此，新版本的 Kafka 移除了这个参数。</p>
+</blockquote>
+<p>值得注意的是：ISR 列表中包括：leader 和 follower。</p>
+<h4 id="Unclean-领导者选举（Unclean-Leader-Election）"><a href="#Unclean-领导者选举（Unclean-Leader-Election）" class="headerlink" title="Unclean 领导者选举（Unclean Leader Election）"></a>Unclean 领导者选举（Unclean Leader Election）</h4><p>当 leader 的所有副本都被剔除到了 OSR 列表中，此时 ISR 列表中只剩下 leader 了，此时 leader 自己“挂了”，那么 ISR 集合为空。此时该怎么选举 leader 呢？</p>
+<p><strong>Kafka 把所有不在 ISR 中的存活副本都称为非同步副本。</strong>通常来说，非同步副本落后 Leader 太多，因此，如果选择这些副本作为新 Leader，就可能出现数据的丢失。毕竟，这些副本中保存的消息远远落后于老 Leader 中的消息。在 Kafka 中，选举这种副本的过程称为 Unclean 领导者选举。</p>
+<p>Broker 端参数<code>unclean.leader.election.enable</code>控制是否允许 Unclean 领导者选举。</p>
+<h4 id="丢失数据风险"><a href="#丢失数据风险" class="headerlink" title="丢失数据风险"></a>丢失数据风险</h4><p>场景：</p>
+<p>1、follower2 不在 ISR 中，但正在努力“赶上”。</p>
+<p><img src="https://image.woodwhales.cn/055/images/12.png"></p>
+<p>2、ISR 中所有副本意外“挂掉”。</p>
+<p><img src="https://image.woodwhales.cn/055/images/13.png"></p>
+<p>3、开启了 Unclean 领导者选举，所以 follower2 成了新的 leader。</p>
+<p><img src="https://image.woodwhales.cn/055/images/14.png"></p>
+<p>4、原来在 ISR 里的副本都成了新 leader 的 follower，需要重新加入 ISR 中，“超长”部分被截取了，导致数据不一致。</p>
+<p><img src="https://image.woodwhales.cn/055/images/15.png"></p>
+<p>如上图所示，新的 follower 副本需要删除消息 4 和消息 5，之后才能与新的 leader 副本进行同步。之后新的 follower 副本和新的 leader 副本组成了新的 ISR 集合，参考下图。</p>
+<p><img src="https://image.woodwhales.cn/055/images/16.png"></p>
+<p>原本客户端已经成功的写入了消息 4 和消息 5，而在发生日志截断之后就意味着这 2 条消息就丢失了，并且新的 follower 副本和新的 leader 副本之间的消息也不一致。</p>
+<p>开启 Unclean 领导者选举可能会造成数据丢失，但好处是，它使得分区 Leader 副本一直存在，不至于停止对外提供服务，因此提升了高可用性。反之，禁止 Unclean 领导者选举的好处在于维护了数据的一致性，避免了消息丢失，但牺牲了高可用性。</p>
+<blockquote>
+<p>从 Kafka 0.11.0.0 版本开始<code>unclean.leader.election.enable</code>参数的默认值由原来的<code>true</code>改为<code>false</code>。</p>
+<p>原文参见：</p>
+<p><a target="_blank" rel="noopener" href="http://kafka.apache.org/documentation/#upgrade_1100_notable">http://kafka.apache.org/documentation/#upgrade_1100_notable</a></p>
+<p>Unclean leader election is now disabled by default. The new default favors durability over availability. Users who wish to to retain the previous behavior should set the broker config <code>unclean.leader.election.enable</code> to <code>true</code>.</p>
+</blockquote>
+<p>读者可以根据你的实际业务场景决定是否开启 Unclean 领导者选举。但是笔者强烈建议不要开启它，毕竟我们还可以通过其他的方式来提升高可用性。</p>
+<h3 id="Kafka文件存储机制"><a href="#Kafka文件存储机制" class="headerlink" title="Kafka文件存储机制"></a>Kafka文件存储机制</h3><p>Kafka 中消息是以 topic 进行分类的，生产者通过 topic 向 Kafka broker 发送消息，消费者通过 topic 读取数据。</p>
+<p>然而 topic 在物理层面又能以 partition 为分组，一个 topic 可以分成若干个 partition，那么 topic 以及 partition 又是怎么存储的呢？partition 还可以细分为 segment，一个 partition 物理上由多个 segment 组成，那么这些 segment 又是什么呢？</p>
+<h4 id="Parition"><a href="#Parition" class="headerlink" title="Parition"></a>Parition</h4><p>为了便于说明问题，假设这里只有一个 Kafka 集群，且这个集群只有一个 Kafka broker，即只有一台物理机。在这个 Kafka broker 中配置（默认配置）：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">A comma separated list of directories under <span class="built_in">which</span> to store <span class="built_in">log</span> files</span></span><br><span class="line">log.dirs=/tmp/kafka-logs</span><br></pre></td></tr></tbody></table></figure>
+
+<p>以此来设置 Kafka 消息文件存储目录，与此同时创建一个<code>topic：my-topic</code>，partition 的数量为 3：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 3 --topic my-topic</span><br></pre></td></tr></tbody></table></figure>
+
+<p>那么我们此时可以在<code>/tmp/kafka-logs</code>目录中可以看到生成了 3 个目录：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">drwxr-xr-x 2 root root 4096 Apr 10 16:10 my-topic-0</span><br><span class="line">drwxr-xr-x 2 root root 4096 Apr 10 16:10 my-topic-1</span><br><span class="line">drwxr-xr-x 2 root root 4096 Apr 10 16:10 my-topic-2</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在 Kafka 文件存储中，同一个 topic 下有多个不同的 partition，每个 partiton 为一个目录，partition 的名称规则为：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">topic名称 + 有序序号</span><br></pre></td></tr></tbody></table></figure>
+
+<p>第一个序号从 0 开始计，最大的序号为 partition 数量减 1，partition 是实际物理上的概念，而 topic 是逻辑上的概念。</p>
+<p><img src="https://image.woodwhales.cn/055/images/07.gif"></p>
+<h4 id="Segment"><a href="#Segment" class="headerlink" title="Segment"></a>Segment</h4><p>如果就以 partition 为最小存储单位，我们可以想象当 Kafka producer 不断发送消息，必然会引起 partition 文件的无限扩张，这样对于消息文件的维护以及已经被消费的消息的清理带来严重的影响，所以这里以 segment 为单位又将 partition 细分。</p>
+<ul>
+<li>每个 partition（目录）相当于一个巨型文件被平均分配到多个大小相等的 segment（段）数据文件中（每个 segment 文件中消息数量不一定相等）这种特性也方便 old segment 的删除，即方便已被消费的消息的清理，提高磁盘的利用率。</li>
+<li>每个 partition 只需要支持顺序读写就行，segment 的文件生命周期由服务端配置参数（log.segment.bytes，log.roll.{ms,hours} 等若干参数）决定。</li>
+</ul>
+<h5 id="文件组成"><a href="#文件组成" class="headerlink" title="文件组成"></a>文件组成</h5><p>segment 文件由两部分组成，分别为<code>.index</code>文件和<code>.log</code>文件，分别表示为 segment 索引文件和数据文件。这两个文件的命令规则为：</p>
+<h5 id="文件名规则"><a href="#文件名规则" class="headerlink" title="文件名规则"></a>文件名规则</h5><p>partition 全局的第一个 segment 从 0 开始，后续每个 segment 文件名为上一个 segment 文件最后一条消息的 offset值，数值大小为 64 位（long 大小），20 位数字字符长度，没有数字用 0 填充。</p>
+<p>实验：创建一个主题仅包含 1 个分区 ，设置每个 segment 大小为 500MB，并启动 producer 向 Kafka broker 写入大量数据，如下图所示 segment 文件列表形象说明了上述两个规则：</p>
+<p><img src="https://image.woodwhales.cn/055/images/17.png"></p>
+<p>以上述图中一对<code>segment file</code>文件为例，说明<code>segment</code>中<code>.index</code>和<code>.log</code> 文件的对应关系物理结构如下：</p>
+<p><img src="https://image.woodwhales.cn/055/images/18.png"></p>
+<p>上述图中索引文件存储大量元数据，数据文件存储大量消息，<strong>索引文件（.index）中元数据指向对应数据文件中 message 的物理偏移地址</strong>。 </p>
+<p>其中以索引文件中元数据<code>[3, 497]</code>为例，依次在数据文件中表示第 3 个 message（在全局 partiton 表示第 368772 个 message）、以及该消息的物理偏移地址为 497。</p>
+<h5 id="如何从-partition-中通过-offset-查找-message-呢？"><a href="#如何从-partition-中通过-offset-查找-message-呢？" class="headerlink" title="如何从 partition 中通过 offset 查找 message 呢？"></a>如何从 partition 中通过 offset 查找 message 呢？</h5><p>以上图为例，读取 offset = 368777 的消息。</p>
+<ul>
+<li><p>第一步：查找 segment 文件</p>
+<p>其中 00000000000000000000.index 为最开始的文件，第二个文件为 00000000000000368769.index（起始偏移为：368769 + 1 = 368770），而第三个文件为00000000000000737337.index（起始偏移为 737337 + 1 = 737338），所以这个 offset = 368777 就落到了第二个文件之中。</p>
+<p>其他后续文件可以依次类推，以其实偏移量命名并排列这些文件，然后根据<strong>二分查找法</strong>就可以快速定位到具体文件位置。</p>
+<p>其次根据 00000000000000368769.index 文件中的 [8，1325] 定位到 00000000000000368769.log 文件中的1325的位置进行读取。</p>
+</li>
+<li><p>第二步：通过 segment file 查找 message。</p>
+<p>通过第一步定位到 segment file，当 offset=368776 时，依次定位到00000000000000368769.index 的元数据（[8，1686]）物理位置（1686）和 00000000000000368769.log 的物理偏移地址（1686），然后再通过 00000000000000368769.log 顺序查找直到 offset=368776 为止。</p>
+</li>
+</ul>
+<blockquote>
+<p>要是读取 offset=368777 的消息，从 00000000000000368769.log 文件中的 1325 的位置进行读取，那么怎么知道何时读完本条消息，否则就读到下一条消息的内容了？</p>
+<p>这个就需要联系到消息的物理结构了，消息都具有固定的物理结构，包括：</p>
+<p>offset（8 Bytes）</p>
+<p>消息体的大小（4 Bytes）</p>
+<p>crc32（4 Bytes）</p>
+<p>magic（1 Byte）</p>
+<p>attributes（1 Byte）</p>
+<p>key length（4 Bytes）</p>
+<p>key（K Bytes）</p>
+<p>payload（N Bytes）</p>
+<p>等等字段，可以确定一条消息的大小，即读取到哪里截止。</p>
+</blockquote>
+<h3 id="HW-LEO"><a href="#HW-LEO" class="headerlink" title="HW &amp; LEO"></a>HW &amp; LEO</h3><h4 id="LEO（Log-End-Offset）"><a href="#LEO（Log-End-Offset）" class="headerlink" title="LEO（Log End Offset）"></a>LEO（Log End Offset）</h4><p>LEO 是日志末端位移 Log End Offset 的缩写，它标识当前日志文件中下一条待写入消息的 offset。LEO 的大小相当于当前日志分区中最后一条消息的 offset 值加 1。分区 ISR 集合中的每个副本都会维护自身的 LEO。</p>
+<p><img src="https://image.woodwhales.cn/055/images/08.gif"></p>
+<p>HW（High Watermark）</p>
+<p>HW 俗称高水位，High Watermark 的缩写，取一个 partition 对应的 ISR 中最小的 LEO 作为 HW，它标识了一个特定的消息偏移量（offset）。</p>
+<p>consumer 最多只能消费到 HW 所在的位置之前的消息。另外每个 replica 都有HW，leader 和 follower 各自负责更新自己的 HW 的状态。更精确表述为：consumer无法消费分区下leader副本中位移值大于<strong>分区 HW</strong>的任何消息。这里需要特别注意<strong>分区 HW 就是 leader 副本的 HW 值</strong>。</p>
+<p>对于 leader 新写入的消息，consumer 不能立刻消费，leader 会等待该消息被所有 ISR 中的 replicas 同步后更新 HW，此时消息才能被 consumer 消费。这样就保证了如果 leader 所在的 broker 失效，该消息仍然可以从新选举的 leader 中获取。对于来自内部 broker 的读取请求，没有 HW 的限制。</p>
+<p><img src="https://image.woodwhales.cn/055/images/19.png"></p>
+<p>对于 HW 机制有存在丢失数据的风险，因此在 Kafka 0.11 引入了<code>leader epoch</code>来取代 HW 值。感兴趣的读者可以移步至：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/huxi2b/p/7453543.html">Kafka水位(high watermark)与leader epoch的讨论</a>，该文章细致了讲述了 leader 副本和 follower 副本之前的 HW 及 LEO 的更新触发时机。</p>
+<h3 id="数据可靠性"><a href="#数据可靠性" class="headerlink" title="数据可靠性"></a>数据可靠性</h3><h4 id="生产端"><a href="#生产端" class="headerlink" title="生产端"></a>生产端</h4><p>当 producer 向 leader 发送数据时，可以通过<code>request.required.acks</code>参数来设置数据可靠性的级别：</p>
+<ul>
+<li>1（默认）：这意味着 producer 在 ISR 中的 leader 已成功收到数据并得到确认。如果 leader 宕机了，则会丢失数据。</li>
+<li>0：这意味着 producer 无需等待来自 broker 的确认而继续发送下一批消息。这种情况下数据传输效率最高，但是数据可靠性确是最低的。</li>
+<li>-1：producer 需要等待 ISR中 的所有 follower 都确认接收到数据后才算一次发送完成，可靠性最高。但是这样也不能保证数据不丢失，比如当 ISR 中只有 leader 时（前面 ISR 那一节讲到，ISR 中的成员由于某些情况会增加也会减少，最少就只剩一个leader），这样就变成了<code>acks=1</code>的情况。</li>
+</ul>
+<p>因此，<strong>如果要提高数据的可靠性，在设置<code>request.required.acks=-1</code>的同时，也要<code>min.insync.replicas</code>这个参数（可以在 broker 或者 topic 层面进行设置）)的配合，这样才能发挥最大的功效。</strong></p>
+<blockquote>
+<p><code>min.insync.replicas</code>这个参数设定 ISR 中的最小副本数是多少，默认值为 1。</p>
+<p>当且仅当<code>request.required.acks</code>参数设置为<code>-1</code>时，此参数才生效。</p>
+<p>如果 ISR 中的副本数少于<code>min.insync.replicas</code>配置的数量时，客户端会返回异常：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.apache.kafka.common.errors.NotEnoughReplicasExceptoin: Messages are rejected since there are fewer in-sync replicas than required</span><br></pre></td></tr></tbody></table></figure>
+</blockquote>
+<h5 id="request-required-acks-1"><a href="#request-required-acks-1" class="headerlink" title="request.required.acks=1"></a>request.required.acks=1</h5><p>producer 发送数据到 leader，leader 写本地日志成功，返回客户端成功；此时 ISR 中的副本还没有来得及拉取该消息，leader 就宕机了，那么此次发送的消息就会丢失。</p>
+<p><img src="https://image.woodwhales.cn/055/images/20.png"></p>
+<h5 id="request-required-acks-1-1"><a href="#request-required-acks-1-1" class="headerlink" title="request.required.acks=-1"></a>request.required.acks=-1</h5><p>同步的发送模式（Kafka默认为同步，即<code>producer.type=sync</code>），<code>replication.factor&gt;=2</code>且<code>min.insync.replicas&gt;=2</code>的情况下，不会丢失数据。</p>
+<p>有两种典型情况。<code>acks=-1</code>的情况下（如无特殊说明，以下 acks 都表示为参数<code>request.required.acks</code>），数据发送到 leader，ISR 的 follower 全部完成数据同步后，leader 此时挂掉，那么会选举出新的 leader，数据不会丢失。</p>
+<p><img src="https://image.woodwhales.cn/055/images/21.png"></p>
+<p>acks=-1 的情况下，数据发送到 leader 后 ，部分 ISR 的副本同步，leader 此时挂掉。比如 follower1 和 follower2 都有可能变成新的 leader，producer 端会得到返回异常，producer 端会重新发送数据，数据可能会重复。</p>
+<p><img src="https://image.woodwhales.cn/055/images/22.png"></p>
+<p>当然上图中如果在 leader crash 的时候，follower2 还没有同步到任何数据，而且 follower2 被选举为新的 leader 的话，这样消息就不会重复。</p>
+<p>综上：</p>
+<p>producer 在同步的发送模式下（kafka默认），<code>replication.factor&gt;=2</code>且<code>min.insync.replicas&gt;=2</code>的情况下，不会丢失数据。</p>
+<p>producer 在异步的发送模式下，设置<code>request.required.acks=-1</code>参数，可以保证不丢失数据，但可能存在发送重复数据风险。</p>
+<h4 id="消费端"><a href="#消费端" class="headerlink" title="消费端"></a>消费端</h4><p>对于消息的可靠性，很多人都会忽视消费端的重要性，如果一条消息成功地写入 Kafka，并且也被 Kafka 完好的保存，而在消费时，由于某些疏忽造成没有消费到这条消息，那么对于应用来说，这条消息也是丢失的。</p>
+<p><code>enable.auto.commit</code>参数的默认值是 true，及开启自动位移提交的功能。对于高可靠性要求的应用来说，这种默认提交位移方式是不可取的，因此需要将<code>enable.auto.commit</code>参数设置为 false 来执行手动位移提交。</p>
+<p>手动提交位移建议遵循一个原则：<strong>如果消息没有成功被消费，那么就不能提交对应的消费位移。</strong>对高可靠要求的应用来说，宁愿重复消费也不应该因为消费异常而导致消息丢失。</p>
+<blockquote>
+<p>有时候，由于应用解析消息的异常，可能导致部分消息一直不能成功被消费，那么这时候为了不影响整体消费的进度，可以将这类消息暂存到死信队列中，以便后续故障排查。</p>
+<p>死信队列：由于某些原因消息无法被正确地投递，为了确保消息不会被无故地丢弃，一般将其置于一个特殊角色的队列，这个队列一般称为死信队列。</p>
+</blockquote>
+<h3 id="Java-API-生产端"><a href="#Java-API-生产端" class="headerlink" title="Java API - 生产端"></a>Java API - 生产端</h3><h4 id="KafkaProducer-实例"><a href="#KafkaProducer-实例" class="headerlink" title="KafkaProducer 实例"></a>KafkaProducer 实例</h4><p>apache 提供了工具类，方便开发者设置配置参数：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.clients.producer.KafkaProducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.clients.producer.ProducerConfig;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.StringSerializer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Properties <span class="title function_">initConfig</span><span class="params">()</span> {</span><br><span class="line">    <span class="type">Properties</span> <span class="variable">props</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line"></span><br><span class="line">    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="string">"localhost:9999"</span>);</span><br><span class="line">    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());</span><br><span class="line">    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());</span><br><span class="line"></span><br><span class="line">    props.put(ProducerConfig.CLIENT_ID_CONFIG, <span class="string">"producer.client.id.demo"</span>);</span><br><span class="line">    <span class="keyword">return</span> props;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">testKafkaProducer</span><span class="params">()</span> {</span><br><span class="line">    <span class="type">Properties</span> <span class="variable">properties</span> <span class="operator">=</span> initConfig();</span><br><span class="line">    KafkaProducer&lt;String, String&gt; producer = <span class="keyword">new</span> <span class="title class_">KafkaProducer</span>&lt;&gt;(properties);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>KafkaProducer 是线程安全的，可以在多个线程中共享单个 KafkaProducer 实例，也可以将 KafkaProducer 实例进行池化来供其他线程调用。一般选用<code>public KafkaProducer(Properties properties)</code>这个构造方法来创建 KafkaProducer 实例。</p>
+<h4 id="ProducerRecord-对象"><a href="#ProducerRecord-对象" class="headerlink" title="ProducerRecord 对象"></a>ProducerRecord 对象</h4><p>ProducerRecord 的构造方法有很多种：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">ProducerRecord</span><span class="params">(String topic, Integer partition, Long timestamp, K key, V value, Iterable&lt;Header&gt; headers)</span>；</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ProducerRecord</span><span class="params">(String topic, Integer partition, Long timestamp, K key, V value)</span>；</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ProducerRecord</span><span class="params">(String topic, Integer partition, K key, V value, Iterable&lt;Header&gt; headers)</span>；</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ProducerRecord</span><span class="params">(String topic, Integer partition, K key, V value)</span>；</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ProducerRecord</span><span class="params">(String topic, K key, V value)</span>；</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ProducerRecord</span><span class="params">(String topic, V value)</span>；</span><br></pre></td></tr></tbody></table></figure>
+
+<p>第一种构造函数最丰富，开发者可以自定义很多消息对象附属信息。最后一种最简单，只需要 topic 和 value 即可。</p>
+<h4 id="消息发送的方式"><a href="#消息发送的方式" class="headerlink" title="消息发送的方式"></a>消息发送的方式</h4><p>KafkaProducer 的 send() 方法并非是 void 类型，而是<code>Future&lt;RecordMetadata&gt; </code>类型，send() 方法有 2 个重载方法，具体定义如下：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Asynchronously send a record to a topic，异步发送消息</span></span><br><span class="line">Future&lt;RecordMetadata&gt; <span class="title function_">send</span><span class="params">(ProducerRecord&lt;K, V&gt; record)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Asynchronously send a record to a topic，异步发送消息带回调</span></span><br><span class="line">Future&lt;RecordMetadata&gt; <span class="title function_">send</span><span class="params">(ProducerRecord&lt;K, V&gt; record, Callback callback)</span>;</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="发后即忘（fire-and-forget）"><a href="#发后即忘（fire-and-forget）" class="headerlink" title="发后即忘（fire and forget）"></a>发后即忘（fire and forget）</h5><p>这种模式只管往 Kafka 发送消息而不关系消息是否正确到达，这种性能最高，但是可靠性最差，因为一旦发生不可重试异常的时候，就会造成消息丢失：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">producer.send(record);</span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="同步发送（sync）"><a href="#同步发送（sync）" class="headerlink" title="同步发送（sync）"></a>同步发送（sync）</h5><p>利用返回的 Future 对象实现：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    producer.send(record).get();</span><br><span class="line">} <span class="keyword">catch</span> (ExecutionException | InterruptedException exception) {</span><br><span class="line">    exception.printStackTrace();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>send() 方法本身是异步的，该方法返回的 Future 对象可以使调用方稍后获得发送的结果。上述代码就是直接链式调用了 get() 方法来阻塞等嗲 kafka 的响应，直到消息发送成功或者发生异常。</p>
+<p>也可以不直接调用 get() 方法，比如下面这种也是同步发送方式：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    Future&lt;RecordMetadata&gt; future = producer.send(record);</span><br><span class="line">    <span class="type">RecordMetadata</span> <span class="variable">metadata</span> <span class="operator">=</span> future.get();</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">topic</span> <span class="operator">=</span> metadata.topic();</span><br><span class="line">    <span class="type">long</span> <span class="variable">offset</span> <span class="operator">=</span> metadata.offset();</span><br><span class="line"></span><br><span class="line">} <span class="keyword">catch</span> (ExecutionException | InterruptedException exception) {</span><br><span class="line">    exception.printStackTrace();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这样可以获取一个 RecordMetadata 对象，在 RecordMetadata 对象里包含了消息的一些元数据信息，比如当前消息的主题、分区号、分区中的偏移量（offset）、时间戳等。</p>
+<p>另外，sned() 方法的返回类型是 Future 类型，开发者可以使用 Java 语言层面的技巧来丰富应用的实现，比如使用 Future 中的 get(long timeout, TimeUnit unit) 方法实现可超时的阻塞。</p>
+<p>同步发送不会像“发后即忘”的方式直接造成消息的丢失，但是这种方式的性能会很差，需要阻塞等待本条消息发送完之后才能发送下一条。</p>
+<h5 id="异步发送（async）"><a href="#异步发送（async）" class="headerlink" title="异步发送（async）"></a>异步发送（async）</h5><p>在开发中最常用的方式就是使用 send() 方法中带回调信息的异步发送：即指定一个 Callback 的回调函数，kafka 在返回响应时调用该函数来实现异步的发送确认：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">producer.send(record, <span class="keyword">new</span> <span class="title class_">Callback</span>() {</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCompletion</span><span class="params">(RecordMetadata metadata, Exception exception)</span> {</span><br><span class="line">        <span class="keyword">if</span>(exception != <span class="literal">null</span>) {</span><br><span class="line">            exception.printStackTrace();</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            System.out.println(<span class="string">"The offset of the record we just sent is: "</span> + metadata.offset());</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意上述代码中，onCompletion() 方法的俩个参数是互斥的：</p>
+<ul>
+<li>消息发送成功时，metadata 不为 null 而 exception 为 null</li>
+<li>消息发送失败时，metadata 为 null 而 exception 不为 null</li>
+</ul>
+<p>对于同一个分区来说，如果消息 record1 于 record2 之前发送，那么 KafkaProducer 可以保证对应的 callback1 在 callback2 之前调用，也就是说，回调函数的调用可以保证同一个分区内有序。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">producer.send(record1, callback1);</span><br><span class="line">producer.send(record2, callback2);</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="关闭资源"><a href="#关闭资源" class="headerlink" title="关闭资源"></a>关闭资源</h4><p>KafkaProducer 发送完一批消息之后，注意及时关闭资源，KafkaProducer 提供了俩个 close() 方法，第二个是带超时时间的关闭资源方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">close</span><span class="params">()</span>;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">close</span><span class="params">(<span class="type">long</span> timeout, TimeUnit timeUnit)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="发送异常"><a href="#发送异常" class="headerlink" title="发送异常"></a>发送异常</h4><p>KafkaProducer 一般会发生两种类型的异常：可重试异常和不可重试异常。</p>
+<h4 id="可重试异常"><a href="#可重试异常" class="headerlink" title="可重试异常"></a>可重试异常</h4><p>常见有：NetWorkException、 LeaderNotAvailableException、UnknownTopicOrPartitionException、UnknownTopicOrPartitionException、NotCoordinatorException 等。下图展示了 kafka 可以重试的异常，只有超过重试阀值的时候才会给开发者抛出异常。</p>
+<p><img src="https://image.woodwhales.cn/055/images/23.png"></p>
+<p>可重试异常的配套参数为：<code>retries</code>，只要在规定的重试次数内自行恢复的，就会抛出异常。retries 参数默认值为 0，配置参考：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">props.put(ProducerConfig.RETRIES_CONFIG, <span class="number">10</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Java-API-消费端"><a href="#Java-API-消费端" class="headerlink" title="Java API - 消费端"></a>Java API - 消费端</h3><h4 id="poll-方法"><a href="#poll-方法" class="headerlink" title="poll() 方法"></a>poll() 方法</h4><p>Kafka 中的消费是基于拉模式的。代码形如：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(<span class="number">1000</span>));</span><br><span class="line">		…</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述代码可以看出，Kafka 中的消息消费是一个不断轮询的过程，消费者所要做的就是重复地调用 poll() 方法，而 poll() 方法返回的是所订阅的主题（分区）上的一组消息。</p>
+<p>对于 poll() 方法而言：</p>
+<ul>
+<li><p>如果某些分区中没有可供消费的消息，那么此分区对应的消息拉取的结果就为空。</p>
+</li>
+<li><p>如果订阅的所有分区中都没有可供消费的消息，那么 poll() 方法返回为空的消息集合。</p>
+</li>
+</ul>
+<p>poll() 方法的具体定义如下：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ConsumerRecords&lt;K, V&gt; <span class="title function_">poll</span><span class="params">(<span class="keyword">final</span> Duration timeout)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>timeout 参数表示超时时间参数，用来控制 poll() 方法的阻塞时间，在消费者的缓冲区里没有可用数据时会发成阻塞。</p>
+<h4 id="同步提交"><a href="#同步提交" class="headerlink" title="同步提交"></a>同步提交</h4><p>消费端对于自动提交存在丢失数据的风险，本章节不再举代码示例。重点关注手动提交方式。</p>
+<p>手动提交可以细分为同步提交和异步提交，对应 kafkaConsumer 中的<code>commitSync()</code>和<code>commitAsync()</code>两种类型的方法。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">commitSync</span><span class="params">()</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>同步提交的简单用法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Properties</span> <span class="variable">props</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, <span class="string">"localhost:9092"</span>);</span><br><span class="line">props.put(ConsumerConfig.GROUP_ID_CONFIG, <span class="string">"consumer.client.id.demo"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置手动提交消息偏移</span></span><br><span class="line">props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, <span class="string">"false"</span>);</span><br><span class="line"></span><br><span class="line">props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());</span><br><span class="line">props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());</span><br><span class="line">KafkaConsumer&lt;String, String&gt; consumer = <span class="keyword">new</span> <span class="title class_">KafkaConsumer</span>&lt;&gt;(props);</span><br><span class="line">consumer.subscribe(Collections.singletonList(<span class="string">"my-topic"</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(<span class="number">1000</span>));</span><br><span class="line">        <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records) {</span><br><span class="line">            <span class="comment">// do some logical processing</span></span><br><span class="line">        }</span><br><span class="line">        consumer.commitSync();</span><br><span class="line">    }</span><br><span class="line">} <span class="keyword">catch</span> (Exception exception) {</span><br><span class="line">    Log.error(<span class="string">"occur exception"</span>, exception);</span><br><span class="line">} <span class="keyword">finally</span> {</span><br><span class="line">    consumer.close();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述代码示例中，拉取到的消息是批量的，消费过程是按顺序一条条消息做相应的逻辑处理，然后对整个消息集做同步提交。等待全部消费完毕，再手动提交本批次的偏移量。针对上面的示例可以修改为批量处理 + 批量提交的方式：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="type">int</span> <span class="variable">minBatchSize</span> <span class="operator">=</span> <span class="number">200</span>;</span><br><span class="line">List&lt;ConsumerRecord&lt;String, String&gt;&gt; buffer = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) {</span><br><span class="line">        ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(<span class="number">1000</span>));</span><br><span class="line">        <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records) {</span><br><span class="line">            buffer.add(record);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (buffer.size() &gt;= minBatchSize) {</span><br><span class="line">            <span class="comment">// do some logical processing with buffer</span></span><br><span class="line">            consumer.commitSync();</span><br><span class="line">            buffer.clear();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">} <span class="keyword">catch</span> (Exception exception) {</span><br><span class="line">    Log.error(<span class="string">"occur exception"</span>, exception);</span><br><span class="line">} <span class="keyword">finally</span> {</span><br><span class="line">    consumer.close();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述代码示例中，将拉取到的消息缓存到 buffer，等积累到足够多的时候，也就是示例中大于等于 200 个消息时候，再做相应的处理，最后再做批量提交。</p>
+<p>以上两个同步提交示例都存在重复消费的问题，如果程序在消费完数据，但还没来得及提交位移的时候出现了崩溃，那么待恢复之后只能从上一次位移提交的地方拉取消息，由此在俩次位移提交的窗口中出现了重复消费的现象。</p>
+<p>consumer.commitSync() 方法会根据 poll() 方法拉取最新位移来进行提交，只要没有发生不可恢复的错误，它就会阻塞消费者线程直至位移提交完成。对于不可恢复的错误，比如 CommitFailedException、WakeupException 等，我们可以将其捕获并做针对性处理。</p>
+<p>对于 commitSync() 无参方法，它提交消费位移的频率和拉取批次消息、处理批次消息的频率是一样的，如果需要更细粒度的提交，就需要使用带参数的 commitSync() 方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">commitSync</span><span class="params">(<span class="keyword">final</span> Map&lt;TopicPartition, OffsetAndMetadata&gt; offsets)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>该方法提供了一个 offset 参数，用来提交指定分区的位移。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>) {</span><br><span class="line">        ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(<span class="number">1000</span>));</span><br><span class="line">        <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records) {</span><br><span class="line">            <span class="comment">// do some logical processing</span></span><br><span class="line">            <span class="type">long</span> <span class="variable">offset</span> <span class="operator">=</span> record.offset();</span><br><span class="line">            <span class="type">TopicPartition</span> <span class="variable">partition</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TopicPartition</span>(record.topic(), record.partition());</span><br><span class="line">            consumer.commitSync(Collections.singletonMap(partition, <span class="keyword">new</span> <span class="title class_">OffsetAndMetadata</span>(offset + <span class="number">1</span>)));</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">} <span class="keyword">catch</span> (Exception exception) {</span><br><span class="line">    log.error(<span class="string">"occur exception"</span>, exception);</span><br><span class="line">} <span class="keyword">finally</span> {</span><br><span class="line">    consumer.close();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="按照分区消费并提交位移"><a href="#按照分区消费并提交位移" class="headerlink" title="按照分区消费并提交位移"></a>按照分区消费并提交位移</h5><p>实际应用很少会每消费一条消息就提交一次消费位移。因为同步提交本身就很性能，加上一条条阻塞式提交，性能会更低。更多时候是根据分区的粒度划分提交位移的界限。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>) {</span><br><span class="line">        ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(<span class="number">1000</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (TopicPartition partition : records.partitions()) {</span><br><span class="line"></span><br><span class="line">            List&lt;ConsumerRecord&lt;String, String&gt;&gt; partitionRecords = records.records(partition);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records) {</span><br><span class="line">                <span class="comment">// do some logical processing</span></span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="type">long</span> <span class="variable">lastConsumerOffset</span> <span class="operator">=</span> partitionRecords.get(partitionRecords.size() - <span class="number">1</span>).offset();</span><br><span class="line"></span><br><span class="line">            consumer.commitSync(Collections.singletonMap(partition, <span class="keyword">new</span> <span class="title class_">OffsetAndMetadata</span>(lastConsumerOffset + <span class="number">1</span>)));</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">} <span class="keyword">catch</span> (Exception exception) {</span><br><span class="line">    log.error(<span class="string">"occur exception"</span>, exception);</span><br><span class="line">} <span class="keyword">finally</span> {</span><br><span class="line">    consumer.close();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="异步提交"><a href="#异步提交" class="headerlink" title="异步提交"></a>异步提交</h4><p>异步提交使用 commitAsync() 方法，该方法在执行的时候消费者线程不会被阻塞，该方法有 3 个重载方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">commitAsync</span><span class="params">()</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">commitAsync</span><span class="params">(OffsetCommitCallback callback)</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">commitAsync</span><span class="params">(<span class="keyword">final</span> Map&lt;TopicPartition, OffsetAndMetadata&gt; offsets, OffsetCommitCallback callback)</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>第二个和第三个方法里的回调函数和生产端发送回调函数类似：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>) {</span><br><span class="line">    ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(<span class="number">1000</span>));</span><br><span class="line">    <span class="keyword">for</span> (ConsumerRecord&lt;String, String&gt; record : records) {</span><br><span class="line">        <span class="comment">// do some logical processing</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    consumer.commitAsync(<span class="keyword">new</span> <span class="title class_">OffsetCommitCallback</span>() {</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onComplete</span><span class="params">(Map&lt;TopicPartition, OffsetAndMetadata&gt; offsets, Exception exception)</span> {</span><br><span class="line">            <span class="keyword">if</span>(exception == <span class="literal">null</span>) {</span><br><span class="line">                System.out.println(offsets) ;</span><br><span class="line">            } <span class="keyword">else</span> {</span><br><span class="line">                log.error(<span class="string">"occur exception"</span>, exception);</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line">    });</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意：异步提交消费位移发生异常的时候，使用回调函数捕获提交异常，如果做重试提交，那么会可能产生重复消费问题。比如：第一个异步提交位移在某一时刻失败了，此时第二个异步提交位移提交了新的位移，由于有重试的机制，那么第一个位移（相比第二个位移是旧的）提交之后，第三次消费的时候，又是从第一次消费处开始消费。</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://juejin.im/entry/590c2d9061ff4b006239098e">消息队列技术介绍</a></p>
+<p><a target="_blank" rel="noopener" href="http://jm.taobao.org/2016/04/01/kafka-vs-rabbitmq-vs-rocketmq-message-send-performance/?utm_source=tuicool&amp;utm_medium=referral">Kafka、RabbitMQ、RocketMQ消息中间件的对比 —— 消息发送性能</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.imooc.com/learn/856">Java消息中间件</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9455ef87ae74">10分钟搞懂：95%的程序员都拎不清的分布式消息队列中间件</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wqc19920906/article/details/82193316">消息中间件（一）MQ详解及四大MQ比较</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yinzhengjie/p/9986554.html">Kafka各个版本差异汇总</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.jasongj.com/2015/03/10/KafkaColumn1/">Kafka设计解析（一）- Kafka背景及架构介绍</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liyiming2017/article/details/82875068">Kafka的时代已经过去了，未来是Pulsar的吗？</a></p>
+<p><a target="_blank" rel="noopener" href="https://hackernoon.com/thorough-introduction-to-apache-kafka-6fbf2989bbc1">Thorough Introduction to Apache Kafka</a></p>
+<p><a target="_blank" rel="noopener" href="https://insidebigdata.com/2018/04/12/developing-deeper-understanding-apache-kafka-architecture/">Developing a Deeper Understanding of Apache Kafka Architecture</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.confluent.io/blog/apache-kafka-for-service-architectures/">Using Apache Kafka as a Scalable, Event-Driven Backbone for Service Architectures</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.iteblog.com/archives/2232.html">Apache Kafka消息格式的演变(0.7.x~0.10.x)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.iteblog.com/archives/2250.html">Kafka消息时间戳及压缩消息对时间戳的处理</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013256816/article/details/71091774">kafka数据可靠性深度解读</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.iteblog.com/archives/2235.html">图解Apache Kafka消息偏移量的演变(0.7.x~0.10.x)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qingyunzong/p/9004509.html">Kafka学习之路 （一）Kafka的简介</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qingyunzong/p/9004593.html">Kafka学习之路 （二）Kafka的架构</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qingyunzong/p/9004703.html">Kafka学习之路 （三）Kafka的高可用</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/depth-interpretation-of-kafka-data-reliability">Kafka 数据可靠性深度解读</a></p>
+<p><a target="_blank" rel="noopener" href="https://kaimingwan.com/post/framworks/kafka/kafkagao-ke-yong-yuan-li">kafka高可用原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://jzwdsb.github.io/2019/02/kafka_partition_leader_election/">kafka 高可用</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/huxi2b/p/7453543.html">Kafka水位(high watermark)与leader epoch的讨论</a></p>
+<p><a target="_blank" rel="noopener" href="https://tech.meituan.com/2015/01/13/kafka-fs-design-theory.html">Kafka文件存储机制那些事</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013256816/article/details/80790185">Kafka参数图鉴——unclean.leader.election.enable</a></p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/12/01/055/">Apache Kafka 学习笔记</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2019/12/01/055/" title="Apache Kafka 学习笔记">https://woodwhales.cn/2019/12/01/055/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2019/12/01/055/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Kafka/" rel="tag"><i class="fa fa-tag"></i> Kafka</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/24/054/" rel="next" title="计算机语言及操作系统发展史">
+                <i class="fa fa-chevron-left"></i> 计算机语言及操作系统发展史
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/21/056/" rel="prev" title="SpringBoot Layui ThymeLeaf 一点点学习心得">
+                SpringBoot Layui ThymeLeaf 一点点学习心得 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F"><span class="nav-text">消息引擎系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F"><span class="nav-text">常见的消息引擎系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ActiveMQ"><span class="nav-text">ActiveMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RabbitMQ"><span class="nav-text">RabbitMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kafka"><span class="nav-text">Kafka</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RocketMQ"><span class="nav-text">RocketMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pulsar"><span class="nav-text">Pulsar</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZeroMQ"><span class="nav-text">ZeroMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%B6%88%E6%81%AF%E5%BC%95%E6%93%8E%E7%B3%BB%E7%BB%9F%E5%AF%B9%E6%AF%94"><span class="nav-text">常用消息引擎系统对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Kafka-vs-RabbitMQ-vs-Pulsar"><span class="nav-text">Kafka vs. RabbitMQ vs. Pulsar</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RocketMQ-vs-ActiveMQ-vs-Kafka"><span class="nav-text">RocketMQ vs. ActiveMQ vs. Kafka</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E4%BC%A0%E8%BE%93%E6%A0%BC%E5%BC%8F"><span class="nav-text">消息传输格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE"><span class="nav-text">消息传输协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%82%B9%E5%AF%B9%E7%82%B9%E6%A8%A1%E5%9E%8B"><span class="nav-text">点对点模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%9E%8B"><span class="nav-text">发布 &#x2F; 订阅模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-text">使用消息系统的好处</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86-Kafka"><span class="nav-text">认识 Kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E7%AE%80%E4%BB%8B"><span class="nav-text">Kafka简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AF%E8%AF%AD"><span class="nav-text">术语</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#broker"><span class="nav-text">broker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E6%81%AF"><span class="nav-text">消息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98"><span class="nav-text">主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%8C%BA"><span class="nav-text">分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E4%BD%8D%E7%A7%BB"><span class="nav-text">消息位移</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%AF%E6%9C%AC"><span class="nav-text">副本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85"><span class="nav-text">生产者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-text">消费者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E4%BD%8D%E7%A7%BB"><span class="nav-text">消费者位移</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84"><span class="nav-text">消费者组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%B9%B3%E8%A1%A1"><span class="nav-text">重平衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%86%E5%AF%BC%E8%80%85"><span class="nav-text">领导者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%BD%E9%9A%8F%E8%80%85"><span class="nav-text">追随者</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka-%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-text">Kafka 的种类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Apache-Kafka"><span class="nav-text">Apache Kafka</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Confluent-Kafka"><span class="nav-text">Confluent Kafka</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cloudera-Hortonworks-Kafka"><span class="nav-text">Cloudera&#x2F;Hortonworks Kafka</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%A7%E5%93%81%E6%AF%94%E8%BE%83"><span class="nav-text">产品比较</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Apache-Kafka-1"><span class="nav-text">Apache Kafka</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Confluent-Kafka-1"><span class="nav-text">Confluent Kafka</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CDH-HDP-Kafka"><span class="nav-text">CDH&#x2F;HDP Kafka</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka-%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84"><span class="nav-text">Kafka 体系架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Topic%EF%BC%88%E4%B8%BB%E9%A2%98%EF%BC%89-Partition%EF%BC%88%E5%88%86%E5%8C%BA%EF%BC%89"><span class="nav-text">Topic（主题） &amp; Partition（分区）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Replication%EF%BC%88%E5%88%86%E5%8C%BA%E7%9A%84%E5%89%AF%E6%9C%AC%EF%BC%89"><span class="nav-text">Replication（分区的副本）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ISR"><span class="nav-text">ISR</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#follower-%E8%BF%9B%E5%85%A5-ISR-%E5%88%97%E8%A1%A8%E6%9D%A1%E4%BB%B6"><span class="nav-text">follower 进入 ISR 列表条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unclean-%E9%A2%86%E5%AF%BC%E8%80%85%E9%80%89%E4%B8%BE%EF%BC%88Unclean-Leader-Election%EF%BC%89"><span class="nav-text">Unclean 领导者选举（Unclean Leader Election）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A2%E5%A4%B1%E6%95%B0%E6%8D%AE%E9%A3%8E%E9%99%A9"><span class="nav-text">丢失数据风险</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6"><span class="nav-text">Kafka文件存储机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Parition"><span class="nav-text">Parition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Segment"><span class="nav-text">Segment</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%BB%84%E6%88%90"><span class="nav-text">文件组成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-text">文件名规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BB%8E-partition-%E4%B8%AD%E9%80%9A%E8%BF%87-offset-%E6%9F%A5%E6%89%BE-message-%E5%91%A2%EF%BC%9F"><span class="nav-text">如何从 partition 中通过 offset 查找 message 呢？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HW-LEO"><span class="nav-text">HW &amp; LEO</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LEO%EF%BC%88Log-End-Offset%EF%BC%89"><span class="nav-text">LEO（Log End Offset）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%AF%E9%9D%A0%E6%80%A7"><span class="nav-text">数据可靠性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E7%AB%AF"><span class="nav-text">生产端</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#request-required-acks-1"><span class="nav-text">request.required.acks&#x3D;1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#request-required-acks-1-1"><span class="nav-text">request.required.acks&#x3D;-1</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E7%AB%AF"><span class="nav-text">消费端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-API-%E7%94%9F%E4%BA%A7%E7%AB%AF"><span class="nav-text">Java API - 生产端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#KafkaProducer-%E5%AE%9E%E4%BE%8B"><span class="nav-text">KafkaProducer 实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ProducerRecord-%E5%AF%B9%E8%B1%A1"><span class="nav-text">ProducerRecord 对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-text">消息发送的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%91%E5%90%8E%E5%8D%B3%E5%BF%98%EF%BC%88fire-and-forget%EF%BC%89"><span class="nav-text">发后即忘（fire and forget）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%8F%91%E9%80%81%EF%BC%88sync%EF%BC%89"><span class="nav-text">同步发送（sync）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E5%8F%91%E9%80%81%EF%BC%88async%EF%BC%89"><span class="nav-text">异步发送（async）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E8%B5%84%E6%BA%90"><span class="nav-text">关闭资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E5%BC%82%E5%B8%B8"><span class="nav-text">发送异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E8%AF%95%E5%BC%82%E5%B8%B8"><span class="nav-text">可重试异常</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-API-%E6%B6%88%E8%B4%B9%E7%AB%AF"><span class="nav-text">Java API - 消费端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#poll-%E6%96%B9%E6%B3%95"><span class="nav-text">poll() 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%8F%90%E4%BA%A4"><span class="nav-text">同步提交</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8C%89%E7%85%A7%E5%88%86%E5%8C%BA%E6%B6%88%E8%B4%B9%E5%B9%B6%E6%8F%90%E4%BA%A4%E4%BD%8D%E7%A7%BB"><span class="nav-text">按照分区消费并提交位移</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E6%8F%90%E4%BA%A4"><span class="nav-text">异步提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-text"></span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

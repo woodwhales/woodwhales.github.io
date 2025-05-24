@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      /* 隐藏水平滚动条 */
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <el-row :gutter="20" style="text-align: center;">
+      <el-col :span="8">&nbsp;</el-col>
+      <el-col :span="8">
+        <h3>人工智能领域分类</h3>
+      </el-col>
+      <el-col :span="8">&nbsp;</el-col>
+    </el-row>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+    <el-row :gutter="20" style="text-align: center;">
+      <el-col :span="8">&nbsp;</el-col>
+      <el-col :span="8">
+        <el-tree :data="treeData" show-checkbox node-key="id" :default-expand-all="true" :check-on-click-node="true">
+        </el-tree>
+      </el-col>
+      <el-col :span="8">&nbsp;</el-col>
+    </el-row>
+    <el-row :gutter="20" style="text-align: center; margin-bottom: 20px;">
+      <el-col :span="8">&nbsp;</el-col>
+      <el-col :span="8">
+        <el-divider></el-divider>
+        <p><el-link :underline="false" href="https://woodwhales.cn" target="_blank">woodwhales.cn</el-link></p>
+      </el-col>
+      <el-col :span="8">&nbsp;</el-col>
+    </el-row>
+  </div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: function () {
+      return {
+        treeData: [
+          {
+            "id": 1,
+            "label": "智能语音",
+            "children": [
+              {
+                "id": 11,
+                "label": "语音信号处理",
+                "children": []
+              },
+              {
+                "id": 12,
+                "label": "语音识别",
+                "children": []
+              },
+              {
+                "id": 13,
+                "label": "声纹识别",
+                "children": []
+              },
+              {
+                "id": 14,
+                "label": "语音合成",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "label": "三维视觉",
+            "children": [
+              {
+                "id": 21,
+                "label": "姿态估计",
+                "children": []
+              },
+              {
+                "id": 22,
+                "label": "三维物体检测",
+                "children": []
+              },
+              {
+                "id": 23,
+                "label": "三维物体分割",
+                "children": []
+              },
+              {
+                "id": 24,
+                "label": "三维点云",
+                "children": []
+              },
+              {
+                "id": 25,
+                "label": "深度估计",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "label": "计算机视觉",
+            "children": [
+
+              {
+                "id": 31,
+                "label": "目标跟踪",
+                "children": []
+              },
+              {
+                "id": 32,
+                "label": "图像&视频检索/理解",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "label": "推荐系统",
+            "children": [
+              {
+                "id": 41,
+                "label": "推荐系统",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 5,
+            "label": "工业机器人",
+            "children": [
+              {
+                "id": 51,
+                "label": "机械臂控制",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 6,
+            "label": "自然语言处理",
+            "children": [
+              {
+                "id": 61,
+                "label": "文本分类",
+                "children": []
+              },
+              {
+                "id": 62,
+                "label": "情感分析",
+                "children": []
+              },
+              {
+                "id": 63,
+                "label": "机器翻译",
+                "children": []
+              },
+              {
+                "id": 64,
+                "label": "知识图谱",
+                "children": []
+              },
+              {
+                "id": 65,
+                "label": "对话系统",
+                "children": []
+              },
+              {
+                "id": 66,
+                "label": "命名实体识别",
+                "children": []
+              }
+
+            ]
+          },
+          {
+            "id": 7,
+            "label": "增强现实",
+            "children": [
+              {
+                "id": 71,
+                "label": "光学显示",
+                "children": []
+              }, {
+                "id": 72,
+                "label": "定位",
+                "children": []
+              }, {
+                "id": 73,
+                "label": "三维重建",
+                "children": []
+              }, {
+                "id": 74,
+                "label": "手势识别",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 8,
+            "label": "低速机器人与自动驾驶",
+            "children": [
+              {
+                "id": 81,
+                "label": "环境感知",
+                "children": []
+              },
+              {
+                "id": 82,
+                "label": "决策规划",
+                "children": []
+              },
+              {
+                "id": 83,
+                "label": "控制",
+                "children": []
+              },
+              {
+                "id": 84,
+                "label": "基础架构",
+                "children": []
+              },
+              {
+                "id": 85,
+                "label": "仿真系统",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 9,
+            "label": "图像处理",
+            "children": [
+              {
+                "id": 91,
+                "label": "图像去噪",
+                "children": []
+              },
+              {
+                "id": 92,
+                "label": "图像复原",
+                "children": []
+              },
+              {
+                "id": 93,
+                "label": "图像增强",
+                "children": []
+              },
+              {
+                "id": 94,
+                "label": "图像生成/合成",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 10,
+            "label": "机器学习",
+            "children": [
+              {
+                "id": 101,
+                "label": "传统机器学习",
+                "children": []
+              },
+              {
+                "id": 102,
+                "label": "深度学习",
+                "children": []
+              },
+              {
+                "id": 103,
+                "label": "强化学习",
+                "children": []
+              },
+              {
+                "id": 104,
+                "label": "图机器学习",
+                "children": []
+              },
+              {
+                "id": 105,
+                "label": "迁移学习",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": 11,
+            "label": "其他",
+            "children": [
+              {
+                "id": 111,
+                "label": "量化交易",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  })
+
+</script>
+
+</html>

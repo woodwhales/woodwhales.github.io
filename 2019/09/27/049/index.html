@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="对称加密,对称密码,非对称加密,公钥密码,单向散列函数,消息认证码,数字签名,伪随即数生成器,中间人攻击,证书,PKI,SSL,TLS,https,凯撒密码,替换密码,3DES,RSA,MD5,SHA256" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="信息安全基础之漫谈密码算法技术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="漫谈密码技术">
+<meta property="og:url" content="https://woodwhales.cn/2019/09/27/049/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="信息安全基础之漫谈密码算法技术">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/049/face.png">
+<meta property="article:published_time" content="2019-09-27T14:50:00.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.201Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="密码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/049/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2019/09/27/049/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>漫谈密码技术 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2019/09/27/049/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">漫谈密码技术</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-27T22:50:00+08:00">
+                2019-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">信息安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/27/049/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/27/049/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  信息安全基础之漫谈密码算法技术
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/049/face.png" rel="gallery_cmb21nrih004cm8v8dc62gfuc noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/049/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <h2 id="一封情书引发的安全问题"><a href="#一封情书引发的安全问题" class="headerlink" title="一封情书引发的安全问题"></a>一封情书引发的安全问题</h2><p>在现代通讯中，双方传输信息均通过网络传输，那么在这个过程中，就存在着如下的信息传输场景：</p>
+<p><img src="https://image.woodwhales.cn/049/images/01.png"></p>
+<p>重要信息，使用明文在网络中传输很容易被窃听者窃听并攻击，造成严重的信息传输安全问题：</p>
+<p><img src="https://image.woodwhales.cn/049/images/02.png"></p>
+<p>上述信息传输过程，让人容易想到：只需要对原文进行加密，不就可以了吗？形如：</p>
+<p><img src="https://image.woodwhales.cn/049/images/03.png"></p>
+<p>在上图场景中，我们放心大胆的把加密后的密文传输给对方，就算窃听者窃取到了，对方没有密码就无法知道传输的原文信息，这种设计思想看起来很合理，但是会引发另俩个问题：</p>
+<ul>
+<li>加密的密钥的传输问题：双方使用的密钥怎么传输才能仅仅让对方知道？</li>
+<li>加密算法的安全性问题：密钥如何加密才能不会被黑客轻松破解？</li>
+</ul>
+<p>本文会围绕这俩个核心问题展开讲解。其中涉及到：</p>
+<ul>
+<li>对称加密（对称密码）、非对称加密（公钥密码）、单向散列函数、消息认证码、数字签名、伪随即数生成器，这六种密码技术统称为：密码学家的工具箱</li>
+<li>中间人攻击</li>
+<li>证书</li>
+<li>PKI</li>
+<li>SSL/TLS</li>
+</ul>
+<h2 id="密码技术概述"><a href="#密码技术概述" class="headerlink" title="密码技术概述"></a>密码技术概述</h2><p>加密和解密算法合在一起统称为密码算法。</p>
+<h3 id="对称密码与公钥密码"><a href="#对称密码与公钥密码" class="headerlink" title="对称密码与公钥密码"></a>对称密码与公钥密码</h3><p>对称密码：是指加密和解密时使用同一个密钥的方式；</p>
+<p>公钥密码：是指在加密和解密时使用不同密钥的方式，又称为非对称密码；</p>
+<p>混合密码系统：是指将对称密码和公钥密码结合起来的密码方式；</p>
+<p><img src="https://image.woodwhales.cn/049/images/04.png"></p>
+<h3 id="其他密码技术"><a href="#其他密码技术" class="headerlink" title="其他密码技术"></a>其他密码技术</h3><p><strong>单向散列函数</strong></p>
+<p>单向散列函数是为了防止数据被篡改设计出来的，可以根据单向散列函数得出的散列值（又称哈希值、密码校验、指纹、消息摘要），对数据的完整性进行判断。如：MySQL官网下载软件包时提供MD5验证。</p>
+<p><strong>消息认证码</strong></p>
+<p>消息认证码是为了确认消息是否来自所期待的通信对象。通过消息认证码不仅能够保证完整性，也可以提供认证机制，但是它并不能防止否认和不能够对第三方进行确认。</p>
+<p><strong>数字签名</strong></p>
+<p>数字签名是一种将现实世界中的签名和盖章移植到数字世界中的技术。数字签名既可以检测出伪装和篡改，也可以防止事后否认。</p>
+<p><strong>伪随机数生成器</strong></p>
+<p>伪随机数生成器是一种能够模拟产生随机数列的算法。只有产生具有不可重现性（不可重现性 &gt; 不可预测性 &gt; 随机性）数值的伪随机数生成器才能够用于密码技术种。如在Web中进行SSL/TLS通信时需要使用伪随随机数生成器生成一个临时密钥（会话密钥），如果随机数算法不好，容易被推测出密钥。</p>
+<h3 id="密码技术小结"><a href="#密码技术小结" class="headerlink" title="密码技术小结"></a>密码技术小结</h3><p>下图表示信息安全所面临的威胁与应对的密码技术：</p>
+<p><img src="https://image.woodwhales.cn/049/images/05.png"></p>
+<p>从图中可以看出：消息认证码能防止的受威胁的特性，在单单向散列函数及数字签名中已经体现，因此目前实际常用的密码技术是：对称密码、公钥密码、单向散列函数、数字签名。</p>
+<h3 id="密码与信息安全常识"><a href="#密码与信息安全常识" class="headerlink" title="密码与信息安全常识"></a>密码与信息安全常识</h3><p><strong>不要使用保密的密码算法</strong></p>
+<p>从历史上看，算法的秘密无一例外最终会被暴露出来。公开的算法从一开始就没有设想过要保密，因此算法的暴露丝毫不会削弱算法它们的强度。</p>
+<p>高强度的密码不能像数学一样严密证明，事实上，如果专业密码破译者经过数年的尝试仍然没有破解某个密码算法，则说明这种算法的强度较高。目前世界公开的被认为强度较高的密码算法，都是经过密码破译者长期尝试破解未果而存活下来的。</p>
+<p><strong>使用低强度的密码比不进行任何加密更危险</strong></p>
+<p>与其使用低强度的密码，还不如从一开始就不适用任何密码。16世纪的苏格兰女王玛丽就曾认为没有人能够破译自己使用的密码。正是由于对于密码的盲信，导致她的刺杀计划被破译，将自己送上了断头台。 [扩展：玛丽女王的密码：<a target="_blank" rel="noopener" href="http://www.oscca.gov.cn/sca/zxfw/2017-04/25/content_1011716.shtml]">http://www.oscca.gov.cn/sca/zxfw/2017-04/25/content_1011716.shtml]</a></p>
+<p><strong>任何密码总有一天都会被破解</strong></p>
+<p>密码算法生成的密文，只要把所有可能的密钥全部尝试一遍，时间允许的情况下，总会被破解。严格来说，绝对不会被破解的密码算法是存在的，这种算法成为一次性密码本。还有一种技术被认为有可能造就完美的密码技术，那就是量子密码。</p>
+<p><strong>密码只是信息安全的一部分</strong></p>
+<p>不用通过截取网络传输中的数据，而是通过攻击接收信息者的电脑设备，获取重要的信息。还有如社会工程学攻击等。系统的安全性是环环相扣的节点组成，每个环节都很重要。最脆弱的环节并不是密码，而是人类自己。</p>
+<h2 id="历史上的密码技术"><a href="#历史上的密码技术" class="headerlink" title="历史上的密码技术"></a>历史上的密码技术</h2><h3 id="凯撒密码"><a href="#凯撒密码" class="headerlink" title="凯撒密码"></a>凯撒密码</h3><p>凯撒密码是通过将明文中所使用的字母表按照一定的字数“平移”来进行加密。</p>
+<p><img src="https://image.woodwhales.cn/049/images/06.png"></p>
+<p>凯撒密码的加加密原理：</p>
+<p><img src="https://image.woodwhales.cn/049/images/07.png"></p>
+<p><strong>凯撒密码的缺陷</strong></p>
+<p>如果不知道平移的数字，那么可以通过暴力破解的方式进行破解。因为位移值就是密钥，因此有26种平移值的可能。</p>
+<p><img src="https://image.woodwhales.cn/049/images/08.png"></p>
+<h3 id="替换密码"><a href="#替换密码" class="headerlink" title="替换密码"></a>替换密码</h3><p>对于简单替换密码技术可以这样理解：凯撒密码是通过平移字母来进行加密的，而简单替换密码则是将这种平移变成了无序对应，则可以将凯撒密码看作简单替换密码的一种特殊情况。</p>
+<p>简单替换密码的加密和解密的原理与凯撒密码的大同小异，但是破解方式不同：恺撒密码可以通过暴力破解进行破译，而简单替换密码则需要频率分析进行破译。</p>
+<p><img src="https://image.woodwhales.cn/049/images/09.png"></p>
+<p>简单替换密码很难通过暴力破解来破解：</p>
+<p>因为破解可能的密钥数量远比凯撒密码多得多。</p>
+<p>明文字母表中的a可以对应ABC…Z这26个字母，</p>
+<p>明文字母表中的b可以对应BCD…Z这25个字母，</p>
+<p>…</p>
+<p>综上，替换密钥的总数为：</p>
+<p><img src="https://image.woodwhales.cn/049/images/10.png"></p>
+<p>约为 4 兆（1兆等于1万亿）的1000兆倍，即使计算机每秒遍历 10 亿个密钥，遍历完所有需要花费 120 亿年时间。</p>
+<h3 id="频率分析"><a href="#频率分析" class="headerlink" title="频率分析"></a>频率分析</h3><p>频率分析是利用了明文中的字母出现的频率与密文中的字母出现的频率一致这一特性，对简单替换密码进行破译。</p>
+<p>例如如下密文：</p>
+<p><img src="https://image.woodwhales.cn/049/images/11.png"></p>
+<p>首先统计一下密文中每个字母出现的频率，也就是，数一下每个字母出现多少次。</p>
+<p><img src="https://image.woodwhales.cn/049/images/12.png"></p>
+<p>英文文章中一般出现频率最高的字母是 e，上表中出现频率最高的是 I 和 Y，假设其中一个是 e。假设 Y 的原文是 e 时，将原密文中的 Y 替换成 e，得到：</p>
+<p><img src="https://image.woodwhales.cn/049/images/13.png"></p>
+<p>英语中最多出现的单词是 the，所以找以 e 结尾的 3 个字母组合，发现 MEe 出现频率很高，而且 MEe 出现在密文的开头，所以 MEe 很有可能就是 the。于是继续替换：</p>
+<p><img src="https://image.woodwhales.cn/049/images/14.png"></p>
+<p>再动员所有日常使用的英语词汇，发现有个 thPee 比较可疑，这个词很有可能是：three（P 的原文为 r）</p>
+<p><img src="https://image.woodwhales.cn/049/images/15.png"></p>
+<p>以此类推，通过频率分析法逐步破译替换密码，对于频率分析可以这样总结：</p>
+<ul>
+<li><p>除了高频字母以外，低频字母也能够成为线索；</p>
+</li>
+<li><p>搞清开头和结尾能够成为线索，搞清单词之间的分隔也能偶成为线索；</p>
+</li>
+<li><p>密文越长越容易破解；</p>
+</li>
+<li><p>同一个字母连续出现能够成为线索（这是因为在简单替换密码中，某个字母在替换表中所对应的另一个字母是固定的）</p>
+</li>
+<li><p>破译速度会越来越快</p>
+</li>
+</ul>
+<h3 id="Enigma"><a href="#Enigma" class="headerlink" title="Enigma"></a>Enigma</h3><p>恩尼格玛密码机（德语：Enigma，又译哑谜机，或「谜」式密码机）是一种用于加密与解密文件的密码机。</p>
+<p><img src="https://image.woodwhales.cn/049/images/16.png"></p>
+<p>Enigma，是一种由键盘、齿轮、电池和灯泡组成的机器，通过这一台机器可以完成加密和解密两种操作。该机器由德国人 Arthur Scherbius 发明，刚刚发明之际用于商业，后来到了纳粹时期，德国军方该良之后用于军事用途。</p>
+<p><img src="https://image.woodwhales.cn/049/images/17.png"></p>
+<h4 id="内部结构"><a href="#内部结构" class="headerlink" title="内部结构"></a>内部结构</h4><p>下图中的接线板是一种通过改变接线方式来改变字母对应关系的部件。接线板上的接线方式是根据国防军密码本的每日密码来决定的，在一天之中不会改变。</p>
+<p>当输入一个字母时，转子1旋转1/4圈，转子1每旋转1圈的时候转子2旋转1/4圈，转子2每旋转1圈的时候转子3旋转1/4圈。</p>
+<p><img src="https://image.woodwhales.cn/049/images/18.png"></p>
+<h4 id="加密过程"><a href="#加密过程" class="headerlink" title="加密过程"></a>加密过程</h4><p><img src="https://image.woodwhales.cn/049/images/19.png"></p>
+<h4 id="解密过程"><a href="#解密过程" class="headerlink" title="解密过程"></a>解密过程</h4><p><img src="https://image.woodwhales.cn/049/images/20.png"></p>
+<h4 id="Enigma的弱点"><a href="#Enigma的弱点" class="headerlink" title="Enigma的弱点"></a>Enigma的弱点</h4><p>加密通信密码是重要步骤（最开始的6次输入），实际只有转子1会旋转。</p>
+<p>将通信密码连续输入俩次并加密，因为破译者可以知道，密文开头的6个字母被解密之后的明文一定是3个字谜重复俩次的形式。</p>
+<p>通信密码是人为选定的，实现使用中，发送者使用如aaa，bbb或者女友的名字作为密码，太相信 Enigma 的安全性而忽略了密钥最好是用随机数来生成。</p>
+<p>必须派发国防军密码本，密码本一旦丢失一本，那么就要重新制作新的密码本并发放到全军，这属于密钥配送的问题。</p>
+<h2 id="对称密码"><a href="#对称密码" class="headerlink" title="对称密码"></a>对称密码</h2><p>对称密码又称为共享密码</p>
+<h3 id="比特序列密码"><a href="#比特序列密码" class="headerlink" title="比特序列密码"></a>比特序列密码</h3><p><strong><code>XOR</code>运算</strong>，中文称为“异或运算”。</p>
+<p>它的定义是：两个值相同时，返回<code>false</code>，否则返回<code>true</code>。也就是说，<code>XOR</code>可以用来判断两个值是否不同。</p>
+<p>XOR 运算有一个很奇妙的特点：如果对一个值连续做两次 XOR，会返回这个值本身。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一次 XOR</span></span><br><span class="line"><span class="number">1010</span> ^ <span class="number">1111</span> <span class="comment">// 0101</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二次 XOR</span></span><br><span class="line"><span class="number">0101</span> ^ <span class="number">1111</span> <span class="comment">// 1010</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>关于XOR的运算规则需要注意的是：</p>
+<p>和加法运算不同的是，XOR 中不需要进位</p>
+<p>两个相同的数进行 XOR 运算的结果一定为 0；</p>
+<p>可以通过XOR运算规则，进行加密和解密：将明文 A 用密钥 B 进行加密，得到密文 A ⊕ B；将密文 A ⊕ B 用密钥 B 进行解密，得到明文 A；</p>
+<h3 id="一次性密码本"><a href="#一次性密码本" class="headerlink" title="一次性密码本"></a>一次性密码本</h3><p>只要通过暴力破解法对密钥空间进行遍历，无论是什么密文总有一天都能够被破译，然而，一次性密码本是个例外。即使用暴力破解法遍历整个密钥空间，一次性密码本也绝对无法被破解。</p>
+<p>一次性密码本的加密：</p>
+<p><img src="https://image.woodwhales.cn/049/images/21.png"></p>
+<p>一次性密码本的解密：</p>
+<p><img src="https://image.woodwhales.cn/049/images/22.png"></p>
+<p><strong>一次性密码本是无法破译？</strong></p>
+<p>我们假设对一次性密码本的密文尝试进行暴力破解，那么总有一天我们会尝试到和加密时相同的密钥，也就能解密出明文midnight，这是毋庸置疑的事实。然而即使我们能够解密出midnight这个字符，我们也无法判断它是否是正确的明文。</p>
+<p>所谓暴力破解，就是按顺序将所有的密钥都尝试一遍，并判断所得到的是不是正确的明文的方法。然而，在一次性密码本中，由于我们无法判断得到的是不是正确的明文，因此一次性密码本是无法破译的。</p>
+<p>一次性密码本是无条件安全的，在理论上是无法破译的。（ 1949年香农使用数学方法证明）</p>
+<p><strong>一次性密码本为什么没有被使用？</strong></p>
+<ul>
+<li><p>密钥配送问题</p>
+<p>如果能有一种方法将密钥安全地发送出去，那么岂不是也可以用同样的方法来安全发送明文吗？</p>
+</li>
+<li><p>密钥保存问题</p>
+<p>如果有办法安全保存与明文一样长的密钥，那不是也有办法安全保存明文本身吗？也就是说，从一开始我们根据就不需要密码。</p>
+</li>
+<li><p>密钥的重用</p>
+<p>在一次性密码本中绝对不能重用过去用过的随机比特序列，一次性密码本中的“一次性”也正是由此而来。这是因为作为密钥的比特序列一旦泄密，过去所有的机密通信内容将全部被解密。</p>
+</li>
+<li><p>密钥的同步</p>
+<p>当明文很长时，一次性密码本也会跟着变长。如果明文是一个大小为100MB的文件，则密钥的大小也一定是100MB。而且在通信过程中，发送者和接收者的密钥的比特序列不允许任何错位，否则错位的比特后的所有信息将无法解密。</p>
+</li>
+<li><p>密钥的生成</p>
+<p>在一次性密码本中，需要生成大量的随机数。这里的随机数并不是通过计算机程序生成的伪随机数，而必须是无重复性的真正随机数。</p>
+</li>
+</ul>
+<p>综上所述，一次性密码本是一种几乎没有实用性的密码，但一次性密码本却孕育了<strong>流密码</strong>，流密码使用的不是真正的随机比特序列，而是伪随机数生成器产生的比特序列。</p>
+<h3 id="DES"><a href="#DES" class="headerlink" title="DES"></a>DES</h3><p>DES（Data Encryption Standard）是1977年美国联邦信息处理标准（ FIPS ）中所采用的一种对称密码。</p>
+<p><img src="https://image.woodwhales.cn/049/images/23.png"></p>
+<p>DES 是一种将 64 比特的明文加密成 64 位比特的密文的对称密码算法，它的密钥长度是 64 比特，但由于每隔 7 比特会设置一个用于错误检验的比特（实际用到了56位，第8、16、24、32、40、48、56、64位是校验位， 使得每个密钥都有奇数个1），因此实质上其密钥长度是 56 比特。</p>
+<p>DES 是以 64 比特的明文（比特序列）为一个单位来进行加密的，这个 64 比特的单位称为分组。以分组为单位进行处理的密码算法称为分组密码。</p>
+<h4 id="Feasted-网络"><a href="#Feasted-网络" class="headerlink" title="Feasted 网络"></a>Feasted 网络</h4><p>Feasted 网络/结构/密码不仅被用于 DES，在其他很多密码算法中也有应用；Feistel 网络中，加密的各个步骤称为轮，整个加密过程中就是进行若干次轮的循环，一共有 16轮；</p>
+<p>轮函数的作用根据 “右侧” 和字密钥生成对 “左侧” 进行加密的比特序列，它是密码系统的核心；</p>
+<p>Feistel 网络的轮数可以任意增加；</p>
+<p>加密时无论使用任何函数作为轮函数都可以正确解密；</p>
+<p>加密和解密可以用完全相同的结构来实现。</p>
+<p><img src="https://image.woodwhales.cn/049/images/24.png"></p>
+<h3 id="3DES"><a href="#3DES" class="headerlink" title="3DES"></a>3DES</h3><p>3DES是为了增加 DES 的强度，将 DES 重复 3 次所得到一种密码算法，缩写为3DES</p>
+<p>三重 DES 是加密 → 解密 → 加密的过程，目的是为了让三重 DES 能够兼容普通的 DES（当三重 DES 中所有的密钥都相同时，三重 DES 也就是普通的 DES了），也就是说三重 DES 对 DES 具备向下兼容性；</p>
+<p>如果密钥1和密钥3使用相同的密钥，而密钥2使用不同的密钥，这种三重DES称为DES-EDE2；如果密钥1 、密钥2、密钥3 全部使用不同的比特序列的三重DES称为DES-EDE3。</p>
+<p><img src="https://image.woodwhales.cn/049/images/25.png"></p>
+<h3 id="AES"><a href="#AES" class="headerlink" title="AES"></a>AES</h3><p>高级加密标准(AES,Advanced Encryption Standard)为最常见的对称加密算法(微信小程序加密传输就是用这个加密算法的)，它的诞生就是来取代 DES。具体的加密流程如下图： </p>
+<p><img src="https://image.woodwhales.cn/049/images/26.png"></p>
+<p>Rijndael 没有使用 Feistel 网络，而是使用了 SPN 结构；Rijndael 的输入分组为 128 比特，也就是 16 字节；</p>
+<p><img src="https://image.woodwhales.cn/049/images/27.png"></p>
+<h2 id="公钥密码"><a href="#公钥密码" class="headerlink" title="公钥密码"></a>公钥密码</h2><h3 id="密钥配送"><a href="#密钥配送" class="headerlink" title="密钥配送"></a>密钥配送</h3><ul>
+<li>通过事先共享密钥来解决</li>
+</ul>
+<p>最简单的一种解决方法，就是事先用安全的方式将密钥交给对方，这称为密钥的事先共享。</p>
+<ul>
+<li>通过密钥分配中心来解决</li>
+</ul>
+<p>密钥分配中心（KeyDistributionCenter，KDC）来解决密钥配送问题。当需要进行加密通信时，密钥分配中心会生成一个通信密钥，每个人只要和密钥分配中心事先共享密钥就可以了</p>
+<ul>
+<li>通过 Diffie-Hellman 密钥交换来解决</li>
+</ul>
+<p>在DH密钥交换中，进行加密通信的双方需要交换一些信息，而这些信息即便被窃听者 窃听到也没有问题。根据所交换的信息，双方可以各自生成相同的密钥，而窃听者却无法生成相同的密钥。</p>
+<ul>
+<li>通过公钥密码来解决</li>
+</ul>
+<p>公钥密码的一个重要性质，就是只有拥有解密密钥的人才能够进行解密。 </p>
+<p>接收者事先将加密密钥发送给发送者，这个加密密钥即便被窃听者获取也没有问题。发送者使用加密密钥对通信内容进行加密并发送给接收者，而只有拥有解密密钥的人（即接收者本人）才能够进行解密。</p>
+<p><img src="https://image.woodwhales.cn/049/images/28.png"></p>
+<h3 id="公钥密码-1"><a href="#公钥密码-1" class="headerlink" title="公钥密码"></a>公钥密码</h3><p>公钥密码中，密钥分为<strong>加密密钥</strong>和<strong>解密密钥</strong>两种。</p>
+<p>发送者用加密密钥对消息进行加密，接收者用解密密钥进行解密。加密密钥是发送者加密时使用的，而解密密钥则是接收者解密时使用的。</p>
+<p>加密密钥和解密密钥的区别：</p>
+<ul>
+<li><p>发送者只需要加密密钥</p>
+</li>
+<li><p>接收者只需要解密密钥</p>
+</li>
+<li><p>解密密钥不可以被窃听者获取</p>
+</li>
+<li><p>加密密钥被窃听者获取也没问题</p>
+</li>
+</ul>
+<p>解密密钥从一开始就是由接收者自己保管的， 因此只要将加密密钥交给发送者就可以解决密钥配送问题了，而根本不需要配送解密密钥。</p>
+<p><img src="https://image.woodwhales.cn/049/images/29.png"></p>
+<h3 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h3><p>RSA是1977年由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的。当时他们三人都在麻省理工学院工作。</p>
+<p><img src="https://image.woodwhales.cn/049/images/30.png"></p>
+<p>RSA 算法的可靠性基础：对极大整数做因数分解是很困难的。<br>RSA 是非对称算法，加解密使用不同的密钥。</p>
+<p>两个密钥都可以用于加密，解密时需要使用另一个密钥。但是，通常用公钥加密私钥解密，因为公钥是近乎完全公开的，对于私钥加密的数据，有太多的人可以解密了。理论上 A 和 B 之间要通过 RSA 实现保密通信，需要 A 和 B 各自生成一组密钥，同时保管好自己的私钥；用对方的公钥加密要发送的消息，用自己的私钥解密对方发送过来的消息。</p>
+<p>在签名的场景下，用私钥签名，公钥验签。</p>
+<p>RSA 比 DES 等对称算法慢得多。一般在实际数据传输时，用 RSA 来加密比较短的对称密码，双方交换密码后再使用 DES 等对称算法传输数据。</p>
+<h4 id="RSA-算法原理"><a href="#RSA-算法原理" class="headerlink" title="RSA 算法原理"></a>RSA 算法原理</h4><ul>
+<li><p>RSA加密：密文 = 明文 E mod N</p>
+<p>明文的 E 次方对 N 求余，得到的余数就是密文。</p>
+<p>E是加密（Encryption），N是数字（Number），{E，N}就是公钥。</p>
+</li>
+<li><p>RSA解密：明文 = 密文 D mod N</p>
+<p>密文的 D 次方对 N 求余，得到的余数就是明文。</p>
+<p>D是解密（Decryption），N是数字（Number），{D，N}就是私钥。</p>
+</li>
+</ul>
+<p>公私钥算法计算步骤：</p>
+<p><img src="https://image.woodwhales.cn/049/images/31.png"></p>
+<p>公私钥使用方法：公钥加密的的密文，私钥可以解密。私钥加密的密文，公钥可以解密。</p>
+<p><img src="https://image.woodwhales.cn/049/images/32.png"></p>
+<h3 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h3><p>中间人攻虽然不能破译RSA，但是却是一种针对机密性的有效攻击：</p>
+<p><img src="https://image.woodwhales.cn/049/images/45.gif"></p>
+<h2 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h2><h3 id="单向散列函数"><a href="#单向散列函数" class="headerlink" title="单向散列函数"></a>单向散列函数</h3><p>单向散列函数不同于加密技术，它不是对信息进行加密，而是为了证明数据的完整性，防止数据被篡改，但是无法辨别出“伪装”（这个需要认证技术）。应用例子：MD5、SHA-1、SHA-256、SHA-384、SHA-512、PIPEMD-160</p>
+<p>单向散列函数的应用场景：检测软件是否被篡改、基于口令的加密、消息认证码、数字签名、伪随机数生成、一次性口令</p>
+<p><img src="https://image.woodwhales.cn/049/images/33.png"></p>
+<p>MySQL 官网展示的软件 MD5 值：</p>
+<p><img src="https://image.woodwhales.cn/049/images/34.png"></p>
+<h4 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h4><p>王小云（1966年8月－）中国密码学家。山东大学数学学院教授，博士生导师。成功破解了五大国际著名密码算法：MD5、HAVAL-128、MD4 、RIPEMD 和 SHA-1</p>
+<p>2004年的国际密码讨论年会（CRYPTO）尾声，王小云及其研究同事展示了MD5、SHA-0及其他相关散列函数的散列冲撞。王小云提供了第一个碰撞示例。</p>
+<p>2005年2月，王小云与其同事提出SHA-1散列函数的散列冲撞。王小云所提的散列冲撞算法只需少于2^69步骤，少于生日攻击所需的2^80步。同年8月，王小云、姚期智，以及姚期智妻子姚储枫联手于国际密码讨论年会提出SHA-1散列函数散列冲撞算法的改良版。此改良版使破解SHA-1时间缩短为2^63步。</p>
+<p>一个安全的散列算法需要满足如下两个条件，也是散列算法的两个特性。</p>
+<p>（1）抗碰撞性。根据一个输入，找到一个其它输入得到相同的输出，在计算上是不可行的；</p>
+<p>（2）不可逆性。根据一个输出，找到一个输入其散列值等于输出，在计算上是不可行的，即不可能从结果逆向推导初始值。</p>
+<p>综上所述：王小云的研究成果：MD5(M1)=MD5(M2)</p>
+<p><img src="https://image.woodwhales.cn/049/images/35.png"></p>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>在中间人攻击中，可以得出发送公钥给对方，可能会被截获，接收公钥的人不知道自己收到的公钥是不是真正的公钥，思考：怎么保证公钥在传输过程中“保真”呢？</p>
+<p>能不能设计一种算法：对当前要传输的公钥进行签名，然后再传输给对方，对方用验证密钥验证签名是不是合法，如果合法就表示当前的公钥是“真”的。</p>
+<p>这种算法其实已经在上文中出现了，就是将公私钥的用法反过来使用：私钥加密的文件，只有对应的公钥解密，所以可以作为数字签名的一种算法实现：</p>
+<p><img src="https://image.woodwhales.cn/049/images/36.png"></p>
+<p><strong>数字签名有两种功效</strong></p>
+<p>一是能确定消息确实是由发送方签名并发出来的，因为别人假冒不了发送方的签名。</p>
+<p>二是数字签名能确定消息的完整性。因为数字签名的特点是它代表了文件的特征，文件如果发生改变，数字摘要的值也将发生变化。不同的文件将得到不同的数字摘要。</p>
+<p>一次数字签名涉及到一个哈希函数、发送者的公钥、发送者的私钥。</p>
+<p><img src="https://image.woodwhales.cn/049/images/37.png"></p>
+<p>验证签名的公钥在传输过程中被别人“调包”了是完全没用的。</p>
+<p>因为假的公钥是验证不成功这个数字签名，所以就可以认为当前数字签名不合法或者当前验证签名的公钥是“假”的。</p>
+<p>数字签名的应用实例：安全信息公告、软件下载、公钥证书、SSL/TLS</p>
+<p>实现数字签名的方式：RSA实现、ElGama实现、DSA实现、Rabin方式</p>
+<h3 id="PKI"><a href="#PKI" class="headerlink" title="PKI"></a>PKI</h3><p>用数字签名既可以识别出篡改和伪装，还可以防止否认。也就是说，我们同时实现了确认消息的完整性、进行认证以及否认防止。代社会中的计算机通信从这一技术中获益匪浅。数字签名看上去很完善，但是有个很重要的前提：<strong>用于验证签名的公钥必须属于真正的发送者</strong>。</p>
+<p>现在我们发现自己陷人了一个死循环一一一数字签名是用来识别消息篡改、伪装以及否认的，但是为此我们又必须从没有被伪装的发送者得到没有被篡改的公钥才行。</p>
+<p>为了能够确认自己得到的公钥是否合法，我们需要使用证书。所谓证书，就是将公钥当作一条消息，由一个可信的第三方对其签名后所得到的公钥。</p>
+<p>当然，这样的方法只是把问题转移了而已。为了对证书上施加的数字签名进行验证，我们必定需要另一个公钥，那么如何才能构筑一个可信的数字签名链条呢？又由谁来颁发可信的证书呢？到这一步，我们就已经踏入了社会学的领域。我们需要让公钥以及数字签名技术成为一种社会性的基础设施，即公钥基础设施（Public Key Intrastructure），简称PKI</p>
+<blockquote>
+<p>国际知名的 CA 机构市场份额占比：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Certificate_authority">https://en.wikipedia.org/wiki/Certificate_authority</a></p>
+</blockquote>
+<h3 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h3><p>公钥证书（Public-Key Certificate，PKC）其实和驾照很相似，里面有姓名，组织、邮箱、地址等个人信息，以及属于此人的公钥，并由认证机构（Certification Authority、Certifying Authority，CA）施加数字签名。只要看到公钥证书，我们就可以知道认证机构认定该公钥的确属于此人。公钥证书也简称证书。</p>
+<p><img src="https://image.woodwhales.cn/049/images/38.png"></p>
+<p>数字证书有很多格式版本，主要有X.509v3（1997）、X509v4（1997）、X.509v1（1988）等。比较常用的版本是TUTrec.x.509V3，由国际电信联盟制定，内容包括证书序列号、证书有效期和公开密钥等信息。不论是哪一个版本的数字证书，只要获得数字证书，用户就可以将其应用于网络安全中。</p>
+<blockquote>
+<p>crt和cer都是证书，通常window系统下是cer，linux和Unix是用crt。crt可能是PEM编码，也可能是DER编码，大多数应该是PEM编码。cer可能是PEM编码，也可能是DER编码，大多数应该是DER编码。</p>
+</blockquote>
+<p><strong>构成PKI的三要素</strong></p>
+<ul>
+<li><p>用户：使用PKI的人，也称为实体（Entity）</p>
+</li>
+<li><p>认证机构：颁发证书的人</p>
+</li>
+<li><p>仓库：保存证书的数据库</p>
+</li>
+</ul>
+<p><img src="https://image.woodwhales.cn/049/images/39.png"></p>
+<p>安全服务器：安全服务器面向普通用户，用于提供证书申请、浏览、证书撤销列表、证书下载等安全服务；用户需要首先得到安全服务器的证书（该证书由CA颁发）；</p>
+<p>注册机构RA：在CA体系结构中起承上启下的作用，一方面向CA转发安全服务器传输过来的证书申请请求，另一方面向LDAP服务器和安全服务器转发CA颁发的数字证书和证书撤销列表（CRL）。</p>
+<p>LDAP服务器：Lightweight Directory Access Protocol（轻量目录访问协议），提供目录浏览服务，负责将注册机构服务器RA传输过来的用户信息以及数字证书加入到服务器上。用户通过访问LDAP服务器就能够得到其他用户的数字证书。</p>
+<p>CA服务器：整个证书机构的核心，负责证书的签发。CA首先 产生自身的私钥和公钥，然后生成数字证书，并且将数字正常传输给</p>
+<p>安全服务器。CA还负责为安全服务器、RA服务器生成数字证书。</p>
+<p>数据库服务器：CA中的核心部分，用于CA中数据（如密钥和用户信息等）、日志、统计信息的存储和管理。</p>
+<p><img src="https://image.woodwhales.cn/049/images/40.png"></p>
+<h4 id="证书的申请过程"><a href="#证书的申请过程" class="headerlink" title="证书的申请过程"></a>证书的申请过程</h4><p>1、用户申请：用户获取CA的数字证书（根证书），与安全服务器建立连接；生成自己的公钥和私钥，将公钥和自己的身份信息提交给安全服务器，安全服务器将用户的申请信息传送给RA服务器。</p>
+<blockquote>
+<p>生成数字证书代码示例：<a target="_blank" rel="noopener" href="https://www.example-code.com/java/csr_generate_key_and_signing_request.asp">https://www.example-code.com/java/csr_generate_key_and_signing_request.asp</a></p>
+</blockquote>
+<p>2、RA审核：RA收到用户的申请，用户向RA证明自己的身份，RA进行核对。如果RA同意用户申请证书的请求，则对证书申请信息做数字签名；否则拒绝用户的申请。</p>
+<p>3、CA发行证书：RA将用户申请和RA签名传输给CA，CA对RA数字签名做认证，如果验证通过，则同意用户请求，颁发证书，然后将证书输出。如果验证不通过，则拒绝证书申请。</p>
+<p>4、RA转发证书：RA从CA得到新的证书，首先将证书输出到LDAP服务器以提供目录浏览，再通知用户证书发行成功，告知证书序列号，到指定的网址去下载证书。</p>
+<p>5、用户证书获取：用户使用证书序列号去指定网址下载自己的数字证书，只有持有与申请时提交的公钥配对的私钥才能下载成功。</p>
+<h4 id="证书的吊销过程"><a href="#证书的吊销过程" class="headerlink" title="证书的吊销过程"></a>证书的吊销过程</h4><p>1、用户申请：用户向RA发送一封签名加密邮件，申请撤销证书。RA审核：注册机构同意证书撤销，并对申请签名。</p>
+<p>2、CA更新CRL：CA验证证书撤销请求的RA签名，如果正确，则同意申请，并更新CRL，并输出。</p>
+<p>3、RA转发CRL：注册中心收到CRL，以多种方式将CRL公布（包括LDAP服务器）。</p>
+<p>4、用户告知：用户访问LDAP服务器，下载或浏览CRL。</p>
+<blockquote>
+<p>CSR，certificate signing request，证书签名申请</p>
+<p>CRL，certificate revocation list，证书吊销列表</p>
+<p>OCSP，online certificate status protocol，在线证书状态协议</p>
+</blockquote>
+<p>认证中心CA负责维护和发布证书废除列表CRL（certificate revocation lists，又称为证书黑名单或证书吊销列表）。当一个证书，特别是其中的公钥因为其他原因无效时（不是因为到期），CRL提供了一种通知用户和其他应用的中心管理方式。CA系统生成CRL以后，放到LDAP服务器中或Web服务器的合适位置，供用户查询或下载。</p>
+<p><img src="https://image.woodwhales.cn/049/images/41.png"></p>
+<h3 id="SSL-TLS"><a href="#SSL-TLS" class="headerlink" title="SSL/TLS"></a>SSL/TLS</h3><p>不使用SSL/TLS的HTTP通信，就是不加密的通信。所有信息明文传播，带来了三大风险。</p>
+<blockquote>
+<p>（1） <strong>窃听风险</strong>（eavesdropping）：第三方可以获知通信内容。</p>
+<p>（2） <strong>篡改风险</strong>（tampering）：第三方可以修改通信内容。</p>
+<p>（3） <strong>冒充风险</strong>（pretending）：第三方可以冒充他人身份参与通信。</p>
+</blockquote>
+<p>SSL/TLS协议是为了解决这三大风险而设计的，希望达到：</p>
+<blockquote>
+<p>（1） 所有信息都是<strong>加密传播</strong>，第三方无法窃听。</p>
+<p>（2） 具有<strong>校验机制</strong>，一旦被篡改，通信双方会立刻发现。</p>
+<p>（3） 配备<strong>身份证书</strong>，防止身份被冒充。</p>
+</blockquote>
+<p>互联网是开放环境，通信双方都是未知身份，这为协议的设计带来了很大的难度。而且，协议还必须能够经受所有匪夷所思的攻击，这使得SSL/TLS协议变得异常复杂。</p>
+<h4 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h4><p>SSL：（Secure Socket Layer，安全套接字层），为Netscape所研发，用以保障在Internet上数据传输之安全，利用数据加密(Encryption)技术，可确保数据在网络上之传输过程中不会被截取。当前版本为3.0。它已被广泛地用于Web浏览器与服务器之间的身份认证和加密数据传输。SSL协议可分为两层： </p>
+<p>SSL记录协议（SSL Record Protocol）：它建立在可靠的传输协议（如TCP）之上，为高层协议提供数据封装、压缩、加密等基本功能的支持。</p>
+<p>SSL握手协议（SSL Handshake Protocol）：它建立在SSL记录协议之上，用于在实际的数据传输开始前，通讯双方进行身份认证、协商加密算法、交换加密密钥等。</p>
+<h4 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h4><p>TLS：(Transport Layer Security，传输层安全协议)，用于两个应用程序之间提供保密性和数据完整性。</p>
+<p>TLS 1.0是IETF（Internet Engineering Task Force，Internet工程任务组）制定的一种新的协议，它建立在SSL 3.0协议规范之上，是SSL 3.0的后续版本，可以理解为SSL 3.1，它是写入了 RFC 的。该协议由两层组成： TLS 记录协议（TLS Record）和 TLS 握手协议（TLS Handshake）。较低的层为 TLS 记录协议，位于某个可靠的传输协议（例如 TCP）上面。</p>
+<p><img src="https://image.woodwhales.cn/049/images/42.png"></p>
+<p>SSL/TLS协议的基本思路是采用公钥加密法，也就是说，客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密。</p>
+<h4 id="SSL-TLS通信流程"><a href="#SSL-TLS通信流程" class="headerlink" title="SSL/TLS通信流程"></a>SSL/TLS通信流程</h4><p>整个SSL/TLS握手阶段一共有4次通信：</p>
+<p><img src="https://image.woodwhales.cn/049/images/43.png"></p>
+<p><strong>1、客户端发出请求（ClientHello）</strong></p>
+<p>客户端先向服务器发出加密通信的请求，并向服务器提供以下信息：</p>
+<p>支持的协议版本，如TLS 1.0</p>
+<p>一个客户端生成的随机数，稍后用于生成对话密钥</p>
+<p>支持的加密方法，如RSA公钥加密支持的压缩方法</p>
+<p><strong>2、服务器回应（ServerHello）</strong><br>确认加密通信协议版本。如果浏览器与服务器支持的版本不一致，则服务器关闭加密通信</p>
+<p>一个服务器生成的随机数，稍后用于生成对话密钥</p>
+<p>确认加密方法，比如RSA公钥加密。</p>
+<p>服务器证书</p>
+<blockquote>
+<p>此处，如果服务器需要确认客户端的身份，如金融机构需要客户提供USB密钥（U盾），就会向客户端请求证书。</p>
+</blockquote>
+<p><strong>3、客户端回应</strong></p>
+<p>客户端收到服务器回应以后，首先验证服务器证书。如果证书没有问题，客户端就会从证书中取出服务器的公钥。</p>
+<p>一个随机数，稍后用于生成对话密钥，并且只用服务器的公钥加密，防止被窃听。</p>
+<p>编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送</p>
+<p>客户端握手结束通知，表示客户端的握手阶段已经结束。这一项同时也是前面发送的所有内容的hash值，用来供服务器校验</p>
+<p>如果前一步要求了客户端证书，则会发送证书及相关信息。</p>
+<p><strong>4、服务器回应</strong></p>
+<p>编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送</p>
+<p>服务器握手结束通知，表示服务器的握手阶段已经结束。这一项同时也是前面发送的所有内容的hash值，用来供客户端校验</p>
+<p>至此，整个握手阶段全部结束。接下来，客户端与服务器进入HTTPS加密通信，后续完全是使用普通的HTTP协议，只不过用“会话密钥”加密内容。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>对称密码</strong></p>
+<p>主要是为了确保消息的机密性。目前主要使用的是 AES ，它的算法为Rrijndael算法；</p>
+<p>除了 AES 还有DES、三重 DES，它们是差分分析和线性分析。</p>
+<p><strong>公钥密码</strong></p>
+<p>是一种不同的密钥进行加密和解密的技术，也是用于确保消息的机密性（主要是密钥分配问题）。</p>
+<p>使用最为广泛的一种公钥密码算法是 RSA，除此之外还有 ELGamal 和 Rabin 等算法，以及与其相关 Diffie-Hellman 密钥交换（DH）和椭圆曲线 Diffie-Hellman 密钥交换（ECDH）等技术。</p>
+<p>公钥密码和对称密码一般都组成混合密码系统来使用的。</p>
+<p><strong>单向散列函数</strong></p>
+<p>是一种将长消息转换为短散列值的技术，用于确保消息的完整性。</p>
+<p>包括的算法有SHA-1、SHA-2（SHA-256、SHA-384和SHA-512）和 SHA-3，除了SHA系列算法，还有MD4、MD5和 ROIPED-160 算法。</p>
+<p>单向散列函数可以单独使用，也可以作为消息认证码、数字签名以及伪随机数生成器等技术的组成元素来使用</p>
+<p><strong>消息认证码</strong></p>
+<p>是一种能识别通信对象发送的消息是否被篡改的认证技术，用于验证消息的完整性，以及对消息进行认证。</p>
+<p>该技术是利用了单向散列函数的HMAC，但是无法对第三方进行认证，也无法防止否认。</p>
+<p><strong>数字签名</strong></p>
+<p>是一种能够对第三方进行消息认证，并能够防止通信对象做出否认的技术。</p>
+<p>数字签名的算法有RSA、ElGamal、DSA、椭圆曲线 DSA（ECDSA）、爱德华兹曲线DSA（EDDSA）等。</p>
+<p><strong>伪随机数生成器</strong></p>
+<p>是一种能够生成具备不可预测性的比特序列的技术；由密码和单向散列函数构成的；伪随机数生成器用于生成密钥、初始化向量和 nonce 等。</p>
+<p><img src="https://image.woodwhales.cn/049/images/44.png"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><h3 id="参考书籍"><a href="#参考书籍" class="headerlink" title="参考书籍"></a>参考书籍</h3><p>图解密码技术(第3版) ([日]结城浩)</p>
+<p>HTTPS权威指南 在服务器和Web应用上部署SSL TLS和PKI</p>
+<p>深入浅出HTTPS：从原理到实战</p>
+<p>数学之美（第17章　由电视剧《暗算》所想到的——谈谈密码学的数学原理）</p>
+<h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h3><p>《图解密码技术》第三章（对称密码）学习笔记：<a target="_blank" rel="noopener" href="https://muzibing.github.io/2019/06/16/2019.06.16%EF%BC%8869%EF%BC%89/">https://muzibing.github.io/2019/06/16/2019.06.16%EF%BC%8869%EF%BC%89/</a></p>
+<p>RSA算法原理（二）- 阮一峰的网络日志：<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html">http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html</a></p>
+<p>RSA算法详解：<a target="_blank" rel="noopener" href="https://blog.damonare.cn/2017/12/31/RSA%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3/">https://blog.damonare.cn/2017/12/31/RSA%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3/</a></p>
+<p>一文搞懂 RSA 算法：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/44185847">https://zhuanlan.zhihu.com/p/44185847</a></p>
+<p>PKI/CA工作原理及架构：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c65fa3af1c01">https://www.jianshu.com/p/c65fa3af1c01</a></p>
+<p>HTTPS协议详解(一)：HTTPS基础知识：<a target="_blank" rel="noopener" href="https://blog.csdn.net/hherima/article/details/52469267">https://blog.csdn.net/hherima/article/details/52469267</a></p>
+<p>5分钟让你知道什么是PKI：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jerain6312/p/8572841.html">https://www.cnblogs.com/jerain6312/p/8572841.html</a></p>
+<p>PKI系统深入介绍：<a target="_blank" rel="noopener" href="https://blog.csdn.net/liuhuiyi/article/details/7776825">https://blog.csdn.net/liuhuiyi/article/details/7776825</a></p>
+<p>RSA(五) PKI (Public Key Infrastructure) 公钥基础设施：<a target="_blank" rel="noopener" href="https://www.shangyang.me/2017/05/25/encrypt-rsa-pki/">https://www.shangyang.me/2017/05/25/encrypt-rsa-pki/</a></p>
+<p>HTTP与HTTPS的区别：<a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/1233.html">http://www.mahaixiang.cn/internet/1233.html</a></p>
+<p>网络7层协议，4层，5层？理清容易混淆的几个概念：<a target="_blank" rel="noopener" href="https://blog.csdn.net/cc1949/article/details/79063439">https://blog.csdn.net/cc1949/article/details/79063439</a></p>
+<p>SSL/TLS协议详解(下)——TLS握手协议：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2531">https://xz.aliyun.com/t/2531</a></p>
+<p>SSL/TLS协议运行机制的概述 -阮一峰的网络日志：<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html">http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html</a></p>
+<p>Bouncycastle API文档：<a target="_blank" rel="noopener" href="https://www.bouncycastle.org/documentation.html">https://www.bouncycastle.org/documentation.html</a></p>
+<h3 id="扩展-1"><a href="#扩展-1" class="headerlink" title="扩展"></a>扩展</h3><p><a target="_blank" rel="noopener" href="https://javadoc.scijava.org/">https://javadoc.scijava.org/</a></p>
+<p><a target="_blank" rel="noopener" href="https://codebeautify.org/">https://codebeautify.org/</a></p>
+<p><a target="_blank" rel="noopener" href="https://examples.javacodegeeks.com/">https://examples.javacodegeeks.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.owasp.org/index.php/Main_Page">https://www.owasp.org/index.php/Main_Page</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.javased.com/">http://www.javased.com/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bouncycastle.org/documentation.html">https://www.bouncycastle.org/documentation.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/09/27/049/">漫谈密码技术</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2019/09/27/049/" title="漫谈密码技术">https://woodwhales.cn/2019/09/27/049/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2019/09/27/049/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AF%86%E7%A0%81/" rel="tag"><i class="fa fa-tag"></i> 密码</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/18/048/" rel="next" title="浅析理解HashMap">
+                <i class="fa fa-chevron-left"></i> 浅析理解HashMap
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/28/044/" rel="prev" title="常用Java代码示例">
+                常用Java代码示例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%B0%81%E6%83%85%E4%B9%A6%E5%BC%95%E5%8F%91%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="nav-text">一封情书引发的安全问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E6%8A%80%E6%9C%AF%E6%A6%82%E8%BF%B0"><span class="nav-text">密码技术概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81%E4%B8%8E%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81"><span class="nav-text">对称密码与公钥密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%AF%86%E7%A0%81%E6%8A%80%E6%9C%AF"><span class="nav-text">其他密码技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E6%8A%80%E6%9C%AF%E5%B0%8F%E7%BB%93"><span class="nav-text">密码技术小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E4%B8%8E%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86"><span class="nav-text">密码与信息安全常识</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%86%E5%8F%B2%E4%B8%8A%E7%9A%84%E5%AF%86%E7%A0%81%E6%8A%80%E6%9C%AF"><span class="nav-text">历史上的密码技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%AF%E6%92%92%E5%AF%86%E7%A0%81"><span class="nav-text">凯撒密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="nav-text">替换密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%91%E7%8E%87%E5%88%86%E6%9E%90"><span class="nav-text">频率分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enigma"><span class="nav-text">Enigma</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-text">内部结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="nav-text">加密过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="nav-text">解密过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Enigma%E7%9A%84%E5%BC%B1%E7%82%B9"><span class="nav-text">Enigma的弱点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81"><span class="nav-text">对称密码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E7%89%B9%E5%BA%8F%E5%88%97%E5%AF%86%E7%A0%81"><span class="nav-text">比特序列密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E6%AC%A1%E6%80%A7%E5%AF%86%E7%A0%81%E6%9C%AC"><span class="nav-text">一次性密码本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DES"><span class="nav-text">DES</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Feasted-%E7%BD%91%E7%BB%9C"><span class="nav-text">Feasted 网络</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3DES"><span class="nav-text">3DES</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AES"><span class="nav-text">AES</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81"><span class="nav-text">公钥密码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E9%92%A5%E9%85%8D%E9%80%81"><span class="nav-text">密钥配送</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81-1"><span class="nav-text">公钥密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA"><span class="nav-text">RSA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RSA-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86"><span class="nav-text">RSA 算法原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB"><span class="nav-text">中间人攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-text">认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%90%91%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0"><span class="nav-text">单向散列函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A9%E5%B1%95"><span class="nav-text">扩展</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PKI"><span class="nav-text">PKI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="nav-text">数字证书</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%81%E4%B9%A6%E7%9A%84%E7%94%B3%E8%AF%B7%E8%BF%87%E7%A8%8B"><span class="nav-text">证书的申请过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%81%E4%B9%A6%E7%9A%84%E5%90%8A%E9%94%80%E8%BF%87%E7%A8%8B"><span class="nav-text">证书的吊销过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSL-TLS"><span class="nav-text">SSL&#x2F;TLS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SSL"><span class="nav-text">SSL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TLS"><span class="nav-text">TLS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSL-TLS%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B"><span class="nav-text">SSL&#x2F;TLS通信流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E4%B9%A6%E7%B1%8D"><span class="nav-text">参考书籍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2"><span class="nav-text">参考博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95-1"><span class="nav-text">扩展</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

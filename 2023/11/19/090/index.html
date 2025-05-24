@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="JetLinks,AIoT,物联网,响应式编程,物联网平台,设备接入,protocol,DeviceMessageCodec,encode,decode,自定义协议,网络组件,设备网关,MQTT接入,TCP接入" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JetLinks设备接入的认识与理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JetLinks设备接入的认识与理解">
+<meta property="og:url" content="https://woodwhales.cn/2023/11/19/090/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="JetLinks设备接入的认识与理解">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/090/face.png">
+<meta property="article:published_time" content="2023-11-19T14:46:00.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.232Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="AIoT">
+<meta property="article:tag" content="JetLinks">
+<meta property="article:tag" content="物联网">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/090/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2023/11/19/090/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>JetLinks设备接入的认识与理解 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2023/11/19/090/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JetLinks设备接入的认识与理解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-19T22:46:00+08:00">
+                2023-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JetLinks/" itemprop="url" rel="index">
+                    <span itemprop="name">JetLinks</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2023/11/19/090/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2023/11/19/090/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  JetLinks设备接入的认识与理解
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/090/face.png" rel="gallery_cmb21nrjf007sm8v8asydbo1v noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/090/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <h2 id="1、认识-JetLinks"><a href="#1、认识-JetLinks" class="headerlink" title="1、认识 JetLinks"></a>1、认识 JetLinks</h2><h3 id="1-1、官网文档"><a href="#1-1、官网文档" class="headerlink" title="1.1、官网文档"></a>1.1、官网文档</h3><p>官网：<a target="_blank" rel="noopener" href="https://www.jetlinks.cn/">https://www.jetlinks.cn/</a></p>
+<p>JetLinks 有两个产品：<a target="_blank" rel="noopener" href="https://www.jetlinks.cn/#/production/iot">JetLinks-lot</a>和<a target="_blank" rel="noopener" href="https://www.jetlinks.cn/#/production/view">JetLinks-view</a></p>
+<p>官方文档：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://hanta.yuque.com/px7kg1/yfac2l">JetLinks 物联网基础平台</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://hanta.yuque.com/px7kg1/nn1gdr">JetLinks 物联网平台开发手册</a></p>
+</li>
+</ul>
+<h3 id="1-2、JetLinks"><a href="#1-2、JetLinks" class="headerlink" title="1.2、JetLinks"></a>1.2、JetLinks</h3><p>JetLinks 是可支持多种方式接入设备的物联网设备管理平台</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://hanta.yuque.com/px7kg1/yfac2l/fwqriw24lp3cy2lw">https://hanta.yuque.com/px7kg1/yfac2l/fwqriw24lp3cy2lw</a></p>
+</blockquote>
+<p><img src="https://image.woodwhales.cn/090/03-jetlinks.png"></p>
+<p>JetLinks IOT 是一个开源的、企业级的物联网平台，它集成了设备管理、数据安全通信、消息订阅、规则引擎等一系列物联网核心能力，支持以平台适配设备的方式连接海量设备，采集设备数据上云，提供云端API，通过调用云端API实现远程控制。JetLinks物联网平台还支持多种设备接入协议，并提供了丰富的协议库。</p>
+<p>支持：多协议（MQTT、HTTP、CoAP、UDP、TCP、WebSocket）自定义编解码插件接入；</p>
+<p>支持：云平台对接接入；</p>
+<p>支持： ModBus/TCP、OPC UA通道接入；</p>
+<p>支持：基于GB/T 28181国标协议视频接入；</p>
+<p>支持：自研边缘计算网关接入。</p>
+<h3 id="1-3、产品架构的理解"><a href="#1-3、产品架构的理解" class="headerlink" title="1.3、产品架构的理解"></a>1.3、产品架构的理解</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://hanta.yuque.com/px7kg1/yfac2l/tvlxz93cht8zyl94">https://hanta.yuque.com/px7kg1/yfac2l/tvlxz93cht8zyl94</a></p>
+</blockquote>
+<h4 id="1-3-1、理解1"><a href="#1-3-1、理解1" class="headerlink" title="1.3.1、理解1"></a>1.3.1、理解1</h4><p>通过不同层级功能职责的封装、组合，以支持多设备、多协议接入平台</p>
+<p><img src="https://image.woodwhales.cn/090/04-jetlinks.png"></p>
+<ol>
+<li><p>设备连接层：支持MQTT、TCP、UDP、CoAP、HTTP、WebSocket协议，提供统一设备接入的能力。 </p>
+</li>
+<li><p>设备管理层：提供设备注册、配置、维护和监控的功能，支持设备属性、状态实时展示和历史属性、设备日志记录查询等。</p>
+</li>
+<li><p>业务逻辑层：提供规则引擎、数据转发和数据解析等功能，支持多种业务场景下的数据处理和交互操作。</p>
+</li>
+<li><p>应用开发层：提供RESTAPI和WebSocket接口，支持前端对接和自定义应用开发。同时还提供了可视化的数据展示和操作页面，方便用户快速搭建物联网应用系统。</p>
+</li>
+</ol>
+<h4 id="1-3-2、理解2"><a href="#1-3-2、理解2" class="headerlink" title="1.3.2、理解2"></a>1.3.2、理解2</h4><p>设备接入JetLinks物联网平台后，可实现：设备通讯、数据的采集、认证、流转、存储、分析和实时监控</p>
+<p><img src="https://image.woodwhales.cn/090/05-jetlinks.png"></p>
+<h4 id="13-3、理解3"><a href="#13-3、理解3" class="headerlink" title="13.3、理解3"></a>13.3、理解3</h4><p>开发者需要自行实现编解码器逻辑，才可以让平台对设备数据进行全面管理</p>
+<p><img src="https://image.woodwhales.cn/090/06-jetlinks.png"></p>
+<h3 id="1-4、基本概念"><a href="#1-4、基本概念" class="headerlink" title="1.4、基本概念"></a>1.4、基本概念</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://hanta.yuque.com/px7kg1/yfac2l/dagxgfzc3vnul0sn">https://hanta.yuque.com/px7kg1/yfac2l/dagxgfzc3vnul0sn</a></p>
+</blockquote>
+<h4 id="1-4-1、产品"><a href="#1-4-1、产品" class="headerlink" title="1.4.1、产品"></a>1.4.1、产品</h4><p><strong>产品是指一组具有相同功能和规格的设备集合，通常由同一家生产厂家制造。</strong></p>
+<p>设备可能是传感器、执行器、控制器等各种不同类型的物联网设备，它们可以通过网络连接到物联网平台。通过将这些设备组合到一个产品中，企业可以对这些设备进行统一管理和监控，以便更有效地控制其行为和状态。</p>
+<h4 id="1-4-2、设备"><a href="#1-4-2、设备" class="headerlink" title="1.4.2、设备"></a>1.4.2、设备</h4><p><strong>设备是指物理存在的、可通过网络连接的单个物联网设备。</strong></p>
+<p>设备可以是各种类型的物品，例如传感器、执行器、控制器等。这些设备通过物联网连接到平台，以便与其他设备或应用程序进行通信、交换数据和接收命令。</p>
+<h4 id="1-4-3、物模型"><a href="#1-4-3、物模型" class="headerlink" title="1.4.3、物模型"></a>1.4.3、物模型</h4><blockquote>
+<p>物模型说明：<a target="_blank" rel="noopener" href="http://doc.jetlinks.cn/function-description/metadata_description.html">http://doc.jetlinks.cn/function-description/metadata_description.html</a></p>
+</blockquote>
+<p><strong>物模型是物理空间中的实体在云端的数字化表示，有 4 个纬度：属性、功能、事件、标签。</strong></p>
+<ul>
+<li><p>属性：用于描述设备运行时具体信息和状态。例如温湿度传感器包含“温度”、“湿度”两个属性。</p>
+</li>
+<li><p>功能：设备可被外部调用的能力或方法，可设置输入参数和输出参数。相比于属性，服务可通过一条指令实现更复杂的业务逻辑</p>
+</li>
+<li><p>事件：用于描述设备上报云端的多个参数，多用于复杂报文结构或设备本身在某个阈值触发的报文。</p>
+</li>
+<li><p>标签：统一为设备添加拓展字段，添加后将在设备信息页显示。</p>
+</li>
+</ul>
+<p><img src="https://image.woodwhales.cn/090/07-jetlinks.png"></p>
+<h2 id="2、开发手册"><a href="#2、开发手册" class="headerlink" title="2、开发手册"></a>2、开发手册</h2><blockquote>
+<p>社区版后端工程：</p>
+<ul>
+<li>github 仓库：<a target="_blank" rel="noopener" href="https://github.com/jetlinks/jetlinks-community">https://github.com/jetlinks/jetlinks-community</a></li>
+<li>gitee 仓库：<a target="_blank" rel="noopener" href="https://gitee.com/jetlinks/jetlinks-community">https://gitee.com/jetlinks/jetlinks-community</a></li>
+</ul>
+</blockquote>
+<h3 id="2-1、模块说明"><a href="#2-1、模块说明" class="headerlink" title="2.1、模块说明"></a>2.1、模块说明</h3><p>社区版系统模块说明：<a target="_blank" rel="noopener" href="https://hanta.yuque.com/px7kg1/nn1gdr/gfqb3xmxg8fsvyxf#lR7Pd">https://hanta.yuque.com/px7kg1/nn1gdr/gfqb3xmxg8fsvyxf#lR7Pd</a></p>
+<ul>
+<li>jetlinks-components   # 组件库<ul>
+<li>common-component # 通用组件、工具类等</li>
+<li>configure-component # 统一配置模块</li>
+<li>dashboard-component # 仪表盘模块</li>
+<li>elasticsearch-component # ElasticSearch集成</li>
+<li>gateway-component # 网关模块，统一定义网关接口等信息</li>
+<li>io-component # IO模块，文件管理等</li>
+<li>logging-component # 日志模块</li>
+<li>network-component # 网络组件模块,统一定义网络组件规范以及默认实现<ul>
+<li>http-component # http模块</li>
+<li>mqtt-component # mqtt模块</li>
+<li>network-core # 网络组件核心模块</li>
+<li>tcp-component # tcp模块</li>
+</ul>
+</li>
+<li>notify-component # 通知模块，统一定义通知规范以及默认实现<ul>
+<li>notify-core # 通知模块核心</li>
+<li>notify-dingtalk # 钉钉通知模块</li>
+<li>notify-email # 邮件通知模块</li>
+<li>notify-sms # 短信通知模块</li>
+<li>notify-voice # 语音通知模块</li>
+<li>notify-webhook # webhook通知模块</li>
+<li>notify-wechat # 微信通知模块</li>
+</ul>
+</li>
+<li>protocol-component # 协议模块</li>
+<li>relation-component # 关系模块，用于描述物与物之间的关系</li>
+<li>rule-engine-component # 规则引擎模块,集成规则引擎通用功能</li>
+<li>script-component # 脚本模块，封装脚本引擎</li>
+<li>tdengine-component # 对tdengine的支持</li>
+<li>things-component # 物管理模块</li>
+<li>timeseries-component # 时序数据组件</li>
+</ul>
+</li>
+<li>jetlinks-manager  # 管理功能<ul>
+<li>authentication-manager   # 用户，权限管理模块</li>
+<li>device-manager   # 设备管理模块</li>
+<li>logging-manager   # 日志管理模块</li>
+<li>network-manager   # 网络组件管理模块</li>
+<li>notify-manager   # 通知管理模块</li>
+<li>rule-engine-manager   # 规则引擎管理模块</li>
+</ul>
+</li>
+<li>jetlinks-standalone  #单例模块，启动JetLinks平台</li>
+</ul>
+<h3 id="2-2、技术选型"><a href="#2-2、技术选型" class="headerlink" title="2.2、技术选型"></a>2.2、技术选型</h3><table>
+<thead>
+<tr>
+<th>技术栈</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Java8</td>
+<td>编程语言</td>
+</tr>
+<tr>
+<td>hsweb Framework</td>
+<td>业务基础框架</td>
+</tr>
+<tr>
+<td>Spring Boot 2.7.x</td>
+<td>响应式web支持</td>
+</tr>
+<tr>
+<td>vert.x，netty</td>
+<td>高性能网络框架</td>
+</tr>
+<tr>
+<td>R2DBC</td>
+<td>关系型数据库响应式驱动</td>
+</tr>
+<tr>
+<td>Postgresql</td>
+<td>关系型数据库，可更换为mysql、sqlserver</td>
+</tr>
+<tr>
+<td>ElasticSearch</td>
+<td>设备数据与日志存储，可更换为其他中间件</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>用户信息与权限缓存、设备注册中心缓存</td>
+</tr>
+<tr>
+<td>scalecube</td>
+<td>基于JVM的分布式服务框架，支持响应式</td>
+</tr>
+<tr>
+<td>micrometer</td>
+<td>监控指标框架</td>
+</tr>
+</tbody></table>
+<h3 id="2-3、必要的开发知识"><a href="#2-3、必要的开发知识" class="headerlink" title="2.3、必要的开发知识"></a>2.3、必要的开发知识</h3><p>响应式编程：<a target="_blank" rel="noopener" href="http://doc.jetlinks.cn/dev-guide/reactor.html">http://doc.jetlinks.cn/dev-guide/reactor.html</a></p>
+<p>事件驱动：<a target="_blank" rel="noopener" href="http://doc.jetlinks.cn/dev-guide/event-driver.html">http://doc.jetlinks.cn/dev-guide/event-driver.html</a></p>
+<p>添加自定义模块：<a target="_blank" rel="noopener" href="https://hanta.yuque.com/px7kg1/dev/wdymp6flcfa1vwh5">https://hanta.yuque.com/px7kg1/dev/wdymp6flcfa1vwh5</a></p>
+<h2 id="3、设备接入流程"><a href="#3、设备接入流程" class="headerlink" title="3、设备接入流程"></a>3、设备接入流程</h2><blockquote>
+<p>设备接入流程：<a target="_blank" rel="noopener" href="http://doc.jetlinks.cn/function-description/device_message_description.html#%E8%AE%BE%E5%A4%87%E6%8E%A5%E5%85%A5%E6%B5%81%E7%A8%8B">http://doc.jetlinks.cn/function-description/device_message_description.html#%E8%AE%BE%E5%A4%87%E6%8E%A5%E5%85%A5%E6%B5%81%E7%A8%8B</a></p>
+<p>HTTP协议设备接入：<a target="_blank" rel="noopener" href="https://hanta.yuque.com/px7kg1/yfac2l/qlr6nz5btr5rwrgk">https://hanta.yuque.com/px7kg1/yfac2l/qlr6nz5btr5rwrgk</a></p>
+</blockquote>
+<h3 id="3-1、流程图"><a href="#3-1、流程图" class="headerlink" title="3.1、流程图"></a>3.1、流程图</h3><p><img src="https://image.woodwhales.cn/090/02-%E8%AE%BE%E5%A4%87%E6%8E%A5%E5%85%A5%E6%B5%81%E7%A8%8B.png"></p>
+<h3 id="3-2、开发：协议包"><a href="#3-2、开发：协议包" class="headerlink" title="3.2、开发：协议包"></a>3.2、开发：协议包</h3><p>开发者自行实现自定义协议，官方教程：<a target="_blank" rel="noopener" href="http://doc.jetlinks.cn/dev-guide/custom-message-protocol.html">http://doc.jetlinks.cn/dev-guide/custom-message-protocol.html</a></p>
+<blockquote>
+<p>官方提供了协议开发示例工程：<a target="_blank" rel="noopener" href="https://github.com/jetlinks/jetlinks-official-protocol">https://github.com/jetlinks/jetlinks-official-protocol</a></p>
+<p>JetLinks 官方协议 jar 包：<a target="_blank" rel="noopener" href="https://github.com/jetlinks/jetlinks-official-protocol/blob/v3/package/jetlinks-official-protocol-3.0.0.jar">https://github.com/jetlinks/jetlinks-official-protocol/blob/v3/package/jetlinks-official-protocol-3.0.0.jar</a></p>
+</blockquote>
+<ol>
+<li><p>编写<code>自定义编解码器</code>：</p>
+<p> 创建<code>org.jetlinks.core.message.codec.DeviceMessageCodec</code>接口实现类，重写<code>encode()</code>、<code>decode()</code>、<code>getSupportTransport()</code>方法</p>
+</li>
+<li><p>编写<code>协议的元信息</code></p>
+<p> 创建<code>org.jetlinks.core.metadata.DefaultConfigMetadata</code>对象并设置对应属性</p>
+</li>
+<li><p>编写<code>自定义设备协议支持提供商</code>：</p>
+<p> 创建<code>org.jetlinks.core.spi.ProtocolSupportProvider</code>接口实现类，并重写<code>create()</code>方法，</p>
+<p> 在<code>create()</code>方法中将：将<code>自定义编解码器</code>注册到协议中</p>
+</li>
+<li><p>配置路由配置：</p>
+<p> 在<code>org.jetlinks.core.spi.ProtocolSupportProvider</code>接口实现类的<code>create()</code>方法中创建<code>org.jetlinks.core.defaults.CompositeProtocolSupport</code>对象，在其中配置路由配置、身份认证（可选）</p>
+</li>
+</ol>
+<h3 id="3-3、添加：协议包"><a href="#3-3、添加：协议包" class="headerlink" title="3.3、添加：协议包"></a>3.3、添加：协议包</h3><p>将协议包上传到协议管理中</p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks01.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks02.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks03.png"></p>
+<h3 id="3-4、添加：网络组件"><a href="#3-4、添加：网络组件" class="headerlink" title="3.4、添加：网络组件"></a>3.4、添加：网络组件</h3><ol>
+<li>配置：本地和公网的接口地址、端口号</li>
+<li>配置：接口处理的服务类型</li>
+</ol>
+<p><img src="https://image.woodwhales.cn/090/jetlinks04.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks05.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks06.png"></p>
+<h3 id="3-5、添加：设备接入网关"><a href="#3-5、添加：设备接入网关" class="headerlink" title="3.5、添加：设备接入网关"></a>3.5、添加：设备接入网关</h3><p>将上述的协议包和网络组件进行绑定</p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks07.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks08.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks09.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks10.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks11.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks12.png"></p>
+<h3 id="3-6、添加：产品"><a href="#3-6、添加：产品" class="headerlink" title="3.6、添加：产品"></a>3.6、添加：产品</h3><ol>
+<li><p>配置：产品信息</p>
+</li>
+<li><p>绑定：上述的自定义网络组件（官方定义：设备接入）</p>
+</li>
+<li><p>配置：认证信息</p>
+</li>
+<li><p>配置存储策略</p>
+</li>
+<li><p>配置：物模型</p>
+<ol>
+<li>属性定义</li>
+<li>功能定义</li>
+<li>事件定义</li>
+<li>标签定义</li>
+</ol>
+</li>
+<li><p>启用：产品</p>
+</li>
+</ol>
+<p><img src="https://image.woodwhales.cn/090/jetlinks13.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks14.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks15.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks16.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks17.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks18.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks19.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks20.png"></p>
+<blockquote>
+<ol>
+<li><p>行式存储</p>
+<p> ElasticSearch-行式存储是系统默认情况下使用的存储方案。每一个属性值都保存为一条索引记录。</p>
+<p> 典型应用场景：设备每次只会上报一部分属性， 以及支持读取部分属性数据的时候。</p>
+</li>
+<li><p>列式存储</p>
+<p>  一个属性作为一列，一条属性消息作为一条索引记录进行存储。</p>
+<p> 典型应用场景：适合设备每次都上报所有的属性值的场景。</p>
+</li>
+</ol>
+</blockquote>
+<p><img src="https://image.woodwhales.cn/090/jetlinks21.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks22.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks23.png"></p>
+<h3 id="3-7、添加：设备"><a href="#3-7、添加：设备" class="headerlink" title="3.7、添加：设备"></a>3.7、添加：设备</h3><ol>
+<li>配置：设备ID、名称</li>
+<li>绑定：上述配置好的产品（只能配置状态是正常的产品，即已启用的产品）</li>
+<li>启动：设备</li>
+<li>（可选）默认继承了所属产品的物模型。可以配置专属当前设备的物模型</li>
+</ol>
+<p><img src="https://image.woodwhales.cn/090/jetlinks24.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks25.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks26.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks27.png"></p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks28.png"></p>
+<h2 id="4、理解协议包"><a href="#4、理解协议包" class="headerlink" title="4、理解协议包"></a>4、理解协议包</h2><blockquote>
+<p>关于协议包：<a target="_blank" rel="noopener" href="https://hanta.yuque.com/px7kg1/nn1gdr/kcqv8dn8y6778t2a">https://hanta.yuque.com/px7kg1/nn1gdr/kcqv8dn8y6778t2a</a></p>
+</blockquote>
+<p>协议包主要包含 4 个部分</p>
+<ol>
+<li><p>数据传输协议：协议包约定了常见的网络通信协议，例如MQTT、HTTP、TCP、CoAP等，来实现物联网设备与JetLinks平台之间的数据传输。开发者可根据设备实际情况选择对应的通信协议。</p>
+<p> <img src="https://image.woodwhales.cn/090/jetlinks-%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91%E5%9B%BE.jpg"></p>
+</li>
+<li><p>数据解析标准：协议包定义了一套设备数据解析标准，使得各种类型的物联网设备通过网络协议传输至JetLinks后，根据协议包内的数据解析标准将不同类型的报文转换成平台统一的消息。</p>
+<p> <img src="https://image.woodwhales.cn/090/jetlinks-%E5%8D%8F%E8%AE%AE%E5%8C%85.png"></p>
+</li>
+<li><p>设备管理功能：协议包内可以获取平台内定义的设备数据，包括设备信息、设备配置、设备状态等，方便开发者在接入设备时获取设备相关数据进行自定义的业务逻辑处理。</p>
+</li>
+<li><p>身份认证：协议包支持物联网设备的身份认证，用户可以在协议包内编写身份认证逻辑来验证连接的客户端身份，以保护设备和数据的安全。</p>
+</li>
+</ol>
+<h2 id="5、理解自定义编解码器开发流程"><a href="#5、理解自定义编解码器开发流程" class="headerlink" title="5、理解自定义编解码器开发流程"></a>5、理解自定义编解码器开发流程</h2><h3 id="5-1、步骤1"><a href="#5-1、步骤1" class="headerlink" title="5.1、步骤1"></a>5.1、步骤1</h3><p>自定义 DeviceMessageCodec 接口实现类，重写 encode()、decode() 方法</p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks-code1.png"></p>
+<h4 id="5-1-1、消息编码"><a href="#5-1-1、消息编码" class="headerlink" title="5.1.1、消息编码"></a>5.1.1、消息编码</h4><p>重写 DeviceMessageCodec 接口中的<code>encode()</code>方法</p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks-code4.png"></p>
+<h4 id="5-1-2、消息解码"><a href="#5-1-2、消息解码" class="headerlink" title="5.1.2、消息解码"></a>5.1.2、消息解码</h4><p>重写 DeviceMessageCodec 接口中的<code>decode()</code>方法</p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks-code3.png"></p>
+<h3 id="5-2、步骤2"><a href="#5-2、步骤2" class="headerlink" title="5.2、步骤2"></a>5.2、步骤2</h3><p>自定义 ProtocolSupportProvider 接口实现类，配置元数据信息</p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks-code2.png"></p>
+<h3 id="5-3、步骤3"><a href="#5-3、步骤3" class="headerlink" title="5.3、步骤3"></a>5.3、步骤3</h3><p>配置路由与 DeviceMessage 的绑定关系</p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks-code5.png"></p>
+<h3 id="5-4、步骤4"><a href="#5-4、步骤4" class="headerlink" title="5.4、步骤4"></a>5.4、步骤4</h3><p>自定义 Authenticator 接口实现并配置</p>
+<p><img src="https://image.woodwhales.cn/090/jetlinks-code6.png"></p>
+<h2 id="6、理解编解码涉及的核心类关系"><a href="#6、理解编解码涉及的核心类关系" class="headerlink" title="6、理解编解码涉及的核心类关系"></a>6、理解编解码涉及的核心类关系</h2><blockquote>
+<p>协议加载设计：<a target="_blank" rel="noopener" href="https://hanta.yuque.com/px7kg1/nn1gdr/gascdx49ia6u4lsf">https://hanta.yuque.com/px7kg1/nn1gdr/gascdx49ia6u4lsf</a></p>
+<p>平台统一设备消息定义：<a target="_blank" rel="noopener" href="http://doc.jetlinks.cn/function-description/device_message_description.html">http://doc.jetlinks.cn/function-description/device_message_description.html</a></p>
+</blockquote>
+<p><img src="https://image.woodwhales.cn/090/%E6%A0%B8%E5%BF%83%E7%B1%BB%E5%85%B3%E7%B3%BB%E5%9B%BE.jpg"></p>
+<h2 id="7、协议包上传逻辑分析"><a href="#7、协议包上传逻辑分析" class="headerlink" title="7、协议包上传逻辑分析"></a>7、协议包上传逻辑分析</h2><h3 id="7-1、步骤1：上传协议-jar"><a href="#7-1、步骤1：上传协议-jar" class="headerlink" title="7.1、步骤1：上传协议 jar"></a>7.1、步骤1：上传协议 jar</h3><h4 id="后端接口"><a href="#后端接口" class="headerlink" title="后端接口"></a>后端接口</h4><p><code>POST</code> </p>
+<p>/api/file/upload</p>
+<h4 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h4><p>表单请求，接收参数名为：file 的文件数据对象</p>
+<figure class="highlight tex"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Content-Disposition: form-data; name="file"; filename="jetlinks-official-protocol-3.0.0.jar"</span><br><span class="line">Content-Type: application/octet-stream</span><br></pre></td></tr></tbody></table></figure>
+
+<p>接口类：<code>org.jetlinks.community.io.file.web.FileManagerController#upload</code></p>
+<h4 id="处理逻辑"><a href="#处理逻辑" class="headerlink" title="处理逻辑"></a>处理逻辑</h4><ol>
+<li><p>获取文件信息，并将文件数据保存到本地指定目录</p>
+<ul>
+<li><p>默认文件目录为：./data/files/yyyyMMdd/</p>
+</li>
+<li><p>重命名 jar 文件名，生成规则：md5(uuid())</p>
+</li>
+<li><p>计算当前文件的 md5 和 sha256 值</p>
+</li>
+</ul>
+</li>
+<li><p>将文件相关信息保存到数据库中，数据对象：<code>org.jetlinks.community.io.file.FileEntity</code></p>
+</li>
+<li><p>保存成功的文件数据记录主键和文件信息一起通过接口返回</p>
+</li>
+</ol>
+<h4 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h4><p>返回文件数据相关记录信息，核心信息：</p>
+<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"message"</span><span class="punctuation">:</span> <span class="string">"success"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"result"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">        <span class="attr">"id"</span><span class="punctuation">:</span> <span class="string">"9c9ce661a1fadb8019ca50145b33a074"</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"jetlinks-official-protocol-3.0.0.jar"</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"extension"</span><span class="punctuation">:</span> <span class="string">"jar"</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"length"</span><span class="punctuation">:</span> <span class="number">102512</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"md5"</span><span class="punctuation">:</span> <span class="string">"24504ceb0d6570b84b86e6180d9fca9f"</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"sha256"</span><span class="punctuation">:</span> <span class="string">"fb0c6144ad056326e26eb829c13759b5080da095c7bb02386c7f064ac059f24e"</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"createTime"</span><span class="punctuation">:</span> <span class="number">1699859432789</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"creatorId"</span><span class="punctuation">:</span> <span class="string">"1199596756811550720"</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"options"</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"others"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">            <span class="attr">"accessKey"</span><span class="punctuation">:</span> <span class="string">"c24b19b0c91119c6673fa1a06a4d2ae0"</span></span><br><span class="line">        <span class="punctuation">}</span></span><br><span class="line">    <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"status"</span><span class="punctuation">:</span> <span class="number">200</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"timestamp"</span><span class="punctuation">:</span> <span class="number">1699859454032</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="7-2、步骤2：确定协议"><a href="#7-2、步骤2：确定协议" class="headerlink" title="7.2、步骤2：确定协议"></a>7.2、步骤2：确定协议</h3><h4 id="7-2-1、后端接口"><a href="#7-2-1、后端接口" class="headerlink" title="7.2.1、后端接口"></a>7.2.1、后端接口</h4><p><code>PATCH</code> </p>
+<p>/api/protocol</p>
+<p>接口类：<code>org.jetlinks.community.device.web.ProtocolSupportController</code></p>
+<h4 id="7-2-2、请求报文"><a href="#7-2-2、请求报文" class="headerlink" title="7.2.2、请求报文"></a>7.2.2、请求报文</h4><figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"id"</span><span class="punctuation">:</span> <span class="string">"1722876422724329472"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"官方协议v3.0"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"description"</span><span class="punctuation">:</span> <span class="string">""</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"type"</span><span class="punctuation">:</span> <span class="string">"jar"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"state"</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"creatorId"</span><span class="punctuation">:</span> <span class="string">"1199596756811550720"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"createTime"</span><span class="punctuation">:</span> <span class="number">1699600723328</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"configuration"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">        <span class="attr">"location"</span><span class="punctuation">:</span> <span class="string">"http://localhost:5173/api/file/9c9ce661a1fadb8019ca50145b33a074?accessKey=c24b19b0c91119c6673fa1a06a4d2ae0"</span></span><br><span class="line">    <span class="punctuation">}</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="7-2-3、处理逻辑"><a href="#7-2-3、处理逻辑" class="headerlink" title="7.2.3、处理逻辑"></a>7.2.3、处理逻辑</h4><ul>
+<li>将前端请求的文件信息保存到数据库中，数据对象：<code>org.jetlinks.community.device.entity.ProtocolSupportEntity</code></li>
+</ul>
+<blockquote>
+<p>前端逻辑：将步骤1 的响应结果拼接成：文件地址（用户不可编辑）+ 用户填写的协议包基本信息（名称、类型、说明）</p>
+</blockquote>
+<p><code>org.jetlinks.community.device.web.ProtocolSupportController</code> 实现了<code>org.hswebframework.web.crud.web.reactive.ReactiveServiceCrudController</code>接口。</p>
+<p><code>org.hswebframework.web.crud.web.reactive.ReactiveServiceCrudController</code>接口又继承了三个接口：<code>org.hswebframework.web.crud.web.reactive.ReactiveServiceSaveController</code>、<code>org.hswebframework.web.crud.web.reactive.ReactiveServiceQueryController</code>、<code>org.hswebframework.web.crud.web.reactive.ReactiveServiceDeleteController</code></p>
+<p>ProtocolSupportController</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.jetlinks.community.device.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.hswebframework.web.crud.web.reactive.ReactiveServiceCrudController;</span><br><span class="line"><span class="keyword">import</span> org.jetlinks.community.device.service.LocalProtocolSupportService;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping("/protocol")</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProtocolSupportController</span></span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">ReactiveServiceCrudController</span>&lt;ProtocolSupportEntity, String&gt; {</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="meta">@Getter</span></span><br><span class="line">    <span class="keyword">private</span> LocalProtocolSupportService service;</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>ReactiveServiceCrudController</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.hswebframework.web.crud.web.reactive;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ReactiveServiceCrudController</span>&lt;E, K&gt; <span class="keyword">extends</span></span><br><span class="line">        <span class="title class_">ReactiveServiceSaveController</span>&lt;E, K&gt;,</span><br><span class="line">        ReactiveServiceQueryController&lt;E, K&gt;,</span><br><span class="line">        ReactiveServiceDeleteController&lt;E, K&gt; {</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>PATH /api/protocol</code> 接口实际由：<code>ReactiveServiceSaveController</code>接口提供的默认 <code>save()</code> 方法处理数据，最终调用<code>getService()</code>方法进行<code>save()</code>操作。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.hswebframework.web.crud.web.reactive;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.hswebframework.web.authorization.annotation.Authorize;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ReactiveServiceSaveController</span>&lt;E, K&gt; {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Authorize(ignore = true)</span></span><br><span class="line">    ReactiveCrudService&lt;E, K&gt; <span class="title function_">getService</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@PatchMapping</span></span><br><span class="line">    <span class="meta">@Operation(summary = "保存数据", description = "如果传入了id,并且对应数据存在,则尝试覆盖,不存在则新增.")</span></span><br><span class="line">    <span class="keyword">default</span> Mono&lt;SaveResult&gt; <span class="title function_">save</span><span class="params">(<span class="meta">@RequestBody</span> Flux&lt;E&gt; payload)</span> {</span><br><span class="line">        <span class="keyword">return</span> Authentication</span><br><span class="line">                .currentReactive()</span><br><span class="line">                .flatMapMany(auth -&gt; payload.map(entity -&gt; applyAuthentication(entity, auth)))</span><br><span class="line">                .switchIfEmpty(payload)</span><br><span class="line">                .as(getService()::save);</span><br><span class="line">    }</span><br><span class="line">	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>由于<code>ProtocolSupportController</code>注入了<code>org.jetlinks.community.device.service.LocalProtocolSupportService</code>，并且属性名为：service，因此<code>ProtocolSupportController</code>的<code>getService()</code>就是<code>ReactiveServiceSaveController</code>接口的<code>getService()</code>方法实现。显而易见，确定协议的核心逻辑就在：<code>LocalProtocolSupportService</code>的<code>save()</code>方法。</p>
+<p><code>org.jetlinks.community.device.service.LocalProtocolSupportService</code>类继承了<code>org.hswebframework.web.crud.service.GenericReactiveCrudService</code>抽象类，而<code>GenericReactiveCrudService</code>抽象类又实现了<code>org.hswebframework.web.crud.service.ReactiveCrudService</code>接口，在<code>ReactiveCrudService</code>中有<code>save()</code>方法</p>
+<p>ProtocolSupportController</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.jetlinks.community.device.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.jetlinks.community.reference.DataReferenceManager;</span><br><span class="line"><span class="keyword">import</span> org.jetlinks.supports.protocol.management.ProtocolSupportManager;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LocalProtocolSupportService</span> <span class="keyword">extends</span> <span class="title class_">GenericReactiveCrudService</span>&lt;ProtocolSupportEntity, String&gt; {</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ProtocolSupportManager supportManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DataReferenceManager referenceManager;</span><br><span class="line">	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>GenericReactiveCrudService</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.hswebframework.web.crud.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.hswebframework.ezorm.rdb.mapping.ReactiveRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">GenericReactiveCrudService</span>&lt;E, K&gt; <span class="keyword">implements</span> <span class="title class_">ReactiveCrudService</span>&lt;E, K&gt; {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ReactiveRepository&lt;E, K&gt; repository;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ReactiveRepository&lt;E, K&gt; <span class="title function_">getRepository</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> repository;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>GenericReactiveCrudService 注入了 ReactiveRepository 接口，该接口的实现类为：<code>org.hswebframework.ezorm.rdb.mapping.defaults.DefaultReactiveRepository</code>，里面实现了<code>save()</code>方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.hswebframework.ezorm.rdb.mapping.defaults;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.hswebframework.ezorm.rdb.mapping.ReactiveRepository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DefaultReactiveRepository</span>&lt;E, K&gt; <span class="keyword">extends</span> <span class="title class_">DefaultRepository</span>&lt;E&gt; <span class="keyword">implements</span> <span class="title class_">ReactiveRepository</span>&lt;E, K&gt; {</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;SaveResult&gt; <span class="title function_">save</span><span class="params">(Publisher&lt;E&gt; data)</span> {</span><br><span class="line">        <span class="keyword">return</span> Flux</span><br><span class="line">                .from(data)</span><br><span class="line">                .collectList()</span><br><span class="line">                .filter(CollectionUtils::isNotEmpty)</span><br><span class="line">                .flatMap(list -&gt; doSave(list).reactive().as(<span class="built_in">this</span>::setupLogger))</span><br><span class="line">                .defaultIfEmpty(SaveResult.of(<span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述<code>doSave()</code>方法是<code>org.hswebframework.ezorm.rdb.mapping.defaults.DefaultRepository</code>抽象类提供的默认方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.hswebframework.ezorm.rdb.mapping.defaults;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.hswebframework.ezorm.rdb.mapping.events.EventResultOperator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">DefaultRepository</span>&lt;E&gt; {</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">protected</span> SaveResultOperator <span class="title function_">doSave</span><span class="params">(Collection&lt;E&gt; data)</span> {</span><br><span class="line">        <span class="type">RDBTableMetadata</span> <span class="variable">table</span> <span class="operator">=</span> getTable();</span><br><span class="line">        <span class="type">UpsertOperator</span> <span class="variable">upsert</span> <span class="operator">=</span> operator.dml().upsert(table.getFullName());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> EventResultOperator.create(</span><br><span class="line">                () -&gt; {</span><br><span class="line">                    upsert.columns(getProperties());</span><br><span class="line">                    List&lt;String&gt; ignore = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">                    <span class="keyword">for</span> (E e : data) {</span><br><span class="line">                        upsert.values(Stream.of(getProperties())</span><br><span class="line">                                            .map(property -&gt; getInsertColumnValue(e, property, (prop, val) -&gt; ignore.add(prop)))</span><br><span class="line">                                            .toArray());</span><br><span class="line">                    }</span><br><span class="line">                    upsert.ignoreUpdate(ignore.toArray(<span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">0</span>]));</span><br><span class="line">                    <span class="keyword">return</span> upsert.execute();</span><br><span class="line">                },</span><br><span class="line">                SaveResultOperator.class,</span><br><span class="line">                table,</span><br><span class="line">                MappingEventTypes.save_before,</span><br><span class="line">                MappingEventTypes.save_after,</span><br><span class="line">                getDefaultContextKeyValue(instance(data),</span><br><span class="line">                                          type(<span class="string">"batch"</span>),</span><br><span class="line">                                          tableMetadata(table),</span><br><span class="line">                                          upsert(upsert))</span><br><span class="line">        );</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述<code>EventResultOperator</code>的<code>create()</code>方法中，发布了<code>EntitySavedEvent&lt;E&gt;</code>事件（通过 Spring的ApplicationEventPublisher 发送事件）。</p>
+<p>在<code>org.jetlinks.community.device.service.ProtocolSupportHandler</code>中订阅了<code>EntitySavedEvent&lt;ProtocolSupportEntity&gt;</code>事件：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.jetlinks.community.device.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> org.jetlinks.core.ProtocolSupport;</span><br><span class="line"><span class="keyword">import</span> org.jetlinks.community.reference.DataReferenceManager;</span><br><span class="line"><span class="keyword">import</span> org.jetlinks.supports.protocol.management.ProtocolSupportLoader;</span><br><span class="line"><span class="keyword">import</span> org.jetlinks.supports.protocol.management.ProtocolSupportManager;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProtocolSupportHandler</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> DataReferenceManager referenceManager;</span><br><span class="line">    <span class="keyword">private</span>       ProtocolSupportLoader  loader;</span><br><span class="line">    <span class="keyword">private</span>       ProtocolSupportManager supportManager;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@EventListener</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleCreated</span><span class="params">(EntityCreatedEvent&lt;ProtocolSupportEntity&gt; event)</span> {</span><br><span class="line">        event.async(reloadProtocol(event.getEntity()));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@EventListener</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleSaved</span><span class="params">(EntitySavedEvent&lt;ProtocolSupportEntity&gt; event)</span> {</span><br><span class="line">        event.async(reloadProtocol(event.getEntity()));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@EventListener</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleModify</span><span class="params">(EntityModifyEvent&lt;ProtocolSupportEntity&gt; event)</span> {</span><br><span class="line">        event.async(reloadProtocol(event.getAfter()));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 重新加载协议</span></span><br><span class="line">    <span class="keyword">private</span> Mono&lt;Void&gt; <span class="title function_">reloadProtocol</span><span class="params">(Collection&lt;ProtocolSupportEntity&gt; protocol)</span> {</span><br><span class="line">        <span class="keyword">return</span> Flux</span><br><span class="line">            .fromIterable(protocol)</span><br><span class="line">            .filter(entity -&gt; entity.getState() != <span class="literal">null</span>)</span><br><span class="line">            .map(entity -&gt; entity.getState() == <span class="number">1</span> ? entity.toDeployDefinition() : entity.toUnDeployDefinition())</span><br><span class="line">            .flatMap(def -&gt; loader</span><br><span class="line">                <span class="comment">//加载一下检验是否正确，然后就卸载</span></span><br><span class="line">                .load(def)</span><br><span class="line">                .doOnNext(ProtocolSupport::dispose)</span><br><span class="line">                .thenReturn(def))</span><br><span class="line">            .onErrorMap(err -&gt; <span class="keyword">new</span> <span class="title class_">BusinessException</span>(<span class="string">"error.unable_to_load_protocol"</span>, <span class="number">500</span>, err.getMessage()))</span><br><span class="line">            .flatMap(supportManager::save)</span><br><span class="line">            .then();</span><br><span class="line">    }</span><br><span class="line">	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述<code>ProtocolSupportLoader</code>接口的实现类为<code>org.jetlinks.community.protocol.SpringProtocolSupportLoader</code>，其中<code>load()</code>方法会动态加载 jar 包为<code>org.jetlinks.core.spi.ProtocolSupportProvider</code>接口实现，并执行<code>create()</code>方法。</p>
+<h4 id="7-2-4、响应报文"><a href="#7-2-4、响应报文" class="headerlink" title="7.2.4、响应报文"></a>7.2.4、响应报文</h4><figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"message"</span><span class="punctuation">:</span> <span class="string">"success"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"result"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">        <span class="attr">"added"</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"updated"</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"total"</span><span class="punctuation">:</span> <span class="number">1</span></span><br><span class="line">    <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"status"</span><span class="punctuation">:</span> <span class="number">200</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"timestamp"</span><span class="punctuation">:</span> <span class="number">1699859463951</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="8、加载协议包时机"><a href="#8、加载协议包时机" class="headerlink" title="8、加载协议包时机"></a>8、加载协议包时机</h2><h3 id="8-1、加载协议包时机1"><a href="#8-1、加载协议包时机1" class="headerlink" title="8.1、加载协议包时机1"></a>8.1、加载协议包时机1</h3><p>通过<code>org.jetlinks.community.device.service.ProtocolSupportHandler</code>监听<code>EntityCreatedEvent&lt;ProtocolSupportEntity&gt;</code>、<code>EntitySavedEvent&lt;ProtocolSupportEntity&gt;</code>、<code>EntityModifyEvent&lt;ProtocolSupportEntity&gt;</code>事件，调用<code>ProtocolSupportLoader</code>的<code>load()</code>方法加载协议</p>
+<blockquote>
+<p>在 ProtocolSupportLoader 的 load() 方法中：会调用 org.jetlinks.core.spi.ProtocolSupportProvider 接口实现，并执行 create() 方法</p>
+</blockquote>
+<h3 id="8-2、加载协议包时机2"><a href="#8-2、加载协议包时机2" class="headerlink" title="8.2、加载协议包时机2"></a>8.2、加载协议包时机2</h3><p>通过<code>org.jetlinks.community.protocol.LazyInitManagementProtocolSupports</code>实现<code>org.springframework.boot.CommandLineRunner</code>接口，在项目启动时执行<code>init()</code>方法，调用<code>ProtocolSupportLoader</code>的<code>load()</code>方法加载协议</p>
+<blockquote>
+<p>在 ProtocolSupportLoader 的 load() 方法中：会调用 org.jetlinks.core.spi.ProtocolSupportProvider 接口实现，并执行 create() 方法</p>
+</blockquote>
+<h2 id="9、设备网关加载机制"><a href="#9、设备网关加载机制" class="headerlink" title="9、设备网关加载机制"></a>9、设备网关加载机制</h2><ol>
+<li>通过 DeviceGatewayEventHandler 实现 CommandLineRunner 接口，在项目启动时执行 init() 方法</li>
+<li>通过 DeviceGatewayEventHandler 监听 DeviceGatewayEntity 的保存、创建、更新事件</li>
+</ol>
+<p><img src="https://image.woodwhales.cn/090/%E7%BD%91%E5%85%B3%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2023/11/19/090/">JetLinks设备接入的认识与理解</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2023/11/19/090/" title="JetLinks设备接入的认识与理解">https://woodwhales.cn/2023/11/19/090/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2023/11/19/090/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AIoT/" rel="tag"><i class="fa fa-tag"></i> AIoT</a>
+          
+            <a href="/tags/JetLinks/" rel="tag"><i class="fa fa-tag"></i> JetLinks</a>
+          
+            <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" rel="tag"><i class="fa fa-tag"></i> 物联网</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/05/23/089/" rel="next" title="纪念左耳朵耗子">
+                <i class="fa fa-chevron-left"></i> 纪念左耳朵耗子
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/12/03/091/" rel="prev" title="docker 安装 MySQL">
+                docker 安装 MySQL <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E8%AE%A4%E8%AF%86-JetLinks"><span class="nav-text">1、认识 JetLinks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1%E3%80%81%E5%AE%98%E7%BD%91%E6%96%87%E6%A1%A3"><span class="nav-text">1.1、官网文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2%E3%80%81JetLinks"><span class="nav-text">1.2、JetLinks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3%E3%80%81%E4%BA%A7%E5%93%81%E6%9E%B6%E6%9E%84%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-text">1.3、产品架构的理解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1%E3%80%81%E7%90%86%E8%A7%A31"><span class="nav-text">1.3.1、理解1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2%E3%80%81%E7%90%86%E8%A7%A32"><span class="nav-text">1.3.2、理解2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-3%E3%80%81%E7%90%86%E8%A7%A33"><span class="nav-text">13.3、理解3</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4%E3%80%81%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">1.4、基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-1%E3%80%81%E4%BA%A7%E5%93%81"><span class="nav-text">1.4.1、产品</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-2%E3%80%81%E8%AE%BE%E5%A4%87"><span class="nav-text">1.4.2、设备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-3%E3%80%81%E7%89%A9%E6%A8%A1%E5%9E%8B"><span class="nav-text">1.4.3、物模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C"><span class="nav-text">2、开发手册</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1%E3%80%81%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E"><span class="nav-text">2.1、模块说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2%E3%80%81%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="nav-text">2.2、技术选型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3%E3%80%81%E5%BF%85%E8%A6%81%E7%9A%84%E5%BC%80%E5%8F%91%E7%9F%A5%E8%AF%86"><span class="nav-text">2.3、必要的开发知识</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E8%AE%BE%E5%A4%87%E6%8E%A5%E5%85%A5%E6%B5%81%E7%A8%8B"><span class="nav-text">3、设备接入流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1%E3%80%81%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-text">3.1、流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2%E3%80%81%E5%BC%80%E5%8F%91%EF%BC%9A%E5%8D%8F%E8%AE%AE%E5%8C%85"><span class="nav-text">3.2、开发：协议包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3%E3%80%81%E6%B7%BB%E5%8A%A0%EF%BC%9A%E5%8D%8F%E8%AE%AE%E5%8C%85"><span class="nav-text">3.3、添加：协议包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4%E3%80%81%E6%B7%BB%E5%8A%A0%EF%BC%9A%E7%BD%91%E7%BB%9C%E7%BB%84%E4%BB%B6"><span class="nav-text">3.4、添加：网络组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5%E3%80%81%E6%B7%BB%E5%8A%A0%EF%BC%9A%E8%AE%BE%E5%A4%87%E6%8E%A5%E5%85%A5%E7%BD%91%E5%85%B3"><span class="nav-text">3.5、添加：设备接入网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6%E3%80%81%E6%B7%BB%E5%8A%A0%EF%BC%9A%E4%BA%A7%E5%93%81"><span class="nav-text">3.6、添加：产品</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7%E3%80%81%E6%B7%BB%E5%8A%A0%EF%BC%9A%E8%AE%BE%E5%A4%87"><span class="nav-text">3.7、添加：设备</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E7%90%86%E8%A7%A3%E5%8D%8F%E8%AE%AE%E5%8C%85"><span class="nav-text">4、理解协议包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E7%90%86%E8%A7%A3%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BC%96%E8%A7%A3%E7%A0%81%E5%99%A8%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-text">5、理解自定义编解码器开发流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1%E3%80%81%E6%AD%A5%E9%AA%A41"><span class="nav-text">5.1、步骤1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-1%E3%80%81%E6%B6%88%E6%81%AF%E7%BC%96%E7%A0%81"><span class="nav-text">5.1.1、消息编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-2%E3%80%81%E6%B6%88%E6%81%AF%E8%A7%A3%E7%A0%81"><span class="nav-text">5.1.2、消息解码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2%E3%80%81%E6%AD%A5%E9%AA%A42"><span class="nav-text">5.2、步骤2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3%E3%80%81%E6%AD%A5%E9%AA%A43"><span class="nav-text">5.3、步骤3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4%E3%80%81%E6%AD%A5%E9%AA%A44"><span class="nav-text">5.4、步骤4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E7%90%86%E8%A7%A3%E7%BC%96%E8%A7%A3%E7%A0%81%E6%B6%89%E5%8F%8A%E7%9A%84%E6%A0%B8%E5%BF%83%E7%B1%BB%E5%85%B3%E7%B3%BB"><span class="nav-text">6、理解编解码涉及的核心类关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81%E5%8D%8F%E8%AE%AE%E5%8C%85%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%88%86%E6%9E%90"><span class="nav-text">7、协议包上传逻辑分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1%E3%80%81%E6%AD%A5%E9%AA%A41%EF%BC%9A%E4%B8%8A%E4%BC%A0%E5%8D%8F%E8%AE%AE-jar"><span class="nav-text">7.1、步骤1：上传协议 jar</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8E%E7%AB%AF%E6%8E%A5%E5%8F%A3"><span class="nav-text">后端接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87"><span class="nav-text">请求报文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E9%80%BB%E8%BE%91"><span class="nav-text">处理逻辑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87"><span class="nav-text">响应报文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2%E3%80%81%E6%AD%A5%E9%AA%A42%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%8D%8F%E8%AE%AE"><span class="nav-text">7.2、步骤2：确定协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-1%E3%80%81%E5%90%8E%E7%AB%AF%E6%8E%A5%E5%8F%A3"><span class="nav-text">7.2.1、后端接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-2%E3%80%81%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87"><span class="nav-text">7.2.2、请求报文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-3%E3%80%81%E5%A4%84%E7%90%86%E9%80%BB%E8%BE%91"><span class="nav-text">7.2.3、处理逻辑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-4%E3%80%81%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87"><span class="nav-text">7.2.4、响应报文</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8%E3%80%81%E5%8A%A0%E8%BD%BD%E5%8D%8F%E8%AE%AE%E5%8C%85%E6%97%B6%E6%9C%BA"><span class="nav-text">8、加载协议包时机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1%E3%80%81%E5%8A%A0%E8%BD%BD%E5%8D%8F%E8%AE%AE%E5%8C%85%E6%97%B6%E6%9C%BA1"><span class="nav-text">8.1、加载协议包时机1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2%E3%80%81%E5%8A%A0%E8%BD%BD%E5%8D%8F%E8%AE%AE%E5%8C%85%E6%97%B6%E6%9C%BA2"><span class="nav-text">8.2、加载协议包时机2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9%E3%80%81%E8%AE%BE%E5%A4%87%E7%BD%91%E5%85%B3%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6"><span class="nav-text">9、设备网关加载机制</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

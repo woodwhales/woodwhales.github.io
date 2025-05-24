@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="链表, 指针, 结构体, 数据结构, 内存, 指针变量, 算法, C语言" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据结构与算法之链表（C语言描述）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法之链表（C语言描述）">
+<meta property="og:url" content="https://woodwhales.cn/2019/05/30/032/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="数据结构与算法之链表（C语言描述）">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/032/face.jpg">
+<meta property="article:published_time" content="2019-05-30T13:25:00.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.186Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/032/face.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2019/05/30/032/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>数据结构与算法之链表（C语言描述） | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2019/05/30/032/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构与算法之链表（C语言描述）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-30T21:25:00+08:00">
+                2019-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/30/032/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/30/032/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  数据结构与算法之链表（C语言描述）
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/032/face.jpg" rel="gallery_cmb21nri1002wm8v82dbq6i2z noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/032/face.jpg" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <h2 id="一、基础知识准备"><a href="#一、基础知识准备" class="headerlink" title="一、基础知识准备"></a>一、基础知识准备</h2><h3 id="1-1-内存"><a href="#1-1-内存" class="headerlink" title="1.1 内存"></a>1.1 内存</h3><p>万事万物在计算机中最终会归为二进制组合数字表示。</p>
+<p>然而，对于现实世界的事物与事物关系，不能单纯使用某个数字和另一个数字来表示，就好比，使用年龄这一个维度来表示人类这个事物未免有些不妥。因为人类这个事物会包含很多的属性，比如姓名、年龄、身高、体重等属性，只有这些属性组合在一起才可以构成人类的基本特征。</p>
+<p>然而，不同属性的设计会表现出这个事物在现实世界的表现意义，如学号、身份证、所属年级等属性的组合，很具象表示学生这个事物。</p>
+<p>再回到第一句话，计算机只能使用数学上纯数字来标识事物，在硬件内存中表示上述复杂的事物结构呢？这就需要引入结构体的概念：</p>
+<p>内存是一块连续的可存储空间， 一般最小的存储单位是一个字节（8bit），这里将一个字节的存储单位叫一个格子，那么内存可以表示为连续的格子组成，每一个格子可以表示的最大数值范围是 256（ 2 的 8 次方），比如一个学生的学号是20190909001，那这么大的数字在一个内存格子里放不下，该怎么办呢？</p>
+<p>答案很简单，多使用几个格子来表示不就行了对吗，因此，有一块连续的存储空间，可以任意使用，想怎么存就怎么存，那么规定每四个格子表示一个事物，那么这个四个格子可以表示的数字范围是 4G（4个2的8次方相乘），这个 4G 数字单位很眼熟（不就是32位计算机最大的内存限制嘛），这四个格子可以表示的范围（42亿多）完全可以够上述的学号属性使用了，毕竟没有哪所学校会设计学生学号长度超过亿位数。</p>
+<h3 id="1-2-数据类型"><a href="#1-2-数据类型" class="headerlink" title="1.2 数据类型"></a>1.2 数据类型</h3><p>在 C 语言中，将这四个内存格子为一个单位的数字数据，其类型成为<code>int</code>，一个内存格子的数字数据类型为<code>char</code>，C 语言中还定义了一些现实世界常用的数字数据类型，这些类型是用来约束整数数据的：</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">存储大小</th>
+<th align="left">值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">char</td>
+<td align="left">1 字节</td>
+<td align="left">-128 到 127 或 0 到 255</td>
+</tr>
+<tr>
+<td align="left">unsigned char</td>
+<td align="left">1 字节</td>
+<td align="left">0 到 255</td>
+</tr>
+<tr>
+<td align="left">signed char</td>
+<td align="left">1 字节</td>
+<td align="left">-128 到 127</td>
+</tr>
+<tr>
+<td align="left">int</td>
+<td align="left">2 或 4 字节</td>
+<td align="left">-32,768 到 32,767 或 -2,147,483,648 到 2,147,483,647</td>
+</tr>
+<tr>
+<td align="left">unsigned int</td>
+<td align="left">2 或 4 字节</td>
+<td align="left">0 到 65,535 或 0 到 4,294,967,295</td>
+</tr>
+<tr>
+<td align="left">short</td>
+<td align="left">2 字节</td>
+<td align="left">-32,768 到 32,767</td>
+</tr>
+<tr>
+<td align="left">unsigned short</td>
+<td align="left">2 字节</td>
+<td align="left">0 到 65,535</td>
+</tr>
+<tr>
+<td align="left">long</td>
+<td align="left">4 字节</td>
+<td align="left">-2,147,483,648 到 2,147,483,647</td>
+</tr>
+<tr>
+<td align="left">unsigned long</td>
+<td align="left">4 字节</td>
+<td align="left">0 到 4,294,967,295</td>
+</tr>
+</tbody></table>
+<p>注意：上表中的数据类型是针对整型数据不用的存储大小（内存格子）会对应不同的数据类型，C 语言中还定义了其他数据的数据类型：枚举类型、void 类型、派生类型。</p>
+<h3 id="1-3-结构体"><a href="#1-3-结构体" class="headerlink" title="1.3 结构体"></a>1.3 结构体</h3><p>在第 2 小节中已经阐述了：内存硬件通信的基本单位是字节（8bit），而不同数量字节的组合会形成不同的数据类型，那么单从整型数据类型上映射事物，还是有不足之处：<code>int</code>类型虽然可以存储年龄属性，如果再想存储其他数据属性，就不够用了，人类的中还包括性别、身高、体重等属性，那么就需要更多的数据类型来表示其属性值。</p>
+<p>而这些属性之间的关系是密不可分的，都属于人类这个事物的一部分，少了任何一个属性就无法完整表示人类这个事物在现实世界中的真实表现。因此在 C 语言中引出了结构体的概念，程序员可以使用<code>struct</code>关键词来自定义数据类型，它允许在结构体中存储不同类型的数据项。</p>
+<p>通俗点讲，就是将 C 语言本身定义的一些数据类型（整数类型，字符串类型）进行组合，形成一段更有现实意义的内存格子，程序员再以这个结构体定义的内存单元格进行数据操作会更符合事物现实规律。</p>
+<p>举例：</p>
+<p>定义一个学生，有性别和年龄属性：性别可以使用 female 和 male 的单词首字母表示，所用 char 数据类型，年龄使用 int 数据类型，那么使用定义 Student 结构体之后，在程序中就会将 Student 类型的内存以 5 个字节（1 个字节+ 4 个字节）来表示这种数据类型：</p>
+<p><img src="https://image.woodwhales.cn/032/images/1-%E7%BB%93%E6%9E%84%E4%BD%93%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%A4%BA.png"></p>
+<h3 id="1-4-typedef"><a href="#1-4-typedef" class="headerlink" title="1.4 typedef"></a>1.4 typedef</h3><p>C 语言提供了 <strong>typedef</strong> 关键字，程序员可以使用它来为数据类型取一个别名。</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Sutdent</span> {</span></span><br><span class="line">    <span class="type">char</span> gender;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">} STUDENT;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述代码中，定义了<code>struct Sutdent</code>数据类型的别名为：<code>STUDENT</code>，在定义语句之后的任意地方都可以使用这个别名来代表<code>struct Sutdent</code>这种数据类型。</p>
+<h3 id="1-5-指针"><a href="#1-5-指针" class="headerlink" title="1.5 指针"></a>1.5 指针</h3><p>指针是 C 语言的灵魂，指针就是地址。</p>
+<p>第 1 小节描述了内存是一块连续的内存空间，是由一个个 bit 组成，8 个 bit 组成一个字节，它是计算机操作数据的基本单位，因此对于程序来说，一块内存有很多内存单元（8 bit 为一个字节的单元格）。</p>
+<p>此时不禁疑惑：计算机如何聪明地知道第一个单元格和其后面的三个单元格联接在一起，是表示<code>int</code>数据类型？它又是怎么知道第一个单元格和后面所有单元都没有联系，它就是孤立的<code>char</code>类型？还有它有时候是怎么知道第一个单元格和后面四个连续在一起是表示<code>Student</code>数据类型呢？</p>
+<p>好比，有些租户租了一套房子，这是一家人，还有写租户租了四套连续的房子，这四套连在一起是属于一家。我们可以人为定义 1 个字节用于表示<code>char</code>数据类型，4 个字节表示<code>int</code>数据类型，是如何在连续的单元格中，准确无误地知道哪些单元格连在一起就是某种数据类型，哪些单元格和另一些不与之连续的单元格是一个整体，用来表示某种特殊数据呢？</p>
+<p>由于内存的连续存储空间特性，可以将内存单元格进行人为编号， 这个编号的术语就是内存地址，CPU 能够操作内存中的数据就是通过地址总线进行对内存的精准操作，因此计算机只需要记住地址，就能知道其地址上对应的数据是什么。</p>
+<p>因此，当定义一个<code>int</code>类型的数据，就是告知CPU，在读取内存的时候，记得在某某编号的位置开始读取内存，读取 4 个字节单元，读出来的数据就是有意义的数据。由此可以得知，数据类型的定义就是用来约束CPU从某个地址逐个字节读取数据，读到第几个字节表示一个有实际意义的函数。</p>
+<p>下图表示的是，使用文件编辑器使用<code>UTF-8</code>字符集编码的文本文件，查看该十六进制信息，可以看到字母 a 和 b 占了 1 个字节，回车占了 2 个字节，在 UTF-8 字符集规范中，一个汉字占用 3 个字节，因此”木鲸鱼”这一串字符串占了 9 个字节。</p>
+<p><img src="https://image.woodwhales.cn/032/images/3-%E6%8C%87%E9%92%88.png"></p>
+<p>那么，在 C 语言中是如何告诉 CPU 地址和当前地址要读取几个字节数据表示一个有意义的数据呢？</p>
+<p>答案就是指针变量类型，当定义一个 int 数据类型的数据，使用一个字母 a 来表示它，以便在程序的其他地方可以复用，那么就定义成以下语句：</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">10</span>；</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当程序执行这句话的时候，就是告知计算机在内存中分配一块 4 个字节的内存单元用来保存 10 这个数值，那么当计算机分配成功，一定是通过地址总线进行内存分配的，因此只要内存分配成功就表示有个唯一的地址空间，从这个地址开始之后的 4 个字节内存空间是表示数字 10 的。</p>
+<p>在 C 语言中，会使用某种特定的语法来获取分配成功的变量的地址，即在定义的变量名前面加个<code>&amp;</code>符号，就能得到内存分配成功之后的地址：</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;a <span class="comment">// 使用 &amp;变量名 的语法方式获取地址</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>因此，为何 C 语言为何引入地址（指针）的概念的目的就出来了，是用来记录数据存在内存的哪个位置，并在后续的时候让 CPU 知道去内存的哪里找数据。</p>
+<p>此时有个新的问题，光知道地址，是无法知道数据是什么，因为从已知地址之后的任意字节空间都可以组合成数据，因此指针的概念引入还不够，还需要知道当前地址（指针）之后需要读取多少字节表示一个完整有意义的数据，而这个问题就是<code>指针类型</code>概念引入的目的，指针类型就是在告知计算机，当前地址之后的多少个字节是连续操作读取的，在 C 语言中，使用语法：</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据类型 *</span><br></pre></td></tr></tbody></table></figure>
+
+<p>因此，定义了上述的<code>&amp;a</code>取出地址之后，需要使用<code>int *</code>的指针类型来修饰。</p>
+<p>此时又引出一个问题，当定义了一个地址，怎么知道地址对应的数据是多少，这个在 C 语言中得到很好的处理，只需要在指针变量前面加<code>*</code>符号即可读取到当前地址对应的数据内容了：</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line">    <span class="type">int</span> * pAge;</span><br><span class="line">    <span class="type">int</span> age= <span class="number">10</span>;</span><br><span class="line">    pAge = &amp;age;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, *pAge); <span class="comment">// *pAge 等价于变量 age</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, age);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello world!\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>也是说，<code>*指针变量</code>的方式是将会读取指针变量所在的地址，并从它的指针类型推导出应该从这个地址的内存单元开始读取几个内存单元。</p>
+<p><strong>注意：</strong>指针有别于指针变量，指针是地址，而指针变量是地址（指针）对应的变量的变量。开发者常说的指针是指指针变量，这是种约定俗成的口头表述概念，不是学术上的地址概念。</p>
+<h3 id="1-6-动态内存分配"><a href="#1-6-动态内存分配" class="headerlink" title="1.6 动态内存分配"></a>1.6 动态内存分配</h3><p>C 语言中提供了标准的内存管理函数库，库中的函数可以在<code>&lt;stdlib.h&gt;</code>头文件中找到，用来帮助程序员在堆中创建内存：</p>
+<p><img src="https://image.woodwhales.cn/032/images/2-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%87%BD%E6%95%B0.png"></p>
+<p><strong>注意：</strong><code>void *</code>类型表示未确定类型的指针。C、C++ 规定<code>void *</code>类型可以通过类型转换强制转换为任何其它类型的指针。</p>
+<p><strong>说明：</strong>堆中的内存是完全由程序员自己来管理何时回收，因此程序员需要时刻小心自己在堆中申请的内存释放的时机，不需要再使用的内存没有及时回收，会产生内存泄漏风险，这是一件很恐怖的事情。</p>
+<p>想要申请一块内存，用来存储 int 数据类型的数据，使用如下命令：</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> * pTemp；</span><br><span class="line">pTemp = (<span class="type">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br></pre></td></tr></tbody></table></figure>
+
+<p>想要申请一块内存，用来存储<code>Student</code>数据类型的数据时，使用如下命令：</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span> * <span class="title">PStudent</span>；</span></span><br><span class="line"><span class="class"><span class="title">PStudent</span> =</span> (<span class="keyword">struct</span> Student *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> Student));</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意到在申请内存的时候，在<code>malloc()</code>函数中，填写的数值是使用<code>sizeof()</code>函数动态计算要存储数据的数据类型大小，这样使得 C 程序的可移植性更好，因为在不同的系统中，相同的数据类型，可能其所占的内存空间是不一样的。</p>
+<h2 id="二、链表之-C-语言描述"><a href="#二、链表之-C-语言描述" class="headerlink" title="二、链表之 C 语言描述"></a>二、链表之 C 语言描述</h2><h4 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h4><p>链表（Linked list）是一种常见的基础数据结构，是一种线性表，但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针(Pointer)。</p>
+<h5 id="单向链表"><a href="#单向链表" class="headerlink" title="单向链表"></a>单向链表</h5><p>链表中最简单的一种是单向链表，它包含两个域，一个信息域和一个指针域。这个链接指向列表中的下一个节点，而最后一个节点则指向一个空值。</p>
+<p><img src="https://image.woodwhales.cn/032/images/4-%E9%93%BE%E8%A1%A8.png"></p>
+<p><em>一个单向链表包含两个值: 当前节点的值和一个指向下一个节点的链接</em></p>
+<p>一个单向链表的节点被分成两个部分。第一个部分保存或者显示关于节点的信息，第二个部分存储下一个节点的地址。单向链表只可向一个方向遍历。</p>
+<h5 id="链表的应用"><a href="#链表的应用" class="headerlink" title="链表的应用"></a>链表的应用</h5><p>链表用来构建许多其它数据结构，如堆栈，队列和他们的派生。</p>
+<h4 id="1-2-设计思路"><a href="#1-2-设计思路" class="headerlink" title="1.2 设计思路"></a>1.2 设计思路</h4><p>链表是由节点进行链接的，那么链表中最小的单元就是节点，因此以链表的节点为一个结构体，其结构体中存放着数据和下一个节点的地址：</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> {</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> * <span class="title">pNext</span>;</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>设计好链表的数据节点之后，就需要考虑，节点和节点之间虽然都是使用上一个节点的属性关联着自己的地址，自己关联着下一个节点的地址，那么链表中，谁才是头，谁才是尾：</p>
+<ul>
+<li>头节点，其数据类型和其他子节点一样</li>
+<li>头节点不含有数据data，下一个节点的地址可以指向NULL，也可以指向有效的节点（含有数据的节点）的地址</li>
+<li>尾节点，其数据类型和其他子节点一样</li>
+<li>尾节点其数据节点中含有数据，但其下一个节点的地址永远是指向NULL</li>
+</ul>
+<h4 id="1-3-代码实现"><a href="#1-3-代码实现" class="headerlink" title="1.3 代码实现"></a>1.3 代码实现</h4><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;malloc.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdbool.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> {</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> * <span class="title">pNext</span>;</span></span><br><span class="line">} NODE, *PNODE;</span><br><span class="line"></span><br><span class="line">PNODE <span class="title function_">createList</span><span class="params">()</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">traverseList</span><span class="params">(PNODE)</span>;</span><br><span class="line"><span class="type">bool</span> <span class="title function_">isEmpty</span><span class="params">(PNODE)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">lengthList</span><span class="params">(PNODE)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">sortList</span><span class="params">(PNODE)</span>;</span><br><span class="line"><span class="type">bool</span> <span class="title function_">insertList</span><span class="params">(PNODE, <span class="type">int</span>, <span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">bool</span> <span class="title function_">deleteList</span><span class="params">(PNODE, <span class="type">int</span>, <span class="type">int</span> *)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">check</span><span class="params">(PNODE *)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line">    PNODE pHead;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建链表</span></span><br><span class="line">    pHead = createList();</span><br><span class="line">    traverseList(pHead);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试链表长度</span></span><br><span class="line">    <span class="type">int</span> len = lengthList(pHead);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"链表的长度为：%d\n"</span>, len);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    // 测试链表是否为空</span></span><br><span class="line"><span class="comment">    if(isEmpty(pHead)) {</span></span><br><span class="line"><span class="comment">        printf("链表为空\n");</span></span><br><span class="line"><span class="comment">    } else {</span></span><br><span class="line"><span class="comment">        printf("链表不为空\n");</span></span><br><span class="line"><span class="comment">    }</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试排序</span></span><br><span class="line">    <span class="comment">// sortList(pHead);</span></span><br><span class="line">    <span class="comment">// traverseList(pHead);</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试插入</span></span><br><span class="line">    <span class="comment">// insertList(pHead, 3, -1);</span></span><br><span class="line">    <span class="comment">// traverseList(pHead);</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> post = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    <span class="keyword">if</span>(deleteList(pHead, post, &amp;val)) {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"删除成功，删除第%d个元素为：%d\n"</span>, post, val);</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"删除失败"</span>);</span><br><span class="line">    }</span><br><span class="line">    traverseList(pHead);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    创建链表</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">PNODE <span class="title function_">createList</span><span class="params">()</span>{</span><br><span class="line">    PNODE pHead = (PNODE)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(NODE));</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">NULL</span> == pHead) {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"分配内存失败，程序终止！\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    PNODE pTail = pHead;</span><br><span class="line">    pTail-&gt;pNext = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"请输入需要生成的链表的结点个数："</span>);</span><br><span class="line">    <span class="type">int</span> len;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;len);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i&lt; len; i++) {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"请输入第 %d 个结点的值: "</span>, i+<span class="number">1</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;val);</span><br><span class="line"></span><br><span class="line">        PNODE pNew = (PNODE)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(NODE));</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">NULL</span> == pNew) {</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"分配内存失败，程序终止！\n"</span>);</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        pNew-&gt;data = val;</span><br><span class="line">        pTail-&gt;pNext = pNew;</span><br><span class="line">        pNew-&gt;pNext = <span class="literal">NULL</span>;</span><br><span class="line">        pTail = pNew;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> pHead;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    遍历链表</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">traverseList</span><span class="params">(PNODE pHead)</span> {</span><br><span class="line">    PNODE p = pHead-&gt;pNext;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">NULL</span> != p) {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, p-&gt;data);</span><br><span class="line">        p = p-&gt;pNext;</span><br><span class="line">    }</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    判断链表是否为空</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">bool</span> <span class="title function_">isEmpty</span><span class="params">(PNODE pHead)</span> {</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">NULL</span> == pHead-&gt;pNext) {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    计算链表的长度</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">lengthList</span><span class="params">(PNODE pHead)</span> {</span><br><span class="line">    PNODE p = pHead-&gt;pNext;</span><br><span class="line">    <span class="type">int</span> len = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">NULL</span> != p) {</span><br><span class="line">        len++;</span><br><span class="line">        p = p-&gt;pNext;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    对链表元素进行排序，使用冒泡排序</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">sortList</span><span class="params">(PNODE pHead)</span> {</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> i,j,t;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> len = lengthList(pHead);</span><br><span class="line">    PNODE p,q;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>, p=pHead-&gt;pNext; i &lt; len<span class="number">-1</span>; ++i, p=p-&gt;pNext) {</span><br><span class="line">        <span class="keyword">for</span>(j = i+<span class="number">1</span>, q=p-&gt;pNext;j &lt; len; ++j, q=q-&gt;pNext) {</span><br><span class="line">            <span class="keyword">if</span>(p-&gt;data &gt; q-&gt;data) {</span><br><span class="line">                t = p-&gt;data;</span><br><span class="line">                p-&gt;data = q-&gt;data;</span><br><span class="line">                q-&gt;data = t;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    链表中插入元素，在第post 个元素位置插入 val 值</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">bool</span> <span class="title function_">insertList</span><span class="params">(PNODE pHead, <span class="type">int</span> post, <span class="type">int</span> val)</span> {</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    PNODE p = pHead;</span><br><span class="line">    <span class="comment">// 遍历找第 post-1 的结点</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">NULL</span> != p &amp;&amp; i&lt;post<span class="number">-1</span>) {</span><br><span class="line">        p = p-&gt;pNext;</span><br><span class="line">        i++;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 上面循环正确的话，此时的 i 一定是：post-1</span></span><br><span class="line">    <span class="keyword">if</span>(i&gt;post<span class="number">-1</span> || <span class="literal">NULL</span> == p) {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    PNODE pNew = (PNODE)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(NODE));</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">NULL</span> == pNew) {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"分配内存失败，程序终止！\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    pNew-&gt;data = val;</span><br><span class="line">    pNew-&gt;pNext = p-&gt;pNext;</span><br><span class="line">    p-&gt;pNext = pNew;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="type">bool</span> <span class="title function_">deleteList</span><span class="params">(PNODE pHead, <span class="type">int</span> post, <span class="type">int</span> * pVal)</span> {</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    PNODE p = pHead;</span><br><span class="line">    <span class="comment">// 遍历找第 post-1 的结点</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">NULL</span> != p &amp;&amp; i &lt; post<span class="number">-1</span>) {</span><br><span class="line">        p = p-&gt;pNext;</span><br><span class="line">        i++;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 上面循环正确的话，此时的 i 一定是：post-1</span></span><br><span class="line">    <span class="keyword">if</span>(i&gt;post<span class="number">-1</span> || <span class="literal">NULL</span> == p) {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    PNODE pNew = (PNODE)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(NODE));</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">NULL</span> == pNew) {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"分配内存失败，程序终止！\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    PNODE postP = p-&gt;pNext; <span class="comment">// p-&gt;pNext 是第post个元素，需要删除</span></span><br><span class="line">    *pVal = postP-&gt;data;</span><br><span class="line"></span><br><span class="line">    p-&gt;pNext = postP-&gt;pNext;</span><br><span class="line"></span><br><span class="line">    postP = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">free</span>(postP);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>参考资料：郝斌 数据结构自学视频</p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/05/30/032/">数据结构与算法之链表（C语言描述）</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2019/05/30/032/" title="数据结构与算法之链表（C语言描述）">https://woodwhales.cn/2019/05/30/032/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2019/05/30/032/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/30/036/" rel="next" title="数据结构与算法之链表">
+                <i class="fa fa-chevron-left"></i> 数据结构与算法之链表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/24/033/" rel="prev" title="浅析消息中间件">
+                浅析消息中间件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%87%86%E5%A4%87"><span class="nav-text">一、基础知识准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%86%85%E5%AD%98"><span class="nav-text">1.1 内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">1.2 数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-text">1.3 结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-typedef"><span class="nav-text">1.4 typedef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E6%8C%87%E9%92%88"><span class="nav-text">1.5 指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-text">1.6 动态内存分配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%93%BE%E8%A1%A8%E4%B9%8B-C-%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0"><span class="nav-text">二、链表之 C 语言描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8"><span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8"><span class="nav-text">单向链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">链表的应用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-text">1.2 设计思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">1.3 代码实现</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

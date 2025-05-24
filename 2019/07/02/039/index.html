@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="分布式, zookeeper, 分布式锁, 集群, 分布式事务, 补偿事务, 分布式协调, 高并发" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="互联网Java工程师面试突击训练第1季-学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析分布式系统（二）">
+<meta property="og:url" content="https://woodwhales.cn/2019/07/02/039/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="互联网Java工程师面试突击训练第1季-学习笔记">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/039/face.png">
+<meta property="article:published_time" content="2019-07-02T13:47:14.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.191Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="dubbo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/039/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2019/07/02/039/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>浅析分布式系统（二） | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2019/07/02/039/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅析分布式系统（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T21:47:14+08:00">
+                2019-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/02/039/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/02/039/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  互联网Java工程师面试突击训练第1季-学习笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/039/face.png" rel="gallery_cmb21nria003mm8v8cyptct0j noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/039/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <h1 id="1-zookeeper"><a href="#1-zookeeper" class="headerlink" title="1. zookeeper"></a>1. zookeeper</h1><p>zk都有哪些使用场景？</p>
+<p>ZooKeeper是一个高可用的分布式数据管理与系统协调框架。基于对Paxos算法的实现，使该框架保证了分布式环境中数据的强一致性，也正是基于这样的特性，使得ZooKeeper解决很多分布式问题</p>
+<blockquote>
+<p>值得注意的是，ZK并非天生就是为这些应用场景设计的，都是后来众多开发者根据其框架的特性，利用其提供的一系列API接口（或者称为原语集），摸索出来的典型使用方法。</p>
+</blockquote>
+<h2 id="1-1-分布式协调"><a href="#1-1-分布式协调" class="headerlink" title="1.1 分布式协调"></a>1.1 分布式协调</h2><p>分布式协调/通知服务是分布式系统中将不同的分布式组件结合起来。</p>
+<p>通常需要一个协调者来控制整个系统的运行流程，这个协调者便于将分布式协调的职责从应用中分离出来，从而可以大大减少系统之间的耦合性，而且能够显著提高系统的可扩展性。</p>
+<p>ZooKeeper中特有的<code>Watcher</code>注册与异步通知机制，能够很好地实现分布式环境下不同机器，甚至是不同系统之间的协调与通知，从而实现对数据变更的实时处理。</p>
+<p><strong>常用做法</strong></p>
+<p>不同系统都对ZK上同一个<code>znode</code>进行注册，监听<code>znode</code>的变化（包括znode本身内容及子节点的），其中一个系统<code>update</code>了znode，那么另一个系统能够收到通知，并作出相应处理。</p>
+<h2 id="1-2-分布式锁"><a href="#1-2-分布式锁" class="headerlink" title="1.2 分布式锁"></a>1.2 分布式锁</h2><p>分布式锁是控制分布式系统之间同步访问共享资源的一种方式。如果不同的系统或是同一个系统的不同主机之间共享一个或一组资源，那么访问这些资源的时候，往往需要通过一些互斥手段来防止彼此之间的干扰，以保证一致性，在这种情况下，需要使用分布式锁。</p>
+<p>ZooKeeper 可用于分布式锁，这个主要得益于zk为我们保证了数据的强一致性。锁服务可以分为两类，一个是<strong>保持独占</strong>，另一个是<strong>控制时序</strong>。</p>
+<h3 id="1-2-1-保持独占"><a href="#1-2-1-保持独占" class="headerlink" title="1.2.1 保持独占"></a>1.2.1 保持独占</h3><p>所谓保持独占，就是所有试图来获取这个锁的客户端，最终只有一个可以成功获得这把锁。</p>
+<p><strong>常用做法</strong></p>
+<p>通常的做法是把zk上的一个<code>znode</code>看作是一把锁，通过<code>create znode</code>的方式来实现。所有客户端都去创建<code>/distribute_lock</code>节点，最终成功创建的那个客户端也即拥有了这把锁。</p>
+<h3 id="1-2-2-控制时序"><a href="#1-2-2-控制时序" class="headerlink" title="1.2.2 控制时序"></a>1.2.2 控制时序</h3><p>控制时序，就是所有视图来获取这个锁的客户端，最终都是会被安排执行，只是有个全局时序了。</p>
+<p><strong>常用做法</strong></p>
+<p>做法和上面基本类似，只是这里<code>/distribute_lock</code>已经预先存在，客户端在它下面创建临时有序节点（这个可以通过节点的属性控制：<code>CreateMode.EPHEMERAL_SEQUENTIAL</code>来指定）。Zk的父节点（<code>/distribute_lock</code>）维持一份<code>sequence</code>，保证子节点创建的时序性，从而也形成了每个客户端的全局时序。</p>
+<h2 id="1-3-数据发布与订阅（配置中心）"><a href="#1-3-数据发布与订阅（配置中心）" class="headerlink" title="1.3 数据发布与订阅（配置中心）"></a>1.3 数据发布与订阅（配置中心）</h2><blockquote>
+<p>集群中配置文件的更新和同步十分频繁：</p>
+<ul>
+<li><p>传统的配置文件分发都是需要把配置文件数据分发到每台worker上，然后进行worker的reload，这种方式是最笨的方式，结构很难维护，因为如果集群当中有可能很多种应用的配置文件要同步，而且效率很低，集群规模一大负载很高。</p>
+</li>
+<li><p>还有一种就是每次更新把配置文件单独保存到一个数据库里面，然后worker端定期pull数据，这种方式就是数据及时性得不到同步。</p>
+</li>
+</ul>
+</blockquote>
+<p>发布与订阅模型，即所谓的元数据/配置中心，顾名思义就是发布者将数据发布到ZK节点上，供订阅者动态获取数据，实现配置信息的集中式管理和动态更新。例如全局的配置信息，服务式服务框架的服务地址列表等就非常适合使用。</p>
+<ul>
+<li>应用中用到的一些配置信息放到ZK上进行集中管理。这类场景通常是这样：应用在启动的时候会主动来获取一次配置，同时，在节点上注册一个Watcher，这样一来，以后每次配置有更新的时候，都会实时通知到订阅的客户端，从来达到获取最新配置信息的目的。</li>
+<li>分布式搜索服务中，索引的元信息和服务器集群机器的节点状态存放在ZK的一些指定节点，供各个客户端订阅使用。</li>
+<li>分布式日志收集系统。这个系统的核心工作是收集分布在不同机器的日志。收集器通常是按照应用来分配收集任务单元，因此需要在ZK上创建一个以应用名作为path的节点P，并将这个应用的所有机器ip，以子节点的形式注册到节点P上，这样一来就能够实现机器变动的时候，能够实时通知到收集器调整任务分配。</li>
+<li>系统中有些信息需要动态获取，并且还会存在人工手动去修改这个信息的发文。通常是暴露出接口，例如JMX接口，来获取一些运行时的信息。引入ZK之后，就不用自己实现一套方案了，只要将这些信息存放到指定的ZK节点上即可。</li>
+</ul>
+<p><strong>注意</strong>：在上面提到的应用场景中，有个默认前提是：数据量很小，但是数据更新可能会比较快的场景。</p>
+<h2 id="1-4-Master节点管理"><a href="#1-4-Master节点管理" class="headerlink" title="1.4 Master节点管理"></a>1.4 Master节点管理</h2><blockquote>
+<p>集群当中最重要的是Master，所以一般都会设置一台Master的Backup。</p>
+<p>Backup会定期向Master获取Meta信息并且检测Master的存活性，一旦Master挂了，Backup立马启动，接替Master的工作自己成为Master，分布式的情况多种多样，因为涉及到了网络的抖动，针对下面的情况：</p>
+<ul>
+<li><p>Backup检测Master存活性传统的就是定期发包，一旦一定时间段内没有收到响应就判定Master Down了，于是Backup就启动。</p>
+<p>如果Master其实是没有down，Backup收不到响应或者收到响应延迟的原因是因为网络阻塞的问题，此时Backup不知道Master是假的挂了，于是也启动了，这时候集群里就有了两个Master，很有可能部分workers汇报给Master，另一部分workers汇报给后来启动的Backup，这下子服务就全乱了。</p>
+</li>
+<li><p>Backup是定期同步Master中的meta信息，所以总是滞后的，一旦Master挂了，Backup的信息必然是老的，很有可能会影响集群运行状态。</p>
+</li>
+</ul>
+</blockquote>
+<p>zookeeper Master选举解决问题：</p>
+<p>1）Master节点高可用，并且保证唯一。</p>
+<p>Zookeeper为我们保证了数据的强一致性，即：zookeeper集群中任意节点上相同的znode数据一定是相同的。</p>
+<p>也就是说，如果同时有多个客户端请求创建同一个临时节点，那么最终一定只有一个客户端 请求能够创建成功。</p>
+<p>利用这个特性，就能很容易地在分布式环境中进行 Master 选举了。</p>
+<p>成功创建该节点的客户端所在的机器就成为了 Master。同时，其他没有成功创建该节点的 客户端，都会在该节点上注册一个子节点变更的 Watcher，用于监控当前 Master 机器是否存 活，一旦发现当前的Master挂了，那么其他客户端将会重新进行 Master 选举。</p>
+<p>2）Meta信息的及时同步。</p>
+<p>zookeeper 会分配给注册到它上面的客户端一个编号，并且 zk 自己会保证这个编号的唯一性和递增性，N多机器中只需选出编号最小的 Client 作为 Master 就行，并且保证这些机器的都维护一个一样的 meta 信息视图，一旦 Master 挂了，那么这N机器中编号最小的胜任 Master，Meta 信息是一致的。</p>
+<h1 id="2-分布式锁"><a href="#2-分布式锁" class="headerlink" title="2. 分布式锁"></a>2. 分布式锁</h1><p>一般实现分布式锁都有哪些方式？使用redis如何设计分布式锁？使用zk来设计分布式锁可以吗？这两种分布式锁的实现方式哪种效率比较高？</p>
+<h2 id="2-1-redis分布式锁"><a href="#2-1-redis分布式锁" class="headerlink" title="2.1 redis分布式锁"></a>2.1 redis分布式锁</h2><h3 id="2-1-1-获取锁"><a href="#2-1-1-获取锁" class="headerlink" title="2.1.1 获取锁"></a>2.1.1 获取锁</h3><blockquote>
+<p>Redis 分布式加锁的主要流程</p>
+<ul>
+<li>产生随机数，可用UUID，存储起来，一般存储在ThreadLocal中，以便解锁用。</li>
+<li>调用Redis 的SETNX命令将随机数当作value存入，key为taskId，同时设置过期时间。（实际项目中过期时间的多少主要是取决任务估算的执行时间，一般为估算执行时间*2，如该任务的估算时间是2m，则过期就要设置4m）。</li>
+<li>如果返回ok，说明加锁成功，否则失败。</li>
+</ul>
+</blockquote>
+<p>redis是一种key-value形式的NOSQL数据库，常用于作服务器的缓存。从redis v2.6.12开始，set命令开始变成如下格式：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET key value [EX seconds] [PX milliseconds] [NX|XX]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>除 key 和 value 外，<code>EX</code>是超时时间，<code>NX</code>表示只有在 key 不存在的时候才会设置 key 的值，而<code>XX</code>表示在 key 存在的时间才会设置 key 的值。<strong>NX机制就是基于redis分布式锁的核心。</strong>能够解决以下问题：</p>
+<ul>
+<li><p>节点1获取key，并且设置超时时间后，还没来得及释放就挂掉了</p>
+<p>这里<code>EX</code>超时时间会发挥作用，超时后自动释放锁。</p>
+</li>
+<li><p>刚获取到锁，还没来得及设置超时时间就挂了</p>
+<p>这里设置key和设置超时时间是原子操作，如果出现这种情况，会返回0，即获取不到锁。</p>
+</li>
+</ul>
+<h3 id="2-1-2-释放锁"><a href="#2-1-2-释放锁" class="headerlink" title="2.1.2 释放锁"></a>2.1.2 释放锁</h3><blockquote>
+<p>Redis分布式解锁的主要流程</p>
+<ul>
+<li>调用lua脚本进行解锁，保证原子性。</li>
+<li>Lua脚本实现：判断key的值和我们存入的UUID随机数是不是相等，是的话，则调用DEL指令进行删除操作。</li>
+</ul>
+</blockquote>
+<p>为了解决非原子操作带来的问题，常采用<code>lua</code>脚本实现。lua脚本的操作会被认为是原子性的，类似于事务。</p>
+<p>伪代码如下：</p>
+<figure class="highlight lua"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String luaScript =</span><br><span class="line"><span class="string">"if redis.call('get', KEYS[1]) == ARGV[1] "</span>+</span><br><span class="line"><span class="string">"then return redis.call('del', KEYS[1]) "</span>+</span><br><span class="line"><span class="string">"else return 0 end"</span>;</span><br><span class="line">redisClient.eval(luaScript , Collections.singletonList(key), Collections.singletonList(threadId)); </span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="2-2-zk分布式锁"><a href="#2-2-zk分布式锁" class="headerlink" title="2.2 zk分布式锁"></a>2.2 zk分布式锁</h2><p>zookeeper是一种分布式协调服务，其中每个节点称为znode，并有自己独立的路径。 </p>
+<p><code>znode</code>有四种类型：</p>
+<ul>
+<li><p><strong>持久节点</strong></p>
+<p>默认的节点类型。创建节点的客户端与zk断开连接后，该节点依旧存在 。</p>
+</li>
+<li><p><strong>持久节点顺序节点</strong></p>
+<p>所谓顺序节点，就是在创建节点时，zk根据创建的时间顺序给该节点名称进行编号。</p>
+</li>
+<li><p><strong>临时节点</strong></p>
+<p>和持久节点相反，当创建节点的客户端与zk断开连接后，临时节点会被删除。</p>
+</li>
+<li><p><strong>临时顺序节点</strong></p>
+<p>结合和临时节点和顺序节点的特点：在创建节点时，zk根据创建的时间顺序给该节点名称进行编号；当创建节点的客户端与zookeeper断开连接后，临时节点会被删除。</p>
+</li>
+</ul>
+<p>下面看看是怎样基于上面的四类节点实现分布式锁的。</p>
+<p><strong>1、获取锁</strong></p>
+<p>1）在 zk 当中创建一个持久节，当第一个客户端Client1想要获得锁时，需要在这个节点下面创建一个临时顺序节点。</p>
+<p>2）Client1查找持久节点下面所有的临时顺序节点并排序，判断自己所创建的节点是不是顺序最靠前的一个。如果是第一个节点，则成功获得锁。</p>
+<p>3）如果再有一个客户端 Client2 前来获取锁，则在持久节点下面再创建一个临时顺序节点Lock2。</p>
+<p>4）Client2查找持久节点下面所有的临时顺序节点并排序，判断自己所创建的节点Lock2是不是顺序最靠前的一个，结果发现节点Lock2并不是最小的。</p>
+<p>于是，Client2向排序仅比它靠前的节点Lock1注册Watcher，用于监听Lock1节点是否存在。这意味着Client2抢锁失败，进入了等待状态。</p>
+<p>5）如果又有一个客户端Client3前来获取锁，则在持久节点下载再创建一个临时顺序节点Lock3。</p>
+<p>Client3查找持久节点下面所有的临时顺序节点并排序，判断自己所创建的节点Lock3是不是顺序最靠前的一个，结果同样发现节点Lock3并不是最小的。</p>
+<p>于是，Client3向排序仅比它靠前的节点Lock2注册Watcher，用于监听Lock2节点是否存在。这意味着Client3同样抢锁失败，进入了等待状态。</p>
+<p><strong>2、释放锁</strong></p>
+<p>释放锁就比较简单了，因为前面创建的临时顺序节点，所以在出现下面两种情况时，都会自动释放锁：</p>
+<p>1）任务完成后，Client会释放锁。</p>
+<p>2）任务没完成，也就是Client就崩溃了，zk会检测这个client挂了，就会自动释放锁。</p>
+<h1 id="3-分布式会话"><a href="#3-分布式会话" class="headerlink" title="3. 分布式会话"></a>3. 分布式会话</h1><p>集群部署时的分布式session如何实现？</p>
+<h2 id="3-1-Tomcat-Redis"><a href="#3-1-Tomcat-Redis" class="headerlink" title="3.1 Tomcat + Redis"></a>3.1 Tomcat + Redis</h2><p>分布式系统在集群部署后需要实现session共享，针对 tomcat 服务器的实现方案多种多样，比如 tomcat cluster session 广播、nginx IP hash策略、nginx sticky module等方案，常见的分布式会话是使用 redis 服务器进行 session 统一存储管理的共享方案。</p>
+<h3 id="3-1-1-nginx-负载均衡配置"><a href="#3-1-1-nginx-负载均衡配置" class="headerlink" title="3.1.1 nginx 负载均衡配置"></a>3.1.1 nginx 负载均衡配置</h3><p>1）修改nginx conf配置文件加入</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream tomcat {</span><br><span class="line">    server 127.0.0.1:8110;</span><br><span class="line">    server 127.0.0.1:8120;</span><br><span class="line">    server 127.0.0.1:8110;</span><br><span class="line">    server 127.0.0.1:8110;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后，配置 相应的server或者<code>location</code>地址到 <a target="_blank" rel="noopener" href="http://tomcat/">http://tomcat</a></p>
+<h3 id="3-1-2-tomcat-session共享配置步骤"><a href="#3-1-2-tomcat-session共享配置步骤" class="headerlink" title="3.1.2 tomcat session共享配置步骤"></a>3.1.2 tomcat session共享配置步骤</h3><p>1）添加redis session集群依赖的jar包到<code>TOMCAT_BASE/lib</code>目录下</p>
+<ul>
+<li>tomcat-redis-session-manager-2.0.0.jar</li>
+<li>jedis-2.5.2.jar</li>
+<li>commons-pool2-2.2.jar</li>
+</ul>
+<p>2）修改<code>TOMCAT_BASE/conf</code>目录下的<code>context.xml</code>文件</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">"com.orangefunction.tomcat.redissessions.RedisSessionHandlerValve"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"com.orangefunction.tomcat.redissessions.RedisSessionManager"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">host</span>=<span class="string">"localhost"</span> </span></span><br><span class="line"><span class="tag">         <span class="attr">port</span>=<span class="string">"6379"</span> </span></span><br><span class="line"><span class="tag">         <span class="attr">database</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">maxInactiveInterval</span>=<span class="string">"60"</span> </span></span><br><span class="line"><span class="tag">         <span class="attr">sessionPersistPolicies</span>=<span class="string">"PERSIST_POLICY_1,PERSIST_POLICY_2,.."</span> </span></span><br><span class="line"><span class="tag">         <span class="attr">sentinelMaster</span>=<span class="string">"SentinelMasterName"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">sentinels</span>=<span class="string">"sentinel-host-1:port,sentinel-host-2:port,.."</span>/&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>属性解释：</p>
+<ul>
+<li><p><code>host</code>：redis服务器地址，可选用，默认”localhost”</p>
+</li>
+<li><p><code>port</code>：redis服务器的端口号，可选用，默认”6379”</p>
+</li>
+<li><p><code>database</code>：要使用的redis数据库索引，可选用，默认”0”</p>
+</li>
+<li><p><code>maxInactiveInterval</code>：session最大空闲超时时间（失效时间，单位秒），如果不填则使用tomcat的超时时长，一般tomcat默认为 1800 即半个小时</p>
+</li>
+<li><p><code>sessionPersistPolicies</code>：session保存策略，除了默认的策略还可以选择的策略有：</p>
+</li>
+</ul>
+<blockquote>
+<p><code>SAVE_ON_CHANGE</code>：每次 session.setAttribute() 、 session.removeAttribute() 触发都会保存。</p>
+<p>注意：此功能无法检测已经存在redis的特定属性的变化。<br>权衡：这种策略会略微降低会话的性能，任何改变都会保存到redis中。</p>
+<p><code>ALWAYS_SAVE_AFTER_REQUEST</code>：每一个request请求后都强制保存，无论是否检测到变化。</p>
+<p>注意：对于更改一个已经存储在redis中的会话属性，该选项特别有用。<br>权衡：如果不是所有的request请求都要求改变会话属性的话不推荐使用，因为会增加并发竞争的情况。 </p>
+</blockquote>
+<ul>
+<li><strong>sentinelMaster</strong>	redis集群主节点名称（Redis集群是以分片(Sharding)加主从的方式搭建，满足可扩展性的要求）</li>
+<li><strong>sentinels</strong>	redis集群列表配置（类似zookeeper，通过多个Sentinel来提高系统的可用性）</li>
+</ul>
+<p>3）重启tomcat，session存储即可生效。</p>
+<h2 id="3-2-Spring-Session-Redis"><a href="#3-2-Spring-Session-Redis" class="headerlink" title="3.2 Spring Session + Redis"></a>3.2 Spring Session + Redis</h2><p>虽然<code>tomcat + redis</code>的方案很好用，但是会严重依赖于web容器，不方便将代码移植到其他web容器上去，尤其是换了技术栈，比如换成了spring cloud或者是spring boot之类的。</p>
+<p>Spring家族中的一个项目<code>Spring Session</code>可以来实现session的共享。现在Web项目几乎都使用了Spring，既然Spring全家桶里提供这种方案，所以还是建议使用这种方式。</p>
+<blockquote>
+<p>官方参考文档：</p>
+<p>Spring Session 快速入门：<a target="_blank" rel="noopener" href="https://spring.io/projects/spring-session#samples">https://spring.io/projects/spring-session#samples</a></p>
+</blockquote>
+<h3 id="3-2-1-pom文件添加依赖"><a href="#3-2-1-pom文件添加依赖" class="headerlink" title="3.2.1 pom文件添加依赖"></a>3.2.1 pom文件添加依赖</h3><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.session<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-session-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意：</p>
+<p>这里我使用的 Spring Boot 版本是 2.1.4 ，如果使用当前最新版 Spring Boot2.1.5 的话，除了上面这些依赖之外，需要额外添加 Spring Security 依赖（其他操作不受影响，仅仅只是多了一个依赖，当然也多了 Spring Security 的一些默认认证流程）。</p>
+<h3 id="3-2-2-spring-配置"><a href="#3-2-2-spring-配置" class="headerlink" title="3.2.2 spring 配置"></a>3.2.2 spring 配置</h3><figure class="highlight properties"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.redis.host</span>=<span class="string">192.168.0.1</span></span><br><span class="line"><span class="attr">spring.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="attr">spring.redis.password</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">spring.redis.database</span>=<span class="string">0</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里的 Redis 配置虽然配置了四行，但是考虑到端口默认就是 6379 ，database 默认就是 0，所以真正要配置的，其实就是两行。</p>
+<p>配置完成后 ，就可以使用 Spring Session 了，其实就是使用普通的 HttpSession ，其他的 Session 同步到 Redis 等操作，框架已经自动帮你完成了：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloController</span> {</span><br><span class="line">    <span class="meta">@Value("${server.port}")</span></span><br><span class="line">    Integer port;</span><br><span class="line">    <span class="meta">@GetMapping("/set")</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">set</span><span class="params">(HttpSession session)</span> {</span><br><span class="line">        session.setAttribute(<span class="string">"user"</span>, <span class="string">"javaboy"</span>);</span><br><span class="line">        <span class="keyword">return</span> String.valueOf(port);</span><br><span class="line">    }</span><br><span class="line">    <span class="meta">@GetMapping("/get")</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">get</span><span class="params">(HttpSession session)</span> {</span><br><span class="line">        <span class="keyword">return</span> session.getAttribute(<span class="string">"user"</span>) + <span class="string">":"</span> + port;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>考虑到一会 Spring Boot 将以集群的方式启动 ，为了获取每一个请求到底是哪一个 Spring Boot 提供的服务，需要在每次请求时返回当前服务的端口号，因此这里注入了 server.port 。</p>
+<h1 id="4-分布式事务"><a href="#4-分布式事务" class="headerlink" title="4. 分布式事务"></a>4. 分布式事务</h1><p>分布式事务了解吗？你们如何解决分布式事务问题的？</p>
+<h2 id="4-1-两阶段提交（2PC-XA）"><a href="#4-1-两阶段提交（2PC-XA）" class="headerlink" title="4.1 两阶段提交（2PC/XA）"></a>4.1 两阶段提交（2PC/XA）</h2><p>两阶段提交（Two-phase Commit，2PC，又叫 XA Transactions），通过引入协调者（Coordinator）来协调参与者的行为，并最终决定这些参与者是否要真正执行事务。</p>
+<p>2PC 是一个两阶段提交协议，该协议分为下面两个阶段：</p>
+<ul>
+<li>第一阶段：事务协调器要求每个涉及到事务的数据库预提交（precommit）此操作，并反映是否可以提交。</li>
+<li>第二阶段：事务协调器要求每个数据库提交数据。</li>
+</ul>
+<p>其中，如果有任何一个数据库否决此次提交，那么所有数据库都会被要求回滚它们在此事务中的那部分信息。</p>
+<p>优点：</p>
+<ul>
+<li>尽量保证了数据的强一致，实现成本较低，在各大主流数据库都有自己实现，对于 MySQL 是从 5.5 开始支持。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>单点问题：事务管理器在整个流程中扮演的角色很关键，如果其宕机，比如在第一阶段已经完成，在第二阶段正准备提交的时候事务管理器宕机，资源管理器就会一直阻塞，导致数据库无法使用。</li>
+<li>同步阻塞：在准备就绪之后，资源管理器中的资源一直处于阻塞，直到提交完成，释放资源。</li>
+<li>数据不一致：两阶段提交协议虽然为分布式数据强一致性所设计，但仍然存在数据不一致性的可能。</li>
+</ul>
+<p>比如在第二阶段中，假设协调者发出了事务 Commit 的通知，但是因为网络问题该通知仅被一部分参与者所收到并执行了 Commit 操作，其余的参与者则因为没有收到通知一直处于阻塞状态，这时候就产生了数据的不一致性。</p>
+<p>总的来说，XA 协议比较简单，成本较低，但是其单点问题，以及不能支持高并发(由于同步阻塞)依然是其最大的弱点。</p>
+<h2 id="4-2-补偿事务（TCC）"><a href="#4-2-补偿事务（TCC）" class="headerlink" title="4.2 补偿事务（TCC）"></a>4.2 补偿事务（TCC）</h2><p>TCC 事务机制相比于上面介绍的 XA，解决了如下几个缺点：</p>
+<ul>
+<li>解决了协调者单点，由主业务方发起并完成这个业务活动。业务活动管理器也变成多点，引入集群。</li>
+<li>同步阻塞：引入超时，超时后进行补偿，并且不会锁定整个资源，将资源转换为业务逻辑形式，粒度变小。</li>
+<li>数据一致性，有了补偿机制之后，由业务活动管理器控制一致性。</li>
+</ul>
+<p>TCC 其实就是采用的补偿机制，其核心思想是：针对每个操作，都要注册一个与其对应的确认和补偿（撤销）操作。它分为三个阶段：</p>
+<ul>
+<li>Try 阶段主要是对业务系统做检测及资源预留</li>
+<li>Confirm 阶段主要是对业务系统做确认提交，Try阶段执行成功并开始执行 Confirm阶段时，默认 Confirm阶段是不会出错的。即：只要Try成功，Confirm一定成功。</li>
+<li>Cancel 阶段主要是在业务执行错误，需要回滚的状态下执行的业务取消，预留资源释放。</li>
+</ul>
+<p>注意Confirm 和 Cancel要保证操作的幂等性。</p>
+<blockquote>
+<p>举个简单的例子：比如跨银行转账的时候，要涉及到两个银行的分布式事务，如果用TCC方案来实现，思路如下：</p>
+<p>1）Try阶段：先检测两个账户是不可以进行交易（如A转B之前，A的余额足不足，AB是否被冻住等），可以交易则把两个银行账户中的资金给它冻结住，不任何其他人操作。</p>
+<p>2）Confirm阶段：执行实际的转账操作，A银行账户的资金扣减，B银行账户的资金增加</p>
+<p>3）Cancel阶段：如果任何一个银行的操作执行失败，那么就需要回滚进行补偿，比如A银行账户如果已经扣减了，但是B银行账户资金增加失败了，那么就得把A银行账户资金给加回去。</p>
+<p>对于 TCC 来说适合一些：</p>
+<ul>
+<li>强隔离性，严格一致性要求的活动业务。</li>
+<li>执行时间较短的业务。</li>
+</ul>
+</blockquote>
+<p>这种方案只适用金融金钱等十分核心的业务，因为这个事务回需要适用大量的代码来来控制事务逻辑，代码和业务的耦合度十分高。</p>
+<h2 id="4-3-本地消息表（异步确保）"><a href="#4-3-本地消息表（异步确保）" class="headerlink" title="4.3 本地消息表（异步确保）"></a>4.3 本地消息表（异步确保）</h2><p>本地消息表这个方案最初是 eBay 提出的，eBay 的完整方案。</p>
+<blockquote>
+<p>原文：<a target="_blank" rel="noopener" href="https://queue.acm.org/detail.cfm?id=1394128">https://queue.acm.org/detail.cfm?id=1394128</a></p>
+</blockquote>
+<p>此方案的核心是将需要分布式处理的任务通过消息日志的方式来异步执行。消息日志可以存储到本地文本、数据库或消息队列，再通过业务规则自动或人工发起重试。</p>
+<p>消息生产方，需要额外建一个消息表，并记录消息发送状态。消息表和业务数据要在一个事务里提交，也就是说他们要在一个数据库里面。然后消息会经过MQ发送到消息的消费方。如果消息发送失败，会进行重试发送。</p>
+<p>消息消费方，需要处理这个消息，并完成自己的业务逻辑。此时如果本地事务处理成功，表明已经处理成功了，如果处理失败，那么就会重试执行。如果是业务上面的失败，可以给生产方发送一个业务补偿消息，通知生产方进行回滚等操作。</p>
+<p>生产方和消费方定时扫描本地消息表，把还没处理完成的消息或者失败的消息再发送一遍。如果有靠谱的自动对账补账逻辑，这种方案还是非常实用的。</p>
+<blockquote>
+<p>通俗地讲：</p>
+<p>1）A系统在自己本地一个事务里操作同时，插入一条数据到消息表。</p>
+<p>2）接着A系统将这个消息发送到MQ中去。</p>
+<p>3）B系统接收到消息之后，在一个事务里，往自己本地消息表里插入一条数据，同时执行其他的业务操作，如果这个消息已经被处理过了，那么此时这个事务会回滚，这样保证不会重复处理消息。</p>
+<p>4）B系统执行成功之后，就会更新自己本地消息表的状态以及A系统消息表的状态。</p>
+<p>5）如果B系统处理失败了，那么就不会更新消息表状态，那么此时A系统会定时扫描自己的消息表，如果有没处理的消息，会再次发送到MQ中去，让B再次处理。</p>
+<p>6）这个方案保证了最终一致性，哪怕B事务失败了，但是A会不断重发消息，直到B那边成功为止。</p>
+</blockquote>
+<p>但是这个方案最大的问题就在于严重依赖于数据库的消息表来管理事务，高并发场景不适用，扩展性也不好。</p>
+<p>本地消息队列是<code>BASE 理论</code>，是最终一致模型，适用于对一致性要求不高的情况。实现这个模型时需要注意重试的幂等。</p>
+<h2 id="4-4-MQ-事务"><a href="#4-4-MQ-事务" class="headerlink" title="4.4 MQ 事务"></a>4.4 MQ 事务</h2><p>在 RocketMQ 中实现了分布式事务，实际上是对本地消息表的一个封装，将本地消息表移动到了 MQ 内部。</p>
+<p>基本流程如下：</p>
+<p>1）A系统向消息中间件发送一条预备消息</p>
+<p>2）消息中间件保存预备消息并返回成功</p>
+<p>3）A执行本地事务</p>
+<p>4）A发送提交消息给消息中间件</p>
+<p>通过以上4步完成了一个消息事务。</p>
+<p>对于以上的 4 个步骤，每个步骤都可能产生错误，下面一一分析：</p>
+<p>步骤一出错，则整个事务失败，不会执行A的本地操作。</p>
+<p>步骤二出错，则整个事务失败，不会执行A的本地操作。</p>
+<p>步骤三出错，这时候需要回滚预备消息，怎么回滚？</p>
+<p>答案是 A 系统实现一个消息中间件的回调接口，消息中间件会去不断执行回调接口，检查 A 事务执行是否执行成功，如果失败则回滚预备消息。</p>
+<p>步骤四出错，这时候 A 的本地事务是成功的，那么消息中间件要回滚A吗？</p>
+<p>答案是不需要，其实通过回调接口，消息中间件能够检查到A执行成功了，这时候其实不需要A发提交消息了，消息中间件可以自己对消息进行提交，从而完成整个消息事务。</p>
+<p><img src="https://image.woodwhales.cn/039/images/01.png"></p>
+<p>基于消息中间件的两阶段提交往往用在高并发场景下，将一个分布式事务拆成一个：</p>
+<ul>
+<li><p>消息事务（A系统的本地操作+发消息）</p>
+</li>
+<li><p>B系统的本地操作</p>
+</li>
+</ul>
+<p>其中B系统的操作由消息中间件的消息驱动，只要消息事务成功，那么A操作一定成功，消息也一定发出来了，这时候B会收到消息消费消息，去执行本地操作：</p>
+<p>如果B本地操作失败，消息会重投，直到B操作成功，这样就变相地实现了A与B的分布式事务。</p>
+<blockquote>
+<p>消息重投之前会再调用一次A操作的结果，一定是成功的，因为这个消息能被中间件存起来并打算给消费者消息，那么这条消息一定是成功的，只是消费者没有成功消费。</p>
+</blockquote>
+<h1 id="扩展博文"><a href="#扩展博文" class="headerlink" title="扩展博文"></a>扩展博文</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/niechen/p/8597344.html">zookeeper快速入门</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liweisnake/article/details/63251252">zookeeper入门系列-概述</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liyiming2017/article/details/83035157">原创ZooKeeper入门实战教程（一）-介绍与核心概念</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xymqx/p/4465610.html">分布式服务框架 Zookeeper – 管理分布式环境中的数据</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/leocook/p/zk_0.html">ZooKeeper学习总结 第一篇：ZooKeeper快速入门</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gaojy/p/6635026.html">zookeeper入门与实践</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/luxiaoxun/p/4887452.html">ZooKeeper基本原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://wely.iteye.com/blog/2228976">zookeeper原理入门</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.firefoxbug.com/index.php/archives/2556/">zookeeper基本原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1f4c70d7ef40">ZooKeeper入门教程（一）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.iteblog.com/archives/904.html">Zookeeper 3.4.5分布式安装手册</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/30024403">ZooKeeper基本原理及安装部署</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhengbin/p/10401058.html">详解Zookeeper原理与应用场景</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tommyli/p/3766189.html">ZooKeeper典型应用场景一览</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.owenzhang.net/blog/131.html">ZOOKEEPER典型应用场景解析</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yunpiao123456/article/details/51888342">Zookeeper基本原理与应用场景</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.wuzesheng.com/?p=2609">ZooKeeper原理及使用</a></p>
+<p><a target="_blank" rel="noopener" href="https://draveness.me/zookeeper-chubby">详解分布式协调服务 ZooKeeper</a></p>
+<p><a target="_blank" rel="noopener" href="https://cshihong.github.io/2018/06/03/ZooKeeper%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/">ZooKeeper技术原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://xuliugen.gitbooks.io/javaweb-1/112-zookeeper-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86.html">zookeeper-基本原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2e970fe35c3f">ZooKeeper应用场景及方案介绍</a></p>
+<p><a target="_blank" rel="noopener" href="http://bk.poph163.com/2018/07/25/zookeeper%E7%94%B1%E6%B5%85%E5%85%A5%E6%B7%B1/">Zookeeper由浅入深</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/cfcacc87d74a">ZooKeeper应用场景</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.dczou.com/viemall/467.html">zookeeper典型应用场景之一：master选举</a></p>
+<p><a target="_blank" rel="noopener" href="https://vimsky.com/article/292.html">ZooKeeper典型使用场景一览</a></p>
+<p><a target="_blank" rel="noopener" href="https://goreliu.github.io/zookeeper-he-etcd-shi-yong-chang-jing.html">Zookeeper 和 etcd 使用场景 </a></p>
+<p><a target="_blank" rel="noopener" href="http://www.wangt.cc/2017/12/zookeeper%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/">zookeeper的应用场景</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/snowtiger/2073908">Zookeeper的几个应用场景</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5cfe0617e51d45777540fd85">【分布式解决方案】ZooKeeper经典应用场景</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.laphilee.com/posts/21319.html">zookeeper基本原理及适用场景</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.blogjava.net/jinfeng_wang/archive/2017/02/03/432286.html">基于ZooKeeper的分布式系统的应用场景</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sky-sql/p/6804467.html">ZooKeeper 典型应用场景-Master选举</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e72baf5e5617">实践基于Redis的分布式锁</a></p>
+<p><a target="_blank" rel="noopener" href="http://ifeve.com/redis-lock/">用Redis构建分布式锁</a></p>
+<p><a target="_blank" rel="noopener" href="https://crossoverjie.top/2018/03/29/distributed-lock/distributed-lock-redis/">基于 Redis 的分布式锁</a></p>
+<p><a target="_blank" rel="noopener" href="http://blueskykong.com/2018/01/06/redislock/">基于redis的分布式锁实现</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5b737b9b518825613d3894f4">redis系列：分布式锁</a></p>
+<p><a target="_blank" rel="noopener" href="http://zhangtielei.com/posts/blog-redlock-reasoning.html">基于Redis的分布式锁到底安全吗（上）？</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000012919740">基于redis的分布式锁实现</a></p>
+<p><a target="_blank" rel="noopener" href="https://wudashan.cn/2017/10/23/Redis-Distributed-Lock-Implement/">Redis分布式锁的正确实现方式（Java版）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/0201zcr/p/5942748.html">jedisLock—redis分布式锁实现</a></p>
+<p><a target="_blank" rel="noopener" href="http://tech.dianwoda.com/2018/04/11/redisfen-bu-shi-suo-jin-hua-shi/">Redis分布式锁进化史</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/canot/article/details/79945895">使用redis实现分布式锁</a></p>
+<p><a target="_blank" rel="noopener" href="https://benjaminwhx.com/2018/08/26/Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%AE%9E%E7%8E%B0%E5%A7%BF%E5%8A%BF/">Redis分布式锁的正确实现姿势</a></p>
+<p><a target="_blank" rel="noopener" href="https://sanyuesha.com/2016/08/20/distributed-lock-with-redis/">如何用 redis 造一把分布式锁</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.itpub.net/69917606/viewspace-2642811/">Redlock：Redis分布式锁最牛逼的实现</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5bf3f15851882526a643e207">拜托，面试请不要再问我Redis分布式锁的实现原理！【石杉的架构笔记】</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5c01532ef265da61362232ed">七张图彻底讲清楚ZooKeeper分布式锁的实现原理【石杉的架构笔记】</a></p>
+<p><a target="_blank" rel="noopener" href="https://imfox.io/2016/01/30/redis-lock/">Redis 分布式锁</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ricefur.cn/topics/131/redis-distributed-lock">Redis-分布式锁</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jpcflyer/p/9142813.html">分布式锁的两种实现方式（基于redis和基于zookeeper）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/tianyaleixiaowu/article/details/90036180">Springboot分别使用乐观锁和分布式锁（基于redisson）完成高并发防超卖</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/59f592c65188255f5c5142d2">Redis RedLock 完美的分布式锁么？</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/40915772">基于 Redis 的分布式锁 Redlock</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/fba7dd6dcef5">RedLock算法-使用redis实现分布式锁服务</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.brickgao.com/2018/05/06/distributed-lock-with-redlock/">通过 Redlock 实现分布式锁</a></p>
+<p><a href="%5Bhttps://blog.wangqi.love/articles/distributed/Redlock%E7%AE%97%E6%B3%95.html%5D(https://blog.wangqi.love/articles/distributed/Redlock%E7%AE%97%E6%B3%95.html)">Redlock算法</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cc11001100/p/10269494.html">zookeeper笔记之基于zk实现分布式锁</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wangiqngpei557/p/10323149.html">zookeeper 实现分布式锁安全用法</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/48586740">使用zookeeper实现分布式锁</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5c13bea65188251595128d4b">分布式Session共享解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3dd4e06bdfa4">细说分布式Session管理</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010028869/article/details/50773174?ref=myread">【Linux运维-集群技术进阶】集群/分布式环境下5种session处理策略</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32331073/article/details/80292780">分布式Session之坑：分布式Session的使用场景</a></p>
+<p><a target="_blank" rel="noopener" href="http://ifeve.com/dis-session-manager/">大型网站之分布式会话管理</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/3967312/blog/2988763">分布式Session共享解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/study-everyday/p/7853145.html">分布式系统session一致性的问题</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000011091273">基于 spring-session 解决分布式 session 共享问题</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1096878">一文读懂分布式Session常见解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1080833">微服务架构下的分布式Session管理（PPT详解）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ktanx.com/blog/p/4777">redis实现分布式session共享</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.hzkangs.com/archives/123">分布式-Redis+SpringSession实现session共享</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.dczou.com/viemall/382.html">分布式Session管理实战</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.letiantian.me/2013-09-01-redis-session-manager/">基于Redis的分布式会话管理系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.breakyizhan.com/java/7138.html">Java中，分布式session存储解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://tech.meituan.com/2016/10/14/mt-mtrace.html">分布式会话跟踪系统架构设计与实践</a></p>
+<p><a target="_blank" rel="noopener" href="http://congboss.top/2018/05/15/%E5%88%86%E5%B8%83%E5%BC%8Fsession/">分布式session</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.soaer.com/1/71c674d268e24007b939f1ea7d8437e5.html">Session在分布式系统中实现方式</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/liuning8023/p/4874488.html">大型网站之分布式会话管理</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.voycn.com/article/fenbushisessiondejizhongshixianfangshi">分布式Session的几种实现方式</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.glmapper.com/2018/11/24/springsessionthree/">SpringSession系列-分布式Session实现方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiao__gui/article/details/52706243">Spring Session + Redis实现分布式Session共享</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000009591087">搭建Tomcat集群&amp;通过Redis缓存共享session的一种流行方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kevingrace/p/9541551.html">Tomcat通过Redis实现session共享的完整部署记录</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jerome_s/article/details/52658946">分布式集群Session共享 简单多tomcat8+redis的session共享实现</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/izerui/tomcat-redis-session-manager">tomcat-redis-session-manager</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5cf5bc6ae51d45775313817b">Spring Boot 一个依赖搞定 session 共享，没有比这更简单的方案了！</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-session/2.1.2.RELEASE/reference/httpsession.html">HttpSession集成</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/savorboard/p/distributed-system-transaction-consistency.html">聊聊分布式事务，再说说解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5aa3c7736fb9a028bb189bca">常用的分布式事务解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5b5a0bf9f265da0f6523913b">再有人问你分布式事务，把这篇扔给他</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.codeceo.com/article/spring-transactions.html">深入理解 Spring 事务原理</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.codeceo.com/article/distributed-transaction.html">深入理解分布式事务</a></p>
+<p><a target="_blank" rel="noopener" href="https://dbaplus.cn/news-159-1929-1.html">分布式事务主流解决方案优缺点大pk</a></p>
+<p><a target="_blank" rel="noopener" href="https://weibo.com/ttarticle/p/show?id=2309403965965003062676">保证分布式系统数据一致性的6种方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/TFdream/blog/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">分布式事务解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/64921387">常用的分布式事务解决方案介绍有多少种？</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.roncoo.com/article/127500">常用的分布式事务解决方案介绍</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.javazhiyin.com/573.html">浅谈，分布式事务与解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.throwable.club/2019/03/23/j-action-about-distributed-transaction/">谈谈对分布式事务的一点理解和解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="http://wuwenliang.net/2018/11/20/%E6%88%91%E8%AF%B4%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E4%B9%8BTCC/">我说分布式事务之TCC</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.miwho.com/posts/e37377a1.html">分布式事务解决方案总结</a></p>
+<p><a target="_blank" rel="noopener" href="https://toutiao.io/posts/j1fbr5/preview">FESCAR：阿里重磅开源分布式事务解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.sofastack.tech/blog/seata-distributed-transaction-open-source/">蚂蚁金服分布式事务开源以及实践 | SOFA 开源一周年献礼</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.spring4all.com/article/527">Spring Cloud分布式事务终极解决方案探讨</a></p>
+<p><a target="_blank" rel="noopener" href="https://ehlxr.me/2019/01/25/eventually-consistency/">可靠消息最终一致性分布式事务实现方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://super2bai.github.io/distributed/solution.html">分布式事务解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://hacpai.com/article/1515511635962">分布式事务终极解决方案探讨</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jdon.com/49338">分布式事务Saga模式</a></p>
+<p><a target="_blank" rel="noopener" href="https://yuerblog.cc/2016/08/12/talking-about-reentrant-idempotent-distributed-transactions-in-web-systems-1/">谈谈web系统中的可重入，幂等性，分布式事务的那些事 – 上</a></p>
+<p><a target="_blank" rel="noopener" href="http://codin.im/2018/06/25/implementing-distributed-transaction-with-spring/">Spring分布式事务实现概览</a></p>
+<p><a target="_blank" rel="noopener" href="https://hhbbz.github.io/2018/09/06/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9B%9B%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">分布式事务的四种解决方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wuzhiwei549/article/details/79787866">分布式事务解决方案(总览)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b0d19cb6de70">高并发下分布式事务的解决方案-MQ消息事务+最终一致性</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/90888/blog/1635485?from=timeline">分布式事物，解决分布式系统事务一致性的几种方案对比，你有更好的吗？ </a></p>
+<p><a target="_blank" rel="noopener" href="https://www.liangzl.com/get-article-detail-97306.html">分布式事务五种方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/2286631/blog/1505151">分布式事务解决方案—-最大努力通知解决方案</a></p>
+<p>视频资料：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av23742194/">微服务架构的分布式事务解决方案</a></p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/07/02/039/">浅析分布式系统（二）</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2019/07/02/039/" title="浅析分布式系统（二）">https://woodwhales.cn/2019/07/02/039/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2019/07/02/039/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/dubbo/" rel="tag"><i class="fa fa-tag"></i> dubbo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/02/038/" rel="next" title="进击的Java面试">
+                <i class="fa fa-chevron-left"></i> 进击的Java面试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/04/040/" rel="prev" title="浅析分布式系统（三）">
+                浅析分布式系统（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-zookeeper"><span class="nav-text">1. zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%B0%83"><span class="nav-text">1.1 分布式协调</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-text">1.2 分布式锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-%E4%BF%9D%E6%8C%81%E7%8B%AC%E5%8D%A0"><span class="nav-text">1.2.1 保持独占</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-%E6%8E%A7%E5%88%B6%E6%97%B6%E5%BA%8F"><span class="nav-text">1.2.2 控制时序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E6%95%B0%E6%8D%AE%E5%8F%91%E5%B8%83%E4%B8%8E%E8%AE%A2%E9%98%85%EF%BC%88%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%EF%BC%89"><span class="nav-text">1.3 数据发布与订阅（配置中心）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-Master%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86"><span class="nav-text">1.4 Master节点管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-text">2. 分布式锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-text">2.1 redis分布式锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E8%8E%B7%E5%8F%96%E9%94%81"><span class="nav-text">2.1.1 获取锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E9%87%8A%E6%94%BE%E9%94%81"><span class="nav-text">2.1.2 释放锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-zk%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-text">2.2 zk分布式锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D"><span class="nav-text">3. 分布式会话</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Tomcat-Redis"><span class="nav-text">3.1 Tomcat + Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-nginx-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E9%85%8D%E7%BD%AE"><span class="nav-text">3.1.1 nginx 负载均衡配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-tomcat-session%E5%85%B1%E4%BA%AB%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="nav-text">3.1.2 tomcat session共享配置步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Spring-Session-Redis"><span class="nav-text">3.2 Spring Session + Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-pom%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="nav-text">3.2.1 pom文件添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-spring-%E9%85%8D%E7%BD%AE"><span class="nav-text">3.2.2 spring 配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1"><span class="nav-text">4. 分布式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4%EF%BC%882PC-XA%EF%BC%89"><span class="nav-text">4.1 两阶段提交（2PC&#x2F;XA）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E8%A1%A5%E5%81%BF%E4%BA%8B%E5%8A%A1%EF%BC%88TCC%EF%BC%89"><span class="nav-text">4.2 补偿事务（TCC）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8%EF%BC%88%E5%BC%82%E6%AD%A5%E7%A1%AE%E4%BF%9D%EF%BC%89"><span class="nav-text">4.3 本地消息表（异步确保）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-MQ-%E4%BA%8B%E5%8A%A1"><span class="nav-text">4.4 MQ 事务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E5%8D%9A%E6%96%87"><span class="nav-text">扩展博文</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

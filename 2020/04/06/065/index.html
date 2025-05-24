@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="zookeeper, zookeeper安装, zookeeper集成为windows服务, zookeeper后台运行, zookeeper单机伪集群搭建, zktools, ZooInspector" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="zookeeper 在windows系统中的安装，集成为windows服务（可以后台运行），单机伪集群搭建，zookeeper 可视化工具推荐">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zookeeper window环境安装、集成为windows服务、单机伪集群搭建">
+<meta property="og:url" content="https://woodwhales.cn/2020/04/06/065/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="zookeeper 在windows系统中的安装，集成为windows服务（可以后台运行），单机伪集群搭建，zookeeper 可视化工具推荐">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/065/face.png">
+<meta property="article:published_time" content="2020-04-06T08:05:00.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.211Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="zookeeper">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/065/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2020/04/06/065/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>zookeeper window环境安装、集成为windows服务、单机伪集群搭建 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2020/04/06/065/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">zookeeper window环境安装、集成为windows服务、单机伪集群搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-06T16:05:00+08:00">
+                2020-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/zookeeper/" itemprop="url" rel="index">
+                    <span itemprop="name">zookeeper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/04/06/065/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/06/065/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  zookeeper 在windows系统中的安装，集成为windows服务（可以后台运行），单机伪集群搭建，zookeeper 可视化工具推荐
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/065/face.png" rel="gallery_cmb21nriv005nm8v8hp0idsvj noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/065/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <blockquote>
+<p>提示 zookeeper 是 java 程序，所以安装之前需要安装 JDK，JDK 安装的教程网络上很多，本文不再赘述。注意的是系统环境变量中的 JDK 目录的值一定是：JAVA_HOME。  </p>
+</blockquote>
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>官网地址：<a target="_blank" rel="noopener" href="https://zookeeper.apache.org/">https://zookeeper.apache.org/</a></p>
+<p>安装包下载地址：<a target="_blank" rel="noopener" href="https://zookeeper.apache.org/releases.html#download">https://zookeeper.apache.org/releases.html#download</a></p>
+<p>如果官网下载速度慢可以使用国内镜像下载地址：<a target="_blank" rel="noopener" href="http://mirrors.hust.edu.cn/apache/zookeeper/">http://mirrors.hust.edu.cn/apache/zookeeper/</a></p>
+<p>笔者选择最新版本的 zookeeper 安装包：</p>
+<img src="https://image.woodwhales.cn/065/images/01.png" style="zoom:70%;">
+
+<p>镜像地址选择想要的版本下载：</p>
+<img src="https://image.woodwhales.cn/065/images/02.png" style="zoom:70%;">
+
+<p>注意下载的是<code>.tar.gz</code>文件。</p>
+<p>下载好的安装包名称为：apache-zookeeper-3.6.0-bin.tar.gz</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>将上述安装包放到指定的文件目录，并使用解压缩工具解压这个安装包：首选解压 gz 包之后得到 tar 包，继续解压 tar包得到 apache-zookeeper-3.6.0-bin 文件目录，进入该目录得到 apache-zookeeper-3.6.0-bin 目录结构如下：</p>
+<img src="https://image.woodwhales.cn/065/images/03.png" style="zoom:70%;">
+
+<p>在上述的文件目录中创建 data 和 log 文件夹，并复制 conf 文件夹中的 zoo_sample.cfg 文件名称为：zoo.cfg，使用文本编辑器打开该文件，并设置数据保存目录为刚才创建的 data 文件夹目录：</p>
+<img src="https://image.woodwhales.cn/065/images/04.png" style="zoom:70%;">
+
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>在安装目录的 bin 目录下，将<code>zkServer.cmd</code>拖拽到 cmd 命令窗口中，回车执行即可启动 zookeeper：</p>
+<img src="https://image.woodwhales.cn/065/images/05.png" style="zoom:70%;">
+
+<p>启动过程没有异常信息提示，启动成功之后，光标不停闪烁：</p>
+<img src="https://image.woodwhales.cn/065/images/06.png" style="zoom:70%;">
+
+<p>只要这个 cmd 窗口不关闭，zookeeper 服务就会一直启用着。zookeeper 服务默认启动的是 2181 端口。</p>
+<h3 id="客户端图形化工具"><a href="#客户端图形化工具" class="headerlink" title="客户端图形化工具"></a>客户端图形化工具</h3><h4 id="ZooInspector"><a href="#ZooInspector" class="headerlink" title="ZooInspector"></a>ZooInspector</h4><p>下载地址：<a target="_blank" rel="noopener" href="https://issues.apache.org/jira/secure/attachment/12436620/ZooInspector.zip">https://issues.apache.org/jira/secure/attachment/12436620/ZooInspector.zip</a></p>
+<p>本博客下载地址：<a target="_blank" rel="noopener" href="https://image.woodwhales.cn/065/ZooInspector.zip">ZooInspector.zip</a></p>
+<p>下载完后解压压缩包，在 build 文件夹目录中找到：zookeeper-dev-ZooInspector.jar。使用 java -jar 命令启动该 jar 文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar zookeeper-dev-ZooInspector.jar</span><br></pre></td></tr></tbody></table></figure>
+
+<p>启动可视化客户端工具：</p>
+<img src="https://image.woodwhales.cn/065/images/07.png" style="zoom:70%;">
+
+<p>将上述客户端解压的文件目录放到一个固定位置，在 buid 文件目录中创建一个<code>ZooInspector.cmd</code>文件，文件内容为：</p>
+<figure class="highlight cmd"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar zookeeper-dev-ZooInspector.jar</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将这个<code>ZooInspector.cmd</code>文件创建快捷方式到桌面，并设置个图标，双击运行即可：</p>
+<p><img src="https://image.woodwhales.cn/065/images/08.png"></p>
+<h4 id="zktools"><a href="#zktools" class="headerlink" title="zktools"></a>zktools</h4><p>本站下载地址：<a target="_blank" rel="noopener" href="https://image.woodwhales.cn/065/zktools.zip">zktools.zip</a></p>
+<img src="https://image.woodwhales.cn/065/images/15.png" style="zoom:70%;">
+
+<h3 id="集成-zookeeper-到-windows-服务"><a href="#集成-zookeeper-到-windows-服务" class="headerlink" title="集成 zookeeper 到 windows 服务"></a>集成 zookeeper 到 windows 服务</h3><p>下载的 Zookeeper 是 .cmd 的批处理命令运行的，默认没有提供以 windows 服务的方式运行的方案，因此可以下载 prunsrv 来作为 zookeeper 的服务管理。将 zookeeper 做成 windows 服务，避免每次关闭后，再启动还需要使用 cmd。</p>
+<h4 id="下载-prunsrv"><a href="#下载-prunsrv" class="headerlink" title="下载 prunsrv"></a>下载 prunsrv</h4><p>下载地址：<a target="_blank" rel="noopener" href="http://archive.apache.org/dist/commons/daemon/binaries/windows/">http://archive.apache.org/dist/commons/daemon/binaries/windows/</a></p>
+<p>目前最新版本是 1.2.2，找到对应的安装：commons-daemon-1.2.2-bin-windows.zip，</p>
+<blockquote>
+<p>本站下载地址：<a target="_blank" rel="noopener" href="https://image.woodwhales.cn/065/commons-daemon-1.2.2-bin-windows.zip">commons-daemon-1.2.2-bin-windows.zip</a></p>
+</blockquote>
+<p>解压 zip 文件，复制 prunmgr.exe、prunsrv.exe 到 ZooKeeper 安装路径的 bin 目录下。注意：如果你的操作系统是 64 位的，则复制 amd64 目录下的 prunsrv.exe。 </p>
+<img src="https://image.woodwhales.cn/065/images/09.png" style="zoom:70%;">
+
+<h4 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a>编写脚本</h4><img src="https://image.woodwhales.cn/065/images/10.png" style="zoom:70%;">
+
+<h5 id="安装服务脚本"><a href="#安装服务脚本" class="headerlink" title="安装服务脚本"></a>安装服务脚本</h5><p>在 ZooKeeper 根目录下创建服务安装脚本：<code>zkServiceInstall.bat</code></p>
+<figure class="highlight cmd"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">CD</span> /d %~dp0</span><br><span class="line"><span class="built_in">SET</span> ZK_HOME=<span class="variable">%CD%</span></span><br><span class="line"><span class="built_in">SET</span> ZK_DATA_DIR=<span class="variable">%ZK_HOME%</span>\data</span><br><span class="line"><span class="built_in">SET</span> ZK_LOG_DIR=<span class="variable">%ZK_HOME%</span>\log</span><br><span class="line"><span class="built_in">SET</span> ZK_SERVICE_NAME=zookeeper</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exist</span> <span class="variable">%ZK_DATA_DIR%</span> <span class="built_in">mkdir</span> <span class="variable">%ZK_DATA_DIR%</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exist</span> <span class="variable">%ZK_LOG_DIR%</span> <span class="built_in">mkdir</span> <span class="variable">%ZK_LOG_DIR%</span></span><br><span class="line"> </span><br><span class="line">:: 安装ZooKeeper的Windows服务</span><br><span class="line"><span class="variable">%ZK_HOME%</span>\bin\prunsrv.exe "//IS//<span class="variable">%ZK_SERVICE_NAME%</span>" ^</span><br><span class="line">--DisplayName="<span class="variable">%ZK_SERVICE_NAME%</span>" ^</span><br><span class="line">--Description="<span class="variable">%ZK_SERVICE_NAME%</span>" ^</span><br><span class="line">--Startup=auto ^</span><br><span class="line">--StartMode=exe ^</span><br><span class="line">--StartPath=<span class="variable">%ZK_HOME%</span> ^</span><br><span class="line">--StartImage=<span class="variable">%ZK_HOME%</span>\bin\zkServer.<span class="built_in">cmd</span> ^</span><br><span class="line">--StopPath=<span class="variable">%ZK_HOME%</span>\ ^</span><br><span class="line">--StopImage=<span class="variable">%ZK_HOME%</span>\zkServerStop.bat ^</span><br><span class="line">--StopMode=exe ^</span><br><span class="line">--StopTimeout=<span class="number">5</span> ^</span><br><span class="line">--LogPath=<span class="variable">%ZK_LOG_DIR%</span> ^</span><br><span class="line">--LogPrefix=zookeeper-wrapper ^</span><br><span class="line">--PidFile=zookeeper.pid ^</span><br><span class="line">--LogLevel=Info ^</span><br><span class="line">--StdOutput=auto ^</span><br><span class="line">--StdError=auto</span><br><span class="line"> </span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="删除服务脚本"><a href="#删除服务脚本" class="headerlink" title="删除服务脚本"></a>删除服务脚本</h5><p>在 ZooKeeper 根目录下创建服务卸载脚本：<code>zkServiceRemove.bat</code></p>
+<figure class="highlight cmd"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off </span><br><span class="line"></span><br><span class="line"><span class="built_in">CD</span> /d <span class="variable">%~dp0</span></span><br><span class="line"><span class="variable">%</span><span class="built_in">CD</span>%\bin\prunsrv.exe //DS//zookeeper</span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="停止服务脚本"><a href="#停止服务脚本" class="headerlink" title="停止服务脚本"></a>停止服务脚本</h5><p>在 ZooKeeper 根目录下创建服务停止脚本：<code>zkServerStop.bat</code></p>
+<blockquote>
+<p>无法使用 net stop zookeeper 命令停止服务，只能暴力杀死进程来停止服务。</p>
+</blockquote>
+<figure class="highlight cmd"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"> </span><br><span class="line"><span class="built_in">setlocal</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">CD</span> /d %~dp0</span><br><span class="line"> </span><br><span class="line">:: 以杀进程的方式停止ZooKeeper服务</span><br><span class="line"><span class="built_in">SET</span> /p zkPID=&lt;<span class="variable">%CD%</span>\log\zookeeper.pid</span><br><span class="line"><span class="built_in">taskkill</span> /PID <span class="variable">%zkPID%</span> /T /F</span><br><span class="line"> </span><br><span class="line"><span class="built_in">endlocal</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h5 id="脚本使用说明"><a href="#脚本使用说明" class="headerlink" title="脚本使用说明"></a>脚本使用说明</h5><p>以上三个脚本必须以管理员身份运行，首先运行 zkServiceInstall.bat 文件，再 win + r 寻找 services.msc 服务，找到<code>zookeeper</code>服务右击启动服务，或者使用<code>net start zookeeper</code>启动服务。</p>
+<p>停止服务，执行 zkServerStop.bat 文件。</p>
+<p>如果想删除服务，必须先停止服务（执行 zkServerStop.bat 文件），才能删除服务，即执行 zkServiceRemove.bat 文件。</p>
+<h3 id="zookeeper-服务配置参数说明"><a href="#zookeeper-服务配置参数说明" class="headerlink" title="zookeeper 服务配置参数说明"></a>zookeeper 服务配置参数说明</h3><p>zookeeper 默认参考配置文件：zoo_sample.cfg</p>
+<ul>
+<li><p>tickTime：心跳间隔，这个时间作为 zookeeper 服务器之间或 zookeeper 服务器与客户端服务器维持心跳的时间间隔，即每隔 tickTime 时间就会发送一个心跳。</p>
+</li>
+<li><p>initLimit：这个配置项是用来配置 zookeeper 接受客户端（这里所说的客户端不是用户连接 zookeeper 服务器的客户端，而是 zookeeper 服务器集群中连接到 Leader 的 Follower 服务器）初始化连接时最长能忍受多少个心跳时间间隔数。当已经超过 5个心跳的时间（也就是 tickTime）长度后 zookeeper 服务器还没有收到客户端的返回信息，那么表明这个客户端连接失败。总的时间长度就是 5 x 2000 毫秒 = 10 秒</p>
+</li>
+<li><p>syncLimit：这个配置项表示 Leader 与 Follower 之间发送消息，请求和相应时间长度，最长不能超过多少个 tickTime 的时间长度，总的时间长度就是 2 x 2000 毫秒 = 4 秒</p>
+</li>
+<li><p>dataDir：zookeeper 存储数据的目录，默认情况下，zookeeper 的日志问价也会保存至该目录</p>
+</li>
+<li><p>clientPort：客户端连接zookeeper的端口号</p>
+</li>
+<li><p>server.A = B：C：D：</p>
+<ul>
+<li>A 是一个整形数字，表示服务器下标。</li>
+<li>B 是这个服务器的 ip 地址。</li>
+<li>C 表示的是这个服务器与集群中的 Leader 服务器交换信息的端口。</li>
+<li>D 表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的 Leader，而这个端口就是用来执行选举时服务器相互通信的端口。如果是伪集群的配置方式，由于 B 都是一样，所以不同的 zookeeper 实例通信端口号不能一样，所以要给它们分配不同的端口号。</li>
+</ul>
+</li>
+</ul>
+<h3 id="单机伪分布式搭建"><a href="#单机伪分布式搭建" class="headerlink" title="单机伪分布式搭建"></a>单机伪分布式搭建</h3><p>伪分布式安装就是在同一台pc上安装，安装时使用同一个zookeeper包，多个配置文件分别配置为不同的端口。我这里配置 3 个伪服务。</p>
+<h4 id="复制-3-份配置文件"><a href="#复制-3-份配置文件" class="headerlink" title="复制 3 份配置文件"></a>复制 3 份配置文件</h4><p>将 zookeeper 默认参考配置文件，即 zoo_sample.cfg 文件复制三份，并命名为：zoo1.cfg、zoo2.cfg、zoo3.cfg</p>
+<img src="https://image.woodwhales.cn/065/images/11.png" style="zoom:70%;">
+
+<h4 id="创建-3-份-data-及-log-目录"><a href="#创建-3-份-data-及-log-目录" class="headerlink" title="创建 3 份 data 及 log 目录"></a>创建 3 份 data 及 log 目录</h4><p>在 zookeeper 根目录创建三份 data 及 log 目录，笔者为了方便管理，均创建在了<code>Cluster</code>目录下：</p>
+<img src="https://image.woodwhales.cn/065/images/12.png" style="zoom:70%;">
+
+<p>并在 data1，data2，data3 文件夹中创建<code>myid</code>文件，文件内容依次为：1，2，3</p>
+<img src="https://image.woodwhales.cn/065/images/13.png" style="zoom:70%;">
+
+<h4 id="修改-3-份配置文件"><a href="#修改-3-份配置文件" class="headerlink" title="修改 3 份配置文件"></a>修改 3 份配置文件</h4><p>分别对 zoo1.cfg、zoo2.cfg、zoo3.cfg 文件中的 data、log、端口号进行设置：</p>
+<p>zoo1.cfg：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tickTime</span>=<span class="number">2000</span></span><br><span class="line"></span><br><span class="line"><span class="attr">initLimit</span>=<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="attr">syncLimit</span>=<span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">dataDir</span>=C:\\programs\\apache-zookeeper-<span class="number">3.6</span>.<span class="number">0</span>-bin\\cluster\\data1</span><br><span class="line"><span class="attr">dataLogDir</span>=C:\\programs\\apache-zookeeper-<span class="number">3.6</span>.<span class="number">0</span>-bin\\cluster\\logs1</span><br><span class="line"></span><br><span class="line"><span class="attr">clientPort</span>=<span class="number">2181</span></span><br><span class="line"></span><br><span class="line"><span class="attr">server.1</span>=localhost:<span class="number">2887</span>:<span class="number">3887</span></span><br><span class="line"><span class="attr">server.2</span>=localhost:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line"><span class="attr">server.3</span>=localhost:<span class="number">2889</span>:<span class="number">3889</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>zoo2.cfg：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tickTime</span>=<span class="number">2000</span></span><br><span class="line"></span><br><span class="line"><span class="attr">initLimit</span>=<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="attr">syncLimit</span>=<span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">dataDir</span>=C:\\programs\\apache-zookeeper-<span class="number">3.6</span>.<span class="number">0</span>-bin\\cluster\\data2</span><br><span class="line"><span class="attr">dataLogDir</span>=C:\\programs\\apache-zookeeper-<span class="number">3.6</span>.<span class="number">0</span>-bin\\cluster\\logs2</span><br><span class="line"></span><br><span class="line"><span class="attr">clientPort</span>=<span class="number">2182</span></span><br><span class="line"></span><br><span class="line"><span class="attr">server.1</span>=localhost:<span class="number">2887</span>:<span class="number">3887</span></span><br><span class="line"><span class="attr">server.2</span>=localhost:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line"><span class="attr">server.3</span>=localhost:<span class="number">2889</span>:<span class="number">3889</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>zoo3.cfg：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tickTime</span>=<span class="number">2000</span></span><br><span class="line"></span><br><span class="line"><span class="attr">initLimit</span>=<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="attr">syncLimit</span>=<span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">dataDir</span>=C:\\programs\\apache-zookeeper-<span class="number">3.6</span>.<span class="number">0</span>-bin\\cluster\\data3</span><br><span class="line"><span class="attr">dataLogDir</span>=C:\\programs\\apache-zookeeper-<span class="number">3.6</span>.<span class="number">0</span>-bin\\cluster\\logs3</span><br><span class="line"></span><br><span class="line"><span class="attr">clientPort</span>=<span class="number">2183</span></span><br><span class="line"></span><br><span class="line"><span class="attr">server.1</span>=localhost:<span class="number">2887</span>:<span class="number">3887</span></span><br><span class="line"><span class="attr">server.2</span>=localhost:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line"><span class="attr">server.3</span>=localhost:<span class="number">2889</span>:<span class="number">3889</span></span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>假设把配置文件表示为：zoo{num}.cfg，server.{num}=ip/domain:Port1:Port2</p>
+<p>其中 num：表示数字表示第几号服务器；ip/domain ：是服务器域名或者 ip 地址。</p>
+<p>Port1：表示这个服务器和集群中的 Leader 服务器交换信息的端口。</p>
+<p> Port2：表示万一集群中的Leader服务器挂了，需要一个端口重新进行选举，选出一个新的Leader，这个端口就是用来执行选举时服务器相互通信的端口。</p>
+<p>由于我们是伪集群，所以 ip 或者域名是一样的，所以要分配不同的端口号。</p>
+</blockquote>
+<h4 id="复制-3-份启用服务脚本"><a href="#复制-3-份启用服务脚本" class="headerlink" title="复制 3 份启用服务脚本"></a>复制 3 份启用服务脚本</h4><p>将默认的启动文件复制三份，并命名为：zkServer1.cmd、zkServer2.cmd、zkServer3.cmd</p>
+<img src="https://image.woodwhales.cn/065/images/14.png" style="zoom:70%;">
+
+<p>分别修改上述启动脚本，设置成上述的启动配置脚本：</p>
+<p>zkServer1.cmd：</p>
+<figure class="highlight cmd"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"></span><br><span class="line"><span class="built_in">setlocal</span></span><br><span class="line"><span class="keyword">call</span> "%~dp0zkEnv.<span class="built_in">cmd</span>"</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ZOOMAIN=org.apache.zookeeper.server.quorum.QuorumPeerMain</span><br><span class="line"><span class="built_in">set</span> ZOO_LOG_FILE=zookeeper-<span class="variable">%USERNAME%</span>-server-<span class="variable">%COMPUTERNAME%</span>.log</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ZOOCFG=C:\programs\apache-zookeeper-<span class="number">3</span>.<span class="number">6</span>.<span class="number">0</span>-bin\conf\zoo1.cfg</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> on</span><br><span class="line"><span class="keyword">call</span> <span class="variable">%JAVA%</span> "-Dzookeeper.log.<span class="built_in">dir</span>=<span class="variable">%ZOO_LOG_DIR%</span>" "-Dzookeeper.root.logger=<span class="variable">%ZOO_LOG4J_PROP%</span>" "-Dzookeeper.log.file=<span class="variable">%ZOO_LOG_FILE%</span>" "-XX:+HeapDumpOnOutOfMemoryError" "-XX:OnOutOfMemoryError=<span class="built_in">cmd</span> /c <span class="built_in">taskkill</span> /pid <span class="variable">%%%</span>%p /t /f" -cp "<span class="variable">%CLASSPATH%</span>" <span class="variable">%ZOOMAIN%</span> "<span class="variable">%ZOOCFG%</span>" %*</span><br><span class="line"></span><br><span class="line"><span class="built_in">endlocal</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>zkServer2.cmd：</p>
+<figure class="highlight cmd"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"></span><br><span class="line"><span class="built_in">setlocal</span></span><br><span class="line"><span class="keyword">call</span> "%~dp0zkEnv.<span class="built_in">cmd</span>"</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ZOOMAIN=org.apache.zookeeper.server.quorum.QuorumPeerMain</span><br><span class="line"><span class="built_in">set</span> ZOO_LOG_FILE=zookeeper-<span class="variable">%USERNAME%</span>-server-<span class="variable">%COMPUTERNAME%</span>.log</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ZOOCFG=C:\programs\apache-zookeeper-<span class="number">3</span>.<span class="number">6</span>.<span class="number">0</span>-bin\conf\zoo2.cfg</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> on</span><br><span class="line"><span class="keyword">call</span> <span class="variable">%JAVA%</span> "-Dzookeeper.log.<span class="built_in">dir</span>=<span class="variable">%ZOO_LOG_DIR%</span>" "-Dzookeeper.root.logger=<span class="variable">%ZOO_LOG4J_PROP%</span>" "-Dzookeeper.log.file=<span class="variable">%ZOO_LOG_FILE%</span>" "-XX:+HeapDumpOnOutOfMemoryError" "-XX:OnOutOfMemoryError=<span class="built_in">cmd</span> /c <span class="built_in">taskkill</span> /pid <span class="variable">%%%</span>%p /t /f" -cp "<span class="variable">%CLASSPATH%</span>" <span class="variable">%ZOOMAIN%</span> "<span class="variable">%ZOOCFG%</span>" %*</span><br><span class="line"></span><br><span class="line"><span class="built_in">endlocal</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>zkServer3.cmd：</p>
+<figure class="highlight cmd"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"></span><br><span class="line"><span class="built_in">setlocal</span></span><br><span class="line"><span class="keyword">call</span> "%~dp0zkEnv.<span class="built_in">cmd</span>"</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ZOOMAIN=org.apache.zookeeper.server.quorum.QuorumPeerMain</span><br><span class="line"><span class="built_in">set</span> ZOO_LOG_FILE=zookeeper-<span class="variable">%USERNAME%</span>-server-<span class="variable">%COMPUTERNAME%</span>.log</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> ZOOCFG=C:\programs\apache-zookeeper-<span class="number">3</span>.<span class="number">6</span>.<span class="number">0</span>-bin\conf\zoo3.cfg</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> on</span><br><span class="line"><span class="keyword">call</span> <span class="variable">%JAVA%</span> "-Dzookeeper.log.<span class="built_in">dir</span>=<span class="variable">%ZOO_LOG_DIR%</span>" "-Dzookeeper.root.logger=<span class="variable">%ZOO_LOG4J_PROP%</span>" "-Dzookeeper.log.file=<span class="variable">%ZOO_LOG_FILE%</span>" "-XX:+HeapDumpOnOutOfMemoryError" "-XX:OnOutOfMemoryError=<span class="built_in">cmd</span> /c <span class="built_in">taskkill</span> /pid <span class="variable">%%%</span>%p /t /f" -cp "<span class="variable">%CLASSPATH%</span>" <span class="variable">%ZOOMAIN%</span> "<span class="variable">%ZOOCFG%</span>" %*</span><br><span class="line"></span><br><span class="line"><span class="built_in">endlocal</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="博文参考"><a href="#博文参考" class="headerlink" title="博文参考"></a>博文参考</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zlslch/p/8561791.html">Windows里如何正确安装Zookeeper以服务运行</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5dbbd5946fb9a020361de82b">Windows下以后台服务的方式配置ZooKeeper</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2ee2adbe819c">Windows 下 Zookeeper 单机模式和伪分布式模式安装</a></p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/04/06/065/">zookeeper window环境安装、集成为windows服务、单机伪集群搭建</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2020/04/06/065/" title="zookeeper window环境安装、集成为windows服务、单机伪集群搭建">https://woodwhales.cn/2020/04/06/065/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2020/04/06/065/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/zookeeper/" rel="tag"><i class="fa fa-tag"></i> zookeeper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/18/064/" rel="next" title="xshell安装激活及常用设置">
+                <i class="fa fa-chevron-left"></i> xshell安装激活及常用设置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/07/066/" rel="prev" title="kakfa 快速入门（windows 环境）">
+                kakfa 快速入门（windows 环境） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-text">启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9B%BE%E5%BD%A2%E5%8C%96%E5%B7%A5%E5%85%B7"><span class="nav-text">客户端图形化工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooInspector"><span class="nav-text">ZooInspector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zktools"><span class="nav-text">zktools</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E6%88%90-zookeeper-%E5%88%B0-windows-%E6%9C%8D%E5%8A%A1"><span class="nav-text">集成 zookeeper 到 windows 服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-prunsrv"><span class="nav-text">下载 prunsrv</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC"><span class="nav-text">编写脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%9C%8D%E5%8A%A1%E8%84%9A%E6%9C%AC"><span class="nav-text">安装服务脚本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%9C%8D%E5%8A%A1%E8%84%9A%E6%9C%AC"><span class="nav-text">删除服务脚本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1%E8%84%9A%E6%9C%AC"><span class="nav-text">停止服务脚本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-text">脚本使用说明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zookeeper-%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-text">zookeeper 服务配置参数说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E6%9C%BA%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA"><span class="nav-text">单机伪分布式搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6-3-%E4%BB%BD%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">复制 3 份配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-3-%E4%BB%BD-data-%E5%8F%8A-log-%E7%9B%AE%E5%BD%95"><span class="nav-text">创建 3 份 data 及 log 目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-3-%E4%BB%BD%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">修改 3 份配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6-3-%E4%BB%BD%E5%90%AF%E7%94%A8%E6%9C%8D%E5%8A%A1%E8%84%9A%E6%9C%AC"><span class="nav-text">复制 3 份启用服务脚本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%9A%E6%96%87%E5%8F%82%E8%80%83"><span class="nav-text">博文参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

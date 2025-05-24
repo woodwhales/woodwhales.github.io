@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="harbor,docker 安装 harbor,私有仓库,代理镜像,docker私有仓库,搭建docker私有仓库,docker私有仓库" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Docker 安装 Harbor 教程（搭建 Docker 私有仓库 harbor 避坑指南）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 安装 Harbor 教程（搭建 Docker 私有仓库 harbor 避坑指南）">
+<meta property="og:url" content="https://woodwhales.cn/2025/05/24/102/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="Docker 安装 Harbor 教程（搭建 Docker 私有仓库 harbor 避坑指南）">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/102/face.png">
+<meta property="article:published_time" content="2025-05-24T09:38:00.000Z">
+<meta property="article:modified_time" content="2025-05-24T09:59:42.101Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="harbor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/102/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2025/05/24/102/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>Docker 安装 Harbor 教程（搭建 Docker 私有仓库 harbor 避坑指南） | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2025/05/24/102/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker 安装 Harbor 教程（搭建 Docker 私有仓库 harbor 避坑指南）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2025-05-24T17:38:00+08:00">
+                2025-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/harbor/" itemprop="url" rel="index">
+                    <span itemprop="name">harbor</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2025/05/24/102/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2025/05/24/102/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Docker 安装 Harbor 教程（搭建 Docker 私有仓库 harbor 避坑指南）
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/102/face.png" rel="gallery_cmb21nrkk00dwm8v80ucz81gz noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/102/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <h2 id="申明"><a href="#申明" class="headerlink" title="申明"></a>申明</h2><p>操作系统版本：<code>CentOS Linux release 7.9.2009 (Core)</code></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/centos-release</span><br><span class="line">cat /etc/redhat-release</span><br><span class="line">cat /etc/os-release</span><br></pre></td></tr></tbody></table></figure>
+
+<p>内核版本：<code>3.10.0-957.el7.x86_64</code></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br><span class="line">cat /proc/version</span><br></pre></td></tr></tbody></table></figure>
+
+<p>系统架构：<code>x86_64</code></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arch</span><br></pre></td></tr></tbody></table></figure>
+
+<p>docker 版本：<code>Docker version 26.1.4, build 5650f9b</code></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -v</span><br></pre></td></tr></tbody></table></figure>
+
+<p>docker-compose 版本：<code>Docker Compose version v2.36.1</code></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -v</span><br></pre></td></tr></tbody></table></figure>
+
+<p>harbor 版本：<code>v2.13.0</code></p>
+<blockquote>
+<p>这里一定要使用 v2.13.0，笔者也尝试了不同版本，部分版本确实存在坑。类似问题 issue 可以参见：<a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/issues/21996">https://github.com/goharbor/harbor/issues/21996</a></p>
+</blockquote>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="系统磁盘空间检查"><a href="#系统磁盘空间检查" class="headerlink" title="系统磁盘空间检查"></a>系统磁盘空间检查</h3><p>首先确认 docker 数据存储目录，查看磁盘空间是否充足可用</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://image.woodwhales.cn/102/images/01.jpg"></p>
+<h3 id="docker-数据存储目录检查"><a href="#docker-数据存储目录检查" class="headerlink" title="docker 数据存储目录检查"></a>docker 数据存储目录检查</h3><p>查看 docker 数据存储目录，默认是：<code>/var/lib/docker</code></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://image.woodwhales.cn/102/images/02.jpg"></p>
+<p>对比存在磁盘不足，可以修改 docker 数据存储目录。</p>
+<p>笔者以改为<code>/home/docker</code>为例：</p>
+<p><strong>步骤1</strong>：创建对应目录：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/docker</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤2</strong>：注意 docker 旧的数据需要迁移过去：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -a /var/lib/docker /home/docker/</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤3</strong>：再配置<code>daemon.json</code>的<code>data-root</code>：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/docker/daemon.json</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤4</strong>：填写<code>data-root</code>配置为指定数据存储目录：</p>
+<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"data-root"</span><span class="punctuation">:</span> <span class="string">"/home/docker"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"live-restore"</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    </span><br><span class="line">    <span class="attr">"registry-mirrors"</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>配置<code>docker live-restore</code>，这样再重启 dockerd 时，就不会重启容器。</li>
+</ul>
+<p><strong>步骤5</strong>：执行配置重载命令：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -SIGHUP $(pidof dockerd)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤6</strong>：执行配置重载命令：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤7</strong>：再重启 docker：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart docker</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤8</strong>：再次执行docker info 查看是否修改正确：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="docker-安装"><a href="#docker-安装" class="headerlink" title="docker 安装"></a>docker 安装</h2><p>参见笔者的另一篇文章：<a href="https://woodwhales.cn/2020/05/28/069/#%E5%AE%89%E8%A3%85-docker">Docker 安装</a></p>
+<h2 id="docker-compose-安装"><a href="#docker-compose-安装" class="headerlink" title="docker-compose 安装"></a>docker-compose 安装</h2><p><strong>步骤1</strong>：切换到指定目录：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/bin/</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤2</strong>：从 github 下载 docker-compose 可执行包：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/docker/compose/releases/download/v2.36.1/docker-compose-linux-x86_64 -O docker-compose</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤3</strong>：添加执行权限：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤4</strong>：在任意位置执行 docker-compose 命令输出版本信息，即安装成功：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -v</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="docker-安装-redis"><a href="#docker-安装-redis" class="headerlink" title="docker 安装 redis"></a>docker 安装 redis</h2><p><strong>步骤1</strong>：创建对应目录：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置目录</span></span><br><span class="line">mkdir -p /home/redis/conf</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">数据目录</span></span><br><span class="line">mkdir -p /home/redis/data</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤2</strong>：切换到 redis 配置文件目录：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/redis/conf</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤3</strong>：下载配置文件</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://redis.io/docs/latest/operate/oss_and_stack/management/config/">https://redis.io/docs/latest/operate/oss_and_stack/management/config/</a> 下载对应版本的配置文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/redis/redis/7.4/redis.conf</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤4</strong>：修改 redis.conf 配置文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /home/redis/conf/redis.conf</span><br></pre></td></tr></tbody></table></figure>
+
+<p>更新如下配置：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">requirepass redis@123</span><br><span class="line">dir /data</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤5</strong>：docker 拉取 redis 镜像：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis:7.4</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤6</strong>：启动 redis</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name redis7.4 \</span><br><span class="line">--restart=always \</span><br><span class="line">-p 6379:6379 \</span><br><span class="line">-e TZ=Asia/Shanghai \</span><br><span class="line">-v /home/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf \</span><br><span class="line">-v /home/redis/data:/data \</span><br><span class="line">redis:7.4 \</span><br><span class="line">redis-server /usr/local/etc/redis/redis.conf</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤7</strong>：查看容器日志检查是否启动成功：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f redis7.4</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以看到：Ready to accept connections tcp 字样表示启动成功。</p>
+<p><img src="https://image.woodwhales.cn/102/images/03.jpg"></p>
+<h2 id="docker-安装-postgreSQL"><a href="#docker-安装-postgreSQL" class="headerlink" title="docker 安装 postgreSQL"></a>docker 安装 postgreSQL</h2><blockquote>
+<p>笔者安装的是带 postgis 版本的，方便后续地理坐标数据存储</p>
+</blockquote>
+<p><strong>步骤1</strong>：创建 postgreSQL 数据目录：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /home/postgresql/data</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤2</strong>：拉取 postgis/postgis 镜像</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull postgis/postgis:16-3.5</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤3</strong>：启动 postgreSQL 容器：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name postgresql16 \</span><br><span class="line">--restart=always \</span><br><span class="line">-p 5432:5432 \</span><br><span class="line">-e TZ=Asia/Shanghai \</span><br><span class="line">-e POSTGRES_USER=postgres \</span><br><span class="line">-e POSTGRES_PASSWORD=postgres \</span><br><span class="line">-v /home/postgresql/data:/var/lib/postgresql/data \</span><br><span class="line">postgis/postgis:16-3.5</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤4</strong>：查看容器日志检查是否启动成功：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f postgresql16</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以看到：database system is ready to accept connections 字样表示启动成功。</p>
+<p><img src="https://image.woodwhales.cn/102/images/04.jpg"></p>
+<p>也可以使用下述命令查询 postgreSQL 的版本信息：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec postgresql16 psql -U postgres -c "SELECT version();"</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://image.woodwhales.cn/102/images/06.jpg"></p>
+<h2 id="docker-安装-harbor"><a href="#docker-安装-harbor" class="headerlink" title="docker 安装 harbor"></a>docker 安装 harbor</h2><p><strong>步骤1</strong>：创建 harbor 安装目录：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/harbor/data</span><br><span class="line">mkdir -p /home/harbor/ssh</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤2</strong>：切换到指定目录：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/harbor/</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤3</strong>：使用 openssl 生成证书，依次执行下述命令</p>
+<ul>
+<li>注意：如果不配置 https 或者有正式的 ssl 域名证书，则忽略本步骤。</li>
+</ul>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">生成 ca.key</span></span><br><span class="line">openssl genrsa -out /services/harbor/ssh/ca.key 4096</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据 ca.key 签发 ca.crt 证书</span></span><br><span class="line">openssl req -x509 -new -nodes -sha512 -days 3650 \</span><br><span class="line">-subj "/C=CN/CN=localhost" \</span><br><span class="line">-key /home/harbor/ssh/ca.key \</span><br><span class="line">-out /home/harbor/ssh/ca.crt</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">生成 harbor.key</span></span><br><span class="line">openssl genrsa -out /home/harbor/ssh/harbor.key 4096</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据 harbor.key 签名并生成 harbor.csr 证书</span></span><br><span class="line">openssl req -sha512 -new \</span><br><span class="line">    -subj "/C=CN/CN=localhost" \</span><br><span class="line">    -key /home/harbor/ssh/harbor.key \</span><br><span class="line">    -out /home/harbor/ssh/harbor.csr</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据 ca.key 和 ca.crt 证书 签名并认证 harbor.csr 证书</span></span><br><span class="line">openssl x509 -req -sha512 -days 3650 \</span><br><span class="line">-CA /home/harbor/ssh/ca.crt \</span><br><span class="line">-CAkey /home/harbor/ssh/ca.key \</span><br><span class="line">-CAcreateserial \</span><br><span class="line">-in /home/harbor/ssh/harbor.csr \</span><br><span class="line">-out /home/harbor/ssh/harbor.crt</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将 harbor.crt 格式化成 harbor.cert</span></span><br><span class="line">openssl x509 -inform PEM \</span><br><span class="line">-in /home/harbor/ssh/harbor.crt \</span><br><span class="line">-out /home/harbor/ssh/harbor.cert</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤4</strong>：从 github 下载离线版本安装包：<a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/releases/download/v2.13.0/harbor-offline-installer-v2.13.0.tgz">harbor-offline-installer-v2.13.0.tgz</a></p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/goharbor/harbor/releases/download/v2.13.0/harbor-offline-installer-v2.13.0.tgz -O harbor-offline-installer-v2.13.0.tgz</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤5</strong>：解压 tgz 文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xzvf /home/harbor/harbor-offline-installer-v2.13.0.tgz</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤6</strong>：配置文件信息配置</p>
+<p>解压成功之后，需要进入 harbor 文件夹，可以看到下述文件：</p>
+<p><img src="https://image.woodwhales.cn/102/images/05.jpg"></p>
+<p>里面有个模板配置文件<code>harbor.yml.tmpl</code>，需要复制并重命名成<code>harbor.yml</code>：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /home/harbor/harbor/harbor.yml.tmpl /home/harbor/harbor/harbor.yml</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将配置文件中的下述信息进行自定义配置：</p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">hostname:</span> <span class="string">宿主机的IP</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># http 端口默认为 80，改为1440，这个端口是宿主机映射到容器的 http 端口</span></span><br><span class="line"><span class="attr">http:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">1440</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注释 https 配置，不开启 https</span></span><br><span class="line"><span class="comment">#https:</span></span><br><span class="line">  <span class="comment"># https 端口默认为443，如果配置了，则这个端口是宿主机映射到容器的 https 端口</span></span><br><span class="line">  <span class="comment"># port: 443</span></span><br><span class="line">  <span class="comment"># ssl 证书</span></span><br><span class="line">  <span class="comment"># certificate: /your/certificate/path</span></span><br><span class="line">  <span class="comment"># ssl 证书私钥</span></span><br><span class="line">  <span class="comment"># private_key:  /your/private/key/path</span></span><br><span class="line">  <span class="comment"># strong_ssl_ciphers: false</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># https 访问地址，这里配置，则 hostname 不生效</span></span><br><span class="line"><span class="attr">external_url:</span> <span class="string">http://宿主机的IP:1440</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认密码</span></span><br><span class="line"><span class="attr">harbor_admin_password:</span> <span class="string">Harbor12345</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 宿主机挂载 harbor 数据文件目录</span></span><br><span class="line"><span class="attr">data_volume:</span> <span class="string">/home/harbor/data</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用外部 postgreSQL 数据库</span></span><br><span class="line"><span class="attr">external_database:</span></span><br><span class="line">  <span class="attr">harbor:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">宿主机的IP</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">5432</span></span><br><span class="line">    <span class="attr">db_name:</span> <span class="string">harbor_db</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">postgres</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">postgres</span></span><br><span class="line">    <span class="comment"># 不启用 SSL 模式</span></span><br><span class="line">    <span class="attr">ssl_mode:</span> <span class="string">disable</span></span><br><span class="line">    <span class="comment"># 空闲连接池的最大连接数。如果 &lt;=0，则不保留任何空闲连接。默认值为 2</span></span><br><span class="line">    <span class="attr">max_idle_conns:</span> <span class="number">2</span></span><br><span class="line">    <span class="comment"># 数据库的最大打开连接数。如果 &lt;= 0，则打开连接数不受限制。默认值为 0</span></span><br><span class="line">    <span class="attr">max_open_conns:</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用外部 redis 数据库</span></span><br><span class="line"><span class="attr">external_redis:</span></span><br><span class="line">  <span class="attr">host:</span> <span class="string">宿主机IP:6379</span></span><br><span class="line">  <span class="comment"># 宿主机的redis密码，如果没有密码则不需要填写</span></span><br><span class="line">  <span class="attr">password:</span> <span class="string">redis@123</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述配置中，如果配置了<code>https</code>，则<code>external_url</code>需要配置为：<code>https://</code> + 宿主机 IP 或者 域名 + <code>https.port</code>，浏览器访问时，证书信息如下：</p>
+<p><img src="https://image.woodwhales.cn/102/images/11.jpg"></p>
+<p><strong>步骤7</strong>：创建数据库</p>
+<p>注意上述配置了数据库使用宿主机的 postgreSQL，因此需要在宿主机的 pgSQL 数据库中创建对应的数据库：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it postgresql16 psql -U postgres -c "CREATE DATABASE harbor_db;"</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤8</strong>：执行预处理程序：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/harbor/harbor/prepare</span><br></pre></td></tr></tbody></table></figure>
+
+<p>预处理脚本执行成功，则会出现 Generated configuration file: /compose_location/docker-compose.yml 字样。</p>
+<p><img src="https://image.woodwhales.cn/102/images/07.jpg"></p>
+<p>此时当前文件夹下出现了<code>docker-compose.yml</code>文件，</p>
+<p><strong>注意</strong>：上述配置再次改动后，需要重新执行 prepare 脚本，重新生成 docker-compose.yml 文件。</p>
+<ul>
+<li>重置数据库</li>
+</ul>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it postgresql16 psql -U postgres -c "DROP DATABASE IF EXISTS harbor_db;" -c "CREATE DATABASE harbor_db;"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>出现 DROP DATABASE、CREATE DATABASE 字样，表示重新创建数据库成功。</p>
+<ul>
+<li>删除历史数据</li>
+</ul>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /home/harbor/data/*</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>步骤9</strong>：启动 harbor 服务</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh /home/harbor/harbor/install.sh</span><br></pre></td></tr></tbody></table></figure>
+
+<p>执行完成，出现 Harbor has been installed and started successfully 字样表示启动成功</p>
+<p><img src="https://image.woodwhales.cn/102/images/08.jpg"></p>
+<p>此时浏览器访问：<code>http://宿主机IP:1440</code>即可打开 harbor 控制台页面。此时浏览器可能出现证书不安全提示，强制访问即可。</p>
+<p><img src="https://image.woodwhales.cn/102/images/09.jpg"></p>
+<p>账号为：admin，密码为：Harbor12345。登录成功页面如下，强烈建议及时修改管理员账号密码</p>
+<p><img src="https://image.woodwhales.cn/102/images/12.jpg"></p>
+<p><strong>步骤9</strong>：如果需要卸载 harbor 服务，则执行：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换至 harbor 文件目录</span></span><br><span class="line">cd /home/harbor/harbor</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">停止并删除所有harbor相关容器</span></span><br><span class="line">docker-compose down -v</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除数据库，重新创建数据库</span></span><br><span class="line">docker exec -it postgresql16 psql -U postgres -c "DROP DATABASE IF EXISTS harbor_db;" -c "CREATE DATABASE harbor_db;"</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除harbor数据存储目录</span></span><br><span class="line">rm -rf /home/harbor/data/*</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://image.woodwhales.cn/102/images/10.jpg"></p>
+<h2 id="harbor-控制台配置"><a href="#harbor-控制台配置" class="headerlink" title="harbor 控制台配置"></a>harbor 控制台配置</h2><h3 id="修改主题色"><a href="#修改主题色" class="headerlink" title="修改主题色"></a>修改主题色</h3><p>左下角切换主题色</p>
+<p><img src="https://image.woodwhales.cn/102/images/13.jpg"></p>
+<h3 id="创建镜像仓库"><a href="#创建镜像仓库" class="headerlink" title="创建镜像仓库"></a>创建镜像仓库</h3><p>在<code>系统管理</code>的<code>仓库管理</code>中创建新的仓库：</p>
+<p><img src="https://image.woodwhales.cn/102/images/15.jpg"></p>
+<p><img src="https://image.woodwhales.cn/102/images/16.png"></p>
+<p>填写目标信息之后，点击确定，列表展示了仓库信息。</p>
+<p><img src="https://image.woodwhales.cn/102/images/17.png"></p>
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p>点击<code>项目</code>菜单，创建新的项目</p>
+<p><img src="https://image.woodwhales.cn/102/images/14.jpg"></p>
+<p>填写项目名称为<code>image</code>，并开启镜像代理：</p>
+<ul>
+<li>注意：开启了镜像代理，则该项目不能向其推送镜像。访问级别是公开的则所有人可拉取该项目下的镜像。</li>
+</ul>
+<p><img src="https://image.woodwhales.cn/102/images/18.png"></p>
+<p>上述配置好后，在已经搭建了 harbor 的服务器上，拉取测试镜像：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull 127.0.0.1:1444/image/hello-world</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://image.woodwhales.cn/102/images/19.png"></p>
+<p>此时登录 harbor 控制台可以看到已经拉取成功的镜像。</p>
+<h2 id="宿主机-nginx-配置"><a href="#宿主机-nginx-配置" class="headerlink" title="宿主机 nginx 配置"></a>宿主机 nginx 配置</h2><p>nginx 配置示例如下：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">upstream harbor {</span><br><span class="line">  # harbor 服务端口</span><br><span class="line">  server 宿主机IP:1440;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">server {</span><br><span class="line">  # 暴露给公网的 https 端口</span><br><span class="line">  listen 1444 ssl;</span><br><span class="line">  server_tokens off;</span><br><span class="line">  server_name _;</span><br><span class="line">  # ssl 证书文件路径</span><br><span class="line">  ssl_certificate /data/ssh/public.pem;</span><br><span class="line">  # ssl 证书私钥文件路径</span><br><span class="line">  ssl_certificate_key /data/ssh/private.key;</span><br><span class="line">  ssl_session_timeout 5m;</span><br><span class="line">  add_header Accept-Ranges bytes;</span><br><span class="line">  ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;</span><br><span class="line">  ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">  ssl_prefer_server_ciphers on;</span><br><span class="line"></span><br><span class="line">  client_max_body_size 0;</span><br><span class="line"></span><br><span class="line">  location /v2/ {</span><br><span class="line">    proxy_pass http://harbor/v2/;</span><br><span class="line">    proxy_set_header Host $http_host;</span><br><span class="line">    proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header X-Forwarded-Proto $scheme;</span><br><span class="line"></span><br><span class="line">    proxy_set_header Authorization $http_authorization;</span><br><span class="line">    proxy_pass_header Authorization;</span><br><span class="line">    client_max_body_size 0;</span><br><span class="line">    proxy_request_buffering off;</span><br><span class="line">    proxy_buffering off;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  location ~^/(service|c|image)/ {</span><br><span class="line">    proxy_pass http://harbor;</span><br><span class="line">    proxy_set_header Host $host;</span><br><span class="line">    proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header X-Forwarded-Proto $scheme;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  location / {</span><br><span class="line">    # 只允许内网IP可以访问控制台，外网IP访问直接 403</span><br><span class="line">    allow 10.0.0.0/8;</span><br><span class="line">    allow 192.168.0.0/16;</span><br><span class="line">    allow 172.16.0.0/16;</span><br><span class="line">    allow 172.21.0.0/16;</span><br><span class="line">    deny all;</span><br><span class="line">    proxy_pass http://harbor;</span><br><span class="line">    proxy_set_header Host $host;</span><br><span class="line">    proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header X-Forwarded-Proto $scheme;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  error_page 403 /403.html;</span><br><span class="line">  location = /403.html {</span><br><span class="line">    root /usr/share/nginx/html;</span><br><span class="line">    internal;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  proxy_intercept_errors on;</span><br><span class="line">  fastcgi_intercept_errors on;</span><br><span class="line"></span><br><span class="line">  error_log /var/log/nginx/harbor_error.log error;</span><br><span class="line">  access_log /var/log/nginx/harbor.log main;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意上述配置自定义了<code>403.html</code>，需要在<code>/usr/share/nginx/html</code>目录中创建<code>403.html</code>：</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>403 Forbidden<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>403 Forbidden<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>You don't have permission to access this resource.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-05-24</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-05-24</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2025/05/24/102/">Docker 安装 Harbor 教程（搭建 Docker 私有仓库 harbor 避坑指南）</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2025/05/24/102/" title="Docker 安装 Harbor 教程（搭建 Docker 私有仓库 harbor 避坑指南）">https://woodwhales.cn/2025/05/24/102/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2025/05/24/102/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/harbor/" rel="tag"><i class="fa fa-tag"></i> harbor</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/08/25/101/" rel="next" title="已docker容器运行的postgreSQL安装postgis插件">
+                <i class="fa fa-chevron-left"></i> 已docker容器运行的postgreSQL安装postgis插件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B3%E6%98%8E"><span class="nav-text">申明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%A3%80%E6%9F%A5"><span class="nav-text">系统磁盘空间检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%9B%AE%E5%BD%95%E6%A3%80%E6%9F%A5"><span class="nav-text">docker 数据存储目录检查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-%E5%AE%89%E8%A3%85"><span class="nav-text">docker 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-compose-%E5%AE%89%E8%A3%85"><span class="nav-text">docker-compose 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-%E5%AE%89%E8%A3%85-redis"><span class="nav-text">docker 安装 redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-%E5%AE%89%E8%A3%85-postgreSQL"><span class="nav-text">docker 安装 postgreSQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-%E5%AE%89%E8%A3%85-harbor"><span class="nav-text">docker 安装 harbor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor-%E6%8E%A7%E5%88%B6%E5%8F%B0%E9%85%8D%E7%BD%AE"><span class="nav-text">harbor 控制台配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98%E8%89%B2"><span class="nav-text">修改主题色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93"><span class="nav-text">创建镜像仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-text">创建项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%BF%E4%B8%BB%E6%9C%BA-nginx-%E9%85%8D%E7%BD%AE"><span class="nav-text">宿主机 nginx 配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

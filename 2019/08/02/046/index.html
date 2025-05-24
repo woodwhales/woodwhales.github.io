@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="Spring, Jpa, Data, Spring Jpa Data, 数据库查询, 条件查询, Spring Boot" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简化数据库操作，快速CRUD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Jpa Data 快速入门指南">
+<meta property="og:url" content="https://woodwhales.cn/2019/08/02/046/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="简化数据库操作，快速CRUD">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/046/face.png">
+<meta property="article:published_time" content="2019-08-02T13:50:00.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.198Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="jpa">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/046/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2019/08/02/046/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>Spring Jpa Data 快速入门指南 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2019/08/02/046/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Jpa Data 快速入门指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-02T21:50:00+08:00">
+                2019-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/02/046/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/02/046/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  简化数据库操作，快速CRUD
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/046/face.png" rel="gallery_cmb21nrie0041m8v82y1c3rmm noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/046/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <h1 id="1-初识Spring-Jpa-Data"><a href="#1-初识Spring-Jpa-Data" class="headerlink" title="1. 初识Spring Jpa Data"></a>1. 初识Spring Jpa Data</h1><h2 id="1-1-环境准备"><a href="#1-1-环境准备" class="headerlink" title="1.1 环境准备"></a>1.1 环境准备</h2><p>创建maven工程，项目继承<code>spring-boot-starter-parent</code>，只需要引入<code>spring-boot-starter-data-jpa</code>即可：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="1-2-数据库连接配置"><a href="#1-2-数据库连接配置" class="headerlink" title="1.2 数据库连接配置"></a>1.2 数据库连接配置</h2><p>在<code>application.yml</code>配置文件中，配置数据库源信息和jpa基础配置：</p>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql:///jpa-study</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">show-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">hibernate:</span></span><br><span class="line">      <span class="attr">ddl-auto:</span> <span class="string">update</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="1-3-数据库连接测试"><a href="#1-3-数据库连接测试" class="headerlink" title="1.3 数据库连接测试"></a>1.3 数据库连接测试</h2><p>首先在数据库中创建<code>jpa-study</code>数据库：</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE `jpa<span class="operator">-</span>study` <span class="comment">/*!40100 COLLATE 'utf8mb4_unicode_ci' */</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>编写数据连接测试方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringJpaDataStudyApplicationTests</span> {</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> DataSource dataSource;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDataSource</span><span class="params">()</span> {</span><br><span class="line">		System.out.println(<span class="string">"dataSource-&gt;"</span> + dataSource);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>启动运行，不报异常表示数据库连接正常。</p>
+<h2 id="1-4-创建表对象"><a href="#1-4-创建表对象" class="headerlink" title="1.4 创建表对象"></a>1.4 创建表对象</h2><p>编写<code>Person</code>类，这个类对应数据库表为：<code>JPA_PERSONS</code></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.persistence.Entity;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.GeneratedValue;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Id;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Table;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Table(name = "JPA_PERSONS")</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> {</span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="meta">@GeneratedValue</span></span><br><span class="line">	<span class="keyword">private</span> Integer id;</span><br><span class="line">	<span class="keyword">private</span> String lastName;</span><br><span class="line">	<span class="keyword">private</span> String email;</span><br><span class="line">	<span class="keyword">private</span> Date birth;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>再次运行测试类，此时数据库创建了<code>JPA_PERSONS</code>表，使用<code>heidisql</code>工具查看数据库：</p>
+<p><img src="https://image.woodwhales.cn/046/images/01.png"></p>
+<p>注意：在主键属性上加了<code>@GeneratedValue</code>注解，则会在创建表的时候生成一张<code>hibernate_sequence</code>表。</p>
+<h2 id="1-5-编写dao接口"><a href="#1-5-编写dao接口" class="headerlink" title="1.5 编写dao接口"></a>1.5 编写dao接口</h2><p>编写Person对象的数据库操作接口，并继承<code>Repository&lt;T, ID&gt;</code>，其中需要指定当前数据对象的类型和主键类型，并在接口中编写save()方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.data.repository.Repository;</span><br><span class="line"><span class="keyword">import</span> org.woodwhales.springjpadatastudy.entity.Person;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PersonDao</span> <span class="keyword">extends</span> <span class="title class_">Repository</span>&lt;Person, Integer&gt; {</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">save</span><span class="params">(Person person)</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>此时<code>PersonDao</code>接口已经具备了保存数据的能力了。</p>
+<blockquote>
+<p>注意：经过测试，这个自定义的<code>save()</code>方法如果写了返回类型是Long、Integer或boolean，那么在数据执行完毕之后，会抛出异常<code>java.lang.ClassCastException</code>，但是数据会保存到数据库中，所以要注意异常情况增加事务。</p>
+</blockquote>
+<p>编写测试方法测试：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> PersonDao personDao;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testSave</span><span class="params">()</span> {</span><br><span class="line">    <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="number">1</span>, <span class="string">"woodwhales"</span>, <span class="string">"woodwhales@163.com"</span>, <span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">    personDao.save(person);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从执行日志可以看出，数据已经成功保存到数据库：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: select person0_.id as id1_0_0_, person0_.birth as birth2_0_0_, person0_.email as email3_0_0_, person0_.last_name as last_nam4_0_0_ from jpa_persons person0_ where <span class="attr">person0_.id</span>=?</span><br><span class="line">Hibernate: insert into jpa_persons (birth, email, last_name, id) values (?, ?, ?, ?)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>再到数据库中直接检查一下：</p>
+<p><img src="https://image.woodwhales.cn/046/images/02.png"></p>
+<p>再次在接口中编写根据id查询数据方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person <span class="title function_">getById</span><span class="params">(Integer id)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>测试：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testGetById</span><span class="params">()</span> {</span><br><span class="line">    <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> personDao.getById(<span class="number">2</span>);</span><br><span class="line">    System.out.println(<span class="string">"person -&gt; "</span> + person);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>执行日志可以看到，顺利查询出数据：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hibernate: select person0_.id as id1_0_, person0_.birth as birth2_0_, person0_.email as email3_0_, person0_.last_name as last_nam4_0_ from jpa_persons person0_ where <span class="attr">person0_.id</span>=?</span><br><span class="line">person -&gt; Person(<span class="attr">id</span>=<span class="number">2</span>, lastName=woodwhales, email=woodwhales@<span class="number">163</span>.com, birth=<span class="number">2019</span>-<span class="number">08</span>-<span class="number">02</span> <span class="number">14</span>:<span class="number">17</span>:<span class="number">17.0</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="2-认识Repository接口"><a href="#2-认识Repository接口" class="headerlink" title="2. 认识Repository接口"></a>2. 认识Repository接口</h1><h2 id="2-1-Repository是标记接口"><a href="#2-1-Repository是标记接口" class="headerlink" title="2.1 Repository是标记接口"></a>2.1 Repository是标记接口</h2><p>点击<code>Repository</code>接口源码可以看到，这个接口就是一个空接口，从上述测试的结果可以得出：</p>
+<ul>
+<li>Repository 接口是一个空接口，也就是一个标记接口。</li>
+<li>如果程序员自己定义的接口继承了这个 Repository 接口，那么这个自定义接口也会被加载到 spring ioc 容器中（因为使用@Autowired 拿到了这个接口，并成功执行了测试方法，所以一定被纳进了容器中），并且编写一定规则的方法，都是可以执行相应的数据库操作。</li>
+<li>实际上, 也可以通过<code>@RepositoryDefinition</code>注解来替代继承 Repository 接口</li>
+</ul>
+<p>形如：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.data.repository.RepositoryDefinition;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RepositoryDefinition(domainClass=Person.class,idClass = Integer.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PersonDao</span> {</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="2-2-Repository接口的实现类-子接口"><a href="#2-2-Repository接口的实现类-子接口" class="headerlink" title="2.2 Repository接口的实现类/子接口"></a>2.2 Repository接口的实现类/子接口</h2><p>在 IDEA 编辑器中，按快捷键<code>ctrl+H</code>查看 Repository 接口的实现类：</p>
+<p><img src="https://image.woodwhales.cn/046/images/03.png"></p>
+<p>从继承关系图中可以看出：</p>
+<p>基础的 Repository 提供了最基本的数据访问功能，其几个子接口则扩展了一些功能。它们的继承关系如下： </p>
+<ul>
+<li><p>Repository： 仅仅是一个标识，表明任何继承它的均为仓库接口类</p>
+</li>
+<li><p>CrudRepository： 继承 Repository，实现了一组 CRUD 相关的方法 </p>
+</li>
+<li><p>PagingAndSortingRepository： 继承 CrudRepository，实现了一组分页排序相关的方法 </p>
+</li>
+<li><p>JpaRepository： 继承 PagingAndSortingRepository，实现一组 JPA 规范相关的方法 </p>
+</li>
+<li><p>自定义的 XxxxRepository 需要继承 JpaRepository，这样的 XxxxRepository 接口就具备了通用的数据访问控制层的能力。</p>
+</li>
+<li><p>JpaSpecificationExecutor： <strong>不属于Repository体系</strong>，实现一组 JPA Criteria 查询相关的方法，用于条件查询。</p>
+</li>
+</ul>
+<h2 id="2-3-方法定义规则"><a href="#2-3-方法定义规则" class="headerlink" title="2.3 方法定义规则"></a>2.3 方法定义规则</h2><p>在 Repository 子接口中声明方法，不是随便声明的，而需要符合一定的规范：</p>
+<ul>
+<li><p>查询方法以 find | read | get 开头。</p>
+</li>
+<li><p>涉及条件查询时，条件的属性用条件关键字连接。</p>
+</li>
+<li><p>要注意的是：条件属性以首字母大写。</p>
+</li>
+<li><p>支持属性的级联查询，如果当前类有符合条件的属性，则优先使用这个属性，而不使用级联属性。</p>
+<p>如果想要使用级联查询，需要在属性之间使用下划线分割</p>
+</li>
+</ul>
+<p>直接在接口中定义查询方法，如果是符合规范的，可以不用写实现，目前支持的关键字写法如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Keyword</th>
+<th align="left">Sample</th>
+<th align="left">JPQL snippet</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">And</td>
+<td align="left">findByLastnameAndFirstname</td>
+<td align="left">… where x.lastname = ?1 and x.firstname = ?2</td>
+</tr>
+<tr>
+<td align="left">Or</td>
+<td align="left">findByLastnameOrFirstname</td>
+<td align="left">… where x.lastname = ?1 or x.firstname = ?2</td>
+</tr>
+<tr>
+<td align="left">Is,Equals</td>
+<td align="left">findByFirstname,findByFirstnameIs,findByFirstnameEquals</td>
+<td align="left">… where x.firstname = ?1</td>
+</tr>
+<tr>
+<td align="left">Between</td>
+<td align="left">findByStartDateBetween</td>
+<td align="left">… where x.startDate between ?1 and ?2</td>
+</tr>
+<tr>
+<td align="left">LessThan</td>
+<td align="left">findByAgeLessThan</td>
+<td align="left">… where x.age &lt; ?1</td>
+</tr>
+<tr>
+<td align="left">LessThanEqual</td>
+<td align="left">findByAgeLessThanEqual</td>
+<td align="left">… where x.age &lt;= ?1</td>
+</tr>
+<tr>
+<td align="left">GreaterThan</td>
+<td align="left">findByAgeGreaterThan</td>
+<td align="left">… where x.age &gt; ?1</td>
+</tr>
+<tr>
+<td align="left">GreaterThanEqual</td>
+<td align="left">findByAgeGreaterThanEqual</td>
+<td align="left">… where x.age &gt;= ?1</td>
+</tr>
+<tr>
+<td align="left">After</td>
+<td align="left">findByStartDateAfter</td>
+<td align="left">… where x.startDate &gt; ?1</td>
+</tr>
+<tr>
+<td align="left">Before</td>
+<td align="left">findByStartDateBefore</td>
+<td align="left">… where x.startDate &lt; ?1</td>
+</tr>
+<tr>
+<td align="left">IsNull</td>
+<td align="left">findByAgeIsNull</td>
+<td align="left">… where x.age is null</td>
+</tr>
+<tr>
+<td align="left">IsNotNull,NotNull</td>
+<td align="left">findByAge(Is)NotNull</td>
+<td align="left">… where x.age not null</td>
+</tr>
+<tr>
+<td align="left">Like</td>
+<td align="left">findByFirstnameLike</td>
+<td align="left">… where x.firstname like ?1</td>
+</tr>
+<tr>
+<td align="left">NotLike</td>
+<td align="left">findByFirstnameNotLike</td>
+<td align="left">… where x.firstname not like ?1</td>
+</tr>
+<tr>
+<td align="left">StartingWith</td>
+<td align="left">findByFirstnameStartingWith</td>
+<td align="left">… where x.firstname like ?1(parameter bound with appended %)</td>
+</tr>
+<tr>
+<td align="left">EndingWith</td>
+<td align="left">findByFirstnameEndingWith</td>
+<td align="left">… where x.firstname like ?1(parameter bound with prepended %)</td>
+</tr>
+<tr>
+<td align="left">Containing</td>
+<td align="left">findByFirstnameContaining</td>
+<td align="left">… where x.firstname like ?1(parameter bound wrapped in %)</td>
+</tr>
+<tr>
+<td align="left">OrderBy</td>
+<td align="left">findByAgeOrderByLastnameDesc</td>
+<td align="left">… where x.age = ?1 order by x.lastname desc</td>
+</tr>
+<tr>
+<td align="left">Not</td>
+<td align="left">findByLastnameNot</td>
+<td align="left">… where x.lastname &lt;&gt; ?1</td>
+</tr>
+<tr>
+<td align="left">In</td>
+<td align="left">findByAgeIn(Collection<age> ages)</age></td>
+<td align="left">… where x.age in ?1</td>
+</tr>
+<tr>
+<td align="left">NotIn</td>
+<td align="left">findByAgeNotIn(Collection<age> ages)</age></td>
+<td align="left">… where x.age not in ?1</td>
+</tr>
+<tr>
+<td align="left">True</td>
+<td align="left">findByActiveTrue()</td>
+<td align="left">… where x.active = true</td>
+</tr>
+<tr>
+<td align="left">False</td>
+<td align="left">findByActiveFalse()</td>
+<td align="left">… where x.active = false</td>
+</tr>
+<tr>
+<td align="left">IgnoreCase</td>
+<td align="left">findByFirstnameIgnoreCase</td>
+<td align="left">… where UPPER(x.firstame) = UPPER(?1)</td>
+</tr>
+</tbody></table>
+<p>官方文档地址：<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation">https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation</a></p>
+<h3 id="定义规则举例"><a href="#定义规则举例" class="headerlink" title="定义规则举例"></a>定义规则举例</h3><p>查询 id 小于 xx 并且 lastName 以 xx 开头的所有数据：</p>
+<p>使用 JPQL 表达式表示就是：</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WHERE</span> lastName <span class="keyword">LIKE</span> ?<span class="operator">%</span> <span class="keyword">AND</span> id <span class="operator">&lt;</span> ?</span><br></pre></td></tr></tbody></table></figure>
+
+<p>方法命名规则：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Person&gt; <span class="title function_">getByLastNameStartingWithAndIdLessThan</span><span class="params">(String lastName, Integer id)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>依次类推，查询 id 小于 xx 并且 lastName 以 xx 结尾的所有数据：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//WHERE lastName LIKE %? AND id &lt; ?</span></span><br><span class="line">List&lt;Person&gt; <span class="title function_">getByLastNameEndingWithAndIdLessThan</span><span class="params">(String lastName, Integer id)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>类似的写法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//WHERE email IN (?, ?, ?) OR birth &lt; ?</span></span><br><span class="line">List&lt;Person&gt; <span class="title function_">getByEmailInOrBirthLessThan</span><span class="params">(List&lt;String&gt; emails, Date birth)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="级联属性规则说明"><a href="#级联属性规则说明" class="headerlink" title="级联属性规则说明"></a>级联属性规则说明</h3><p>比如 Person 对象属性中有个 Address 对象属性，一个 Person 对应多个 Address 对象，如果想要级联查询，查询地址的 id 大于某某的数据，则可以写成：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//WHERE address.id &gt; ?</span></span><br><span class="line">List&lt;Person&gt; <span class="title function_">getByAddressIdGreaterThan</span><span class="params">(Integer id)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>但是这里有个潜在的问题，当前 Person 对象有个叫  address 属性名的字段，而没有属性叫 addressId 的属性字段，那么查询的时候，就是先查 address 再级联到 address 的 id 的数据。</p>
+<p>如果当前 Person 对象有个叫 addressId 的属性字段，那么在执行查询的时候，就是直接查了 addressId，而不是级联查询了。</p>
+<p>因此为了防止歧义，对于级联的属性条件，中间需要加下划线区别：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Person&gt; <span class="title function_">getByAddress_IdGreaterThan</span><span class="params">(Integer id)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>说明：其实级联查询即使使用了下划线，也很难以阅读理解，所以建议复杂的查询全部使用原生的sql。</p>
+<h1 id="3-Query注解"><a href="#3-Query注解" class="headerlink" title="3. @Query注解"></a>3. @Query注解</h1><p>通过<code>@Query</code>注解，注解在方法上，编写自定义原生的sql或者JPQL语句，这里还是建议写原生的sql语句，因为在数据库中查询再拷贝到注解上，不需要改动很大，调试起来也很方便。</p>
+<p>以下是JPQL语句的查询：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query("SELECT p FROM Person p WHERE p.id = (SELECT max(p2.id) FROM Person p2)")</span></span><br><span class="line">Person <span class="title function_">getMaxIdPerson</span><span class="params">()</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="3-1-占位符"><a href="#3-1-占位符" class="headerlink" title="3.1 占位符"></a>3.1 占位符</h2><p>索引参数如下所示，索引值从1开始，查询中 ”?X” 个数需要与方法定义的参数个数相一致，并且顺序也要一致：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query("SELECT p FROM Person p WHERE p.lastName = ?1 AND p.email = ?2")</span></span><br><span class="line">List&lt;Person&gt; <span class="title function_">testQueryAnnotationParams1</span><span class="params">(String lastName, String email)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>命名参数（推荐使用这种方式）：可以定义好参数名，赋值时采用<code>@Param</code>注解，而不用管顺序：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query("SELECT p FROM Person p WHERE p.lastName = :lastName AND p.email = :email")</span></span><br><span class="line">List&lt;Person&gt; <span class="title function_">testQueryAnnotationParams2</span><span class="params">(<span class="meta">@Param("email")</span> String email, <span class="meta">@Param("lastName")</span> String lastName)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>SpringData 允许在占位符上添加<code> %%</code>：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SpringData 允许在占位符上添加 %%. </span></span><br><span class="line"><span class="meta">@Query("SELECT p FROM Person p WHERE p.lastName LIKE %?1% OR p.email LIKE %?2%")</span></span><br><span class="line">List&lt;Person&gt; <span class="title function_">testQueryAnnotationLikeParam</span><span class="params">(String lastName, String email)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SpringData 允许在占位符上添加 %%. </span></span><br><span class="line"><span class="meta">@Query("SELECT p FROM Person p WHERE p.lastName LIKE %:lastName% OR p.email LIKE %:email%")</span></span><br><span class="line">List&lt;Person&gt; <span class="title function_">testQueryAnnotationLikeParam2</span><span class="params">(<span class="meta">@Param("email")</span> String email, <span class="meta">@Param("lastName")</span> String lastName)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="3-2-支持原生SQL"><a href="#3-2-支持原生SQL" class="headerlink" title="3.2 支持原生SQL"></a>3.2 支持原生SQL</h2><p>设置<code>nativeQuery=true</code>即可以使用原生的 SQL 查询：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(value="SELECT count(id) FROM jpa_persons", nativeQuery=true)</span></span><br><span class="line"><span class="type">long</span> <span class="title function_">getTotalCount</span><span class="params">()</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="4-Modifying注解"><a href="#4-Modifying注解" class="headerlink" title="4. @Modifying注解"></a>4. @Modifying注解</h1><p><code>@Query</code>与<code>@Modifying</code>这两个注解一起声明，可定义个性化更新操作，例如只涉及某些字段更新时最为常用，示例如下： </p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Modifying</span></span><br><span class="line"><span class="meta">@Query("UPDATE Person p SET p.email = :email WHERE id = :id")</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">updatePersonEmail</span><span class="params">(<span class="meta">@Param("id")</span> Integer id, <span class="meta">@Param("email")</span> String email)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>注意：</strong></p>
+<ul>
+<li><p>方法的返回值应该是 int，表示更新语句所影响的行数</p>
+</li>
+<li><p>在调用的地方必须加事务，没有事务不能正常执行</p>
+</li>
+</ul>
+<p>Spring Data 提供了默认的事务处理方式，即<strong>所有的查询均声明为只读事务</strong>。对于自定义的方法，如需改变<br>Spring Data 提供的事务默认方式，可以在方法上注解<code>@Transactional</code>声明。</p>
+<p>因此，对于update和delete操作，需要添加<code>@Modifying</code>注解，service 调用这些方法的时候需要申明事务。</p>
+<h1 id="5-CrudRepository接口"><a href="#5-CrudRepository接口" class="headerlink" title="5. CrudRepository接口"></a>5. CrudRepository接口</h1><p>CrudRepository 接口提供了最基本的对实体类的添删改查操作，IDEA 编辑器中按快捷键<code>alt+7</code>显示 CrudRepository 接口的所有方法：</p>
+<p><img src="https://image.woodwhales.cn/046/images/04.png"></p>
+<h1 id="6-PagingAndSortingRepository接口"><a href="#6-PagingAndSortingRepository接口" class="headerlink" title="6. PagingAndSortingRepository接口"></a>6. PagingAndSortingRepository接口</h1><p>PagingAndSortingRepository 接口该接口提供了分页与排序功能，开发中常用的是第二个方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PagingAndSortingRepository</span>&lt;T, ID&gt; <span class="keyword">extends</span> <span class="title class_">CrudRepository</span>&lt;T, ID&gt; {</span><br><span class="line">	Iterable&lt;T&gt; <span class="title function_">findAll</span><span class="params">(Sort sort)</span>;</span><br><span class="line"></span><br><span class="line">	Page&lt;T&gt; <span class="title function_">findAll</span><span class="params">(Pageable pageable)</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Pageable 接口的实现类为 PageRequest，在构造函数中传入页码和页数，注意的是默认页码是从 0 页开始。一般在开发中，前端传参过来的页码是从第 1 页开始的，所以创建 PageRequest 对象的时候注意减1。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.data.domain.Page;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.PageRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.Sort;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.Sort.Direction;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.domain.Sort.Order;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testPagingAndSortingRespository</span><span class="params">()</span>{</span><br><span class="line">    <span class="comment">//pageNo 从 0 开始. </span></span><br><span class="line">    <span class="type">int</span> <span class="variable">pageNo</span> <span class="operator">=</span> <span class="number">6</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">pageSize</span> <span class="operator">=</span> <span class="number">5</span>;</span><br><span class="line">    <span class="comment">//Pageable 接口通常使用的其 PageRequest 实现类. 其中封装了需要分页的信息</span></span><br><span class="line">    <span class="comment">//排序相关的. Sort 封装了排序的信息</span></span><br><span class="line">    <span class="comment">//Order 是具体针对于某一个属性进行升序还是降序.</span></span><br><span class="line">    <span class="type">Order</span> <span class="variable">order1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Order</span>(Direction.DESC, <span class="string">"id"</span>);</span><br><span class="line">    <span class="type">Order</span> <span class="variable">order2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Order</span>(Direction.ASC, <span class="string">"email"</span>);</span><br><span class="line">    <span class="type">Sort</span> <span class="variable">sort</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Sort</span>(order1, order2);</span><br><span class="line"></span><br><span class="line">    <span class="type">PageRequest</span> <span class="variable">pageable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PageRequest</span>(pageNo - <span class="number">1</span>, pageSize, sort);</span><br><span class="line">    Page&lt;Person&gt; page = personRepsotory.findAll(pageable);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">"总记录数: "</span> + page.getTotalElements());</span><br><span class="line">    System.out.println(<span class="string">"当前第几页: "</span> + (page.getNumber() + <span class="number">1</span>));</span><br><span class="line">    System.out.println(<span class="string">"总页数: "</span> + page.getTotalPages());</span><br><span class="line">    System.out.println(<span class="string">"当前页面的 List: "</span> + page.getContent());</span><br><span class="line">    System.out.println(<span class="string">"当前页面的记录数: "</span> + page.getNumberOfElements());</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Order 排序对象，里面传参是数据库表中的列名。</p>
+<h1 id="7-JpaRepository接口"><a href="#7-JpaRepository接口" class="headerlink" title="7. JpaRepository接口"></a>7. JpaRepository接口</h1><p>在实际开发中，自定义的接口一般继承的就是这个，而不是 Repository 这个空接口。</p>
+<p><img src="https://image.woodwhales.cn/046/images/05.png"></p>
+<p>其中<code>saveAndFlush()</code>表示强制执行持久化操作，返回的对象和传参对象不是同一个对象。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testJpaRepository</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="number">3</span>, <span class="string">"woodwhales"</span>, <span class="string">"woodwhales@163.com"</span>, <span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">    <span class="type">Person</span> <span class="variable">person2</span> <span class="operator">=</span> personRepsotory.saveAndFlush(person);</span><br><span class="line"></span><br><span class="line">    System.out.println(person == person2);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>返回结果是false，表示执行之后，创建了新的对象。</p>
+<h1 id="8-JpaSpecificationExecutor接口"><a href="#8-JpaSpecificationExecutor接口" class="headerlink" title="8. JpaSpecificationExecutor接口"></a>8. JpaSpecificationExecutor接口</h1><p>JpaSpecificationExecutor 接口不属于Repository体系，实现一组 JPA Criteria 查询相关的方法：</p>
+<p><img src="https://image.woodwhales.cn/046/images/06.png"></p>
+<p>Specification：封装  JPA Criteria 查询条件。通常使用匿名内部类的方式来创建该接口的对象。</p>
+<p>举例：实现带查询条件的分页，并且查询 id &gt; 5 的数据，使用 JpaSpecificationExecutor 接口的<code>JpaSpecificationExecutor 的 Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable)</code>方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testJpaSpecificationExecutor</span><span class="params">()</span>{</span><br><span class="line">    <span class="type">int</span> <span class="variable">pageNo</span> <span class="operator">=</span> <span class="number">3</span> - <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">pageSize</span> <span class="operator">=</span> <span class="number">5</span>;</span><br><span class="line">    <span class="type">PageRequest</span> <span class="variable">pageable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PageRequest</span>(pageNo, pageSize);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//通常使用 Specification 的匿名内部类</span></span><br><span class="line">    Specification&lt;Person&gt; specification = <span class="keyword">new</span> <span class="title class_">Specification</span>&lt;Person&gt;() {</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> root  根对象，也就是要把条件封装到哪个对象中</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> criteriaQuery  封装的都是查询的关键字，比如group by order by等</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> criteriaBuilder 用了封装条件对象的,如果直接返回null，表示不需要任何条件</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Predicate <span class="title function_">toPredicate</span><span class="params">(Root&lt;Person&gt; root, CriteriaQuery&lt;?&gt; query, CriteriaBuilder criteriaBuilder)</span> {</span><br><span class="line">            <span class="type">Predicate</span> <span class="variable">predicate</span> <span class="operator">=</span> criteriaBuilder.gt(root.get(<span class="string">"id"</span>), <span class="number">5</span>);</span><br><span class="line">            <span class="keyword">return</span> predicate;</span><br><span class="line">        }</span><br><span class="line">    };</span><br><span class="line"></span><br><span class="line">    Page&lt;Person&gt; page = personRepsotory.findAll(specification, pageable);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">"总记录数: "</span> + page.getTotalElements());</span><br><span class="line">    System.out.println(<span class="string">"当前第几页: "</span> + (page.getNumber() + <span class="number">1</span>));</span><br><span class="line">    System.out.println(<span class="string">"总页数: "</span> + page.getTotalPages());</span><br><span class="line">    System.out.println(<span class="string">"当前页面的 List: "</span> + page.getContent());</span><br><span class="line">    System.out.println(<span class="string">"当前页面的记录数: "</span> + page.getNumberOfElements());</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="Jpa条件查询最佳实践"><a href="#Jpa条件查询最佳实践" class="headerlink" title="Jpa条件查询最佳实践"></a>Jpa条件查询最佳实践</h2><p>当有多个条件查询时，需要创建多个 Predicate 对象，并将这些 Predicate 对象并联起来，因此可以定义一个<code>createSpecification(Map searchMap)</code>方法，用来创建最终的 Specification 对象，以下是伪代码：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 动态条件构建</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> searchMap</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> Specification&lt;Article&gt; <span class="title function_">createSpecification</span><span class="params">(Map searchMap)</span> {</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Specification</span>&lt;Article&gt;() {</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Predicate <span class="title function_">toPredicate</span><span class="params">(Root&lt;Article&gt; root, CriteriaQuery&lt;?&gt; query, CriteriaBuilder cb)</span> {</span><br><span class="line">            List&lt;Predicate&gt; predicateList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Predicate&gt;();</span><br><span class="line">            <span class="comment">// 获取 xxx 查询条件，依次做非空判断，之后条件对象创建并放入list中</span></span><br><span class="line">            <span class="keyword">if</span> (searchMap.get(<span class="string">"xxx"</span>)!=<span class="literal">null</span> &amp;&amp; !<span class="string">""</span>.equals(searchMap.get(<span class="string">"xxx"</span>))) {</span><br><span class="line">                predicateList.add(cb.like(root.get(<span class="string">"xxxx"</span>).as(String.class), <span class="string">"%"</span>+(String)searchMap.get(<span class="string">"xxx"</span>)+<span class="string">"%"</span>));</span><br><span class="line">            }</span><br><span class="line">            ……</span><br><span class="line">			</span><br><span class="line">            <span class="comment">// 将list转成 Predicate[] 数组，进行拼接</span></span><br><span class="line">            <span class="keyword">return</span> cb.and(predicateList.toArray(<span class="keyword">new</span> <span class="title class_">Predicate</span>[predicateList.size()]));</span><br><span class="line">        }</span><br><span class="line">    };</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>代码解释：比如传参 searchMap 中存了{“name”:”woodwhales”}的键值对，那么将该对象的所有属性当作key对这个map依次获取一遍，能获取到的key 就表示当前属性需要条件查询，创建条件对象并放入集合中。最后将所有条件对象并联返回。</p>
+<p>简单概述就是，将传过来的map中的键值对，依次和当前对象属性比对，有值的就是要条件查询的。</p>
+<h1 id="9-自定义Repository接口"><a href="#9-自定义Repository接口" class="headerlink" title="9. 自定义Repository接口"></a>9. 自定义Repository接口</h1><p>步骤1：定义一个接口：声明要添加的，并自实现的方法</p>
+<p>步骤2：提供该接口的实现类：类名需在要声明的 Repository 后添加 Impl，并实现方法</p>
+<p>步骤3：声明 Repository 接口，并继承步骤1 声明的接口。 </p>
+<p>三步完成之后，就可以使用自定义的接口了。</p>
+<p>例如：</p>
+<p>步骤1：自定义Repository接口名称为：PersonRepsotory，里面有个<code>test()</code>方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PersonRepsotory</span> {</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span>;</span><br><span class="line">	</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>步骤2：实现自定义接口，注意实现类必须是<code>接口名+Impl后缀</code>的类名：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.persistence.EntityManager;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.PersistenceContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonRepsotoryImpl</span> <span class="keyword">implements</span> <span class="title class_">PersonRepsotory</span> {</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@PersistenceContext</span></span><br><span class="line">	<span class="keyword">private</span> EntityManager entityManager;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> {</span><br><span class="line">		<span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> entityManager.find(Person.class, <span class="number">11</span>);</span><br><span class="line">		System.out.println(<span class="string">"PersonRepsotoryImpl -&gt; "</span> + person);</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意：默认情况下，Spring Data 会在 base-package 中查找 “接口名Impl” 作为实现类。也可以通过repository-impl-postfix声明后缀。</p>
+<p>步骤3：在真正的业务接口中继承自定义的接口，此时当前 PersonDao 接口就具有了自定义接口里面的方法了：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PersonDao</span> <span class="keyword">extends</span> <span class="title class_">JpaRepository</span>&lt;Person, Integer&gt;, JpaSpecificationExecutor&lt;Person&gt;, PersonRepsotory {</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>参考资料：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/">官方文档</a></p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/08/02/046/">Spring Jpa Data 快速入门指南</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2019/08/02/046/" title="Spring Jpa Data 快速入门指南">https://woodwhales.cn/2019/08/02/046/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2019/08/02/046/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jpa/" rel="tag"><i class="fa fa-tag"></i> jpa</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/07/045/" rel="next" title="JNI技术实战">
+                <i class="fa fa-chevron-left"></i> JNI技术实战
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/03/047/" rel="prev" title="人生苦短，转行程序员要趁早(下)">
+                人生苦短，转行程序员要趁早(下) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%88%9D%E8%AF%86Spring-Jpa-Data"><span class="nav-text">1. 初识Spring Jpa Data</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-text">1.1 环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E9%85%8D%E7%BD%AE"><span class="nav-text">1.2 数据库连接配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B5%8B%E8%AF%95"><span class="nav-text">1.3 数据库连接测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E5%88%9B%E5%BB%BA%E8%A1%A8%E5%AF%B9%E8%B1%A1"><span class="nav-text">1.4 创建表对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-%E7%BC%96%E5%86%99dao%E6%8E%A5%E5%8F%A3"><span class="nav-text">1.5 编写dao接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%AE%A4%E8%AF%86Repository%E6%8E%A5%E5%8F%A3"><span class="nav-text">2. 认识Repository接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Repository%E6%98%AF%E6%A0%87%E8%AE%B0%E6%8E%A5%E5%8F%A3"><span class="nav-text">2.1 Repository是标记接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Repository%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%B1%BB-%E5%AD%90%E6%8E%A5%E5%8F%A3"><span class="nav-text">2.2 Repository接口的实现类&#x2F;子接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89%E8%A7%84%E5%88%99"><span class="nav-text">2.3 方法定义规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E8%A7%84%E5%88%99%E4%B8%BE%E4%BE%8B"><span class="nav-text">定义规则举例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A7%E8%81%94%E5%B1%9E%E6%80%A7%E8%A7%84%E5%88%99%E8%AF%B4%E6%98%8E"><span class="nav-text">级联属性规则说明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Query%E6%B3%A8%E8%A7%A3"><span class="nav-text">3. @Query注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E5%8D%A0%E4%BD%8D%E7%AC%A6"><span class="nav-text">3.1 占位符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E6%94%AF%E6%8C%81%E5%8E%9F%E7%94%9FSQL"><span class="nav-text">3.2 支持原生SQL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Modifying%E6%B3%A8%E8%A7%A3"><span class="nav-text">4. @Modifying注解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-CrudRepository%E6%8E%A5%E5%8F%A3"><span class="nav-text">5. CrudRepository接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-PagingAndSortingRepository%E6%8E%A5%E5%8F%A3"><span class="nav-text">6. PagingAndSortingRepository接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-JpaRepository%E6%8E%A5%E5%8F%A3"><span class="nav-text">7. JpaRepository接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-JpaSpecificationExecutor%E6%8E%A5%E5%8F%A3"><span class="nav-text">8. JpaSpecificationExecutor接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jpa%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-text">Jpa条件查询最佳实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-%E8%87%AA%E5%AE%9A%E4%B9%89Repository%E6%8E%A5%E5%8F%A3"><span class="nav-text">9. 自定义Repository接口</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="list, Optional, Instant, Date, File" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java开发中，常用的代码示例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用Java代码示例">
+<meta property="og:url" content="https://woodwhales.cn/2019/09/28/044/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="Java开发中，常用的代码示例">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/044/face.png">
+<meta property="article:published_time" content="2019-09-28T12:12:14.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.196Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="代码规范">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/044/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2019/09/28/044/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>常用Java代码示例 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2019/09/28/044/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常用Java代码示例</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-28T20:12:14+08:00">
+                2019-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/28/044/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/28/044/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Java开发中，常用的代码示例
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/044/face.png" rel="gallery_cmb21nrid003wm8v8hdja2c4t noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/044/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <h2 id="list-集合转-list-集合"><a href="#list-集合转-list-集合" class="headerlink" title="list 集合转 list 集合"></a>list 集合转 list 集合</h2><p>原始集合转成新的集合，如 DO 转 DTO，伪代码：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Optional;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.woodwhales.model.UserDTO</span><br><span class="line"><span class="keyword">import</span> org.woodwhales.entity.UserDO</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> List&lt;UserDTO&gt; <span class="title function_">getAllUserDTOList</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">return</span> Optional.ofNullable(UserMapper.selectAll())</span><br><span class="line">                .orElse(Collections.emptyList())</span><br><span class="line">                .stream()</span><br><span class="line">                .map(<span class="built_in">this</span>::do2dto)</span><br><span class="line">                .collect(Collectors.toList());</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> UserDTO <span class="title function_">do2dto</span><span class="params">(UserDO userDO)</span> {</span><br><span class="line">    <span class="type">Integer</span> <span class="variable">userId</span> <span class="operator">=</span> userDO.getId;</span><br><span class="line">    <span class="type">String</span> <span class="variable">userName</span> <span class="operator">=</span> userDO.getUserName;</span><br><span class="line">    </span><br><span class="line">    <span class="type">UserDTO</span> <span class="variable">userDTO</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserDTO</span>(userId, userName);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> userDTO;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="list-字符数据存入文件并压缩打包"><a href="#list-字符数据存入文件并压缩打包" class="headerlink" title="list 字符数据存入文件并压缩打包"></a>list 字符数据存入文件并压缩打包</h2><p>使用 apache 的文件压缩包、IO 工具包和通用包：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-compress<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-lang3<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>解压缩源码：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.woodwhales.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"><span class="keyword">import</span> java.util.zip.ZipEntry;</span><br><span class="line"><span class="keyword">import</span> java.util.zip.ZipInputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.compress.archivers.ArchiveException;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.compress.archivers.ArchiveOutputStream;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.compress.archivers.ArchiveStreamFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.compress.archivers.zip.Zip64Mode;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.compress.archivers.zip.ZipArchiveEntry;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.io.IOUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.multipart.MultipartFile;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Class FileTools {</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">BUFFER_SIZE</span> <span class="operator">=</span> <span class="number">8024</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">ZIP_SUFFIX</span> <span class="operator">=</span> <span class="string">".zip"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">ATTACHMENT</span> <span class="operator">=</span> <span class="string">"attachment; filename="</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *	将list中的字符串数据压缩到文件后缀为 suffix 的文件中，</span></span><br><span class="line"><span class="comment">     *	并对当前列表文件打包成一个zip压缩包</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">byte</span>[] zipToFile(List&lt;String&gt; fileContentList, String suffix) <span class="keyword">throws</span> IOException, ArchiveException {</span><br><span class="line">        <span class="type">ByteArrayOutputStream</span> <span class="variable">archiveStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">        <span class="type">ArchiveOutputStream</span> <span class="variable">archive</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArchiveStreamFactory</span>().createArchiveOutputStream(ArchiveStreamFactory.ZIP, archiveStream);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String fileContent : fileContentList) {</span><br><span class="line">            <span class="comment">// 生成文件名一个UUID的文件</span></span><br><span class="line">            <span class="type">ZipArchiveEntry</span> <span class="variable">entry</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZipArchiveEntry</span>(UUID.randomUUID().toString() + suffix);</span><br><span class="line">            <span class="comment">// 将要打进压缩包的文件放进压缩文件对象中</span></span><br><span class="line">            archive.putArchiveEntry(entry);</span><br><span class="line">            <span class="type">InputStream</span> <span class="variable">in</span> <span class="operator">=</span> IOUtils.toInputStream(fileContent, StandardCharsets.UTF_8);</span><br><span class="line">            <span class="type">BufferedInputStream</span> <span class="variable">input</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(in);</span><br><span class="line">            IOUtils.copy(input, archive);</span><br><span class="line">            input.close();</span><br><span class="line">            archive.closeArchiveEntry();</span><br><span class="line">        }</span><br><span class="line">        archive.finish();</span><br><span class="line">        <span class="type">byte</span>[] byteArray = archiveStream.toByteArray();</span><br><span class="line">        archiveStream.close();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> byteArray;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">isZipFile</span><span class="params">(String originalFilename)</span> {</span><br><span class="line">        <span class="keyword">return</span> StringUtils.endsWith(originalFilename, ZIP_SUFFIX);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title function_">getZipFileContent</span><span class="params">(MultipartFile file)</span> {</span><br><span class="line">		<span class="keyword">if</span> (file.isEmpty()) {</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		List&lt;String&gt; results = <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">			results =  unZip(file.getInputStream());</span><br><span class="line">		} <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">			log.warn(<span class="string">"unzip process is filed! cause by : {}"</span>, e.getMessage());</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> results;</span><br><span class="line">	}</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title function_">getZipFileContent</span><span class="params">(String zipFile)</span> {</span><br><span class="line">		<span class="keyword">if</span>(StringUtils.isEmpty(zipFile)) {</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		List&lt;String&gt; results = <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">			results = unZip(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="keyword">new</span> <span class="title class_">File</span>(zipFile)));</span><br><span class="line">		} <span class="keyword">catch</span> (FileNotFoundException e) {</span><br><span class="line">			log.warn(<span class="string">"unzip process is filed! cause by : {}"</span>, e.getMessage());</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> results;</span><br><span class="line">	}</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title function_">unZip</span><span class="params">(InputStream zipFile)</span> {</span><br><span class="line">		<span class="keyword">if</span>(zipFile == <span class="literal">null</span>) {</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">		}</span><br><span class="line">		<span class="comment">// get the zip file content</span></span><br><span class="line">		List&lt;String&gt; lists = <span class="literal">null</span>;</span><br><span class="line">		<span class="type">ZipInputStream</span> <span class="variable">zis</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">try</span> {</span><br><span class="line">			zis = <span class="keyword">new</span> <span class="title class_">ZipInputStream</span>(zipFile);</span><br><span class="line">			<span class="comment">// get the zipped file list entry</span></span><br><span class="line">			<span class="type">ZipEntry</span> <span class="variable">ze</span> <span class="operator">=</span> zis.getNextEntry();</span><br><span class="line">			log.debug(<span class="string">"file size = {}"</span>, ze.getSize());</span><br><span class="line">			lists = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">			<span class="keyword">while</span> (ze != <span class="literal">null</span>) {</span><br><span class="line">				log.debug(<span class="string">"file name = {}"</span>, ze.getName());</span><br><span class="line">				<span class="type">byte</span>[] byteArray = IOUtils.toByteArray(zis);</span><br><span class="line">				lists.add(<span class="keyword">new</span> <span class="title class_">String</span>(byteArray, StandardCharsets.UTF_8));</span><br><span class="line">				ze = zis.getNextEntry();</span><br><span class="line">			}</span><br><span class="line">		} <span class="keyword">catch</span> (FileNotFoundException e) {</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		} <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		} <span class="keyword">finally</span> {</span><br><span class="line">			<span class="keyword">if</span>(zis != <span class="literal">null</span>) {</span><br><span class="line">				<span class="keyword">try</span> {</span><br><span class="line">					zis.closeEntry();</span><br><span class="line">					zis.close();</span><br><span class="line">				} <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				}</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> lists; </span><br><span class="line">	}</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">compressFiles2Zip</span><span class="params">(File[] files, String zipFilePath)</span> {</span><br><span class="line">		<span class="keyword">if</span> (files != <span class="literal">null</span> &amp;&amp; files.length &gt; <span class="number">0</span>) {</span><br><span class="line">			<span class="type">ZipArchiveOutputStream</span> <span class="variable">zaos</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">			<span class="type">File</span> <span class="variable">f</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(zipFilePath);</span><br><span class="line">			<span class="keyword">if</span> (f.isDirectory()) {</span><br><span class="line">				log.info(<span class="string">"this zipFilePath = {} is Directory"</span>, zipFilePath);</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			}</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (f.exists()) {</span><br><span class="line">				f.delete();</span><br><span class="line">			}</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">try</span> {</span><br><span class="line">				<span class="type">File</span> <span class="variable">zipFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(zipFilePath);</span><br><span class="line">				zaos = <span class="keyword">new</span> <span class="title class_">ZipArchiveOutputStream</span>(zipFile);</span><br><span class="line">				zaos.setUseZip64(Zip64Mode.AsNeeded);</span><br><span class="line">				<span class="comment">// int index = 0;</span></span><br><span class="line">				<span class="keyword">for</span> (File file : files) {</span><br><span class="line">					<span class="keyword">if</span> (file != <span class="literal">null</span>) {</span><br><span class="line">						<span class="type">ZipArchiveEntry</span> <span class="variable">zipArchiveEntry</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZipArchiveEntry</span>(file,</span><br><span class="line">								<span class="keyword">new</span> <span class="title class_">File</span>(file.getParent()).getName() + File.separator + file.getName());</span><br><span class="line">						zaos.putArchiveEntry(zipArchiveEntry);</span><br><span class="line">						<span class="type">InputStream</span> <span class="variable">is</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">						<span class="keyword">try</span> {</span><br><span class="line">							is = <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(file));</span><br><span class="line">							<span class="type">byte</span>[] buffer = <span class="keyword">new</span> <span class="title class_">byte</span>[BUFFER_SIZE];</span><br><span class="line">							<span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">							<span class="keyword">while</span> ((len = is.read(buffer)) != -<span class="number">1</span>) {</span><br><span class="line">								<span class="comment">// flush buffer into ZipArchiveEntry</span></span><br><span class="line">								zaos.write(buffer, <span class="number">0</span>, len);</span><br><span class="line">							}</span><br><span class="line">							<span class="comment">// Writes all necessary data for this entry.</span></span><br><span class="line">							zaos.closeArchiveEntry();</span><br><span class="line">						} <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">							<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">						} <span class="keyword">finally</span> {</span><br><span class="line">							<span class="keyword">if</span> (is != <span class="literal">null</span>)</span><br><span class="line">								is.close();</span><br><span class="line">						}</span><br><span class="line">					}</span><br><span class="line">				}</span><br><span class="line">				zaos.finish();</span><br><span class="line">			} <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">			} <span class="keyword">finally</span> {</span><br><span class="line">				<span class="keyword">try</span> {</span><br><span class="line">					<span class="keyword">if</span> (zaos != <span class="literal">null</span>) {</span><br><span class="line">						zaos.close();</span><br><span class="line">					}</span><br><span class="line">				} <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">					<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">				}</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">genAttachment</span><span class="params">(String fileName)</span> {</span><br><span class="line">		<span class="type">StringBuffer</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">		sb.append(ATTACHMENT).append(fileName);</span><br><span class="line">		<span class="keyword">return</span> sb.toString();</span><br><span class="line">	}</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getOriginalFilename</span><span class="params">(MultipartFile file)</span> {</span><br><span class="line">		<span class="keyword">if</span> (file == <span class="literal">null</span>) {</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">return</span> file.getOriginalFilename();</span><br><span class="line">	}</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">FileTools</span><span class="params">()</span> {</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="时间日期工具"><a href="#时间日期工具" class="headerlink" title="时间日期工具"></a>时间日期工具</h2><p>时间日期使用了 JDK1.8 的<code>Instant</code>：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.woodwhales.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.DateFormat;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.time.Instant;</span><br><span class="line"><span class="keyword">import</span> java.time.LocalDate;</span><br><span class="line"><span class="keyword">import</span> java.time.LocalDateTime;</span><br><span class="line"><span class="keyword">import</span> java.time.Month;</span><br><span class="line"><span class="keyword">import</span> java.time.ZoneOffset;</span><br><span class="line"><span class="keyword">import</span> java.time.format.DateTimeFormatter;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DateUtils</span> {</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_DATE_FORMAT</span> <span class="operator">=</span> <span class="string">"yyyy-MM-dd HH:mm:ss"</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">YYYYMMDDHHMMSS</span> <span class="operator">=</span> <span class="string">"yyyyMMddHHmmss"</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">OFFSETID</span> <span class="operator">=</span> <span class="string">"+8"</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">DateTimeFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span> DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;DateFormat&gt; threadLocal = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;DateFormat&gt;() {</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">protected</span> DateFormat <span class="title function_">initialValue</span><span class="params">()</span> {</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(DEFAULT_DATE_FORMAT);</span><br><span class="line">        }</span><br><span class="line">    };</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">format</span><span class="params">(Long milliSecond)</span> {</span><br><span class="line">    	<span class="keyword">if</span>(milliSecond == <span class="literal">null</span> || milliSecond &lt;= <span class="number">0</span>) {</span><br><span class="line">    		<span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    	}</span><br><span class="line">    	<span class="keyword">return</span> threadLocal.get().format(milliSecond);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">format</span><span class="params">(Date date)</span> {</span><br><span class="line">    	<span class="keyword">if</span>(date == <span class="literal">null</span>) {</span><br><span class="line">    		<span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    	}</span><br><span class="line">    	<span class="type">LocalDateTime</span> <span class="variable">localDateTime</span> <span class="operator">=</span> convertLocalDateTime(date);</span><br><span class="line">    	<span class="type">Long</span> <span class="variable">milliSecond</span> <span class="operator">=</span> getMilliSecond(localDateTime);</span><br><span class="line">    	<span class="keyword">return</span> format(milliSecond);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title function_">getMilliSecond</span><span class="params">()</span> {</span><br><span class="line">    	<span class="keyword">return</span> LocalDateTime.now().toInstant(ZoneOffset.of(OFFSETID)).toEpochMilli();</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title function_">getMilliSecond</span><span class="params">(LocalDateTime localDateTime)</span> {</span><br><span class="line">    	<span class="keyword">return</span> localDateTime.toInstant(ZoneOffset.of(OFFSETID)).toEpochMilli();</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Instant <span class="title function_">getInstant</span><span class="params">()</span> {</span><br><span class="line">    	<span class="type">Instant</span> <span class="variable">instant</span> <span class="operator">=</span> LocalDateTime.now().toInstant(ZoneOffset.of(OFFSETID));</span><br><span class="line">    	<span class="keyword">return</span> instant;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title function_">getNowDate</span><span class="params">()</span> {</span><br><span class="line">    	<span class="type">Instant</span> <span class="variable">instant</span> <span class="operator">=</span> getInstant();</span><br><span class="line">    	<span class="keyword">return</span> convertDate(instant);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getNowStr</span><span class="params">()</span> {</span><br><span class="line">    	<span class="type">Instant</span> <span class="variable">instant</span> <span class="operator">=</span> getInstant();</span><br><span class="line">    	<span class="keyword">return</span> formatter.format(instant);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getNowStr</span><span class="params">(String formatterStr)</span> {</span><br><span class="line">    	<span class="type">LocalDateTime</span> <span class="variable">now</span> <span class="operator">=</span> LocalDateTime.now();</span><br><span class="line">    	<span class="type">DateTimeFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span> DateTimeFormatter.ofPattern(formatterStr);</span><br><span class="line">    	<span class="keyword">return</span> formatter.format(now);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Instant <span class="title function_">convertInstant</span><span class="params">(Date date)</span> {</span><br><span class="line">    	<span class="type">Instant</span> <span class="variable">instant</span> <span class="operator">=</span> date.toInstant();</span><br><span class="line">    	<span class="keyword">return</span> instant;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LocalDateTime <span class="title function_">convertLocalDateTime</span><span class="params">(String dateStr)</span> {</span><br><span class="line">    	<span class="type">LocalDateTime</span> <span class="variable">localDateTime</span> <span class="operator">=</span> LocalDateTime.parse(dateStr, formatter);</span><br><span class="line">    	<span class="keyword">return</span> localDateTime;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LocalDateTime <span class="title function_">convertLocalDateTime</span><span class="params">(String dateStr, String formatterStr)</span> {</span><br><span class="line">    	<span class="type">DateTimeFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span> DateTimeFormatter.ofPattern(formatterStr);</span><br><span class="line">    	<span class="type">LocalDateTime</span> <span class="variable">localDateTime</span> <span class="operator">=</span> LocalDateTime.parse(dateStr, formatter);</span><br><span class="line">    	<span class="keyword">return</span> localDateTime;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LocalDateTime <span class="title function_">convertLocalDateTime</span><span class="params">(Date date)</span> {</span><br><span class="line">		<span class="type">LocalDateTime</span> <span class="variable">localDateTime</span> <span class="operator">=</span> LocalDateTime.ofInstant(convertInstant(date), ZoneId.systemDefault());</span><br><span class="line">		<span class="keyword">return</span> localDateTime;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Instant <span class="title function_">convertInstant</span><span class="params">(LocalDateTime localDateTime)</span> {</span><br><span class="line">    	<span class="type">Instant</span> <span class="variable">instant</span> <span class="operator">=</span> localDateTime.toInstant(ZoneOffset.of(OFFSETID));</span><br><span class="line">    	<span class="keyword">return</span> instant;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title function_">convertDate</span><span class="params">(String dateStr)</span> {</span><br><span class="line">    	<span class="type">LocalDateTime</span> <span class="variable">convertLocalDateTime</span> <span class="operator">=</span> convertLocalDateTime(dateStr);</span><br><span class="line">    	<span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> convertDate(convertInstant(convertLocalDateTime));</span><br><span class="line">    	<span class="keyword">return</span> date;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title function_">convertDate</span><span class="params">(Instant instant)</span> {</span><br><span class="line">    	<span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> Date.from(instant);</span><br><span class="line">    	<span class="keyword">return</span> date;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title function_">convertDate</span><span class="params">(LocalDateTime localDateTime)</span> {</span><br><span class="line">    	<span class="keyword">return</span> Date.from(convertInstant(localDateTime));</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LocalDate <span class="title function_">convertLocalDate</span><span class="params">(LocalDateTime localDateTime)</span> {</span><br><span class="line">    	<span class="type">int</span> <span class="variable">year</span> <span class="operator">=</span> localDateTime.getYear();</span><br><span class="line">    	<span class="type">Month</span> <span class="variable">month</span> <span class="operator">=</span> localDateTime.getMonth();</span><br><span class="line">    	<span class="type">int</span> <span class="variable">day</span> <span class="operator">=</span> localDateTime.getDayOfMonth();</span><br><span class="line">    	<span class="type">LocalDate</span> <span class="variable">localDate</span> <span class="operator">=</span> LocalDate.of(year, month, day);</span><br><span class="line">    	<span class="keyword">return</span> localDate;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">compareDateisAfter</span><span class="params">(Date date)</span> {</span><br><span class="line">    	<span class="type">LocalDateTime</span> <span class="variable">nowLocalDateTime</span> <span class="operator">=</span> convertLocalDateTime(getNowDate());</span><br><span class="line">    	<span class="type">LocalDateTime</span> <span class="variable">compareLocalDateTime</span> <span class="operator">=</span> convertLocalDateTime(date);</span><br><span class="line">    	<span class="keyword">return</span> compareLocalDateTime.isAfter(nowLocalDateTime);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">compareDateisBefore</span><span class="params">(Date date)</span> {</span><br><span class="line">    	<span class="keyword">return</span> !compareDateisAfter(date);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title function_">plusYears</span><span class="params">(Date date, <span class="type">int</span> years)</span> {</span><br><span class="line">    	<span class="type">LocalDateTime</span> <span class="variable">localDateTime</span> <span class="operator">=</span> convertLocalDateTime(date);</span><br><span class="line">    	<span class="keyword">return</span> convertDate(localDateTime.plusYears(years));</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title function_">plusMinutes</span><span class="params">(Date date, <span class="type">int</span> minutes)</span> {</span><br><span class="line">    	<span class="type">LocalDateTime</span> <span class="variable">localDateTime</span> <span class="operator">=</span> convertLocalDateTime(date);</span><br><span class="line">    	<span class="keyword">return</span> convertDate(localDateTime.plusMinutes(minutes));</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="时间工具类"><a href="#时间工具类" class="headerlink" title="时间工具类"></a>时间工具类</h2><p>以下时间工具类主要增加了：<code>between()</code>方法，可以计算两个时间的差值。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.Duration;</span><br><span class="line"><span class="keyword">import</span> java.time.Instant;</span><br><span class="line"><span class="keyword">import</span> java.time.LocalDateTime;</span><br><span class="line"><span class="keyword">import</span> java.time.ZoneId;</span><br><span class="line"><span class="keyword">import</span> java.time.ZoneOffset;</span><br><span class="line"><span class="keyword">import</span> java.time.format.DateTimeFormatter;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DateUtils</span> {</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">ZoneOffset</span> <span class="variable">zoneOffset</span> <span class="operator">=</span> ZoneOffset.ofHours(<span class="number">8</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">zoneId</span> <span class="operator">=</span> zoneOffset.getId();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">ZoneId</span> <span class="variable">systemDefaultZoneId</span> <span class="operator">=</span> ZoneId.systemDefault();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="type">DateTimeFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span> DateTimeFormatter.ofPattern(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> ZoneOffset <span class="title function_">getDefaultZoneOffset</span><span class="params">()</span> {</span><br><span class="line">		<span class="keyword">return</span> zoneOffset;</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> ZoneId <span class="title function_">getSystemDefaultZoneId</span><span class="params">()</span> {</span><br><span class="line">		<span class="keyword">return</span> systemDefaultZoneId;</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> ZoneId <span class="title function_">getDefaultZoneId</span><span class="params">()</span> {</span><br><span class="line">		<span class="keyword">return</span> ZoneId.of(zoneId);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Instant <span class="title function_">getInstant</span><span class="params">()</span> {</span><br><span class="line">		<span class="keyword">return</span> Instant.now().atZone(zoneOffset).toInstant();</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Instant <span class="title function_">getInstant</span><span class="params">(Long epochMilli)</span> {</span><br><span class="line">		<span class="keyword">return</span> Instant.ofEpochMilli(epochMilli);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Instant <span class="title function_">getInstant</span><span class="params">(Date date)</span> {</span><br><span class="line">		<span class="keyword">return</span> date.toInstant();</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Instant <span class="title function_">getInstant</span><span class="params">(ZoneId zoneId)</span> {</span><br><span class="line">		<span class="keyword">return</span> Instant.now().atZone(zoneId).toInstant();</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Instant <span class="title function_">getInstant</span><span class="params">(LocalDateTime localDateTime, ZoneOffset zoneOffset)</span> {</span><br><span class="line">		<span class="keyword">return</span> localDateTime.toInstant(zoneOffset);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Instant <span class="title function_">getInstant</span><span class="params">(LocalDateTime localDateTime)</span> {</span><br><span class="line">		<span class="keyword">return</span> localDateTime.toInstant(zoneOffset);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> LocalDateTime <span class="title function_">getLocalDateTime</span><span class="params">()</span> {</span><br><span class="line">		<span class="keyword">return</span> LocalDateTime.ofInstant(getInstant(), zoneOffset);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> LocalDateTime <span class="title function_">getLocalDateTime</span><span class="params">(<span class="type">long</span> epochMilli)</span> {</span><br><span class="line">		<span class="keyword">return</span> getLocalDateTime(getInstant(epochMilli));</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> LocalDateTime <span class="title function_">getLocalDateTime</span><span class="params">(Instant instant)</span> {</span><br><span class="line">		<span class="keyword">return</span> LocalDateTime.ofInstant(instant, zoneOffset);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> LocalDateTime <span class="title function_">getLocalDateTime</span><span class="params">(String dataStr)</span> {</span><br><span class="line">		<span class="keyword">return</span> LocalDateTime.parse(dataStr, formatter);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> LocalDateTime <span class="title function_">getLocalDateTime</span><span class="params">(String dataStr, DateTimeFormatter dateTimeFormatter)</span> {</span><br><span class="line">		<span class="keyword">return</span> LocalDateTime.parse(dataStr, dateTimeFormatter);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getNowStr</span><span class="params">()</span> {</span><br><span class="line">		<span class="keyword">return</span> getLocalDateTime().format(formatter);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getNowStr</span><span class="params">(Instant instant)</span> {</span><br><span class="line">		<span class="keyword">return</span> getLocalDateTime(instant).format(formatter);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getNowStr</span><span class="params">(LocalDateTime localDateTime)</span> {</span><br><span class="line">		<span class="keyword">return</span> localDateTime.format(formatter);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title function_">toEpochMilli</span><span class="params">(Instant instant)</span> {</span><br><span class="line">		<span class="keyword">return</span> instant.toEpochMilli();</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> MyDuration <span class="title function_">between</span><span class="params">(Instant startInstant, Instant endInstant)</span> {</span><br><span class="line">		<span class="type">LocalDateTime</span> <span class="variable">startLocalDateTime</span> <span class="operator">=</span> getLocalDateTime(startInstant);</span><br><span class="line">		<span class="type">LocalDateTime</span> <span class="variable">endLocalDateTime</span> <span class="operator">=</span> getLocalDateTime(endInstant);</span><br><span class="line">		<span class="keyword">return</span> between(startLocalDateTime, endLocalDateTime);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title function_">getDate</span><span class="params">()</span> {</span><br><span class="line">		<span class="keyword">return</span> Date.from(getInstant());</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title function_">getDate</span><span class="params">(LocalDateTime localDateTime)</span> {</span><br><span class="line">		<span class="keyword">return</span> Date.from(getInstant(localDateTime));</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> startLocalDateTime  </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> endLocalDateTime 要被减的时间日期</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> MyDuration <span class="title function_">between</span><span class="params">(LocalDateTime startLocalDateTime, LocalDateTime endLocalDateTime)</span> {</span><br><span class="line">		<span class="type">Duration</span> <span class="variable">duration</span> <span class="operator">=</span> Duration.between(startLocalDateTime, endLocalDateTime);</span><br><span class="line">		</span><br><span class="line">		<span class="type">long</span> <span class="variable">days</span> <span class="operator">=</span> duration.toDays();</span><br><span class="line">		<span class="type">long</span> <span class="variable">hours</span> <span class="operator">=</span> duration.toHours();</span><br><span class="line">		<span class="type">long</span> <span class="variable">minutes</span> <span class="operator">=</span> duration.toMinutes();</span><br><span class="line">		<span class="type">long</span> <span class="variable">seconds</span> <span class="operator">=</span> duration.getSeconds();</span><br><span class="line">		</span><br><span class="line">		<span class="type">MyDuration</span> <span class="variable">myDuration</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyDuration</span>();</span><br><span class="line">		myDuration.setDiffDays(days);</span><br><span class="line">		myDuration.setDiffHours(hours);</span><br><span class="line">		myDuration.setDiffMintines(minutes);</span><br><span class="line">		myDuration.setDiffSeconds(seconds);</span><br><span class="line">		</span><br><span class="line">		myDuration.setDays(days);</span><br><span class="line"></span><br><span class="line">		<span class="type">Duration</span> <span class="variable">ofDays</span> <span class="operator">=</span> Duration.ofDays(days);</span><br><span class="line">		<span class="type">long</span> <span class="variable">leftHours</span> <span class="operator">=</span> hours - ofDays.toHours();</span><br><span class="line">		</span><br><span class="line">		myDuration.setHours(leftHours);</span><br><span class="line">		<span class="type">Duration</span> <span class="variable">ofHours</span> <span class="operator">=</span> Duration.ofHours(leftHours);</span><br><span class="line">		</span><br><span class="line">		<span class="type">long</span> <span class="variable">leftMintines</span> <span class="operator">=</span> minutes - ofDays.toMinutes() - ofHours.toMinutes();</span><br><span class="line">		myDuration.setMintines(leftMintines);</span><br><span class="line">		</span><br><span class="line">		<span class="type">Duration</span> <span class="variable">ofMinutes</span> <span class="operator">=</span> Duration.ofMinutes(leftMintines);</span><br><span class="line">		myDuration.setSeconds(seconds - ofDays.getSeconds() - ofHours.getSeconds() - ofMinutes.getSeconds());</span><br><span class="line">		<span class="keyword">return</span> myDuration;</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="title function_">DateUtils</span><span class="params">()</span> {}</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Data</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">MyDuration</span> {</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 以天数为单位的两个日期时间之间的差值</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">private</span> <span class="type">long</span> diffDays;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 以小时为单位的两个日期时间之间的差值</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">private</span> <span class="type">long</span> diffHours;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 以分钟为单位的两个日期时间之间的差值</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">private</span> <span class="type">long</span> diffMintines;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 以秒为单位的两个日期时间之间的差值</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">private</span> <span class="type">long</span> diffSeconds;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">private</span> <span class="type">long</span> days;</span><br><span class="line">		<span class="keyword">private</span> <span class="type">long</span> hours;</span><br><span class="line">		<span class="keyword">private</span> <span class="type">long</span> mintines;</span><br><span class="line">		<span class="keyword">private</span> <span class="type">long</span> seconds;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isOver</span><span class="params">(<span class="type">long</span> value, TimeUnit timeUnit)</span> {</span><br><span class="line">			<span class="keyword">if</span>(StringUtils.equals(timeUnit.name(), TimeUnit.DAYS.name())) {</span><br><span class="line">				<span class="keyword">return</span> <span class="built_in">this</span>.diffDays &gt;= value;</span><br><span class="line">			}</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(StringUtils.equals(timeUnit.name(), TimeUnit.HOURS.name())) {</span><br><span class="line">				<span class="keyword">return</span> <span class="built_in">this</span>.diffHours &gt;= value;</span><br><span class="line">			}</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(StringUtils.equals(timeUnit.name(), TimeUnit.MINUTES.name())) {</span><br><span class="line">				<span class="keyword">return</span> <span class="built_in">this</span>.diffMintines &gt;= value;</span><br><span class="line">			}</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(StringUtils.equals(timeUnit.name(), TimeUnit.SECONDS.name())) {</span><br><span class="line">				<span class="keyword">return</span> <span class="built_in">this</span>.diffSeconds &gt;= value;</span><br><span class="line">			}</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">"timeUnit is not DAYS or HOURS or MINUTES or SECONDS"</span>);</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 *  两个时间差的格式化表示</span></span><br><span class="line"><span class="comment">		 *  如：两个日期时间之差为：2天3小时25分钟30秒</span></span><br><span class="line"><span class="comment">		 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">public</span> String <span class="title function_">getFormatterString</span><span class="params">()</span> {</span><br><span class="line">			<span class="type">StringBuffer</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">this</span>.days != <span class="number">0L</span>) {</span><br><span class="line">				sb.append(days + <span class="string">"天"</span>);</span><br><span class="line">			}</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">this</span>.hours != <span class="number">0L</span>) {</span><br><span class="line">				sb.append(hours + <span class="string">"小时"</span>);</span><br><span class="line">			}</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">this</span>.mintines != <span class="number">0L</span>) {</span><br><span class="line">				sb.append(mintines + <span class="string">"分钟"</span>);</span><br><span class="line">			}</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">this</span>.seconds != <span class="number">0L</span>) {</span><br><span class="line">				sb.append(seconds + <span class="string">"秒"</span>);</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">return</span> sb.toString();</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<p>参考资料：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010758410/article/details/80042798">对非常大的两个数字求和——数字字符串求和</a></p>
+<p><a target="_blank" rel="noopener" href="https://itimetraveler.github.io/2017/08/22/[%E7%AE%97%E6%B3%95]%E5%A4%A7%E6%95%B0%E7%9B%B8%E4%B9%98%E9%97%AE%E9%A2%98%E5%8F%8A%E5%85%B6%E9%AB%98%E6%95%88%E7%AE%97%E6%B3%95/">【算法】大数相乘问题及其高效算法</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/l-compress/index.html">利用JAVA API函数实现数据的压缩与解压缩</a></p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/09/28/044/">常用Java代码示例</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2019/09/28/044/" title="常用Java代码示例">https://woodwhales.cn/2019/09/28/044/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2019/09/28/044/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" rel="tag"><i class="fa fa-tag"></i> 代码规范</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/27/049/" rel="next" title="漫谈密码技术">
+                <i class="fa fa-chevron-left"></i> 漫谈密码技术
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/03/050/" rel="prev" title="JDK 1.8 新特性">
+                JDK 1.8 新特性 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#list-%E9%9B%86%E5%90%88%E8%BD%AC-list-%E9%9B%86%E5%90%88"><span class="nav-text">list 集合转 list 集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list-%E5%AD%97%E7%AC%A6%E6%95%B0%E6%8D%AE%E5%AD%98%E5%85%A5%E6%96%87%E4%BB%B6%E5%B9%B6%E5%8E%8B%E7%BC%A9%E6%89%93%E5%8C%85"><span class="nav-text">list 字符数据存入文件并压缩打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%97%A5%E6%9C%9F%E5%B7%A5%E5%85%B7"><span class="nav-text">时间日期工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="nav-text">时间工具类</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

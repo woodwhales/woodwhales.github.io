@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="centos, confluence, 安装confluence, confluence破解, atlassian-confluence-6.13.3-x64, atlassian破解, gliffy插件, gliffy破解, atlassian-agent, plantuml-for-confluence, marketplace.atlassian.com, confluence插件, confluence打开慢" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="使用 confluence 记录自己的wiki">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos 环境安装 confluence 详解">
+<meta property="og:url" content="https://woodwhales.cn/2020/08/02/074/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="使用 confluence 记录自己的wiki">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/074/face.png">
+<meta property="article:published_time" content="2020-08-02T08:10:00.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.221Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="confluence">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/074/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2020/08/02/074/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>centos 环境安装 confluence 详解 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2020/08/02/074/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">centos 环境安装 confluence 详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-02T16:10:00+08:00">
+                2020-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/confluence/" itemprop="url" rel="index">
+                    <span itemprop="name">confluence</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/02/074/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/02/074/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  使用 confluence 记录自己的wiki
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/074/face.png" rel="gallery_cmb21nrj2006fm8v89l1r072o noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/074/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <blockquote>
+<p>confluence 官方安装指南：<a target="_blank" rel="noopener" href="https://confluence.atlassian.com/alldoc/confluence-documentation-directory-12877996.html">https://confluence.atlassian.com/alldoc/confluence-documentation-directory-12877996.html</a></p>
+<p>confluence 官方安装环境要求指南：<a target="_blank" rel="noopener" href="https://confluence.atlassian.com/doc/system-requirements-126517514.html">https://confluence.atlassian.com/doc/system-requirements-126517514.html</a></p>
+</blockquote>
+<p>笔者安装的 confluence 版本为 6.13.3：<a target="_blank" rel="noopener" href="https://bitbucket.org/atlassian/confluence_docs/downloads/Confluence_6-13-0_CompleteGuide.pdf">https://bitbucket.org/atlassian/confluence_docs/downloads/Confluence_6-13-0_CompleteGuide.pdf</a></p>
+<blockquote>
+<p>安装建议：笔者使用的centos为 VMware 虚拟机环境搭建的，设置内存大小为 2G，依然运行有“卡顿”现象，如果可用内存小于 2GB，不建议安装使用 confluence。</p>
+</blockquote>
+<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><h2 id="MySQL-软件"><a href="#MySQL-软件" class="headerlink" title="MySQL 软件"></a>MySQL 软件</h2><p>笔者使用的 MySQL 版本为：5.7.31，使用 docker 安装：</p>
+<blockquote>
+<p>MySQL 官方 docker 镜像地址：<a target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql?tab=tags">https://hub.docker.com/_/mysql?tab=tags</a></p>
+</blockquote>
+<p>拉取 MySQL 5.7.13 镜像：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7.31</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="MySQL-驱动"><a href="#MySQL-驱动" class="headerlink" title="MySQL 驱动"></a>MySQL 驱动</h2><blockquote>
+<p>官方 MySQL 驱动：<a target="_blank" rel="noopener" href="https://downloads.mysql.com/archives/c-j/">https://downloads.mysql.com/archives/c-j/</a></p>
+<p>maven 仓库里下载 MySQL 驱动 ：<a target="_blank" rel="noopener" href="https://mvnrepository.com/artifact/mysql/mysql-connector-java">https://mvnrepository.com/artifact/mysql/mysql-connector-java</a></p>
+</blockquote>
+<p>笔者使用的驱动版本为：mysql-connector-java-5.1.48.jar</p>
+<p>因为官网文档已经说明了：<a target="_blank" rel="noopener" href="https://confluence.atlassian.com/conf613/database-jdbc-drivers-964961299.html">https://confluence.atlassian.com/conf613/database-jdbc-drivers-964961299.html</a></p>
+<p><img src="https://image.woodwhales.cn/074/images/01.png"></p>
+<h3 id="代理包"><a href="#代理包" class="headerlink" title="代理包"></a>代理包</h3><p>笔者使用的代理包为：atlassian-agent.jar</p>
+<blockquote>
+<p>代理包官方下载地址：</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/pengzhile/atlassian-agent">https://gitee.com/pengzhile/atlassian-agent</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhile.io/2018/12/20/atlassian-license-crack.html">https://zhile.io/2018/12/20/atlassian-license-crack.html</a></p>
+</blockquote>
+<h2 id="下载-confluence-软件"><a href="#下载-confluence-软件" class="headerlink" title="下载 confluence 软件"></a>下载 confluence 软件</h2><blockquote>
+<p>官方下载地址：<a target="_blank" rel="noopener" href="https://www.atlassian.com/software/confluence/download-archives">https://www.atlassian.com/software/confluence/download-archives</a></p>
+</blockquote>
+<p>笔者使用的 confluence 版本为：atlassian-confluence-6.13.3-x64</p>
+<p>也是直接在浏览器访问：<a target="_blank" rel="noopener" href="https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-%7Bversion%7D.bin">https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-{version}.bin</a> 下载 confluence 安装文件。</p>
+<p>形如：<a target="_blank" rel="noopener" href="https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-6.13.3-x64.bin">https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-6.13.3-x64.bin</a></p>
+<h2 id="MySQL-安装"><a href="#MySQL-安装" class="headerlink" title="MySQL 安装"></a>MySQL 安装</h2><p>上述拉取 MySQL 镜像之后，查看本地 docker 镜像：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://image.woodwhales.cn/074/images/02.png"></p>
+<h3 id="创建临时-MySQL-容器"><a href="#创建临时-MySQL-容器" class="headerlink" title="创建临时 MySQL 容器"></a>创建临时 MySQL 容器</h3><p>先创建临时 MySQL 容器</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm --name mysqlTemp -it -v /usr/local/mysql/:/var/lib/mysql  -e MYSQL_ROOT_PASSWORD=123456 {IMAGE ID} /bin/bash </span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述命令中：{IMAGE ID} 替换成上图中的 IMAGE ID。</p>
+<p>上述命令参数说明：</p>
+<ul>
+<li><p><code>-- rm</code></p>
+<p>退出后就删除该容器</p>
+</li>
+<li><p><code>-v /usr/local/mysql/:/var/lib/ mysql</code> </p>
+<p>装主机目录/usr/local/mysql/映射Docker中的/var/lib/mysql目录</p>
+</li>
+<li><p><code>-it</code> </p>
+<p>交互模式</p>
+</li>
+<li><p><code>/bin/bash</code> </p>
+<p>进入 bash 命令模式</p>
+</li>
+</ul>
+<p>上述命令执行成功之后，就进入了 docker 容器内部。查看 my.cnf 文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/mysql/my.cnf</span><br></pre></td></tr></tbody></table></figure>
+
+<p>出现形如下图的内容：</p>
+<p><img src="https://image.woodwhales.cn/074/images/03.png"></p>
+<p>如果是完整的 my.cnf 文件，直接把该 my.cnf 复制到 docker 容器外面去。如果不是，则需要把 includedir 目录一起复到主机。</p>
+<h3 id="从容器中获取-MySQL-配置文件到宿主机"><a href="#从容器中获取-MySQL-配置文件到宿主机" class="headerlink" title="从容器中获取 MySQL 配置文件到宿主机"></a>从容器中获取 MySQL 配置文件到宿主机</h3><p>把 docker 中的 /etc/mysql/my.cnf 文件拷贝到 docker 的/var/lib/mysql 目录中：及主机的 /usr/local/mysql/ 目录中：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/mysql/my.cnf /var/lib/mysql</span><br></pre></td></tr></tbody></table></figure>
+
+<p>把 docker 中 includedir 目录复制出去</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -R /etc/mysql/conf.d/ /var/lib/mysql/conf.d</span><br></pre></td></tr></tbody></table></figure>
+
+<p>退出 bash，docker 中临时用的 mysqlTemp 会被删除。此时查看主机中的 /usr/local/mysql/ 目录下有 mysql 所有的配置文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node04 ~]# ls /usr/local/mysql/</span><br><span class="line">conf.d  my.cnf</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="修改宿主机-MySQL-配置"><a href="#修改宿主机-MySQL-配置" class="headerlink" title="修改宿主机 MySQL 配置"></a>修改宿主机 MySQL 配置</h3><p>修改 MySQL 配置，在 my.cnf 文件中增加配置：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">character-set-server</span>=utf8</span><br><span class="line"><span class="attr">collation-server</span>=utf8_bin</span><br><span class="line"><span class="attr">default-storage-engine</span>=INNODB</span><br><span class="line"><span class="attr">max_allowed_packet</span>=<span class="number">512</span>M</span><br><span class="line"><span class="attr">innodb_log_file_size</span>=<span class="number">2</span>GB</span><br><span class="line"><span class="attr">transaction-isolation</span>=READ-COMMITTED</span><br><span class="line"><span class="attr">binlog_format</span>=row</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="创建-MySQL-容器"><a href="#创建-MySQL-容器" class="headerlink" title="创建 MySQL 容器"></a>创建 MySQL 容器</h3><p>改完之后，创建正式的 mysql 容器：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -v /usr/local/mysql/data:/var/lib/mysql -v /usr/local/mysql/my.cnf:/etc/mysql/my.cnf -v /usr/local/mysql/conf.d:/etc/mysql/conf.d --restart=always -d {IMAGE ID}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>{IMAGE ID} 表示 MySQL 镜像的镜像 ID。</p>
+<p>如果 my.cnf 是完整的配置，这里不需要映射 conf.d 和 mysql.conf.d 这俩个目录：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -v /usr/local/mysql/data:/var/lib/mysql -v /usr/local/mysql/my.cnf:/etc/mysql/my.cnf -d {IMAGE ID}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>参数说明：</p>
+<ul>
+<li><p><code>--name</code></p>
+<p>  容器名称</p>
+</li>
+<li><p><code>-p</code></p>
+<p>  端口映射</p>
+</li>
+<li><p><code>-v</code></p>
+<p>  配置文件映射：将 宿主机上修改的自定义配置文件，映射到 容器中</p>
+</li>
+<li><p><code>-e</code></p>
+<p>  MYSQL_ROOT_PASSWORD 设置root密码</p>
+</li>
+<li><p><code>-d</code></p>
+<p>  守护进程模式运行</p>
+</li>
+</ul>
+<h1 id="安装-confluence"><a href="#安装-confluence" class="headerlink" title="安装 confluence"></a>安装 confluence</h1><p>将下载好的 confluence 安装包、MySQL 驱动、代理包都上传到 centos 上，笔者自己创建了 /data/confluence 目录：</p>
+<p><img src="https://image.woodwhales.cn/074/images/04.png"></p>
+<p>上图中：atlassian-agent-v1.2.3.tar.gz 文件使用：tar -zxvf atlassian-agent-v1.2.3.tar.gz 命令解压即可的得到：atlassian-agent-v1.2.3 文件目录。</p>
+<h2 id="添加运行权限"><a href="#添加运行权限" class="headerlink" title="添加运行权限"></a>添加运行权限</h2><p>刚上传的 confluence 安装包需要添加运行权限：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x atlassian-confluence-6.13.3-x64.bin</span><br></pre></td></tr></tbody></table></figure>
+
+<p>运行文件得到下面的内容，需要注意的是Confluence的安装路径，<br>默认程序：/opt/atlassian/confluence<br>默认数据：/var/atlassian/application-data/confluence</p>
+<h2 id="安装-confluence-1"><a href="#安装-confluence-1" class="headerlink" title="安装 confluence"></a>安装 confluence</h2><p>运行 atlassian-confluence-6.13.3-x64.bin：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./atlassian-confluence-6.13.3-x64.bin</span><br></pre></td></tr></tbody></table></figure>
+
+<p>运行日志如下：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">[root@node04 confluence]# ./atlassian-confluence-6.13.3-x64.bin </span><br><span class="line">Unpacking JRE ...</span><br><span class="line">Starting Installer ...</span><br><span class="line"></span><br><span class="line">This will install Confluence 6.13.3 on your computer.</span><br><span class="line">OK [o, Enter], Cancel [c]</span><br><span class="line">o</span><br><span class="line">Click Next to continue, or Cancel to exit Setup.</span><br><span class="line"></span><br><span class="line">Choose the appropriate installation or upgrade option.</span><br><span class="line">Please choose one of the following:</span><br><span class="line">Express Install (uses default settings) [1], </span><br><span class="line">Custom Install (recommended for advanced users) [2, Enter], </span><br><span class="line">Upgrade an existing Confluence installation [3]</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">See where Confluence will be installed and the settings that will be used.</span><br><span class="line">Installation Directory: /opt/atlassian/confluence </span><br><span class="line">Home Directory: /var/atlassian/application-data/confluence </span><br><span class="line">HTTP Port: 8090 </span><br><span class="line">RMI Port: 8000 </span><br><span class="line">Install as service: Yes </span><br><span class="line">Install [i, Enter], Exit [e]</span><br><span class="line">i</span><br><span class="line"></span><br><span class="line">Extracting files ...</span><br><span class="line">                                                                           </span><br><span class="line"></span><br><span class="line">Please wait a few moments while we configure Confluence.</span><br><span class="line"></span><br><span class="line">Installation of Confluence 6.13.3 is complete</span><br><span class="line">Start Confluence now?</span><br><span class="line">Yes [y, Enter], No [n]</span><br><span class="line">y</span><br><span class="line"></span><br><span class="line">Installation of Confluence 6.13.3 is complete</span><br><span class="line">Finishing installation ...</span><br></pre></td></tr></tbody></table></figure>
+
+<p>安装完成之后：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">netstat -tunlp | grep 8090</span></span><br><span class="line">tcp6       0      0 :::8090                 :::*                    LISTEN      2573/java</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Confluence 日志文件位置：/opt/atlassian/confluence/logs/catalina.out</p>
+<h2 id="启动-confluence"><a href="#启动-confluence" class="headerlink" title="启动 confluence"></a>启动 confluence</h2><h3 id="windows-环境"><a href="#windows-环境" class="headerlink" title="windows 环境"></a>windows 环境</h3><p>进入到服务管理的界面（我的电脑 -&gt; 右键 -&gt; 管理 -&gt; 服务或者services.msc）找到confluence 的服务，在这里启动关闭服务。</p>
+<h3 id="linux-环境"><a href="#linux-环境" class="headerlink" title="linux 环境"></a>linux 环境</h3><h4 id="root-权限"><a href="#root-权限" class="headerlink" title="root 权限"></a>root 权限</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">需要管理员权限</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">关闭服务</span></span><br><span class="line">service confluence stop</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">启动服务</span></span><br><span class="line">service confluence start</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">需要管理员权限</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">关闭服务</span></span><br><span class="line">/etc/init.d/confluence stop</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">启动服务</span></span><br><span class="line">/etc/init.d/confluence start</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="非-root-权限"><a href="#非-root-权限" class="headerlink" title="非 root 权限"></a>非 root 权限</h4><p>如果不是 root 用户安装的话，confluence 这个服务可能不会被注册到 service 上，所以上面的方法都不能用。</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">非root用户安装,以我的安装路径为例：</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">关闭服务</span></span><br><span class="line">/opt/atlassian/confluence/bin/stop-confluence.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">启动服务</span></span><br><span class="line">/opt/atlassian/confluence/bin/start-confluence.sh</span><br></pre></td></tr></tbody></table></figure>
+
+<p>笔者安装的环境是 linux，启动日志如下：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@node04 confluence]# service confluence start</span><br><span class="line">Warning: confluence.service changed on disk. Run 'systemctl daemon-reload' to reload units.</span><br><span class="line"></span><br><span class="line">To run Confluence in the foreground, start the server with start-confluence.sh -fg</span><br><span class="line">executing using dedicated user: confluence</span><br><span class="line">If you encounter issues starting up Confluence, please see the Installation guide at http://confluence.atlassian.com/display/DOC/Confluence+Installation+Guide</span><br><span class="line"></span><br><span class="line">Server startup logs are located in /opt/atlassian/confluence/logs/catalina.out</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">Using Java: /opt/atlassian/confluence/jre//bin/java</span><br><span class="line">2020-08-01 15:23:57,626 INFO [main] [atlassian.confluence.bootstrap.SynchronyProxyWatchdog] A Context element for ${confluence.context.path}/synchrony-proxy is found in /opt/atlassian/confluence/conf/server.xml. No further action is required</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">Using CATALINA_BASE:   /opt/atlassian/confluence</span><br><span class="line">Using CATALINA_HOME:   /opt/atlassian/confluence</span><br><span class="line">Using CATALINA_TMPDIR: /opt/atlassian/confluence/temp</span><br><span class="line">Using JRE_HOME:        /opt/atlassian/confluence/jre/</span><br><span class="line">Using CLASSPATH:       /opt/atlassian/confluence/bin/bootstrap.jar:/opt/atlassian/confluence/bin/tomcat-juli.jar</span><br><span class="line">Using CATALINA_PID:    /opt/atlassian/confluence/work/catalina.pid</span><br><span class="line">Tomcat started.</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述日志可以看出，运行日志在：/opt/atlassian/confluence/logs/catalina.out 文件中。</p>
+<h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>在 /opt/atlassian/confluence/bin/setenv.sh 文件中增加如下命令：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">vim /opt/atlassian/confluence/bin/setenv.sh</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在 <span class="built_in">export</span> CATALINA_OPTS 上方增加如下代码</span></span><br><span class="line">CATALINA_OPTS="-javaagent:/data/confluence/atlassian-agent.jar ${CATALINA_OPTS}"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>笔者的代理包路径是：/data/confluence/atlassian-agent.jar，读者可以更换成自己的代理包位置。</p>
+<blockquote>
+<p>本站下载：</p>
+<ul>
+<li>v1.2.3：<a target="_blank" rel="noopener" href="https://image.woodwhales.cn/074/atlassian-agent-v1.2.3.tar.gz">atlassian-agent-v1.2.3.tar.gz</a></li>
+<li>v1.3.1：<a target="_blank" rel="noopener" href="https://image.woodwhales.cn/074/atlassian-agent-v1.3.1.7z">atlassian-agent-v1.3.1.7z</a></li>
+</ul>
+</blockquote>
+<p>再次启动 confluence，查看启动日志，看到<code>=== agent working ===</code>字样，表示代理成功。也可以使用命令：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep javaagent</span><br></pre></td></tr></tbody></table></figure>
+
+<p>检查代理是否成功。</p>
+<h3 id="防火墙设置"><a href="#防火墙设置" class="headerlink" title="防火墙设置"></a>防火墙设置</h3><p>笔者使用的环境是虚拟机中的环境，因此直接把防火墙关闭了，如果需要开放某个具体的端口，参考下面的命令：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看防火墙状态</span></span><br><span class="line">systemctl status firewalld.service</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开启防火墙：</span></span><br><span class="line">systemctl start firewalld.service</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关闭防火墙：</span></span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重启防火墙：</span></span><br><span class="line">systemctl restart firewalld.service</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">禁止开机启动：</span></span><br><span class="line">systemctl disable firewalld.service</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开启开机启动：</span></span><br><span class="line">systemctl enable firewalld.service</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看防火墙所有开放的端口</span></span><br><span class="line">firewall-cmd --zone=public --list-ports</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开放8090端口</span></span><br><span class="line">firewall-cmd --zone=public --add-port=8090/tcp --permanent   </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置立即生效</span></span><br><span class="line">firewall-cmd --reload</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看监听的端口</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">centos7默认没有 netstat 命令，需要安装 net-tools 工具，yum install -y net-tools</span></span><br><span class="line">netstat -lnpt</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">检查端口被哪个进程占用</span></span><br><span class="line">netstat -lnpt |grep 8090</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看进程的详细信息</span></span><br><span class="line">ps 进程号</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">中止进程</span></span><br><span class="line">kill -9 进程号</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="激活设置"><a href="#激活设置" class="headerlink" title="激活设置"></a>激活设置</h3><p>启动 confluence 之后，浏览器输入 ip:8090 打开 confluence 的配置页面，第一次访问浏览器出现初始化配置页面，笔者选择中文环境，选择产品安装，出现如下界面：</p>
+<p><img src="https://image.woodwhales.cn/074/images/05.png"></p>
+<p>上图中的服务器 ID 很关键，一定要记录好。</p>
+<p>当你试着执行 java -jar /data/confluence/atlassian-agent.jar 时应该可以看到输出的KeyGen参数帮助。由于此处是破解confluence,选择conf即可，具体命令如下：</p>
+<p>将server ID复制（-m 邮箱 -n 用户名 -o 公司名 -s SERVER ID）</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar /data/confluence/atlassian-agent.jar -p conf -m woodwhales@163.com -n woodwhales -o https://woodwhales.cn/ -s AAAA-BBBB-CCCC-DDDD</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="设置数据库"><a href="#设置数据库" class="headerlink" title="设置数据库"></a>设置数据库</h3><p>选择 MySQL 数据库，需要安装 MySQL 驱动：</p>
+<p>将下载的 mysql-connector-java-5.1.42-bin.jar 复制到 /opt/atlassian/confluence/confluence/WEB-INF/lib 目录并重启服务：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /data/confluence/mysql-connector-java-5.1.42.jar /opt/atlassian/confluence/confluence/WEB-INF/lib/</span><br><span class="line">service confluence restart</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><h2 id="时区设置"><a href="#时区设置" class="headerlink" title="时区设置"></a>时区设置</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/atlassian/confluence/bin/catalina.sh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在 Register custom URL handlers 处增加一行配置</span></span><br><span class="line">JAVA_OPTS="$JAVA_OPTS -Duser.timezone=Asia/Shanghai"</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="设置JVM运行内存参数"><a href="#设置JVM运行内存参数" class="headerlink" title="设置JVM运行内存参数"></a>设置JVM运行内存参数</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/atlassian/confluence/bin/setenv.sh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改 Xms 和 Xmx 参数</span></span><br><span class="line">CATALINA_OPTS="-Xms4096m -Xmx8192m -XX:+UseG1GC ${CATALINA_OPTS}"</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="设置数据库连接池参数"><a href="#设置数据库连接池参数" class="headerlink" title="设置数据库连接池参数"></a>设置数据库连接池参数</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim /var/atlassian/application-data/confluence/confluence.cfg.xml</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改数据库连接池参数</span></span><br><span class="line"> &lt;property name="hibernate.c3p0.acquire_increment"&gt;10&lt;/property&gt;         #默认为1</span><br><span class="line">    &lt;property name="hibernate.c3p0.idle_test_period"&gt;100&lt;/property&gt;</span><br><span class="line">    &lt;property name="hibernate.c3p0.max_size"&gt;60&lt;/property&gt;</span><br><span class="line">    &lt;property name="hibernate.c3p0.max_statements"&gt;60&lt;/property&gt;         #默认为0</span><br><span class="line">    &lt;property name="hibernate.c3p0.min_size"&gt;20&lt;/property&gt;</span><br><span class="line">    &lt;property name="hibernate.c3p0.timeout"&gt;120&lt;/property&gt;               #默认为30</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="数据链接-useSSL-配置"><a href="#数据链接-useSSL-配置" class="headerlink" title="数据链接 useSSL 配置"></a>数据链接 useSSL 配置</h2><p>由于使用了 MySQL 5.7.31，所以数据库链接配置必须显示设置 useSSL</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;property name="hibernate.connection.url"&gt;jdbc:mysql://127.0.0.1:3306/confluence?useSSL=false&lt;/property&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="卸载-confluence"><a href="#卸载-confluence" class="headerlink" title="卸载 confluence"></a>卸载 confluence</h1><p>confluence 默认安装路径为 /opt/atlassian/confluence/：</p>
+<p>到安装路径下，运行 uninstall：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/atlassian/confluence/uninstall</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后手动删除两个路径的文件</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/atlassian/</span><br><span class="line">rm -rf /opt/atlassian/confluence/</span><br></pre></td></tr></tbody></table></figure>
+
+<p>另，进入 /etc/init.d/ 删除多余的 confluence 开机启动项</p>
+<blockquote>
+<p>windows上也是这么卸载的，但是在Windows上的话需要重启电脑。</p>
+</blockquote>
+<h1 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h1><p>官方插件市场：<a target="_blank" rel="noopener" href="https://marketplace.atlassian.com/">https://marketplace.atlassian.com/</a></p>
+<h2 id="Gliffy-Diagrams"><a href="#Gliffy-Diagrams" class="headerlink" title="Gliffy Diagrams"></a>Gliffy Diagrams</h2><p>官方安装指南：<a target="_blank" rel="noopener" href="https://support.gliffy.com/hc/en-us/articles/217895178-Confluence-Plugin-Installation-Update-Instructions-">https://support.gliffy.com/hc/en-us/articles/217895178-Confluence-Plugin-Installation-Update-Instructions-</a></p>
+<p>插件下载地址：<a target="_blank" rel="noopener" href="https://marketplace.atlassian.com/plugins/com.gliffy.integration.confluence/versions">https://marketplace.atlassian.com/plugins/com.gliffy.integration.confluence/versions</a></p>
+<h2 id="Balsamiq-Wireframes"><a href="#Balsamiq-Wireframes" class="headerlink" title="Balsamiq Wireframes"></a>Balsamiq Wireframes</h2><p>插件下载地址：<a target="_blank" rel="noopener" href="https://marketplace.atlassian.com/apps/256/balsamiq-wireframes-confluence-server/version-history">https://marketplace.atlassian.com/apps/256/balsamiq-wireframes-confluence-server/version-history</a></p>
+<h2 id="PlantUML"><a href="#PlantUML" class="headerlink" title="PlantUML"></a>PlantUML</h2><p>插件下载地址：<a target="_blank" rel="noopener" href="https://marketplace.atlassian.com/apps/41025/plantuml-for-confluence/version-history">https://marketplace.atlassian.com/apps/41025/plantuml-for-confluence/version-history</a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a target="_blank" rel="noopener" href="https://liangfu.wang/2020/01/22/CentOS-7-6-%E5%AE%89%E8%A3%85-Confluence-7-2/">https://liangfu.wang/2020/01/22/CentOS-7-6-安装-Confluence-7-2/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.tracymc.cn/archives/1507">https://www.tracymc.cn/archives/1507</a></p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/08/02/074/">centos 环境安装 confluence 详解</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2020/08/02/074/" title="centos 环境安装 confluence 详解">https://woodwhales.cn/2020/08/02/074/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2020/08/02/074/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/confluence/" rel="tag"><i class="fa fa-tag"></i> confluence</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/28/073/" rel="next" title="虚拟机安装 centos 7 系统">
+                <i class="fa fa-chevron-left"></i> 虚拟机安装 centos 7 系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/10/04/075/" rel="prev" title="Spring 源码（spring-5.2.9.RELEASE）编译及 IDEA 环境搭建">
+                Spring 源码（spring-5.2.9.RELEASE）编译及 IDEA 环境搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E8%BD%AF%E4%BB%B6"><span class="nav-text">MySQL 软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E9%A9%B1%E5%8A%A8"><span class="nav-text">MySQL 驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E5%8C%85"><span class="nav-text">代理包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-confluence-%E8%BD%AF%E4%BB%B6"><span class="nav-text">下载 confluence 软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E5%AE%89%E8%A3%85"><span class="nav-text">MySQL 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%B4%E6%97%B6-MySQL-%E5%AE%B9%E5%99%A8"><span class="nav-text">创建临时 MySQL 容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E5%AE%B9%E5%99%A8%E4%B8%AD%E8%8E%B7%E5%8F%96-MySQL-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%88%B0%E5%AE%BF%E4%B8%BB%E6%9C%BA"><span class="nav-text">从容器中获取 MySQL 配置文件到宿主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AE%BF%E4%B8%BB%E6%9C%BA-MySQL-%E9%85%8D%E7%BD%AE"><span class="nav-text">修改宿主机 MySQL 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-MySQL-%E5%AE%B9%E5%99%A8"><span class="nav-text">创建 MySQL 容器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-confluence"><span class="nav-text">安装 confluence</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%BF%90%E8%A1%8C%E6%9D%83%E9%99%90"><span class="nav-text">添加运行权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-confluence-1"><span class="nav-text">安装 confluence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-confluence"><span class="nav-text">启动 confluence</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#windows-%E7%8E%AF%E5%A2%83"><span class="nav-text">windows 环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux-%E7%8E%AF%E5%A2%83"><span class="nav-text">linux 环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#root-%E6%9D%83%E9%99%90"><span class="nav-text">root 权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E-root-%E6%9D%83%E9%99%90"><span class="nav-text">非 root 权限</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%90%86"><span class="nav-text">代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE"><span class="nav-text">防火墙设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E8%AE%BE%E7%BD%AE"><span class="nav-text">激活设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">设置数据库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-text">性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E5%8C%BA%E8%AE%BE%E7%BD%AE"><span class="nav-text">时区设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEJVM%E8%BF%90%E8%A1%8C%E5%86%85%E5%AD%98%E5%8F%82%E6%95%B0"><span class="nav-text">设置JVM运行内存参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E5%8F%82%E6%95%B0"><span class="nav-text">设置数据库连接池参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E6%8E%A5-useSSL-%E9%85%8D%E7%BD%AE"><span class="nav-text">数据链接 useSSL 配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD-confluence"><span class="nav-text">卸载 confluence</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text">插件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gliffy-Diagrams"><span class="nav-text">Gliffy Diagrams</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Balsamiq-Wireframes"><span class="nav-text">Balsamiq Wireframes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PlantUML"><span class="nav-text">PlantUML</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

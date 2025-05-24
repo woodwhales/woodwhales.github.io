@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="分布式, dubbo, rpc, 高并发, 高可用, 微服务" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="互联网Java工程师面试突击训练第1季-学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析分布式系统（一）">
+<meta property="og:url" content="https://woodwhales.cn/2019/07/01/037/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="互联网Java工程师面试突击训练第1季-学习笔记">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/037/face.png">
+<meta property="article:published_time" content="2019-07-01T12:39:14.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.190Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="dubbo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/037/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2019/07/01/037/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>浅析分布式系统（一） | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2019/07/01/037/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅析分布式系统（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-01T20:39:14+08:00">
+                2019-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/01/037/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/01/037/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  互联网Java工程师面试突击训练第1季-学习笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/037/face.png" rel="gallery_cmb21nri8003dm8v8avrc9z9b noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/037/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <h1 id="1-分布式系统"><a href="#1-分布式系统" class="headerlink" title="1. 分布式系统"></a>1. 分布式系统</h1><h2 id="1-1-集中式系统"><a href="#1-1-集中式系统" class="headerlink" title="1.1 集中式系统"></a>1.1 集中式系统</h2><p>集中式系统用一句话概括就是：一个主机带多个终端。终端没有数据处理能力，仅负责数据的录入和输出。而运算、存储等全部在主机上进行。</p>
+<p><strong>特点</strong></p>
+<p>集中式系统的最大的特点就是部署结构非常简单，底层一般采用从IBM、HP等厂商购买到的昂贵的大型主机。因此无需考虑如何对服务进行多节点的部署，也就不用考虑各节点之间的分布式协作问题。</p>
+<p>但是，由于采用单机部署。很可能带来系统大而复杂、难于维护、发生单点故障（单个点发生故障的时候会波及到整个系统或者网络，从而导致整个系统或者网络的瘫痪）、扩展性差等问题。</p>
+<blockquote>
+<p>正是由于集中式系统的问题在大量互联网中变得极为显著，因此诞生出分布式系统架构的使用必要性。</p>
+</blockquote>
+<h2 id="1-2-分布式系统-distributed-system"><a href="#1-2-分布式系统-distributed-system" class="headerlink" title="1.2 分布式系统(distributed system)"></a>1.2 分布式系统(distributed system)</h2><p>在《分布式系统概念与设计》一书中，对分布式系统做了如下定义：</p>
+<blockquote>
+<p>分布式系统是一个硬件或软件组件分布在不同的网络计算机上，彼此之间仅仅通过消息传递进行通信和协调的系统。</p>
+</blockquote>
+<p>简单来说就是一群独立计算机集合共同对外提供服务，但是对于系统的用户来说，就像是一台计算机在提供服务一样。</p>
+<p>一个标准的分布式系统应该具有以下几个<strong>主要特征</strong>：</p>
+<ul>
+<li><p>分布性</p>
+<p>分布式系统中的多台计算机之间在空间位置上可以随意分布，系统中的多台计算机之间没有主、从之分，即没有控制整个系统的主机，也没有受控的从机。</p>
+</li>
+<li><p>透明性</p>
+<p>系统资源被所有计算机共享。每台计算机的用户不仅可以使用本机的资源，还可以使用本分布式系统中其他计算机的资源(包括CPU、文件、打印机等)。</p>
+</li>
+<li><p>同一性</p>
+<p>系统中的若干台计算机可以互相协作来完成一个共同的任务，或者说一个程序可以分布在几台计算机上并行地运行。</p>
+</li>
+<li><p>通信性</p>
+<p>系统中任意两台计算机都可以通过通信来交换信息。</p>
+</li>
+</ul>
+<p>和集中式系统相比，分布式系统的性价比更高、处理能力更强、可靠性更高、也有很好的扩展性。</p>
+<p>但是，分布式在解决了网站的高并发问题的同时也带来了一些其他问题：</p>
+<p>首先，分布式的必要条件就是<strong>网络</strong>，这可能对性能甚至服务能力造成一定的影响。其次，一个集群中的服务器数量越多，服务器<strong>宕机的概率也就越大</strong>。</p>
+<p>另外，由于服务在集群中分布式部署，用户的请求只会落到其中一台机器上，所以，一旦处理不好就很容易产生数据<strong>一致性问题</strong>。</p>
+<h1 id="2-分布式系统关联的实际问题"><a href="#2-分布式系统关联的实际问题" class="headerlink" title="2. 分布式系统关联的实际问题"></a>2. 分布式系统关联的实际问题</h1><p>说一下dubbo的工作原理？注册中心挂了可以继续通信吗？说说一次rpc请求的流程？</p>
+<p>分布式系统的架构离不开分布式消息中间件、分布式搜索引擎、分布式缓存、RPC框架相关的问题：</p>
+<ul>
+<li><p><strong>原理性问题</strong></p>
+<p>kafka高可用架构原理、es分布式架构原理、redis线程模型原理、Dubbo工作原理。及这些技术的高级应用和特性。</p>
+</li>
+<li><p><strong>新技术的新问题</strong></p>
+<p>每种技术引入之后生产环境都可能会碰到一些问题。</p>
+</li>
+<li><p><strong>如何自己设计系统</strong></p>
+<p>如何自己设计MQ、如何自己设计搜索引擎，如何自己设计缓存，如何自己设计RPC框架</p>
+</li>
+</ul>
+<blockquote>
+<p>一般来说结合项目死扣细节是严格的面试官习惯的面试模式：</p>
+<p>百度：深入底层、基础性；</p>
+<p>阿里：结合项目死扣细节，扣很深的技术底层；</p>
+<p>小米：数据结构和算法。</p>
+</blockquote>
+<h1 id="3-RPC（远程过程调用）"><a href="#3-RPC（远程过程调用）" class="headerlink" title="3. RPC（远程过程调用）"></a>3. RPC（远程过程调用）</h1><h2 id="3-1-RPC"><a href="#3-1-RPC" class="headerlink" title="3.1 RPC"></a>3.1 RPC</h2><p>RPC，即 Remote Procedure Call（远程过程调用），是一个计算机通信协议。该协议允许运行于一台计算机的程序调用另一台计算机的子程序，而程序员无需额外地为这个交互作用编程。</p>
+<p>通俗表述就是：A计算机提供一个服务，B计算机可以像调用本地服务那样调用A计算机的服务。</p>
+<p>通过上面的概念可知，实现RPC主要是做到两点：</p>
+<p>（1）实现远程调用其他计算机的服务</p>
+<p>要实现远程调用，肯定是通过网络传输数据。A程序提供服务，B程序通过网络将请求参数传递给A，A本地执行后得到结果，再将结果返回给B程序。因此需要考虑：</p>
+<ul>
+<li>采用何种网络通讯协议？</li>
+</ul>
+<p>现在比较流行的RPC框架，都会采用TCP作为底层传输协议。</p>
+<ul>
+<li>数据传输的格式怎样？</li>
+</ul>
+<p>两个程序进行通讯，必须约定好数据传输格式。另外数据在网路中传输需要进行序列化，所以还需要约定统一的序列化的方式。</p>
+<p>（2）像调用本地服务一样调用远程服务</p>
+<p>如果仅仅是远程调用，还不算是RPC，因为RPC强调的是过程调用，调用的过程对用户而言是应该是透明的，用户不应该关心调用的细节，可以像调用本地服务一样调用远程服务。所以RPC一定要对调用的过程进行封装。</p>
+<p><img src="https://image.woodwhales.cn/037/images/01.png"></p>
+<h2 id="3-2-HTTP"><a href="#3-2-HTTP" class="headerlink" title="3.2 HTTP"></a>3.2 HTTP</h2><p>Http协议，超文本传输协议，是一种应用层协议。规定了网络传输的请求格式、响应格式、资源定位和操作的方式等。但是底层采用什么网络传输协议，并没有规定，不过现在都是采用TCP协议作为底层传输协议。</p>
+<p><img src="https://image.woodwhales.cn/037/images/02.png"></p>
+<blockquote>
+<p>综上，Http与RPC的远程调用非常像，都是按照某种规定好的数据格式进行网络通信，有请求有响应。两者非常相似，但是还是有一些细微差别。</p>
+</blockquote>
+<h2 id="3-4-http-和-RPC-的区别"><a href="#3-4-http-和-RPC-的区别" class="headerlink" title="3.4 http 和 RPC 的区别"></a>3.4 http 和 RPC 的区别</h2><p>1）RPC并没有规定数据传输格式，这个格式可以任意指定，不同的RPC协议，数据格式不一定相同。</p>
+<p>2）Http中还定义了资源定位的路径，RPC中并不需要</p>
+<p>3）最重要的区别，RPC需要满足像调用本地服务一样调用远程服务，也就是对调用过程在API层面进行封装。Http协议没有这样的要求，因此请求、响应等细节需要我们自己去实现。</p>
+<p>通过对比可以看出：</p>
+<p>RPC方式更加透明，对用户更方便。Http方式更灵活，没有规定API和语言，跨语言、跨平台。但RPC方式需要在 API 层面进行封装，限制了开发的语言环境。</p>
+<h2 id="3-3-常见实现框架"><a href="#3-3-常见实现框架" class="headerlink" title="3.3 常见实现框架"></a>3.3 常见实现框架</h2><h3 id="3-3-1-国内框架"><a href="#3-3-1-国内框架" class="headerlink" title="3.3.1 国内框架"></a>3.3.1 国内框架</h3><p><strong>Dubbo</strong></p>
+<p>阿里开源的一款高性能RPC框架，在国内应用广泛，期间停止维护过一段时间，如今又开始了更新，并且捐献给Apache基金会，孵化中。</p>
+<blockquote>
+<p>由于 spring cloud 全家桶的出现，也有很多公司转向 spring cloud 快速开发微服务。</p>
+</blockquote>
+<p><strong>Dubbox</strong></p>
+<p>当当团队基于Dubbo升级的一个版本，支持RESTful风格API的远程调用，基于Kryo/FST的Java高效序列化实现等功能，可直接用于生产环境。</p>
+<p><strong>Motan</strong></p>
+<p>新浪微博于2016年开源，”在微博平台中已经广泛应用，每天为数百个服务完成近千亿次的调用”。</p>
+<h3 id="3-3-2-国外框架"><a href="#3-3-2-国外框架" class="headerlink" title="3.3.2 国外框架"></a>3.3.2 国外框架</h3><p><strong>GRPC</strong></p>
+<p>Google开源，具有平台无关性，基于http/2协议，支持服务追踪、负载均衡、健康检查等功能。</p>
+<p><strong>Thrift</strong></p>
+<p>可伸缩的跨语言服务的RPC软件框架，最早由Facebook开发，2007年捐献给了Apache基金会管理，现在是Apache的顶级项目。</p>
+<p><strong>Finagle</strong></p>
+<p>Twitter基于Netty开发的支持容错的、协议无关的RPC框架，支撑了Twitter的核心服务。</p>
+<h1 id="4-Dubbo"><a href="#4-Dubbo" class="headerlink" title="4. Dubbo"></a>4. Dubbo</h1><h2 id="4-1-框架设计"><a href="#4-1-框架设计" class="headerlink" title="4.1 框架设计"></a>4.1 框架设计</h2><p><img src="https://image.woodwhales.cn/037/images/03.png"></p>
+<p>图例说明：</p>
+<p>1）图中左边淡蓝背景的为<strong>服务消费方</strong>使用的接口，右边淡绿色背景的为<strong>服务提供方</strong>使用的接口，位于中轴线上的为<strong>双方</strong>都用到的接口。</p>
+<p>2）图中从下至上分为十层，各层均为<strong>单向依赖</strong>，右边的黑色箭头代表层之间的依赖关系，每一层都可以剥离上层被复用，其中：Service 和 Config 层为 API，其它各层均为 SPI。</p>
+<blockquote>
+<p>SPI 全称为 Service Provider Interface，是一种服务发现机制。SPI 的本质是将接口实现类的全限定名配置在文件中，并由服务加载器读取配置文件，加载实现类。这样可以在运行时，动态为接口替换实现类。</p>
+<p>SPI 在<code>java.util.ServiceLoader</code>的文档里有比较详细的介绍。</p>
+<p>不过，Dubbo 并未使用 Java 原生的 SPI 机制，而是对其进行了增强，使其能够更好的满足需求。如果想要学习 Dubbo 的源码，SPI 机制务必弄懂。</p>
+<p>Dubbo SPI 官方文档：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/source_code_guide/dubbo-spi.html">http://dubbo.apache.org/zh-cn/docs/source_code_guide/dubbo-spi.html</a></p>
+</blockquote>
+<p>3）图中绿色小块的为扩展接口，蓝色小块为实现类，图中只显示用于关联各层的实现类。</p>
+<p>4）图中蓝色虚线为初始化过程，即启动时组装链，红色实线为方法调用过程，即运行时调时链，紫色三角箭头为继承，可以把子类看作父类的同一个节点，线上的文字为调用的方法。</p>
+<h2 id="4-2-各层说明"><a href="#4-2-各层说明" class="headerlink" title="4.2 各层说明"></a>4.2 各层说明</h2><p><strong>service 配置层</strong></p>
+<p>接口层，其接口的具体实现是由服务提供者和消费者自己来实现。</p>
+<p><strong>config 配置层</strong></p>
+<p>对外配置接口，以 <code>ServiceConfig</code>, <code>ReferenceConfig</code> 为中心，可以直接初始化配置类，也可以通过 spring 解析配置生成配置类</p>
+<p><strong>proxy 服务代理层</strong></p>
+<p>服务接口透明代理，生成服务的客户端 Stub 和服务器端 Skeleton, 以 <code>ServiceProxy</code>为中心，扩展接口为 <code>ProxyFactory</code></p>
+<p><strong>registry 注册中心层</strong></p>
+<p>封装服务地址的注册与发现，以服务 URL 为中心，扩展接口为 <code>RegistryFactory</code>, <code>Registry</code>, <code>RegistryService</code></p>
+<p><strong>cluster 路由层</strong></p>
+<p>封装多个提供者的路由及负载均衡，并桥接注册中心，以 <code>Invoker</code> 为中心，扩展接口为 <code>Cluster</code>, <code>Directory</code>, <code>Router</code>, <code>LoadBalance</code></p>
+<p><strong>monitor 监控层</strong></p>
+<p>RPC 调用次数和调用时间监控，以 <code>Statistics</code> 为中心，扩展接口为 <code>MonitorFactory</code>, <code>Monitor</code>, <code>MonitorService</code></p>
+<p><strong>protocol 远程调用层</strong></p>
+<p>封装 RPC 调用，以 <code>Invocation</code>, <code>Result</code> 为中心，扩展接口为 <code>Protocol</code>, <code>Invoker</code>, <code>Exporter</code></p>
+<p><strong>exchange 信息交换层</strong></p>
+<p>封装请求响应模式，同步转异步，以 <code>Request</code>, <code>Response</code> 为中心，扩展接口为 <code>Exchanger</code>, <code>ExchangeChannel</code>, <code>ExchangeClient</code>, <code>ExchangeServer</code></p>
+<p><strong>transport 网络传输层</strong></p>
+<p>抽象 mina 和 netty 为统一接口，以 <code>Message</code> 为中心，扩展接口为 <code>Channel</code>, <code>Transporter</code>, <code>Client</code>, <code>Server</code>, <code>Codec</code></p>
+<p><strong>serialize 数据序列化层</strong></p>
+<p>可复用的一些工具，扩展接口为 <code>Serialization</code>, <code>ObjectInput</code>, <code>ObjectOutput</code>, <code>ThreadPool</code></p>
+<blockquote>
+<p>官方参考文档：</p>
+<p>架构设计：<a target="_blank" rel="noopener" href="https://dubbo.apache.org/zh-cn/docs/dev/design.html">https://dubbo.apache.org/zh-cn/docs/dev/design.html</a></p>
+</blockquote>
+<h2 id="4-3-工作流程"><a href="#4-3-工作流程" class="headerlink" title="4.3 工作流程"></a>4.3 工作流程</h2><p><img src="https://image.woodwhales.cn/037/images/04.png"></p>
+<p>第一步，<code>provider</code>向<code>注册中心</code>注册。</p>
+<p>第二步，<code>consumer</code>从注册中心订阅服务，注册中心会通知<code>consumer</code>注册成功的服务。</p>
+<p>第三步，<code>consumer</code>调用<code>provider</code>提供接口。</p>
+<p>第四步，consumer和provider都异步的通知监控中心。</p>
+<blockquote>
+<p>官方参考文档：</p>
+<p>服务调用过程：<a target="_blank" rel="noopener" href="https://dubbo.apache.org/zh-cn/docs/source_code_guide/service-invoking-process.html">https://dubbo.apache.org/zh-cn/docs/source_code_guide/service-invoking-process.html</a></p>
+</blockquote>
+<h2 id="4-4-通信协议"><a href="#4-4-通信协议" class="headerlink" title="4.4 通信协议"></a>4.4 通信协议</h2><p>dubbo支持哪些通信协议？支持哪些序列化协议？</p>
+<h3 id="4-4-1-dubbo"><a href="#4-4-1-dubbo" class="headerlink" title="4.4.1 dubbo://"></a>4.4.1 dubbo://</h3><p>Dubbo 缺省协议采用<strong>单一长连接</strong>和 <strong>NIO 异步通讯</strong>，适合于小数据量大并发的服务调用，以及服务消费者机器数远大于服务提供者机器数的情况。</p>
+<p>反之，Dubbo 缺省协议不适合传送大数据量的服务，比如传文件，传视频等，除非请求量很低。</p>
+<h3 id="4-4-2-hessian"><a href="#4-4-2-hessian" class="headerlink" title="4.4.2 hessian://"></a>4.4.2 hessian://</h3><p>Hessian 协议用于集成 Hessian 的服务，Hessian 底层采用 Http 通讯，采用 Servlet 暴露服务，Dubbo 缺省内嵌 Jetty 作为服务器实现。</p>
+<blockquote>
+<p>Hessian 是 Caucho 开源的一个 RPC 框架，其通讯效率高于 WebService 和 Java 自带的序列化。</p>
+</blockquote>
+<p>Dubbo 的 Hessian 协议可以和原生 Hessian 服务互操作，即：</p>
+<ul>
+<li>提供者用 Dubbo 的 Hessian 协议暴露服务，消费者直接用标准 Hessian 接口调用</li>
+<li>或者提供方用标准 Hessian 暴露服务，消费方用 Dubbo 的 Hessian 协议调用。</li>
+</ul>
+<blockquote>
+<p>官方参考文档：</p>
+<p>协议参考手册：<a target="_blank" rel="noopener" href="https://dubbo.apache.org/zh-cn/docs/user/references/protocol/introduction.html">https://dubbo.apache.org/zh-cn/docs/user/references/protocol/introduction.html</a></p>
+<p>性能测试报告：<a target="_blank" rel="noopener" href="https://dubbo.apache.org/zh-cn/docs/user/perf-test.html">https://dubbo.apache.org/zh-cn/docs/user/perf-test.html</a></p>
+</blockquote>
+<h2 id="4-5-负载均衡"><a href="#4-5-负载均衡" class="headerlink" title="4.5 负载均衡"></a>4.5 负载均衡</h2><p>dubbo负载均衡策略和集群容错策略都有哪些？动态代理策略呢？</p>
+<p>Dubbo 提供了 4 种负载均衡实现，分别是：</p>
+<p>基于权重随机算法的<code>RandomLoadBalance</code></p>
+<p>基于最少活跃调用数算法的<code>LeastActiveLoadBalance</code></p>
+<p>基于 hash 一致性的<code>ConsistentHashLoadBalance</code></p>
+<p>基于加权轮询算法的<code>RoundRobinLoadBalance</code></p>
+<blockquote>
+<p>官方参考文档：</p>
+<p>负载均衡源码分析：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/source_code_guide/loadbalance.html">http://dubbo.apache.org/zh-cn/docs/source_code_guide/loadbalance.html</a></p>
+<p>Dubbo的负载均衡：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/blog/dubbo-loadbalance.html">http://dubbo.apache.org/zh-cn/blog/dubbo-loadbalance.html</a></p>
+</blockquote>
+<h2 id="4-6-集群容错"><a href="#4-6-集群容错" class="headerlink" title="4.6 集群容错"></a>4.6 集群容错</h2><h3 id="4-6-1-集群容错策略"><a href="#4-6-1-集群容错策略" class="headerlink" title="4.6.1 集群容错策略"></a>4.6.1 集群容错策略</h3><p>在集群调用失败时，Dubbo 提供了多种容错方案，缺省为 failover 重试。</p>
+<p><img src="https://image.woodwhales.cn/037/images/05.png"></p>
+<p>各节点关系：</p>
+<ul>
+<li>这里的 <code>Invoker</code> 是 <code>Provider</code> 的一个可调用 <code>Service</code> 的抽象，<code>Invoker</code> 封装了 <code>Provider</code> 地址及 <code>Service</code> 接口信息</li>
+<li><code>Directory</code> 代表多个 <code>Invoker</code>，可以把它看成 <code>List&lt;Invoker&gt;</code> ，但与 <code>List</code> 不同的是，它的值可能是动态变化的，比如注册中心推送变更</li>
+<li><code>Cluster</code> 将 <code>Directory</code> 中的多个 <code>Invoker</code> 伪装成一个 <code>Invoker</code>，对上层透明，伪装过程包含了容错逻辑，调用失败后，重试另一个</li>
+<li><code>Router</code> 负责从多个 <code>Invoker</code> 中按路由规则选出子集，比如读写分离，应用隔离等</li>
+<li><code>LoadBalance</code> 负责从多个 <code>Invoker</code> 中选出具体的一个用于本次调用，选的过程包含了负载均衡算法，调用失败后，需要重选</li>
+</ul>
+<p>Dubbo主要内置了如下几种策略：</p>
+<h4 id="4-6-1-1-Failover-Cluster"><a href="#4-6-1-1-Failover-Cluster" class="headerlink" title="4.6.1.1 Failover Cluster"></a>4.6.1.1 Failover Cluster</h4><p>失败自动切换，当出现失败，重试其它服务器。Dubbo 默认的容错策略。</p>
+<h4 id="4-6-1-2-Failfast-Cluster"><a href="#4-6-1-2-Failfast-Cluster" class="headerlink" title="4.6.1.2 Failfast Cluster"></a>4.6.1.2 Failfast Cluster</h4><p>快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。</p>
+<h4 id="4-6-1-3-Failsafe-Cluster"><a href="#4-6-1-3-Failsafe-Cluster" class="headerlink" title="4.6.1.3 Failsafe Cluster"></a>4.6.1.3 Failsafe Cluster</h4><p>失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。</p>
+<h4 id="4-6-1-4-Failback-Cluster"><a href="#4-6-1-4-Failback-Cluster" class="headerlink" title="4.6.1.4 Failback Cluster"></a>4.6.1.4 Failback Cluster</h4><p>失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。</p>
+<h4 id="4-6-1-5-Forking-Cluster"><a href="#4-6-1-5-Forking-Cluster" class="headerlink" title="4.6.1.5 Forking Cluster"></a>4.6.1.5 Forking Cluster</h4><p>并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 <code>forks="2"</code> 来设置最大并行数。</p>
+<h4 id="4-6-1-6-Broadcast-Cluster"><a href="#4-6-1-6-Broadcast-Cluster" class="headerlink" title="4.6.1.6 Broadcast Cluster"></a>4.6.1.6 Broadcast Cluster</h4><p>广播调用所有提供者，逐个调用，任意一台报错则报错 [<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/user/demos/fault-tolerent-strategy.html#fn2">2]</a>。通常用于通知所有提供者更新缓存或日志等本地资源信息。</p>
+<blockquote>
+<p>官方参考文档：</p>
+<p>Design For failure：<a target="_blank" rel="noopener" href="https://dubbo.apache.org/zh-cn/blog/dubbo-cluster-error-handling.html">https://dubbo.apache.org/zh-cn/blog/dubbo-cluster-error-handling.html</a></p>
+<p>集群容错：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/user/demos/fault-tolerent-strategy.html">http://dubbo.apache.org/zh-cn/docs/user/demos/fault-tolerent-strategy.html</a></p>
+</blockquote>
+<h3 id="4-6-2-各种策略对比"><a href="#4-6-2-各种策略对比" class="headerlink" title="4.6.2 各种策略对比"></a>4.6.2 各种策略对比</h3><p>下表对各种策略做一个简单对比：</p>
+<table>
+<thead>
+<tr>
+<th>策略名称</th>
+<th>优点</th>
+<th>缺点</th>
+<th>主要应用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Failover</td>
+<td>对调用者屏蔽调用失败的信息</td>
+<td>增加RT，额外资源开销，资源浪费</td>
+<td>对调用rt不敏感的场景</td>
+</tr>
+<tr>
+<td>Failfast</td>
+<td>业务快速感知失败状态进行自主决策</td>
+<td>产生较多报错的信息</td>
+<td>非幂等性操作，需要快速感知失败的场景</td>
+</tr>
+<tr>
+<td>Failsafe</td>
+<td>即使失败了也不会影响核心流程</td>
+<td>对于失败的信息不敏感，需要额外的监控</td>
+<td>旁路系统，失败不影响核心流程正确性的场景</td>
+</tr>
+<tr>
+<td>Failback</td>
+<td>失败自动异步重试</td>
+<td>重试任务可能堆积</td>
+<td>对于实时性要求不高，且不需要返回值的一些异步操作</td>
+</tr>
+<tr>
+<td>Forking</td>
+<td>并行发起多个调用，降低失败概率</td>
+<td>消耗额外的机器资源，需要确保操作幂等性</td>
+<td>资源充足，且对于失败的容忍度较低，实时性要求高的场景</td>
+</tr>
+<tr>
+<td>Broadcast</td>
+<td>支持对所有的服务提供者进行操作</td>
+<td>资源消耗很大</td>
+<td>通知所有提供者更新缓存或日志等本地资源信息</td>
+</tr>
+</tbody></table>
+<h2 id="4-7-动态代理扩展"><a href="#4-7-动态代理扩展" class="headerlink" title="4.7 动态代理扩展"></a>4.7 动态代理扩展</h2><p>dubbo 的 SPI 思想是什么？</p>
+<blockquote>
+<p>官方参考文档：</p>
+<p>Dubbo可扩展机制实战：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html">http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html</a></p>
+<p>动态代理扩展：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/dev/impls/proxy-factory.html">http://dubbo.apache.org/zh-cn/docs/dev/impls/proxy-factory.html</a></p>
+</blockquote>
+<h3 id="4-7-1-Java-SPI-机制"><a href="#4-7-1-Java-SPI-机制" class="headerlink" title="4.7.1 Java SPI 机制"></a>4.7.1 Java SPI 机制</h3><p>Java SPI(Service Provider Interface)是JDK内置的一种动态加载扩展点的实现。在ClassPath的<code>META-INF/services</code>目录下放置一个与接口同名的文本文件，文件的内容为接口的实现类，多个实现类用换行符分隔。JDK中使用<code>java.util.ServiceLoader</code>来加载具体的实现。 </p>
+<h3 id="4-7-2-Dubbo-的-SPI-机制"><a href="#4-7-2-Dubbo-的-SPI-机制" class="headerlink" title="4.7.2 Dubbo 的 SPI 机制"></a>4.7.2 Dubbo 的 SPI 机制</h3><p>Java SPI的使用很简单。也做到了基本的加载扩展点的功能。但Java SPI有以下的不足:</p>
+<ul>
+<li>需要遍历所有的实现，并实例化，然后我们在循环中才能找到我们需要的实现。</li>
+<li>配置文件中只是简单的列出了所有的扩展实现，而没有给他们命名。导致在程序中很难去准确的引用它们。</li>
+<li>扩展如果依赖其他的扩展，做不到自动注入和装配</li>
+<li>不提供类似于Spring的IOC和AOP功能</li>
+<li>扩展很难和其他的框架集成，比如扩展里面依赖了一个Spring bean，原生的Java SPI不支持</li>
+</ul>
+<p>所以Java SPI应付一些简单的场景是可以的，但对于Dubbo，它的功能还是比较弱的。Dubbo对原生SPI机制进行了一些扩展。接下来，我们就更深入地了解下Dubbo的SPI机制。</p>
+<h3 id="4-7-3-Dubbo-的-SPI-的特点"><a href="#4-7-3-Dubbo-的-SPI-的特点" class="headerlink" title="4.7.3 Dubbo 的 SPI 的特点:"></a>4.7.3 Dubbo 的 SPI 的特点:</h3><p>1）对Dubbo进行扩展，不需要改动Dubbo的源码</p>
+<p>2）自定义的Dubbo的扩展点实现，是一个普通的Java类，Dubbo没有引入任何Dubbo特有的元素，对代码侵入性几乎为零。</p>
+<p>3）将扩展注册到Dubbo中，只需要在ClassPath中添加配置文件。使用简单。而且不会对现有代码造成影响。符合开闭原则。</p>
+<p>4）Dubbo的扩展机制设计默认值：@SPI(“dubbo”) 代表默认的spi对象</p>
+<p>5）Dubbo的扩展机制支持IoC,AoP等高级功能</p>
+<p>6）Dubbo的扩展机制能很好的支持第三方IoC容器，默认支持Spring Bean，可自己扩展来支持其他容器，比如Google的Guice。</p>
+<p>7）切换扩展点的实现，只需要在配置文件中修改具体的实现，不需要改代码。使用方便。</p>
+<h3 id="4-7-4-如何扩展dubbo中的组件"><a href="#4-7-4-如何扩展dubbo中的组件" class="headerlink" title="4.7.4 如何扩展dubbo中的组件"></a>4.7.4 如何扩展dubbo中的组件</h3><p>首先自己实现<code>org.apache.dubbo.rpc.Protocol</code>接口，比如实现类叫：<code>org.woodwhales.dubbo.MyProtocol</code>，这个实现类可以是本地jar，也可以是pom.xml 依赖的远程jar。</p>
+<p>随后将这个jar 信息配置到 dubbo 配置中：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 声明协议，如果没有配置id，将以name为id --&gt;</span><br><span class="line">&lt;dubbo:protocol id="myProtocol_Id" name="myProtocol" /&gt;</span><br><span class="line">&lt;!-- 引用协议，如果没有配置protocol属性，将在ApplicationContext中自动扫描protocol配置 --&gt;</span><br><span class="line">&lt;dubbo:service protocol="myProtocol_Id" /&gt;</span><br><span class="line">&lt;!-- 引用协议缺省值，当&lt;dubbo:service&gt;没有配置prototol属性时，使用此配置 --&gt;</span><br><span class="line">&lt;dubbo:provider protocol="myProtocol_Id" /&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>最后，需要在<code>META-INF</code>配置文件中创建一个名称为：<code>org.apache.dubbo.rpc.Protocol</code>的配置文件，里面写上name对应的类全名：</p>
+<p>如：</p>
+<p>META-INF/dubbo/org.apache.dubbo.rpc.Protocol：</p>
+<figure class="highlight properties"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">myProtocol</span>=<span class="string">org.woodwhales.dubbo.MyProtocol</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>官方参考文档：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/dev/impls/protocol.html">http://dubbo.apache.org/zh-cn/docs/dev/impls/protocol.html</a></p>
+<h2 id="4-8-服务治理"><a href="#4-8-服务治理" class="headerlink" title="4.8 服务治理"></a>4.8 服务治理</h2><p>如何基于dubbo进行服务治理、服务降级、失败重试以及超时重试？</p>
+<p>服务治理是一个很复杂且很需要话费精力去研究的课题，一般会从以下方面进行课题研究：</p>
+<p>1）调用链路自动生成</p>
+<p>一个大型的分布式系统或微服务架构，其系统是由大量的服务组成。那么这些服务之间互相是如何调用的？调用链路是怎么样的？就需要基于dubbo做的分布式系统中，对各个服务之间的调用自动记录下来，然后自动将各个服务之间的依赖关系和调用链路生成出来，做成一张可视化的图，方便查看当前服务的运行情况。</p>
+<blockquote>
+<p>dubbo 服务治理官方参考文档：</p>
+<p>服务治理和配置管理：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/admin/serviceGovernance.html">http://dubbo.apache.org/zh-cn/docs/admin/serviceGovernance.html</a></p>
+</blockquote>
+<p>2）服务访问压力以及时长统计</p>
+<p>需要自动统计各个接口和服务之间的调用次数以及访问延时，而且要分成两个级别。</p>
+<p>一个级别是<strong>接口粒度</strong>，就是每个服务的每个接口每天被调用多少次，TP50，TP90，TP99，三个档次的请求延时分别是多少；</p>
+<p>第二个级别是从<strong>源头入口开始</strong>，一个完整的请求链路经过几十个服务之后，完成一次请求，每天全链路走多少次，全链路请求延时的TP50，TP90，TP99，分别是多少。</p>
+<blockquote>
+<p>这些东西都搞定了之后，后面才可以来看当前系统的压力主要在哪里，如何来扩容和优化。</p>
+</blockquote>
+<p>3）其他</p>
+<p>服务分层（避免循环依赖），调用链路失败监控和报警，服务鉴权，每个服务的可用性的监控（接口调用成功率？几个9？）99.99%，99.9%，99%。</p>
+<h2 id="4-9-服务降级"><a href="#4-9-服务降级" class="headerlink" title="4.9 服务降级"></a>4.9 服务降级</h2><p>比如服务A调用服务B，结果服务B挂掉了，暂停了服务，此时服务A会重试多次尝试继续调用服务B，发现一直无法正常调用，那么就需要将服务A采取降级措施：让服务A执行一个备用的逻辑，给用户返回响应。</p>
+<p>Dubbo 中可以在消费者的配置一个本地伪装的<code>mock</code>服务。</p>
+<blockquote>
+<p>官方参考文档：</p>
+<p>本地伪装：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/user/demos/local-mock.html">http://dubbo.apache.org/zh-cn/docs/user/demos/local-mock.html</a></p>
+<p>服务降级：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/user/demos/service-downgrade.html">http://dubbo.apache.org/zh-cn/docs/user/demos/service-downgrade.html</a></p>
+</blockquote>
+<h2 id="4-10-失败-超时重试"><a href="#4-10-失败-超时重试" class="headerlink" title="4.10 失败/超时重试"></a>4.10 失败/超时重试</h2><p>Dubbo启动时默认有重试机制和超时机制。 超时机制的规则是如果在一定的时间内，provider没有返回，则认为本次调用失败， 重试机制在出现调用失败时，会再次调用。如果在配置的调用次数内都失败，则认为此次请求异常，抛出异常。</p>
+<p><strong>重试机制带来的问题</strong></p>
+<p>由于服务响应慢，Dubbo自身的超时重试机制可能会带来一些麻烦，常见的应用场景故障：重复发送邮件 、重复账户注册。</p>
+<p><strong>解决方案</strong></p>
+<p>1）对于核心的服务中心，去除dubbo超时重试机制，并重新评估设置超时时间。</p>
+<p>去掉超时重试机制 ：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:provider</span> <span class="attr">delay</span>=<span class="string">"-1"</span> <span class="attr">timeout</span>=<span class="string">"6000"</span>  <span class="attr">retries</span>=<span class="string">"0"</span>/&gt;</span> </span><br></pre></td></tr></tbody></table></figure>
+
+<p>重新评估设置超时时间：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span> <span class="attr">interface</span>=<span class="string">"*.*"</span> <span class="attr">ref</span>=<span class="string">"*"</span>  <span class="attr">timeout</span>=<span class="string">"延长服务时间"</span>/&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>2）业务处理代码必须放在服务端，客户端只做参数验证和服务调用，不涉及业务流程处理。</p>
+<h1 id="5-幂等性"><a href="#5-幂等性" class="headerlink" title="5. 幂等性"></a>5. 幂等性</h1><p>分布式服务接口的幂等性如何设计（比如不能重复扣款）？</p>
+<p>幂等性问题不是技术问题，这个问题没有通用方法，需要结合业务来看应该如何保证幂等性。</p>
+<p>基于唯一标识，存到缓存中或者存到数据库中，因此每次操作就有了一个操作日志。当第一个操作请求操作了就记录下来，下一个相同的操作发现有这个操作的日志，那么就不再执行这次操作。</p>
+<h1 id="6-顺序性"><a href="#6-顺序性" class="headerlink" title="6.  顺序性"></a>6.  顺序性</h1><p>对于数据顺性不严格的情况下，可以使用算法将同一个操作的相同操行都 hash 到同一个节点中，节点机器系统的内部使用内存队列来顺序执行操作，这样能很大程度保证数据的顺序性。</p>
+<p>如果对数据的顺序性十分严格，那么就需要使用到分布式锁 + 消息中间件，但是这样会使得高并发的性能降低。</p>
+<h1 id="7-如何自己设计一个RPC框架"><a href="#7-如何自己设计一个RPC框架" class="headerlink" title="7.如何自己设计一个RPC框架"></a>7.如何自己设计一个RPC框架</h1><h2 id="7-1-实现思路"><a href="#7-1-实现思路" class="headerlink" title="7.1 实现思路"></a>7.1 实现思路</h2><ul>
+<li>RPC有两个使用方式：一个是本地调用端，一个是远程实现端</li>
+<li>调用端使用动态代理，代理消费者需要远程调用的接口。</li>
+<li>将本地调用的接口方法信息(形参，方法名，返回类型等)通过网络发送至远程实现端。</li>
+<li>远程实现端接收到相应信息，反射调用对象的实现类。</li>
+<li>执行完实现类后把返回值发回给调用端。</li>
+<li>调用端接收到返回值，代理返回结果，远程调用完毕。</li>
+</ul>
+<h2 id="7-2-实现细节问题"><a href="#7-2-实现细节问题" class="headerlink" title="7.2 实现细节问题"></a>7.2 实现细节问题</h2><p>远程调用要解决的主要/细节问题：</p>
+<p>1）序列化 : 如何将对象转化为二进制数据进行传输，如何将二进制数据转化对象。</p>
+<p>可以使用java自带的序列化，Hessian，protobuff，json，xml等</p>
+<p>性能比较高的是<code>protobuff</code>和<code>hessian</code>，<code>protobuff</code>使用的时候需要编写proto文件，有侵入性，比较麻烦，而<code>Hessian</code>性能比<code>protobuff</code>稍差，不过近来出现了一个基于protobuff的框架：<code>protostuff--</code>不用编写proto文件，基于注解，性能可以，推荐使用。</p>
+<p>2）数据的传输(协议，第三方框架，如netty)</p>
+<p>出于并发性能的考虑，传统的阻塞式 IO 显然不太合适，因此我们需要异步的 IO，即 NIO。Java 提供了 NIO 的解决方案，Java 7 也提供了更优秀的<code>NIO.2</code>支持。可以选择<code>Netty</code>或者<code>mina</code>来解决 NIO 数据传输的问题。</p>
+<p>3）服务的注册/发现，单点故障，分布式服务</p>
+<p>使用<code>ZooKeeper</code>提供服务注册与发现功能，解决单点故障以及分布式部署的问题(注册中心)</p>
+<p>4）服务的监控和管理</p>
+<p> 需要单独开发一个应用对服务进行监控和管理。</p>
+<h2 id="8-扩展资料"><a href="#8-扩展资料" class="headerlink" title="8. 扩展资料"></a>8. 扩展资料</h2><p><a target="_blank" rel="noopener" href="https://waylau.com/talk-about-distributed-system/">用大白话聊聊分布式系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bangerlee/p/6216997.html">分布式系统理论 - 从放弃到入门</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5af8ea34f265da0b9f40622a">大家都在说的分布式系统到底是什么？</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23645117">学习分布式系统需要怎样的知识？</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bc764647169c">[分布式系统]全面介绍分布式系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://lrita.github.io/images/posts/distribution/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D.pdf">分布式系统原理介绍</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xybaby/p/8544715.html">分布式学习最佳实践：从分布式系统的特征开始（附思维导图）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xybaby/p/7787034.html">什么是分布式系统，如何学习分布式系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/lw_Ax10OXkL2zcIDRkJ1">详解分布式系统本质：“分治”和“冗余”</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/VShD*wVd1zJJYsTGsswe">美团即时物流的分布式系统架构设计</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5a5cc9f5f265da3e58595611">认识分布式架构</a></p>
+<p><a target="_blank" rel="noopener" href="https://ningning.today/booknotes/%E5%88%86%E5%B8%83%E5%BC%8F/%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/">《大规模分布式存储系统》学习笔记</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.nosuchfield.com/2019/02/28/Introduction-to-distributed-systems/">分布式系统简介</a></p>
+<p><a target="_blank" rel="noopener" href="https://36kr.com/p/5176249">原生分布式数据库与中间件的区别</a></p>
+<p><a target="_blank" rel="noopener" href="http://wrran.com/blog/2017/12/17/review/distributed-system/2-architecture/">分布式系统 - 体系结构</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5c7cd6eee51d457c042d4b52">我理解的分布式系统-饿了么物流技术团队</a></p>
+<p><a target="_blank" rel="noopener" href="http://developer.51cto.com/art/201807/578451.htm">一文详解：如何设计出高可用的分布式架构？</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/cd2696879877">各大厂分布式链路跟踪系统架构对比</a></p>
+<p><a target="_blank" rel="noopener" href="http://youzhixueyuan.com/the-principles-and-steps-of-distributed-architecture-system-resolution.html">分布式架构系统拆分原则、需求、微服务拆分步骤</a></p>
+<p><a target="_blank" rel="noopener" href="http://ksoong.org/docs/content/solutions/abc-distribute-arch.html">核心银行系统分布式架构转型</a></p>
+<p><a target="_blank" rel="noopener" href="https://servicecomb.apache.org/cn/docs/distributed-transaction-of-services-1/">基于服务的分布式事务(上篇)</a></p>
+<p><a target="_blank" rel="noopener" href="https://learnku.com/articles/25823">分布式架构的概述</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/igv8mEON4YyruLHv_ZnYGw">图解分布式系统架构演进之路</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/2018/05/distributed-system-architecture">左耳朵耗子推荐：分布式系统架构经典资料</a></p>
+<p><a target="_blank" rel="noopener" href="http://zhuanlan.51cto.com/art/201712/561516.htm">聊聊分布式系统的架构套路</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/features-and-design-concept-of-distributed-system">分布式系统的特点以及设计理念</a></p>
+<p><a target="_blank" rel="noopener" href="https://dbaplus.cn/news-141-1368-1.html">以电商网站为例，谈大型分布式架构设计与优化</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wchukai/p/5653135.html">分布式系统的架构思路</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jdon.com/DistributedSystems.html">分布式系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5cfdb72f6fb9a07f087089b2">《大型网站系统与Java中间件》读书笔记（上）</a></p>
+<p><a target="_blank" rel="noopener" href="https://yucs.github.io/2018/01/04/2018-1-4-%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90%E6%8E%A8%E8%8D%90/">分布式系统之学习资源推荐</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.itpub.net/31557822/viewspace-2641139/">一文讲透分布式系统的精髓</a></p>
+<p><a target="_blank" rel="noopener" href="http://wuchong.me/blog/2014/08/07/distributed-storage-system-knowledge/">分布式存储系统 知识体系</a></p>
+<p><a target="_blank" rel="noopener" href="https://wdhdmx.iteye.com/blog/1144574">《分布式java应用》读书笔记–第六章</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2accc2840a1b">如何给老婆解释什么是RPC</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazylqy/p/7995395.html">RPC原理及RPC实例分析</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/fhkkkbfgggjk/article/details/84817103">RPC和HTTP</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/1474131/blog/1834038">simpleRpc解析-服务端</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b0343bfd216e">RPC简介及框架选择</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/bwh0520/article/details/80148405">关于RPC协议的通俗理解</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013201439/article/details/81460373">如何理解RPC</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/41609070">既然有 HTTP 请求，为什么还要用 RPC 调用？</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/959030de7f1c">HTTP，TCP， socket，RPC 与gRPC都是啥？</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/25536695">谁能用通俗的语言解释一下什么是 RPC 框架？</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/get-to-know-rpc">体系化认识 RPC</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mindfloating/article/details/39473807">深入浅出 RPC - 浅出篇</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mindfloating/article/details/39474123">深入浅出 RPC - 深入篇</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnkirito.moe/rpc-protocol/">深入理解RPC之协议篇</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.itcodemonkey.com/article/6874.html">深入理解 RPC 消息协议设计</a></p>
+<p><a href="%5Bhttp://cmsblogs.com/?tag=%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-rpc%5D(http://cmsblogs.com/?tag=%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-rpc)">深入理解 RPC</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/xiewenlin/develop-sikll/yn39ta">深入理解 RPC 专题</a></p>
+<p><a target="_blank" rel="noopener" href="https://pylixm.cc/posts/2018-06-25-Chief-Software-Architect-RPC.html">架构师之路 - RPC 理解</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/cae9e88cad21">解密Dubbo:自己动手编写RPC框架</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/LBSer/p/4853234.html">你应该知道的RPC原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/MOU_IT/article/details/79873612">Http和RPC区别</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/48760074">RPC、HTTP、Socket区别</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000003049016">关于RPC、HTTP、WebService的区别</a></p>
+<p><a target="_blank" rel="noopener" href="http://developer.51cto.com/art/201904/595840.htm">微服务调用为啥用RPC框架，Http不更简单吗？</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/HTTP-RPC-Cross-Platform-REST-Framework">HTTP-RPC：轻量级跨平台 REST 框架</a></p>
+<p><a target="_blank" rel="noopener" href="http://ifeve.com/rabbitmq-rpc/">《RabbitMQ官方指南》RPC</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.pianshen.com/article/3450107411/">远程调用方式 ==&gt; RPC与Http的比较</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Soinice/article/details/83989225">微服务（概念篇）：什么是微服务？一篇文章让你彻底搞明白</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/46b42f7f593c">高级开发必须理解的Java中SPI机制</a></p>
+<p><a target="_blank" rel="noopener" href="http://qinghua.github.io/dubbo-1/">服务治理框架dubbo上手指南</a></p>
+<p><a target="_blank" rel="noopener" href="http://itindex.net/detail/54006-dubbo-%E6%9C%8D%E5%8A%A1-%E6%A1%86%E6%9E%B6">谈Dubbo服务框架</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yougewe/p/10491667.html">dubbo 序列化机制之 hessian2序列化实现原理分析</a></p>
+<p><a target="_blank" rel="noopener" href="https://dangdangdotcom.github.io/dubbox/serialization.html">在Dubbo中使用高效的Java序列化（Kryo和FST）</a></p>
+<p><a target="_blank" rel="noopener" href="https://lionbule.iteye.com/blog/523355">hessian学习基础篇——序列化和反序列化</a></p>
+<p><a target="_blank" rel="noopener" href="https://agapple.iteye.com/blog/949266">hessian序列化源码分析</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e800d8af4e22">浅析Hessian协议</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/44787200">Hessian Lite序列化简析</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000018505481">dubbo源码解析（四十二）序列化——开篇</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/ywbrj042/blog/690691">dubbo典型协议、传输组件、序列化方式组合性能对比测试</a></p>
+<p><a target="_blank" rel="noopener" href="https://colobu.com/2015/07/21/dubbo-performance-test/">基于dubbo框架下的RPC通讯协议性能测试</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qujiajun/p/4070182.html">Java学习之路-Hessian学习</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sunwei_pyw/article/details/74002351">Hessian的使用以及理解</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/happyday56/p/4268249.html">Hessian原理分析</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_28834183/article/details/80609409">分布式服务架构之Hessian原理分析(一)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/shengqianfeng/article/details/82314269">dubbo高可用：负载均衡机制（十二）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/twoheads/p/10131656.html">Dubbo的负载均衡</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xhj123/p/9087532.html">Dubbo学习笔记7：Dubbo的集群容错与负载均衡策略</a></p>
+<p><a target="_blank" rel="noopener" href="http://huangzehong.me/2018/09/06/20180906-%E3%80%90Dubbo%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E3%80%91%E5%9B%9B%E7%A7%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">【Dubbo源码分析】四种负载均衡</a></p>
+<p><a target="_blank" rel="noopener" href="https://m.imooc.com/article/22596">深入浅出微服务框架dubbo(三):流程篇</a></p>
+<p><a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/blog/dubbo-loadbalance.html">Dubbo的负载均衡</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/markcd/p/8504674.html">Dubbo学习源码总结系列四–集群容错机制</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/-flq/p/9449150.html">Dubbo负载均衡与集群容错机制</a></p>
+<p><a target="_blank" rel="noopener" href="https://shuaijunlan.github.io/2018/09/18/dubbo-cluster-fault-tolerance/">Dubbo集群容错机制</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/j4love/blog/1813040">理解 Dubbo SPI 扩展机制</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a72856c77b6a">Dubbo SPI机制详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7daa38fc9711">聊聊Dubbo（五）：核心源码-SPI扩展</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/99f568df0f05">dubbo源码解析-从spi聊聊双亲委派机制</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qiangcai/article/details/77750541">dubbo之SPI解析</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/cltcl/article/details/79828648">深入剖析 dubbo spi 机制（一）——扩展点加载</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/3847203/blog/2907025">dubbo SPI</a></p>
+<p><a target="_blank" rel="noopener" href="https://shuaijunlan.github.io/2018/08/03/java-spi-introduction/">深入理解Java SPI机制</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6b2cab0ecaf3">dubbo SPI机制分析浅析</a></p>
+<p><a target="_blank" rel="noopener" href="https://wely.iteye.com/blog/2304718">Dubbo扩展点加载机制 - ExtensionLoader</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/warehouse/p/9336293.html">Dubbo实践（七）扩展点</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/72079a698dce">dubbo 大白话系列-扩展点机制</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e26b87bcd162">分布式服务治理框架Dubbo</a></p>
+<p><a target="_blank" rel="noopener" href="https://lipengjavablog.iteye.com/blog/2408331">dubbo服务治理（一）降级</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuwc/p/8974709.html">dubbo超时重试和异常处理</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Revivedsun/article/details/72851417">Dubbo 超时与重试的实现分析</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/leechenxiang/p/6626629.html">什么是分布式系统中的幂等性</a></p>
+<p><a target="_blank" rel="noopener" href="https://tech.meituan.com/2016/09/29/distributed-system-mutually-exclusive-idempotence-cerberus-gtis.html">分布式系统互斥性与幂等性问题的分析与解决</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/30493445">什么是分布式系统中的幂等性</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c3f305a1de6e">分布式系统中的幂等设计</a></p>
+<p><a target="_blank" rel="noopener" href="https://825635381.iteye.com/blog/2276077">高并发的核心技术-幂等的实现方案</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/QG-whz/p/10372458.html">分布式服务的幂等性设计</a></p>
+<p><a target="_blank" rel="noopener" href="https://coolshell.cn/articles/4787.html">HTTP幂等性概念和应用 | 酷 壳 – CoolShell</a></p>
+<p><a target="_blank" rel="noopener" href="http://xiaonanbobo.com/2018/04/09/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%BA%92%E6%96%A5%E6%80%A7%E4%B8%8E%E5%B9%82%E7%AD%89%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E5%86%B3/">分布式系统互斥性与幂等性问题的分析和解决</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.chilangedu.com/blog/1000000394357140.html">基于redis(lua)和zookeeper分布式锁(秒杀)实现,分布式接口幂等实现,分布式速率限制实现,分布式ID生成器实现</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.nginx.cn/4331.html">分布式系统的数据一致性和处理顺序问题</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/aigongsi/archive/2012/09/21/2696773.html">关于分布式系统的数据一致性问题(一)</a></p>
+<p><a target="_blank" rel="noopener" href="https://elf8848.iteye.com/blog/2067771">关于分布式系统的数据一致性问题</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hzmark/p/consistency_model.html">谈谈分布式系统的一致性</a></p>
+<p><a target="_blank" rel="noopener" href="http://gaocegege.com/Blog/%E9%9A%8F%E7%AC%94/consistency">小议分布式系统的一致性模型</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/fileoptions/blog/1821958">分布式系统中的时间、时钟和事件顺序</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35596768">分布式系统的一致性与共识性</a></p>
+<p><a target="_blank" rel="noopener" href="https://36kr.com/p/5037166">分布式系统一致性的发展历史（一）</a></p>
+<p><a target="_blank" rel="noopener" href="https://wudaijun.com/2018/09/distributed-consistency/">一致性杂谈</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.xiaohansong.com/lamport-logic-clock.html">分布式系统：Lamport 逻辑时钟</a></p>
+<p><a target="_blank" rel="noopener" href="http://wrran.com/blog/2017/12/28/review/distributed-system/7-consistency-and-replication/">分布式系统 - 一致性和复制</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.dengshenyu.com/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/2017/11/01/zookeeper.html">Zookeeper: 分布式过程协同技术详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://draveness.me/message-delivery">分布式系统与消息的投递</a></p>
+<p><a target="_blank" rel="noopener" href="http://loopjump.com/distributed_consistency_model/">浅析分布式一致性模型</a></p>
+<p><a target="_blank" rel="noopener" href="https://dunwu.github.io/blog/2018/10/13/design/architecture/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8E%9F%E7%90%86/">分布式原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://qimiguang.github.io/2018/06/20/Partition/">分布式存储：Partition 细节</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.toocruel.net/di-07ke-fen-bu-shi-wei-fu-wu-jia-gou-ti-xi-xiang-jie-fen-bu-shi-zhi-xing/">第07课：分布式微服务架构体系详解——分布式一致性</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.10tiao.com/html/616/201605/2652227239/1.html">几种一致性模型的分析</a></p>
+<p><a target="_blank" rel="noopener" href="http://harlon.org/2018/04/14/distributedsystemlock/">分布式锁以及三种实现方式</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.jasongj.com/zookeeper/distributedlock/">深入浅出Zookeeper（二） 基于Zookeeper的分布式锁与领导选举</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5ab86713f265da2398673ff2">自己用 Netty 实现一个简单的 RPC</a></p>
+<p><a target="_blank" rel="noopener" href="https://beck5859509.iteye.com/blog/2371301">y解读及如何设计一个简单的RPC框架</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/haolujun/p/7527313.html">如何用一天时间实现自己的RPC框架</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1004410">如何设计一个 RPC 系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012422829/article/details/78375839">如何写一个RPC框架（一）：关注点与我的实现</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/three_man/article/details/40296909">自己实现一个RPC框架</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013177446/article/details/66473066">【远程调用框架】如何实现一个简单的RPC框架（一）想法与设计</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnkirito.moe/rpc-interface-design/">设计RPC接口时，你有考虑过这些吗？</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.iloveqyc.com/2019/04/06/air-rpc/">从 0 到 1 编写一个 RPC 框架 (基于 Zookeeper)</a></p>
+<p><a target="_blank" rel="noopener" href="http://mrpeak.cn/blog/tcp-rpc-protocol/">如何设计一个通讯协议</a></p>
+<p><a target="_blank" rel="noopener" href="https://xilidou.com/2018/09/26/dourpc-remoting/">徒手撸框架–实现 RPC 远程调用</a></p>
+<p><a target="_blank" rel="noopener" href="https://ketao1989.github.io/2016/12/10/rpc-theory-in-action/">深入浅出RPC原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/weibo-rpc-practice">微博平台的 RPC 服务化实践</a></p>
+<p><a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/688616">高并发架构系列：如何从0到1设计一个类Dubbo的RPC框架</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.ityouknow.com/it/2019/05/05/koalas-rpc.html">百亿级企业级 RPC 框架开源了！</a></p>
+<p><a target="_blank" rel="noopener" href="https://colobu.com/2016/05/26/RPCX-a-distributed-rpc-dubbo-like-framework-by-Go/">RPCX: 一个用Go实现的类似Dubbo的分布式RPC框架</a></p>
+<p><a target="_blank" rel="noopener" href="http://kriszhang.com/motan-rpc-impl/">从motan看RPC框架设计</a></p>
+<p><a target="_blank" rel="noopener" href="http://byteliu.com/2018/06/11/RPC%E6%B6%88%E6%81%AF%E5%8D%8F%E8%AE%AE%E8%AE%BE%E8%AE%A1/">RPC消息协议设计</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.xuxueli.com/xxl-rpc/#/?id=%e3%80%8a%e5%88%86%e5%b8%83%e5%bc%8f%e6%9c%8d%e5%8a%a1%e9%80%9a%e8%ae%af%e6%a1%86%e6%9e%b6xxl-rpc%e3%80%8b">分布式服务框架XXL-RPC</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.iocoder.cn/Fight/Seven-steps-to-quickly-read-RPC-framework-principles/">七个步骤，带你快速读懂 RPC 框架原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://sq.163yun.com/blog/article/170699295282356224">网易有钱RPC框架介绍</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.enixjin.net/api_design_part1/">API设计，从RPC、SOAP、REST到GraphQL（一）</a></p>
+<p><a target="_blank" rel="noopener" href="https://waylau.com/remote-procedure-calls/">远程过程调用(RPC)详解</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.9191boke.com/439321859.html">RPC - 麻雀虽小，五脏俱全</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/u/3869066/blog/3067607">一文看懂微服务和常用的微服务落地技术</a></p>
+<p><a target="_blank" rel="noopener" href="http://wulc.me/2019/01/14/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(1)-MapReduce/">分布式系统笔记(1)-MapReduce</a></p>
+<p><a target="_blank" rel="noopener" href="https://colobu.com/2017/04/06/dive-into-gRPC-streaming/">gRPC的那些事 - streaming</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.dingkewz.com/post/tech/go_ewan_microservices_in_golang_part_1/">用GoLang实现微服务（一）</a></p>
+<p><a target="_blank" rel="noopener" href="https://wuyin.io/2018/05/02/protobuf-with-grpc-in-golang/">gRPC 使用 protobuf 构建微服务</a></p>
+<p><a target="_blank" rel="noopener" href="https://skyao.io/learning-grpc/grpc/official_docs.html">gRPC官方文档(中文版)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yjmyzz/p/grpc-hello-world.html">rpc框架之gRPC 学习 - hello world</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.jrwang.me/2016/grpc-at-first-view/">Google 开源 RPC 框架 gRPC 初探</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.liuhaihua.cn/archives/430833.html">Google gRPC学习笔记</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.familyhealth.top/?p=922">gRPC的原理和使用</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lilyssh/article/details/84306486">自定义RPC框架实战(一) 设计思路</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/we_phone/article/details/78949331">Java打造RPC框架(一):思路</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/we_phone/article/details/78949856">Java打造RPC框架(二):11个类实现简单Java RPC</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/acmman/article/details/88370184">【RPC高性能框架总结】7.手写rpc框架-整体设计思路</a></p>
+<p>视频/专栏学习资料：</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/book/5af56a3c518825426642e004/section">深入理解 RPC : 基于 Python 自建分布式高并发 RPC 服务</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av30612478?from=search&amp;seid=7611938649575404523">Java视频教程_Dubbo</a>  </p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av45646849?from=search&amp;seid=7611938649575404523">2019Java微服务架构(SpringBoot+Dubbo+Zookeeper)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av36799192?from=search&amp;seid=5070552182560742915">Dubbo教程-分布式项目实战演示</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av50439424?from=search&amp;seid=5070552182560742915">ZooKeeper分布式专题与Dubbo微服务入门</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av46991434/">老司机带你在分布式系统下掌握编程式事务以及接口的幂等性设计精髓</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av30026039?from=search&amp;seid=1172859081863450406">手写RPC框架及原理分析</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av44457831?from=search&amp;seid=1172859081863450406">netty入门到精通(RPC实现)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av50838032?from=search&amp;seid=1172859081863450406">如何手写RPC框架</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av54523638?from=search&amp;seid=1172859081863450406">手写实现千万级流量架构必备的RPC框架</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av35992521?from=search&amp;seid=1172859081863450406">RPC远程调用综合实战</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av30113141?from=search&amp;seid=1172859081863450406">Rpc架构设计分析与实现</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av52571925?from=search&amp;seid=1172859081863450406">分布式通信rpc教程</a></p>
+<p>参考书籍：</p>
+<p>《大型网站系统与Java中间件实践》</p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/07/01/037/">浅析分布式系统（一）</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2019/07/01/037/" title="浅析分布式系统（一）">https://woodwhales.cn/2019/07/01/037/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2019/07/01/037/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/dubbo/" rel="tag"><i class="fa fa-tag"></i> dubbo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/28/035/" rel="next" title="浅析分布式缓存">
+                <i class="fa fa-chevron-left"></i> 浅析分布式缓存
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/02/038/" rel="prev" title="进击的Java面试">
+                进击的Java面试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="nav-text">1. 分布式系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E9%9B%86%E4%B8%AD%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="nav-text">1.1 集中式系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F-distributed-system"><span class="nav-text">1.2 分布式系统(distributed system)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%85%B3%E8%81%94%E7%9A%84%E5%AE%9E%E9%99%85%E9%97%AE%E9%A2%98"><span class="nav-text">2. 分布式系统关联的实际问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-RPC%EF%BC%88%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%EF%BC%89"><span class="nav-text">3. RPC（远程过程调用）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-RPC"><span class="nav-text">3.1 RPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-HTTP"><span class="nav-text">3.2 HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-http-%E5%92%8C-RPC-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">3.4 http 和 RPC 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E5%B8%B8%E8%A7%81%E5%AE%9E%E7%8E%B0%E6%A1%86%E6%9E%B6"><span class="nav-text">3.3 常见实现框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-%E5%9B%BD%E5%86%85%E6%A1%86%E6%9E%B6"><span class="nav-text">3.3.1 国内框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-%E5%9B%BD%E5%A4%96%E6%A1%86%E6%9E%B6"><span class="nav-text">3.3.2 国外框架</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Dubbo"><span class="nav-text">4. Dubbo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1"><span class="nav-text">4.1 框架设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E5%90%84%E5%B1%82%E8%AF%B4%E6%98%8E"><span class="nav-text">4.2 各层说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-text">4.3 工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE"><span class="nav-text">4.4 通信协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-1-dubbo"><span class="nav-text">4.4.1 dubbo:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-2-hessian"><span class="nav-text">4.4.2 hessian:&#x2F;&#x2F;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-text">4.5 负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-6-%E9%9B%86%E7%BE%A4%E5%AE%B9%E9%94%99"><span class="nav-text">4.6 集群容错</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-1-%E9%9B%86%E7%BE%A4%E5%AE%B9%E9%94%99%E7%AD%96%E7%95%A5"><span class="nav-text">4.6.1 集群容错策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-1-1-Failover-Cluster"><span class="nav-text">4.6.1.1 Failover Cluster</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-1-2-Failfast-Cluster"><span class="nav-text">4.6.1.2 Failfast Cluster</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-1-3-Failsafe-Cluster"><span class="nav-text">4.6.1.3 Failsafe Cluster</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-1-4-Failback-Cluster"><span class="nav-text">4.6.1.4 Failback Cluster</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-1-5-Forking-Cluster"><span class="nav-text">4.6.1.5 Forking Cluster</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-1-6-Broadcast-Cluster"><span class="nav-text">4.6.1.6 Broadcast Cluster</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-2-%E5%90%84%E7%A7%8D%E7%AD%96%E7%95%A5%E5%AF%B9%E6%AF%94"><span class="nav-text">4.6.2 各种策略对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-7-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%89%A9%E5%B1%95"><span class="nav-text">4.7 动态代理扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-1-Java-SPI-%E6%9C%BA%E5%88%B6"><span class="nav-text">4.7.1 Java SPI 机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-2-Dubbo-%E7%9A%84-SPI-%E6%9C%BA%E5%88%B6"><span class="nav-text">4.7.2 Dubbo 的 SPI 机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-3-Dubbo-%E7%9A%84-SPI-%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">4.7.3 Dubbo 的 SPI 的特点:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-4-%E5%A6%82%E4%BD%95%E6%89%A9%E5%B1%95dubbo%E4%B8%AD%E7%9A%84%E7%BB%84%E4%BB%B6"><span class="nav-text">4.7.4 如何扩展dubbo中的组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-8-%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86"><span class="nav-text">4.8 服务治理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-9-%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7"><span class="nav-text">4.9 服务降级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-10-%E5%A4%B1%E8%B4%A5-%E8%B6%85%E6%97%B6%E9%87%8D%E8%AF%95"><span class="nav-text">4.10 失败&#x2F;超时重试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E5%B9%82%E7%AD%89%E6%80%A7"><span class="nav-text">5. 幂等性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E9%A1%BA%E5%BA%8F%E6%80%A7"><span class="nav-text">6.  顺序性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E5%A6%82%E4%BD%95%E8%87%AA%E5%B7%B1%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AARPC%E6%A1%86%E6%9E%B6"><span class="nav-text">7.如何自己设计一个RPC框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-text">7.1 实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82%E9%97%AE%E9%A2%98"><span class="nav-text">7.2 实现细节问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E6%89%A9%E5%B1%95%E8%B5%84%E6%96%99"><span class="nav-text">8. 扩展资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

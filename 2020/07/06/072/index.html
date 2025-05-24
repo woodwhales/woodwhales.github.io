@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="Guava, EventBus, 监听者, 订阅者, Registry, EventExceptionHandler" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Guava EventBus，内存级别消息发布&#x2F;订阅模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Guava EventBus 使用介绍及自实现详解">
+<meta property="og:url" content="https://woodwhales.cn/2020/07/06/072/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="Guava EventBus，内存级别消息发布&#x2F;订阅模型">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/072/face.png">
+<meta property="article:published_time" content="2020-07-06T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-06T14:52:05.219Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="Guava EventBus">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/072/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2020/07/06/072/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>Guava EventBus 使用介绍及自实现详解 | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2020/07/06/072/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Guava EventBus 使用介绍及自实现详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-06T23:00:00+08:00">
+                2020-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Guava/" itemprop="url" rel="index">
+                    <span itemprop="name">Guava</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/07/06/072/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/07/06/072/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Guava EventBus，内存级别消息发布/订阅模型
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/072/face.png" rel="gallery_cmb21nrj1006bm8v89dhk5zp8 noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/072/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <p>使用 guava 工具，先在 pom 中引入依赖：<a target="_blank" rel="noopener" href="https://mvnrepository.com/artifact/com.google.guava/guava/">https://mvnrepository.com/artifact/com.google.guava/guava/</a></p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.google.guava<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>guava<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>29.0-jre<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="Guava-EventBus-的使用"><a href="#Guava-EventBus-的使用" class="headerlink" title="Guava EventBus 的使用"></a>Guava EventBus 的使用</h2><h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p>先编写监听者：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.eventbus.Subscribe;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:08</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GoogleEventBusListener</span> {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method1</span><span class="params">(String event)</span> {</span><br><span class="line">        System.out.println(<span class="string">"GoogleEventBusListener.method1, event = "</span> + event);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method2</span><span class="params">(Integer event)</span> {</span><br><span class="line">        System.out.println(<span class="string">"GoogleEventBusListener.method2, event = "</span> + event);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>再创建 EventBus 对象，将上述监听者注册到 EventBus 对象实例中，调用 post() 发送消息即可：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.eventbus.EventBus;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:08</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: EventBus 简单示例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleEventBusExample</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">EventBus</span> <span class="variable">eventBus</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EventBus</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 监听器注册到 eventBus</span></span><br><span class="line">        eventBus.register(<span class="keyword">new</span> <span class="title class_">GoogleEventBusListener</span>());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发送消息</span></span><br><span class="line">        eventBus.post(<span class="string">"this message from eventBus"</span>);</span><br><span class="line">        eventBus.post(<span class="number">200</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>EventBus 构造函数中，如果不显示指定名称，则使用：default 作为默认名称。</p>
+<p><strong>注意：消息类型必须是包装类型，不能是基本数据类型。</strong></p>
+<h3 id="多个监听者存在继承关系"><a href="#多个监听者存在继承关系" class="headerlink" title="多个监听者存在继承关系"></a>多个监听者存在继承关系</h3><p>当只注册监听器中的父类中也监听了某些消息的时候，父类的监听方法也会执行。如果父类的监听方法被子类覆盖监听，则只执行子类监听器的方法。</p>
+<p>类监听器：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.eventbus.Subscribe;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:18</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 父类监听器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FatherListener</span> {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">accept</span><span class="params">(String event)</span> {</span><br><span class="line">        System.out.println(<span class="string">"FatherListener.accept, event = "</span> + event);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">consume</span><span class="params">(String event)</span> {</span><br><span class="line">        System.out.println(<span class="string">"FatherListener.consume, event = "</span> + event);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>子类监听器：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.eventbus.Subscribe;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:19</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 子类监听器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ChildListener</span> <span class="keyword">extends</span> <span class="title class_">FatherListener</span> {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">accept</span><span class="params">(String event)</span> {</span><br><span class="line">        System.out.println(<span class="string">"ChildListener.accept, event = "</span> + event);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">consumeTask</span><span class="params">(String event)</span> {</span><br><span class="line">        System.out.println(<span class="string">"ChildListener.consumeTask, event = "</span> + event);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注册监听器并发送消息：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.eventbus.EventBus;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:21</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 多个监听器监听消息</span></span><br><span class="line"><span class="comment"> * 当只注册监听器中的父类中也监听了某些消息的时候，父类的监听方法也会执行。</span></span><br><span class="line"><span class="comment"> * 如果父类的监听方法被子类覆盖监听，则只执行子类监听器的方法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MultipleListenerExample</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">EventBus</span> <span class="variable">eventBus</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EventBus</span>();</span><br><span class="line">        <span class="comment">// 监听器注册到 eventBus</span></span><br><span class="line">        eventBus.register(<span class="keyword">new</span> <span class="title class_">ChildListener</span>());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发送消息</span></span><br><span class="line">        eventBus.post(<span class="string">"this message from eventBus"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>日志输出：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ChildListener.accept, event = this message from eventBus</span><br><span class="line">ChildListener.consumeTask, event = this message from eventBus</span><br><span class="line">FatherListener.consume, event = this message from eventBus</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="多个事件存在继承关系"><a href="#多个事件存在继承关系" class="headerlink" title="多个事件存在继承关系"></a>多个事件存在继承关系</h3><p>event 如果有父类，此时某个监听器监听的event是这个基类，那么消息是这个子类的时候，该监听父类的监听器方法也会执行。</p>
+<p>父类事件对象：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.gson.Gson;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:33</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 父类事件对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FruitEvent</span> {</span><br><span class="line"></span><br><span class="line">    String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">FruitEvent</span><span class="params">()</span> {</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">FruitEvent</span><span class="params">(String name)</span> {</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Gson</span>().toJson(<span class="built_in">this</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>子类事件对象：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.gson.Gson;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:35</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 子类事件对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AppleEvent</span> <span class="keyword">extends</span> <span class="title class_">FruitEvent</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AppleEvent</span><span class="params">()</span> {</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AppleEvent</span><span class="params">(String name)</span> {</span><br><span class="line">        <span class="built_in">super</span>(name);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Gson</span>().toJson(<span class="built_in">this</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>监听器对象：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.eventbus.Subscribe;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:32</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 一个监听子类对象，一个监听父类对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleListener</span> {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">acceptFruitEvent</span><span class="params">(FruitEvent fruitEvent)</span> {</span><br><span class="line">        System.out.println(<span class="string">"SimpleListener.acceptFruitEvent =&gt; fruitEvent "</span> + fruitEvent);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">acceptAppleEvent</span><span class="params">(AppleEvent appleEvent)</span> {</span><br><span class="line">        System.out.println(<span class="string">"SimpleListener.acceptAppleEvent =&gt; appleEvent "</span> + appleEvent);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>单元测试：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.eventbus.EventBus;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:32</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: event 如果有父类，此时某个监听器监听的event是这个基类，</span></span><br><span class="line"><span class="comment"> * 那么消息是这个子类的时候，该监听父类的监听器方法也会执行</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MultipleEventExample</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">EventBus</span> <span class="variable">eventBus</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EventBus</span>();</span><br><span class="line"></span><br><span class="line">        eventBus.register(<span class="keyword">new</span> <span class="title class_">SimpleListener</span>());</span><br><span class="line"></span><br><span class="line">        eventBus.post(<span class="keyword">new</span> <span class="title class_">AppleEvent</span>(<span class="string">"apple"</span>));</span><br><span class="line"></span><br><span class="line">        eventBus.post(<span class="keyword">new</span> <span class="title class_">FruitEvent</span>(<span class="string">"fruit"</span>));</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>日志输出：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SimpleListener.acceptAppleEvent =&gt; appleEvent {"name":"apple"}</span><br><span class="line">SimpleListener.acceptFruitEvent =&gt; fruitEvent {"name":"apple"}</span><br><span class="line">SimpleListener.acceptFruitEvent =&gt; fruitEvent {"name":"fruit"}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p>多个监听器同时监听相同消息，其中一个监听器有异常，那么不会影响其他监听器消费消息。可以在EventBus构造函数中传入一个异常处理器，当监听器有异常抛出时，会执行这个异常处理器。</p>
+<blockquote>
+<p>思考点：如果异常处理很长时间，会不会导致后面的监听器等待执行？</p>
+</blockquote>
+<p>异常处理器：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.base.Throwables;</span><br><span class="line"><span class="keyword">import</span> com.google.common.eventbus.SubscriberExceptionContext;</span><br><span class="line"><span class="keyword">import</span> com.google.common.eventbus.SubscriberExceptionHandler;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:54</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 异常处理器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MySubscriberExceptionHandler</span> <span class="keyword">implements</span> <span class="title class_">SubscriberExceptionHandler</span> {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleException</span><span class="params">(Throwable exception, SubscriberExceptionContext context)</span> {</span><br><span class="line">        System.out.println(<span class="string">"======== handleException start ========="</span>);</span><br><span class="line">        System.out.println(<span class="string">"exception =&gt; "</span> + Throwables.getStackTraceAsString(exception));</span><br><span class="line">        System.out.println(<span class="string">"EventBus =&gt; "</span> + context.getEventBus());</span><br><span class="line">        System.out.println(<span class="string">"Subscriber =&gt; "</span> + context.getSubscriber().getClass().getName());</span><br><span class="line">        System.out.println(<span class="string">"SubscriberMethod =&gt; "</span> + context.getSubscriberMethod());</span><br><span class="line">        System.out.println(<span class="string">"======== handleException end ========="</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>监听器对象：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.eventbus.Subscribe;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:49</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyListener</span> {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method1</span><span class="params">(Integer sum)</span> {</span><br><span class="line">        System.out.println(<span class="string">"MyListener.method1 =&gt; "</span> + sum);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method2</span><span class="params">(Integer sum)</span> {</span><br><span class="line">        System.out.println(<span class="string">"MyListener.method2 =&gt; "</span> + sum);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method3</span><span class="params">(Integer sum)</span> {</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> sum / <span class="number">0</span>;</span><br><span class="line">        System.out.println(<span class="string">"MyListener.method3 =&gt; "</span> + sum);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>单元测试：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.eventbus.EventBus;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 22:48</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 多个监听器同时监听相同消息，其中一个监听器有异常，那么不会影响其他监听器消费消息</span></span><br><span class="line"><span class="comment"> * 可以在EventBus构造函数中传入一个异常处理器，当监听器有异常抛出时，会执行这个异常处理器</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 思考点：如果异常处理很长时间，会不会导致后面的监听器等待执行</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExceptionListenerExample</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line"></span><br><span class="line">        <span class="type">EventBus</span> <span class="variable">eventBus</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EventBus</span>(<span class="keyword">new</span> <span class="title class_">MySubscriberExceptionHandler</span>());</span><br><span class="line"></span><br><span class="line">        eventBus.register(<span class="keyword">new</span> <span class="title class_">MyListener</span>());</span><br><span class="line"></span><br><span class="line">        eventBus.post(Integer.MAX_VALUE);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>日志输出：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MyListener.method2 =&gt; 2147483647</span><br><span class="line">MyListener.method1 =&gt; 2147483647</span><br><span class="line">======== handleException start =========</span><br><span class="line">exception =&gt; java.lang.ArithmeticException: / by zero</span><br><span class="line">	…… // 打印日志栈信息</span><br><span class="line"></span><br><span class="line">EventBus =&gt; EventBus{default}</span><br><span class="line">Subscriber =&gt; org.woodwhales.guava.eventbus.demo4.MyListener</span><br><span class="line">SubscriberMethod =&gt; public void org.woodwhales.guava.eventbus.demo4.MyListener.method3(java.lang.Integer)</span><br><span class="line">======== handleException end =========</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="DeadEvent-实现类型"><a href="#DeadEvent-实现类型" class="headerlink" title="DeadEvent 实现类型"></a>DeadEvent 实现类型</h3><p>监听器监听 DeadEvent 类型事件：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.eventbus.DeadEvent;</span><br><span class="line"><span class="keyword">import</span> com.google.common.eventbus.Subscribe;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 23:05</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeadEventListener</span> {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Subscribe</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handle</span><span class="params">(DeadEvent deadEvent)</span> {</span><br><span class="line">        System.out.println(<span class="string">"DeadEventListener.handle deadEvent =&gt; "</span> + deadEvent);</span><br><span class="line">        System.out.println(<span class="string">"DeadEventListener.handle event =&gt; "</span> + deadEvent.getEvent());</span><br><span class="line">        System.out.println(<span class="string">"DeadEventListener.handle source =&gt; "</span> + deadEvent.getSource());</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>单元测试：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.common.eventbus.EventBus;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.2 23:07</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 监听DeadEvent消息类型，那么可以从这个DeadEvent对象中获取事件源和eventBus</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DeadEventExample</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> {</span><br><span class="line">        <span class="type">EventBus</span> <span class="variable">eventBus</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EventBus</span>(<span class="string">"DEAD-EVENT-BUS"</span>);</span><br><span class="line"></span><br><span class="line">        eventBus.register(<span class="keyword">new</span> <span class="title class_">DeadEventListener</span>());</span><br><span class="line"></span><br><span class="line">        eventBus.post(<span class="string">"message"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>日志输出：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DeadEventListener.handle deadEvent =&gt; DeadEvent{source=EventBus{DEAD-EVENT-BUS}, event=message}</span><br><span class="line">DeadEventListener.handle event =&gt; message</span><br><span class="line">DeadEventListener.handle source =&gt; EventBus{DEAD-EVENT-BUS}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="自实现-EventBus"><a href="#自实现-EventBus" class="headerlink" title="自实现 EventBus"></a>自实现 EventBus</h2><h3 id="Bus-接口设计"><a href="#Bus-接口设计" class="headerlink" title="Bus 接口设计"></a>Bus 接口设计</h3><p>自己实现一个 EventBus 前需要先设计好需要多少功能，即多核心少接口：将监听者注册bus，将监听者从bus中移除，发送消息，发送带有主题的消息，获取当前 bus 名称等：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.4 13:55</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: Bus 接口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyBus</span> {</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注册到 bus</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> subscriber 订阅者</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">register</span><span class="params">(Object subscriber)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 从bus中取消注册</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> subscriber</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">unRegister</span><span class="params">(Object subscriber)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送消息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> event</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">post</span><span class="params">(Object event)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送消息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> event</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> topic</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">post</span><span class="params">(Object event, String topic)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 关闭bus</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">close</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取当前bus名称</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String <span class="title function_">getBusName</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Bus-接口实现"><a href="#Bus-接口实现" class="headerlink" title="Bus 接口实现"></a>Bus 接口实现</h3><p>实现 Bus 接口，重要的是怎么来保存注册到中的监听者，怎么在消息发布者调用 post() 发布消息的时候，根据消息的类型找到对应的要监听的方法并执行，如果有异常处理器，则执行异常处理器。</p>
+<p>MyEventBus 实现 MyBus 接口，在其类中增加以下属性：MyEventBus 的构造函数仅仅是设置属性的入口，消息存储和消息消费，均由 MyRegistry 和 MyDispatcher 来执行。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyEventBus</span> <span class="keyword">implements</span> <span class="title class_">MyBus</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">MyRegistry</span> <span class="variable">registry</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyRegistry</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String busName;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_BUS_NAME</span> <span class="operator">=</span> <span class="string">"DEFAULT"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_TOPIC</span> <span class="operator">=</span> <span class="string">"default-topic"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> MyDispatcher dispatcher;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyEventBus</span><span class="params">()</span> {</span><br><span class="line">        <span class="built_in">this</span>(DEFAULT_BUS_NAME, <span class="literal">null</span>, MyDispatcher.SEQ_EXECUTOR_SERVICE);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyEventBus</span><span class="params">(MyEventExceptionHandler eventExceptionHandler)</span> {</span><br><span class="line">        <span class="built_in">this</span>(DEFAULT_BUS_NAME, eventExceptionHandler, MyDispatcher.SEQ_EXECUTOR_SERVICE);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyEventBus</span><span class="params">(String busName, MyEventExceptionHandler eventExceptionHandler, Executor executor)</span> {</span><br><span class="line">        <span class="keyword">if</span>(Objects.isNull(busName) || busName.isEmpty()) {</span><br><span class="line">            busName = DEFAULT_BUS_NAME;</span><br><span class="line">        }</span><br><span class="line">        <span class="built_in">this</span>.busName = busName;</span><br><span class="line">        <span class="built_in">this</span>.dispatcher = MyDispatcher.newDispatcher(executor, eventExceptionHandler);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">register</span><span class="params">(Object subscriber)</span> {</span><br><span class="line">        <span class="built_in">this</span>.registry.bind(subscriber);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">unRegister</span><span class="params">(Object subscriber)</span> {</span><br><span class="line">        <span class="built_in">this</span>.unRegister(subscriber);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">post</span><span class="params">(Object event)</span> {</span><br><span class="line">        <span class="built_in">this</span>.post(event, DEFAULT_TOPIC);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">post</span><span class="params">(Object event, String topic)</span> {</span><br><span class="line">        <span class="built_in">this</span>.dispatcher.dispatch(<span class="built_in">this</span>, registry, event, topic);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">close</span><span class="params">()</span> {</span><br><span class="line">        <span class="built_in">this</span>.dispatcher.close();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getBusName</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.busName;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Dispatcher-实现"><a href="#Dispatcher-实现" class="headerlink" title="Dispatcher 实现"></a>Dispatcher 实现</h3><p>Dispatcher 用于执行消息消费，因此对于 Dispatcher，它需要直到要消费的消息信息及异常处理器：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ConcurrentLinkedQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executor;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutorService;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.4 14:33</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 消息执行器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyDispatcher</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Executor executorService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> MyEventExceptionHandler eventExceptionHandler;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Executor</span> <span class="variable">SEQ_EXECUTOR_SERVICE</span> <span class="operator">=</span> SeqExecutorService.INSTANCE;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Executor</span> <span class="variable">PER_THREAD_EXECUTOR_SERVICE</span> <span class="operator">=</span> PerThreadExecutorService.INSTANCE;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">MyDispatcher</span><span class="params">(Executor executorService, MyEventExceptionHandler eventExceptionHandler)</span> {</span><br><span class="line">        <span class="built_in">this</span>.executorService = executorService;</span><br><span class="line">        <span class="built_in">this</span>.eventExceptionHandler = eventExceptionHandler;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">dispatch</span><span class="params">(MyBus bus, MyRegistry registry, Object event, String topic)</span> {</span><br><span class="line">        ConcurrentLinkedQueue&lt;MySubscriber&gt; subscribers = registry.scanSubscriber(topic);</span><br><span class="line">        <span class="keyword">if</span>(Objects.isNull(subscribers)) {</span><br><span class="line">            <span class="keyword">if</span>(Objects.nonNull(eventExceptionHandler)) {</span><br><span class="line">                eventExceptionHandler.handle(<span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(String.format(<span class="string">"The topic [%s] not bind yet"</span>, topic)),</span><br><span class="line">                        <span class="keyword">new</span> <span class="title class_">DefaultMyContext</span>(bus.getBusName(), <span class="literal">null</span>, event));</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历所有的监听者，拿到对应的事件参数对象，比对消息的事件类型和监听者参数事件类型是否一致</span></span><br><span class="line">        subscribers.stream().filter(subscriber -&gt; !subscriber.isDisabled())</span><br><span class="line">                .filter(subscriber -&gt; {</span><br><span class="line">                    <span class="type">Method</span> <span class="variable">subscribeMethod</span> <span class="operator">=</span> subscriber.getSubscribeMethod();</span><br><span class="line">                    Class&lt;?&gt; parameterTypeClass = subscribeMethod.getParameterTypes()[<span class="number">0</span>];</span><br><span class="line">                    <span class="keyword">return</span> parameterTypeClass.isAssignableFrom(event.getClass());</span><br><span class="line">                })</span><br><span class="line">                .forEach(subscriber -&gt; invokeRealSubscribe(bus, subscriber, event));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">invokeRealSubscribe</span><span class="params">(MyBus bus, MySubscriber subscriber, Object event)</span> {</span><br><span class="line"></span><br><span class="line">        <span class="type">Method</span> <span class="variable">subscribeMethod</span> <span class="operator">=</span> subscriber.getSubscribeMethod();</span><br><span class="line">        <span class="type">Object</span> <span class="variable">subscribeObject</span> <span class="operator">=</span> subscriber.getSubscribeObject();</span><br><span class="line"></span><br><span class="line">        <span class="built_in">this</span>.executorService.execute(() -&gt; {</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                subscribeMethod.invoke(subscribeObject, event);</span><br><span class="line">            } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">                <span class="keyword">if</span>(Objects.nonNull(<span class="built_in">this</span>.eventExceptionHandler)) {</span><br><span class="line">                    <span class="built_in">this</span>.eventExceptionHandler.handle(e, <span class="keyword">new</span> <span class="title class_">DefaultMyContext</span>(bus.getBusName(), subscriber, event));</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> MyDispatcher <span class="title function_">newDispatcher</span><span class="params">(Executor executorService, MyEventExceptionHandler eventExceptionHandler)</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyDispatcher</span>(executorService, eventExceptionHandler);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> MyDispatcher <span class="title function_">newSeqDispatcher</span><span class="params">(MyEventExceptionHandler eventExceptionHandler)</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyDispatcher</span>(SEQ_EXECUTOR_SERVICE, eventExceptionHandler);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> MyDispatcher <span class="title function_">newPerThreadDispatcher</span><span class="params">(MyEventExceptionHandler eventExceptionHandler)</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyDispatcher</span>(PER_THREAD_EXECUTOR_SERVICE, eventExceptionHandler);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">close</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">if</span>(executorService <span class="keyword">instanceof</span> ExecutorService) {</span><br><span class="line">            ((ExecutorService) executorService).shutdown();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SeqExecutorService</span> <span class="keyword">implements</span> <span class="title class_">Executor</span> {</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">SeqExecutorService</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SeqExecutorService</span>();</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">execute</span><span class="params">(Runnable command)</span> {</span><br><span class="line">            command.run();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">PerThreadExecutorService</span> <span class="keyword">implements</span> <span class="title class_">Executor</span> {</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">PerThreadExecutorService</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PerThreadExecutorService</span>();</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">execute</span><span class="params">(Runnable command)</span> {</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Thread</span>(command).start();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">DefaultMyContext</span> <span class="keyword">implements</span> <span class="title class_">MyEventContext</span> {</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> String busName;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> MySubscriber subscriber;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Object event;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">DefaultMyContext</span><span class="params">(String busName, MySubscriber subscriber, Object event)</span> {</span><br><span class="line">            <span class="built_in">this</span>.busName = busName;</span><br><span class="line">            <span class="built_in">this</span>.subscriber = subscriber;</span><br><span class="line">            <span class="built_in">this</span>.event = event;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> String <span class="title function_">getSource</span><span class="params">()</span> {</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">this</span>.busName;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Object <span class="title function_">getSubscriberObject</span><span class="params">()</span> {</span><br><span class="line">            <span class="keyword">return</span> Objects.nonNull(subscriber) ? subscriber.getSubscribeObject() : <span class="literal">null</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Method <span class="title function_">getSubscribeMethod</span><span class="params">()</span> {</span><br><span class="line">            <span class="keyword">return</span> Objects.nonNull(subscriber) ? subscriber.getSubscribeMethod() : <span class="literal">null</span>;</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> Object <span class="title function_">getEvent</span><span class="params">()</span> {</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">this</span>.event;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="MyRegistry-实现"><a href="#MyRegistry-实现" class="headerlink" title="MyRegistry 实现"></a>MyRegistry 实现</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ConcurrentHashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ConcurrentLinkedQueue;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.4 14:04</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 已订阅bus的订阅者容器对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyRegistry</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ConcurrentHashMap&lt;String, ConcurrentLinkedQueue&lt;MySubscriber&gt;&gt; subscriberContainer = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;&gt; ();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 绑定</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> subscriber</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">bind</span><span class="params">(Object subscriber)</span> {</span><br><span class="line">        List&lt;Method&gt; subscriberMethods = getSubscriberMethods(subscriber);</span><br><span class="line">        subscriberMethods.forEach(method -&gt; tireSubscriber(subscriber, method));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">tireSubscriber</span><span class="params">(Object subscriber, Method method)</span> {</span><br><span class="line">        <span class="type">MySubscribe</span> <span class="variable">mySubscribe</span> <span class="operator">=</span> method.getDeclaredAnnotation(MySubscribe.class);</span><br><span class="line">        <span class="type">String</span> <span class="variable">topic</span> <span class="operator">=</span> mySubscribe.topic();</span><br><span class="line">        subscriberContainer.computeIfAbsent(topic, key -&gt; <span class="keyword">new</span> <span class="title class_">ConcurrentLinkedQueue</span>&lt;&gt;());</span><br><span class="line">        subscriberContainer.get(topic).add(<span class="keyword">new</span> <span class="title class_">MySubscriber</span>(subscriber, method));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;Method&gt; <span class="title function_">getSubscriberMethods</span><span class="params">(Object subscriber)</span> {</span><br><span class="line">        List&lt;Method&gt; methods = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; subscriberClass = subscriber.getClass();</span><br><span class="line">        <span class="keyword">while</span> (Objects.nonNull(subscriberClass)) {</span><br><span class="line">            Method[] declaredMethods = subscriberClass.getDeclaredMethods();</span><br><span class="line"></span><br><span class="line">            Arrays.stream(declaredMethods).filter(method -&gt;</span><br><span class="line">                method.isAnnotationPresent(MySubscribe.class) &amp;&amp;</span><br><span class="line">                        method.getParameterCount() == <span class="number">1</span> &amp;&amp;</span><br><span class="line">                        method.getModifiers() == Modifier.PUBLIC</span><br><span class="line">            ).forEach(methods::add);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 获取当前 subscriber 的父类</span></span><br><span class="line">            subscriberClass = subscriberClass.getSuperclass();</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> methods;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解绑</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> subscriber</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">unBind</span><span class="params">(Object subscriber)</span> {</span><br><span class="line">        subscriberContainer.forEach((key, queue) -&gt; {</span><br><span class="line">            queue.forEach(subscriberItem -&gt; {</span><br><span class="line">                <span class="keyword">if</span>(subscriberItem.getSubscribeObject() == subscriber) {</span><br><span class="line">                    subscriberItem.setDisabled(<span class="literal">false</span>);</span><br><span class="line">                }</span><br><span class="line">            });</span><br><span class="line">        });</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据topic获取已经绑定的监听对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> topic</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> ConcurrentLinkedQueue&lt;MySubscriber&gt; <span class="title function_">scanSubscriber</span><span class="params">(<span class="keyword">final</span> String topic)</span> {</span><br><span class="line">        <span class="keyword">return</span> subscriberContainer.get(topic);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="EventExceptionHandler-异常处理器"><a href="#EventExceptionHandler-异常处理器" class="headerlink" title="EventExceptionHandler 异常处理器"></a>EventExceptionHandler 异常处理器</h3><p>当有异常发生时，用户可以自己实现异常处理器接口，当有异常发生时会回调该接口：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.4 14:14</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 异常处理器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyEventExceptionHandler</span> {</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对 event 异常处理</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cause</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> eventContext</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">handle</span><span class="params">(Throwable cause, MyEventContext eventContext)</span>;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="消息上下文对象"><a href="#消息上下文对象" class="headerlink" title="消息上下文对象"></a>消息上下文对象</h3><p>异常产生，需要告知消费者，产生异常的相关上下文：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.4 14:28</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyEventContext</span> {</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">getSource</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    Object <span class="title function_">getSubscriberObject</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    Method <span class="title function_">getSubscribeMethod</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    Object <span class="title function_">getEvent</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Subscribe-监听器注解"><a href="#Subscribe-监听器注解" class="headerlink" title="Subscribe 监听器注解"></a>Subscribe 监听器注解</h3><p>监听器注解用于标记要监听并执行的方法：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.4 15:00</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 自定义监听器订阅方法注解</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.METHOD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MySubscribe {</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">topic</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">"default-topic"</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="监听者信息对象"><a href="#监听者信息对象" class="headerlink" title="监听者信息对象"></a>监听者信息对象</h3><p>为了便于管理监听者对象，需要对监听者的信息进行封装，并存储到 MyRegistry 的 ConcurrentHashMap&lt;&gt; 容器中：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: guava</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: woodwhales</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 20.7.4 15:05</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 监听者信息对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MySubscriber</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Object subscribeObject;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Method subscribeMethod;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="variable">disabled</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MySubscriber</span><span class="params">(Object subscribeObject, Method subscribeMethod)</span> {</span><br><span class="line">        <span class="built_in">this</span>.subscribeObject = subscribeObject;</span><br><span class="line">        <span class="built_in">this</span>.subscribeMethod = subscribeMethod;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">getSubscribeObject</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> subscribeObject;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Method <span class="title function_">getSubscribeMethod</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> subscribeMethod;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isDisabled</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> disabled;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setDisabled</span><span class="params">(<span class="type">boolean</span> disabled)</span> {</span><br><span class="line">        <span class="built_in">this</span>.disabled = disabled;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>自实现一个简单的 EventBus，要涉及到以下核心组件：</p>
+<p><img src="https://image.woodwhales.cn/072/images/01.png"></p>
+<h3 id="核心接口"><a href="#核心接口" class="headerlink" title="核心接口"></a>核心接口</h3><h4 id="MyBus"><a href="#MyBus" class="headerlink" title="MyBus"></a>MyBus</h4><p>通过构造器接收监听者（使用 @MySubscribe 注解了某些方法）和自定义异常处理器（自实现了 MyEventExceptionHandler 接口）</p>
+<h4 id="MyEventExceptionHandler"><a href="#MyEventExceptionHandler" class="headerlink" title="MyEventExceptionHandler"></a>MyEventExceptionHandler</h4><p>用于消息过程出现异常时，处理异常</p>
+<h4 id="MyEventContext"><a href="#MyEventContext" class="headerlink" title="MyEventContext"></a>MyEventContext</h4><p>异常处理过程中，将产生异常的数据封装起来</p>
+<h3 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h3><h4 id="MyEventBus"><a href="#MyEventBus" class="headerlink" title="MyEventBus"></a>MyEventBus</h4><p>MyBus 接口的实现类，其内部维护了 MyDispatcher 和 MyRegistry。</p>
+<h4 id="MyDispatcher"><a href="#MyDispatcher" class="headerlink" title="MyDispatcher"></a>MyDispatcher</h4><p>用于真正指定消费逻辑，内部维护了 MyEventExceptionHandler 实现（从 MyEventBus 构造器传入的）。</p>
+<h4 id="MyRegistry"><a href="#MyRegistry" class="headerlink" title="MyRegistry"></a>MyRegistry</h4><p>用于对所有加了 @MySubscribe 注解的监听者信息进行管理，包括注册和注销。</p>
+<h4 id="MySubscriber"><a href="#MySubscriber" class="headerlink" title="MySubscriber"></a>MySubscriber</h4><p>对注册的监听者信息进行封装，方便 MyRegistry 存储，也方便 MyDispatcher 消费执行。</p>
+<h3 id="核心注解"><a href="#核心注解" class="headerlink" title="核心注解"></a>核心注解</h3><h4 id="MySubscribe"><a href="#MySubscribe" class="headerlink" title="MySubscribe"></a>MySubscribe</h4><p>提供要监听消息的方法注解标记。</p>
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-04-06</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-04-06</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/07/06/072/">Guava EventBus 使用介绍及自实现详解</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2020/07/06/072/" title="Guava EventBus 使用介绍及自实现详解">https://woodwhales.cn/2020/07/06/072/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2020/07/06/072/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Guava-EventBus/" rel="tag"><i class="fa fa-tag"></i> Guava EventBus</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/05/071/" rel="next" title="Java 的四种引用">
+                <i class="fa fa-chevron-left"></i> Java 的四种引用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/28/073/" rel="prev" title="虚拟机安装 centos 7 系统">
+                虚拟机安装 centos 7 系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Guava-EventBus-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">Guava EventBus 的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="nav-text">简单使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E7%9B%91%E5%90%AC%E8%80%85%E5%AD%98%E5%9C%A8%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB"><span class="nav-text">多个监听者存在继承关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E4%BA%8B%E4%BB%B6%E5%AD%98%E5%9C%A8%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB"><span class="nav-text">多个事件存在继承关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-text">异常处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DeadEvent-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%9E%8B"><span class="nav-text">DeadEvent 实现类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9E%E7%8E%B0-EventBus"><span class="nav-text">自实现 EventBus</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bus-%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1"><span class="nav-text">Bus 接口设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bus-%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0"><span class="nav-text">Bus 接口实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dispatcher-%E5%AE%9E%E7%8E%B0"><span class="nav-text">Dispatcher 实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyRegistry-%E5%AE%9E%E7%8E%B0"><span class="nav-text">MyRegistry 实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EventExceptionHandler-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-text">EventExceptionHandler 异常处理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E4%B8%8A%E4%B8%8B%E6%96%87%E5%AF%B9%E8%B1%A1"><span class="nav-text">消息上下文对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subscribe-%E7%9B%91%E5%90%AC%E5%99%A8%E6%B3%A8%E8%A7%A3"><span class="nav-text">Subscribe 监听器注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E5%90%AC%E8%80%85%E4%BF%A1%E6%81%AF%E5%AF%B9%E8%B1%A1"><span class="nav-text">监听者信息对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3"><span class="nav-text">核心接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MyBus"><span class="nav-text">MyBus</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyEventExceptionHandler"><span class="nav-text">MyEventExceptionHandler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyEventContext"><span class="nav-text">MyEventContext</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%B1%BB"><span class="nav-text">核心类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MyEventBus"><span class="nav-text">MyEventBus</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyDispatcher"><span class="nav-text">MyDispatcher</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyRegistry"><span class="nav-text">MyRegistry</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySubscriber"><span class="nav-text">MySubscriber</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%B3%A8%E8%A7%A3"><span class="nav-text">核心注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySubscribe"><span class="nav-text">MySubscribe</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>
