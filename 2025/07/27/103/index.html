@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#fff">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="3uDNOuCQu6inuHg_QHas_nknR5rEe5WHetNJ6bVEwVA" />
+
+
+
+  <meta name="msvalidate.01" content="DCCE27951FD510E830BDD5D014EB15B4" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon-32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon-16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+
+
+
+  <meta name="keywords" content="rocketmq,rocketmq5.3.3,ACL 2.0,Docker 部署 rocketmq 5.3.3" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Docker 部署 rocketmq 5.3.3（含 ACL 2.0 配置）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 部署 rocketmq 5.3.3（含 ACL 2.0 配置）">
+<meta property="og:url" content="https://woodwhales.cn/2025/07/27/103/index.html">
+<meta property="og:site_name" content="woodwhale&#39;s blog">
+<meta property="og:description" content="Docker 部署 rocketmq 5.3.3（含 ACL 2.0 配置）">
+<meta property="og:locale">
+<meta property="og:image" content="https://image.woodwhales.cn/103/face.png">
+<meta property="article:published_time" content="2025-07-26T16:13:00.000Z">
+<meta property="article:modified_time" content="2025-07-26T16:26:26.665Z">
+<meta property="article:author" content="木鲸鱼">
+<meta property="article:tag" content="rocketmq">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.woodwhales.cn/103/face.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://woodwhales.cn/2025/07/27/103/"/>
+
+
+
+
+<script async src="https://fundingchoicesmessages.google.com/i/pub-1815293530059355?ers=1" nonce="iiDO3i5ZgRmrRRl65XssBQ"></script><script nonce="iiDO3i5ZgRmrRRl65XssBQ">(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+
+  <title>Docker 部署 rocketmq 5.3.3（含 ACL 2.0 配置） | woodwhale's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+	<div class="bg_content">
+		<canvas id="canvas"></canvas>
+	</div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">woodwhale's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术改变生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-cogs"></i> <br />
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gift"></i> <br />
+            
+            福利
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-setup">
+          <a href="/setup/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-power-off"></i> <br />
+            
+            装机
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-works">
+          <a href="/works/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bars"></i> <br />
+            
+            作品
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-futbol-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://woodwhales.cn/2025/07/27/103/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="woodwhales">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar-woodwhale.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="woodwhale's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker 部署 rocketmq 5.3.3（含 ACL 2.0 配置）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2025-07-27T00:13:00+08:00">
+                2025-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/rocketmq/" itemprop="url" rel="index">
+                    <span itemprop="name">rocketmq</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2025/07/27/103/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2025/07/27/103/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-pencil-square-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">全文总计&#58;</span>
+                
+                <span title="全文总计">
+                   字
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Docker 部署 rocketmq 5.3.3（含 ACL 2.0 配置）
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 target="_blank" href="https://image.woodwhales.cn/103/face.png" rel="gallery_cmdkgfqvu00e134v894fyeycf noopener"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://image.woodwhales.cn/103/face.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+	    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+        <p>官网：<a target="_blank" rel="noopener" href="https://rocketmq.apache.org/">https://rocketmq.apache.org/</a></p>
+<p>5.x 文档：<a target="_blank" rel="noopener" href="https://rocketmq.apache.org/zh/docs/">https://rocketmq.apache.org/zh/docs/</a></p>
+<p>4.x 文档：<a target="_blank" rel="noopener" href="https://rocketmq.apache.org/zh/docs/4.x/">https://rocketmq.apache.org/zh/docs/4.x/</a></p>
+<h2 id="端口号说明"><a href="#端口号说明" class="headerlink" title="端口号说明"></a>端口号说明</h2><table>
+<thead>
+<tr>
+<th>涉及服务</th>
+<th>端口号</th>
+<th>说明</th>
+<th>修改方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Broker</td>
+<td>10909</td>
+<td>Broker VIPChannel 所用到的端口，默认计算方式为<code>listenPort - 2</code>（因此通常是10909）</td>
+<td></td>
+</tr>
+<tr>
+<td>Broker</td>
+<td>10911</td>
+<td>Broker 默认使用的监听端口(<code>listenPort</code>)</td>
+<td></td>
+</tr>
+<tr>
+<td>Broker</td>
+<td>10912</td>
+<td>主从Broker 数据同步端口（<code>haListenPort</code>）</td>
+<td></td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>8081</td>
+<td>gRPC协议访问端口(<code>grpcServerPort</code>)</td>
+<td>rmq-proxy.json 配置中配置：grpcServerPort</td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>8080</td>
+<td>remoting 协议访问端口（<code>remotingListenPort</code>）</td>
+<td>rmq-proxy.json 配置中配置：remotingListenPort</td>
+</tr>
+<tr>
+<td>NameServer</td>
+<td>9786</td>
+<td>NameServer 的端口，客户端通过该端口与 NameServer 进行通信，获取 Broker 信息和路由表等</td>
+<td></td>
+</tr>
+<tr>
+<td>Dashboard</td>
+<td>8080</td>
+<td>控制台访问端口</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="工作目录准备"><a href="#工作目录准备" class="headerlink" title="工作目录准备"></a>工作目录准备</h2><p>按照图示准备目录及配置文件</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── broker</span><br><span class="line">│   ├── conf</span><br><span class="line">│   │   ├── broker.conf</span><br><span class="line">│   │   └── tools.yml</span><br><span class="line">│   ├── logs</span><br><span class="line">│   └── store</span><br><span class="line">├── dashboard</span><br><span class="line">│   └── conf</span><br><span class="line">│       └── users.properties</span><br><span class="line">├── docker-compose.yaml</span><br><span class="line">└── proxy</span><br><span class="line">    └── conf</span><br><span class="line">        └── rmq-proxy.json</span><br></pre></td></tr></tbody></table></figure>
+
+<p>步骤1：创建 rockermq 文件目录：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/rocketmq5.3.3/broker/{logs,store,conf}</span><br><span class="line">mkdir -p /home/rocketmq5.3.3/proxy/{logs,conf}</span><br><span class="line">mkdir -p /home/rocketmq5.3.3/dashboard/conf</span><br></pre></td></tr></tbody></table></figure>
+
+<p>步骤2：创建 broker 必要的配置文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch /home/rocketmq5.3.3/broker/conf/broker.conf</span><br><span class="line">touch /home/rocketmq5.3.3/broker/conf/tools.yml</span><br></pre></td></tr></tbody></table></figure>
+
+<p>步骤3：创建 proxy 必要的配置文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch /home/rocketmq5.3.3/proxy/conf/rmq-proxy.json</span><br></pre></td></tr></tbody></table></figure>
+
+<p>步骤4：创建 dashboard 必要的配置文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch /home/rocketmq5.3.3/dashboard/conf/users.properties</span><br></pre></td></tr></tbody></table></figure>
+
+<p>步骤5：创建 docker-compose 文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch /home/rocketmq5.3.3/docker-compose.yaml</span><br></pre></td></tr></tbody></table></figure>
+
+<p>步骤6：授权读写权限：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R 3000:3000 /home/rocketmq5.3.3/</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="broker-配置"><a href="#broker-配置" class="headerlink" title="broker 配置"></a>broker 配置</h2><h3 id="broker-conf-配置"><a href="#broker-conf-配置" class="headerlink" title="broker.conf 配置"></a>broker.conf 配置</h3><p>编辑 broker.conf 配置文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /home/rocketmq5.3.3/broker/conf/broker.conf</span><br></pre></td></tr></tbody></table></figure>
+
+<p>写入配置：</p>
+<figure class="highlight properties"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">brokerClusterNamex</span>=<span class="string">DefaultCluster</span></span><br><span class="line"><span class="attr">brokerName</span>=<span class="string">broker-a</span></span><br><span class="line"><span class="attr">brokerId</span>=<span class="string">0</span></span><br><span class="line"><span class="attr">deleteWhen</span>=<span class="string">04</span></span><br><span class="line"><span class="attr">fileReservedTime</span>=<span class="string">48</span></span><br><span class="line"><span class="attr">brokerRole</span>=<span class="string">ASYNC_MASTER</span></span><br><span class="line"><span class="attr">flushDiskType</span>=<span class="string">ASYNC_FLUSH</span></span><br><span class="line"><span class="comment"># broker 暴露的IP地址</span></span><br><span class="line"><span class="attr">brokerIP1</span>=<span class="string">192.168.100.1</span></span><br><span class="line"><span class="comment"># 开启认证功能</span></span><br><span class="line"><span class="attr">authenticationEnabled</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">authenticationProvider</span>=<span class="string">org.apache.rocketmq.auth.authentication.provider.DefaultAuthenticationProvider</span></span><br><span class="line"><span class="attr">initAuthenticationUser</span>=<span class="string">{"username":"woodwhales","password":"woodwhales"}</span></span><br><span class="line"><span class="attr">innerClientAuthenticationCredentials</span>=<span class="string">{"accessKey":"woodwhales","secretKey":"woodwhales"}</span></span><br><span class="line"><span class="attr">authenticationMetadataProvider</span>=<span class="string">org.apache.rocketmq.auth.authentication.provider.LocalAuthenticationMetadataProvider</span></span><br><span class="line"><span class="comment"># 开启授权功能</span></span><br><span class="line"><span class="attr">authorizationEnabled</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">authorizationProvider</span>=<span class="string">org.apache.rocketmq.auth.authorization.provider.DefaultAuthorizationProvider</span></span><br><span class="line"><span class="attr">authorizationMetadataProvider</span>=<span class="string">org.apache.rocketmq.auth.authorization.provider.LocalAuthorizationMetadataProvider</span></span><br><span class="line"><span class="comment"># 兼容 ACL 1.0 的 plain_acl.yml 文件</span></span><br><span class="line"><span class="attr">migrateAuthFromV1Enabled</span>=<span class="string">true</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意：<code>initAuthenticationUser</code>和<code>innerClientAuthenticationCredentials</code>改为自己要定义的账号密码。</p>
+<h3 id="tools-yml-配置"><a href="#tools-yml-配置" class="headerlink" title="tools.yml 配置"></a>tools.yml 配置</h3><p>编辑 broker.conf 配置文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /home/rocketmq5.3.3/broker/conf/tools.yml</span><br></pre></td></tr></tbody></table></figure>
+
+<p>写入配置：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">accessKey:</span> <span class="string">woodwhales</span></span><br><span class="line"><span class="attr">secretKey:</span> <span class="string">woodwhales</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意：<code>accessKey</code>和<code>secretKey</code>要和 broker.conf 配置文件中的<code>innerClientAuthenticationCredentials</code>配置内容一致。</p>
+<h2 id="proxy-配置"><a href="#proxy-配置" class="headerlink" title="proxy 配置"></a>proxy 配置</h2><h3 id="rmq-proxy-json-配置"><a href="#rmq-proxy-json-配置" class="headerlink" title="rmq-proxy.json 配置"></a>rmq-proxy.json 配置</h3><p>编辑 rmq-proxy.json 配置文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /home/rocketmq5.3.3/proxy/conf/rmq-proxy.json</span><br></pre></td></tr></tbody></table></figure>
+
+<p>写入配置：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">    <span class="attr">"rocketMQClusterName":</span> <span class="string">"DefaultCluster"</span>,</span><br><span class="line">    <span class="attr">"remotingListenPort":</span> <span class="number">18680</span>,</span><br><span class="line">    <span class="attr">"grpcServerPort":</span> <span class="number">18681</span>,</span><br><span class="line">    <span class="attr">"enableACL":</span> <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"authenticationEnabled":</span> <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"authenticationProvider":</span> <span class="string">"org.apache.rocketmq.auth.authentication.provider.DefaultAuthenticationProvider"</span>,</span><br><span class="line">    <span class="attr">"authenticationMetadataProvider":</span> <span class="string">"org.apache.rocketmq.proxy.auth.ProxyAuthenticationMetadataProvider"</span>,</span><br><span class="line">    <span class="attr">"innerClientAuthenticationCredentials":</span> <span class="string">"{\"accessKey\":\"woodwhales\", \"secretKey\":\"woodwhales\"}"</span>,</span><br><span class="line">    <span class="attr">"enableAclRpcHookForClusterMode":</span> <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"authorizationEnabled":</span> <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"authorizationProvider":</span> <span class="string">"org.apache.rocketmq.auth.authorization.provider.DefaultAuthorizationProvider"</span>,</span><br><span class="line">    <span class="attr">"authorizationMetadataProvider":</span> <span class="string">"org.apache.rocketmq.proxy.auth.ProxyAuthorizationMetadataProvider"</span>,</span><br><span class="line">    <span class="attr">"migrateAuthFromV1Enabled":</span> <span class="literal">true</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>配置说明：</p>
+<ul>
+<li><code>remotingListenPort</code>默认为：8080，笔者改为了 18680</li>
+<li><code>grpcServerPort</code>默认为：8081，笔者改为了 18681</li>
+<li><code>enableACL</code>设置为：true，开启 ACL 功能</li>
+<li><code>innerClientAuthenticationCredentials</code>配置和 broker.conf 配置中的<code>innerClientAuthenticationCredentials</code> 保持一致</li>
+<li><code>enableAclRpcHookForClusterMode</code>设置为：true</li>
+<li><code>authorizationEnabled</code>设置为：true</li>
+</ul>
+<h2 id="dashboard-配置"><a href="#dashboard-配置" class="headerlink" title="dashboard 配置"></a>dashboard 配置</h2><h3 id="users-properties-配置"><a href="#users-properties-配置" class="headerlink" title="users.properties 配置"></a>users.properties 配置</h3><p>编辑 users.properties 配置文件：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /home/rocketmq5.3.3/dashboard/conf/users.properties</span><br></pre></td></tr></tbody></table></figure>
+
+<p>写入配置：</p>
+<figure class="highlight properties"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置 dashboard 登录账号密码</span></span><br><span class="line"><span class="attr">admin</span>=<span class="string">woodwhales,1</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="docker-compose-完整配置"><a href="#docker-compose-完整配置" class="headerlink" title="docker-compose 完整配置"></a>docker-compose 完整配置</h2><figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">namesrv:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">apache/rocketmq:5.3.3</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">rmqnamesrv</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">9876</span><span class="string">:9876</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">rocketmq</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">sh</span> <span class="string">mqnamesrv</span></span><br><span class="line">  <span class="attr">broker:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">apache/rocketmq:5.3.3</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">rmqbroker</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">10909</span><span class="string">:10909</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">10911</span><span class="string">:10911</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">10912</span><span class="string">:10912</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">NAMESRV_ADDR=rmqnamesrv:9876</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/home/rocketmq5.3.3/broker/conf/broker.conf:/home/rocketmq/rocketmq-5.3.3/conf/broker.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/home/rocketmq5.3.3/broker/conf/tools.yml:/home/rocketmq/rocketmq-5.3.3/conf/tools.yml</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/home/rocketmq5.3.3/broker/logs/:/home/rocketmq/logs/rocketmqlogs/</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/home/rocketmq5.3.3/broker/store:/home/rocketmq/store</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">namesrv</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">rocketmq</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">sh</span> <span class="string">mqbroker</span> <span class="string">-c</span> <span class="string">/home/rocketmq/rocketmq-5.3.3/conf/broker.conf</span> </span><br><span class="line">  <span class="attr">proxy:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">apache/rocketmq:5.3.3</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">rmqproxy</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">rocketmq</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">broker</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">namesrv</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">18680</span><span class="string">:18680</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">18681</span><span class="string">:18681</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">on-failure</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/home/rocketmq5.3.3/proxy/conf/rmq-proxy.json:/home/rocketmq/rocketmq-5.3.3/conf/rmq-proxy.json</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/home/rocketmq5.3.3/broker/conf/tools.yml:/home/rocketmq/rocketmq-5.3.3/conf/tools.yml</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/home/rocketmq5.3.3/proxy/logs/:/home/rocketmq/logs/rocketmqlogs</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">NAMESRV_ADDR=rmqnamesrv:9876</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">sh</span> <span class="string">mqproxy</span> <span class="string">-pc</span> <span class="string">/home/rocketmq/rocketmq-5.3.3/conf/rmq-proxy.json</span></span><br><span class="line">  <span class="attr">dashboard:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">apacherocketmq/rocketmq-dashboard:2.0.1</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">rmqdashboard</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">rocketmq</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">8682</span><span class="string">:8080</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/home/rocketmq5.3.3/dashboard/conf/users.properties:/tmp/rocketmq-console/data/users.properties</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">JAVA_OPTS=-Drocketmq.config.namesrvAddrs=rmqnamesrv:9876</span> <span class="string">-Drocketmq.config.proxyAddrs=rmqproxy:18680</span> <span class="string">-Drocketmq.config.accessKey=woodwhales</span> <span class="string">-Drocketmq.config.secretKey=woodwhales</span> <span class="string">-Drocketmq.config.loginRequired=true</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">broker</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">namesrv</span> </span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">rocketmq:</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">bridge</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>一键启动</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></tbody></table></figure>
+
+<p>一键停止所有容器</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose stop</span><br></pre></td></tr></tbody></table></figure>
+
+<p>一键查看所有启动的容器</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose ps</span><br></pre></td></tr></tbody></table></figure>
+
+<p>一键删除所有容器</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="服务启动成功状态校验"><a href="#服务启动成功状态校验" class="headerlink" title="服务启动成功状态校验"></a>服务启动成功状态校验</h2><h3 id="NameServer-启动成功校验"><a href="#NameServer-启动成功校验" class="headerlink" title="NameServer 启动成功校验"></a>NameServer 启动成功校验</h3><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f rmqnamesrv</span><br></pre></td></tr></tbody></table></figure>
+
+<p>出现如下字样标识启动成功：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The Name Server boot <span class="attr">success. serializeType</span>=JSON, address <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">9876</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Broker-启动成功校验"><a href="#Broker-启动成功校验" class="headerlink" title="Broker 启动成功校验"></a>Broker 启动成功校验</h3><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f rmqbroker</span><br></pre></td></tr></tbody></table></figure>
+
+<p>出现如下字样标识启动成功：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The broker<span class="section">[broker-a, 192.168.100.1:10911]</span> boot <span class="attr">success. serializeType</span>=JSON and name server is rmqnamesrv:<span class="number">9876</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Proxy-启动成功校验"><a href="#Proxy-启动成功校验" class="headerlink" title="Proxy 启动成功校验"></a>Proxy 启动成功校验</h3><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f rmqproxy</span><br></pre></td></tr></tbody></table></figure>
+
+<p>出现如下字样标识启动成功：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rocketmq-proxy startup successfully</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Dashboard-启动成功校验"><a href="#Dashboard-启动成功校验" class="headerlink" title="Dashboard 启动成功校验"></a>Dashboard 启动成功校验</h3><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f rmqdashboard</span><br></pre></td></tr></tbody></table></figure>
+
+<p>出现如下字样标识启动成功：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INFO main - Starting ProtocolHandler <span class="section">["http-nio-8080"]</span></span><br><span class="line">INFO main - Tomcat started on port(s): 8080 (http) with context path ''</span><br><span class="line">INFO main - Started App in 3.74 seconds</span><br></pre></td></tr></tbody></table></figure>
+
+<p>浏览器访问：<a target="_blank" rel="noopener" href="http://192.168.100.1:8682/">http://192.168.100.1:8682/</a></p>
+<p><img src="https://image.woodwhales.cn/103/images/01.png"></p>
+<p>账号密码为<code>/home/rocketmq5.3.3/dashboard/conf/users.properties</code>配置文件中的配置。</p>
+<p>注意：Acl 菜单在 rocketmq 5.x 版本不可用，需要使用命令形式操作，具体参见下文。</p>
+<h2 id="ACL-2-0-特性"><a href="#ACL-2-0-特性" class="headerlink" title="ACL 2.0 特性"></a>ACL 2.0 特性</h2><h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><p>基于角色的访问控制（RBAC）和基于属性的访问控制（ABAC）是访问控制体系中两种主要的方法。RocketMQ ACL 2.0 融合了两者。</p>
+<p>RBAC 是基于角色的访问控制模型，通过角色进行权限的分配。</p>
+<p>RocketMQ ACL 2.0 将用户角色划分为<code>超级用户（Super）</code>和<code>普通用户（Normal）</code></p>
+<ul>
+<li><strong>超级用户</strong>：具有最高级别的权限，能够无需授权即可访问资源，这简化了集群初始化及日常运维过程中的权限依赖问题。</li>
+<li><strong>普通用户</strong>：在访问资源之前，需要被赋予相应的权限，适用于业务场景中，对资源进行按需访问。</li>
+</ul>
+<h4 id="认证（Authentication）"><a href="#认证（Authentication）" class="headerlink" title="认证（Authentication）"></a>认证（Authentication）</h4><p>认证作为一种安全机制，旨在验证发起访问请求者的身份真实性。它用于确保只有那些经过身份验证的合法用户或实体才能访问受保护的资源或执行特定的操作。简而言之，认证就是在资源或服务被访问之前回答“你是谁？”这个问题。</p>
+<p>RocketMQ ACL 2.0 版本维持了与 ACL 1.0 相同的认证机制，即基于 AK/SK 的认证方式。这种方式主要通过对称加密技术来核验客户端的身份，保证敏感的认证信息（如密码）不会在网络上明文传输，从而提升了整体的认证安全性。</p>
+<h5 id="认证流程"><a href="#认证流程" class="headerlink" title="认证流程"></a>认证流程</h5><p><img src="https://image.woodwhales.cn/103/images/05.jpg"></p>
+<p>客户端流程：</p>
+<ol>
+<li>客户端在构建 RPC 请求时，检查是否设置了用户名和密码，若未配置，则直接发送请求；</li>
+<li>若已配置，则使用预设的加密算法对请求参数进行加密处理，并生成对应的数字签名（Signature）。</li>
+<li>在请求中附加用户名和 Signature，并将其发送至服务端以进行身份验证。</li>
+</ol>
+<p>服务端流程：</p>
+<ol>
+<li>服务端接收到请求后，首先检查是否开启认证，若未开启，则不校验直接通过；若已开启了，则进入下一步。</li>
+<li>服务端对请求进行认证相关的参数进行解析和组装，获取包括用户名和 Signature 等信息。</li>
+<li>通过用户名在本地库中查询用户相关信息，用户不存在，则返回处理无；用户存在，则进入下一步。</li>
+<li>获取用户密码，采用相同的加密算法对请求进行加密生成 Signature，并和客户端传递的 Signature 进行比对，若两者一致，则认证成功，不一致，则认证失败。</li>
+</ol>
+<h4 id="授权（Authorization）"><a href="#授权（Authorization）" class="headerlink" title="授权（Authorization）"></a>授权（Authorization）</h4><h5 id="核心概念-1"><a href="#核心概念-1" class="headerlink" title="核心概念"></a>核心概念</h5><p>授权作为一种安全机制，旨在确定访问请求者是否拥有对特定资源进行操作的权限。简而言之，授权就是在资源被访问之前回答“谁在何种环境下对哪些资源执行何种操作”这个问题。</p>
+<p>基于“属性的访问控制（ABAC）”模型，RocketMQ ACL 2.0 涵盖了以下一系列的核心概念。在系统实现中，都会以以下概念作为指导，完成整个权限管理和授权机制的设计和实现。</p>
+<p><img src="https://image.woodwhales.cn/103/images/06.jpg"></p>
+<h5 id="授权流程"><a href="#授权流程" class="headerlink" title="授权流程"></a>授权流程</h5><p><img src="https://image.woodwhales.cn/103/images/07.jpg"></p>
+<p>客户端流程：</p>
+<ol>
+<li>客户端在构建 RPC 请求时，构建本次调用的接口入参，接口对应权限背后的操作定义。</li>
+<li>客户端在接口入参中设置本次访问的资源信息，然后将用户和资源等参数传递到服务端。</li>
+</ol>
+<p>服务端流程：</p>
+<ol>
+<li>服务端在收到请求后，首先检查是否开启授权，若未开启，则不校验直接通过；若已开启了，则进入下一步。</li>
+<li>服务端对请求中和授权相关的参数进行解析和组装，这些数据包括用户信息、访问的资源、执行的操作，以及请求的环境等。</li>
+<li>通过用户名在本地数据存储中查询用户相关信息，若用户不存在，则返回错误；若用户存在，则进入下一步。</li>
+<li>判断当前用户是否是超级用户，若超级用户，则直接通过请求，无需做授权检查，若普通用户，则进入下一步进行详细的授权检查。</li>
+<li>根据用户名获取相关的授权策略列表，并对本次请求的资源、操作，以及环境进行匹配，同时按照优先级进行排序。</li>
+<li>根据优先级最高的授权策略做出决策，若授权策略允许该操作，则返回授权成功，若拒绝该操作，则返回无权限错误。</li>
+</ol>
+<h2 id="topic-管理"><a href="#topic-管理" class="headerlink" title="topic 管理"></a>topic 管理</h2><h3 id="通过控制台手动创建-topic"><a href="#通过控制台手动创建-topic" class="headerlink" title="通过控制台手动创建 topic"></a>通过控制台手动创建 topic</h3><p>通过控制台手动创建 topic</p>
+<p><img src="https://image.woodwhales.cn/103/images/02.png"></p>
+<p>创建名为：topic_a 的普通消息主题</p>
+<p><img src="https://image.woodwhales.cn/103/images/03.png"></p>
+<p>刷新主题列表，可以看到创建成功的 topic</p>
+<p><img src="https://image.woodwhales.cn/103/images/04.png"></p>
+<h3 id="通过命令创建-topic"><a href="#通过命令创建-topic" class="headerlink" title="通过命令创建 topic"></a>通过命令创建 topic</h3><p>先进入 broker 容器：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin updateTopic -n rmqnamesrv:9876 -t topic_b -c DefaultCluster -a +message.type=NORMAL</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p><code>message.type</code>可以为：UNSPECIFIED, TRANSACTION, FIFO, MIXED, DELAY, NORMAL</p>
+</blockquote>
+<p>出现如下字样标示操作成功：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create topic to 127.0.0.1:10911 success.</span><br><span class="line">TopicConfig <span class="section">[topicName=topic_b, readQueueNums=8, writeQueueNums=8, perm=RW-, topicFilterType=SINGLE_TAG, topicSysFlag=0, order=false, attributes={+message.type=NORMAL}]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>另外通过控制台也可以看到创建成功的 topic。</p>
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><h3 id="查询用户列表"><a href="#查询用户列表" class="headerlink" title="查询用户列表"></a>查询用户列表</h3><h4 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h4><p>listUser</p>
+<h4 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><code>-b</code>或者<code>--brokerAddr</code>，broker 地址（与<code>-c</code>参数二选一即可）</li>
+<li><code>-c</code>或者 <code>--clusterName</code>，broker 集群名称（与<code>-b</code>参数二选一即可）</li>
+<li><code>-n</code>或者<code>--namesrvAddr</code>，nameserver 地址，多个地址使用英文逗号分隔</li>
+<li><code>-h</code>或者 <code>--help</code>，帮助文档</li>
+<li><code>-f</code>或者<code>--filter</code>，过滤条件（支持用户名称模糊查询，可选）</li>
+</ul>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin listUser -n rmqnamesrv:9876 -c DefaultCluster</span><br></pre></td></tr></tbody></table></figure>
+
+<p>出现用户信息表示查询成功：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#UserName         #Password               #UserType               #UserStatus           </span></span><br><span class="line">woodwhales        woodwhales              Super                   enable                </span><br><span class="line">get user from 127.0.0.1:10911 success.</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><h4 id="指令-1"><a href="#指令-1" class="headerlink" title="指令"></a>指令</h4><p>createUser</p>
+<h4 id="参数说明-1"><a href="#参数说明-1" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><code>-b</code>或者<code>--brokerAddr</code>，broker 地址（与<code>-c</code>参数二选一即可）</li>
+<li><code>-c</code>或者 <code>--clusterName</code>，broker 集群名称（与<code>-b</code>参数二选一即可）</li>
+<li><code>-h</code>或者 <code>--help</code>，帮助文档</li>
+<li><code>-n</code>或者<code>--namesrvAddr</code>，nameserver 地址，多个地址使用英文逗号分隔</li>
+<li><code>-p</code>或者<code>--password</code>，用户密码</li>
+<li><code>-t</code>或者<code>--userType</code>，用户类型，可选：<code>Super</code>、<code>Normal</code></li>
+<li><code>-u</code>或者<code>--username</code>，用户名称</li>
+</ul>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin createUser -n rmqnamesrv:9876 -c DefaultCluster -u rocketmq_a -p rocketmq_a</span><br></pre></td></tr></tbody></table></figure>
+
+<p>出现如下字样标示操作成功：</p>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create user to 127.0.0.1:10911 success.</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="更新用户"><a href="#更新用户" class="headerlink" title="更新用户"></a>更新用户</h3><h4 id="指令-2"><a href="#指令-2" class="headerlink" title="指令"></a>指令</h4><p>updateUser</p>
+<h4 id="参数说明-2"><a href="#参数说明-2" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><code>-b</code>或者<code>--brokerAddr</code>，broker 地址（与<code>-c</code>参数二选一即可）</li>
+<li><code>-c</code>或者 <code>--clusterName</code>，broker 集群名称（与<code>-b</code>参数二选一即可）</li>
+<li><code>-h</code>或者 <code>--help</code>，帮助文档</li>
+<li><code>-n</code>或者<code>--namesrvAddr</code>，nameserver 地址，多个地址使用英文逗号分隔</li>
+<li><code>-p</code>或者<code>--password</code>，用户密码</li>
+<li><code>-s</code>或者<code>--userStatus</code>，用户状态，可选：<code>enable</code>、<code>disable</code>（只能单独执行，不可以和 <code>-t</code>、<code>-p</code>一起执行）</li>
+<li><code>-t</code>或者<code>--userType</code>，用户类型，可选：<code>Super</code>、<code>Normal</code></li>
+<li><code>-u</code>或者<code>--username</code>，用户名称</li>
+</ul>
+<h4 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin updateUser -n rmqnamesrv:9876 -c DefaultCluster -u rocketmq_a -p rocketmq_a</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="查看用户详情"><a href="#查看用户详情" class="headerlink" title="查看用户详情"></a>查看用户详情</h3><h4 id="指令-3"><a href="#指令-3" class="headerlink" title="指令"></a>指令</h4><p>getUser</p>
+<h4 id="参数说明-3"><a href="#参数说明-3" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><code>-b</code>或者<code>--brokerAddr</code>，broker 地址（与<code>-c</code>参数二选一即可）</li>
+<li><code>-c</code>或者 <code>--clusterName</code>，broker 集群名称（与<code>-b</code>参数二选一即可）</li>
+<li><code>-h</code>或者 <code>--help</code>，帮助文档</li>
+<li><code>-n</code>或者<code>--namesrvAddr</code>，nameserver 地址，多个地址使用英文逗号分隔</li>
+<li><code>-n</code>或者<code>--username</code>，用户名称</li>
+</ul>
+<h4 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h4><p>查看 rocketmq_a 用户详情</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin getUser -n rmqnamesrv:9876 -c DefaultCluster -u rocketmq_a</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><h4 id="指令-4"><a href="#指令-4" class="headerlink" title="指令"></a>指令</h4><p>deleteUser</p>
+<h4 id="参数说明-4"><a href="#参数说明-4" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><code>-b</code>或者<code>--brokerAddr</code>，broker 地址（与<code>-c</code>参数二选一即可）</li>
+<li><code>-c</code>或者 <code>--clusterName</code>，broker 集群名称（与<code>-b</code>参数二选一即可）</li>
+<li><code>-h</code>或者 <code>--help</code>，帮助文档</li>
+<li><code>-n</code>或者<code>--namesrvAddr</code>，nameserver 地址，多个地址使用英文逗号分隔</li>
+<li><code>-n</code>或者<code>--username</code>，用户名称</li>
+</ul>
+<h4 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h4><p>删除 rocketmq_a 用户</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin deleteUser -n rmqnamesrv:9876 -c DefaultCluster -u rocketmq_a</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="ACL-管理"><a href="#ACL-管理" class="headerlink" title="ACL 管理"></a>ACL 管理</h2><h3 id="查询授权列表"><a href="#查询授权列表" class="headerlink" title="查询授权列表"></a>查询授权列表</h3><h4 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h4><p>listAcl</p>
+<h4 id="参数说明-5"><a href="#参数说明-5" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><code>-b</code>或者<code>--brokerAddr</code>，broker 地址（与<code>-c</code>参数二选一即可）</li>
+<li><code>-c</code>或者 <code>--clusterName</code>，broker 集群名称（与<code>-b</code>参数二选一即可）</li>
+<li><code>-h</code>或者 <code>--help</code>，帮助文档</li>
+<li><code>-n</code>或者<code>--namesrvAddr</code>，nameserver 地址，多个地址使用英文逗号分隔</li>
+<li><code>-r</code>或者<code>--resource</code>，资源过滤条件</li>
+<li><code>-s</code>或者<code>--subject</code>，授权用户过滤条件（支持模糊查询）</li>
+</ul>
+<h4 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a>示例</h4><p>查询授权列表</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin listAcl -n rmqnamesrv:9876 -c DefaultCluster</span><br></pre></td></tr></tbody></table></figure>
+
+<p>查询 rocketmq_a 用户授权列表</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin listAcl -n rmqnamesrv:9876 -c DefaultCluster -s User:rocketmq_a</span><br></pre></td></tr></tbody></table></figure>
+
+<p>查询 topic 为 topic_a 授权情况</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin listAcl -n rmqnamesrv:9876 -c DefaultCluster --resource Topic:topic_a</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="查询授权详情"><a href="#查询授权详情" class="headerlink" title="查询授权详情"></a>查询授权详情</h3><h4 id="命令-1"><a href="#命令-1" class="headerlink" title="命令"></a>命令</h4><p>getAcl</p>
+<h4 id="参数说明-6"><a href="#参数说明-6" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><code>-b</code>或者<code>--brokerAddr</code>，broker 地址（与<code>-c</code>参数二选一即可）</li>
+<li><code>-c</code>或者 <code>--clusterName</code>，broker 集群名称（与<code>-b</code>参数二选一即可）</li>
+<li><code>-h</code>或者 <code>--help</code>，帮助文档</li>
+<li><code>-n</code>或者<code>--namesrvAddr</code>，nameserver 地址，多个地址使用英文逗号分隔</li>
+<li><code>-s</code>或者<code>--subject</code>，授权用户过滤条件（支持模糊查询）</li>
+</ul>
+<h4 id="示例-6"><a href="#示例-6" class="headerlink" title="示例"></a>示例</h4><p>查看 rocketmq_a 用户授权列表</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin getAcl -n rmqnamesrv:9876 -c DefaultCluster -s User:rocketmq_a</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="创建授权"><a href="#创建授权" class="headerlink" title="创建授权"></a>创建授权</h3><h4 id="命令-2"><a href="#命令-2" class="headerlink" title="命令"></a>命令</h4><p>createAcl</p>
+<h4 id="参数说明-7"><a href="#参数说明-7" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><p><code>-a</code>或者<code>--actions</code>，可选：<code>Pub</code>、<code>Sub</code></p>
+</li>
+<li><p><code>-b</code>或者<code>--brokerAddr</code>，broker 地址（与<code>-c</code>参数二选一即可）</p>
+</li>
+<li><p><code>-c</code>或者 <code>--clusterName</code>，broker 集群名称（与<code>-b</code>参数二选一即可）</p>
+</li>
+<li><p><code>-d</code>或者<code>--decision</code>，决策类型，可选：<code>Allow</code>、<code>Deny</code></p>
+</li>
+<li><p><code>-h</code>或者 <code>--help</code>，帮助文档</p>
+</li>
+<li><p><code>-i</code>或者<code>--sourceIp</code>，IP 白名单</p>
+</li>
+<li><p><code>-n</code>或者<code>--namesrvAddr</code>，nameserver 地址，多个地址使用英文逗号分隔</p>
+</li>
+<li><p><code>-r</code>或者<code>--resources</code>，资源</p>
+</li>
+<li><p><code>-s</code>或者<code>--subject</code>，授权用户</p>
+</li>
+</ul>
+<h4 id="示例-7"><a href="#示例-7" class="headerlink" title="示例"></a>示例</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin createAcl -n rmqnamesrv:9876 -c DefaultCluster -s User:rocketmq_a -r Topic:topic_a,Group:* -a Sub -i '172.16.0.0/12,192.168.0.0/16' -d Allow</span><br><span class="line"></span><br><span class="line">docker exec rmqbroker sh mqadmin createAcl -n rmqnamesrv:9876 -c DefaultCluster -s  User:rocketmq_b -r Topic:topic_b,Group:* -a Sub -i '172.16.0.0/12,192.168.0.0/16' -d ALLOW</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述IP白名单中<code>172.16.0.0/12</code>表示：<code>172.16.0.0 ~ 172.31.255.255</code></p>
+<p> <code>192.168.0.0/16</code>表示：<code>192.168.0.0 ~ 192.168.255.255</code></p>
+<h3 id="更新授权"><a href="#更新授权" class="headerlink" title="更新授权"></a>更新授权</h3><h4 id="命令-3"><a href="#命令-3" class="headerlink" title="命令"></a>命令</h4><p>updateAcl</p>
+<h4 id="参数说明-8"><a href="#参数说明-8" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><p><code>-a</code>或者<code>--actions</code>，可选：<code>Pub</code>、<code>Sub</code></p>
+</li>
+<li><p><code>-b</code>或者<code>--brokerAddr</code>，broker 地址（与<code>-c</code>参数二选一即可）</p>
+</li>
+<li><p><code>-c</code>或者 <code>--clusterName</code>，broker 集群名称（与<code>-b</code>参数二选一即可）</p>
+</li>
+<li><p><code>-d</code>或者<code>--decision</code>，决策类型，可选：<code>Allow</code>、<code>Deny</code></p>
+</li>
+<li><p><code>-h</code>或者 <code>--help</code>，帮助文档</p>
+</li>
+<li><p><code>-i</code>或者<code>--sourceIp</code>，IP 白名单</p>
+</li>
+<li><p><code>-n</code>或者<code>--namesrvAddr</code>，nameserver 地址，多个地址使用英文逗号分隔</p>
+</li>
+<li><p><code>-r</code>或者<code>--resources</code>，资源</p>
+</li>
+<li><p><code>-s</code>或者<code>--subject</code>，授权用户</p>
+</li>
+</ul>
+<h4 id="示例-8"><a href="#示例-8" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin updateAcl -n rmqnamesrv:9876 -c DefaultCluster -s User:rocketmq_a -r Topic:*,Group:* -a Sub -i 192.168.1.0/24 -d Deny</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="删除授权"><a href="#删除授权" class="headerlink" title="删除授权"></a>删除授权</h3><h4 id="命令-4"><a href="#命令-4" class="headerlink" title="命令"></a>命令</h4><p>deleteAcl</p>
+<h4 id="参数说明-9"><a href="#参数说明-9" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li><code>-b</code>或者<code>--brokerAddr</code>，broker 地址（与<code>-c</code>参数二选一即可）</li>
+<li><code>-c</code>或者 <code>--clusterName</code>，broker 集群名称（与<code>-b</code>参数二选一即可）</li>
+<li><code>-h</code>或者 <code>--help</code>，帮助文档</li>
+<li><code>-n</code>或者<code>--namesrvAddr</code>，nameserver 地址，多个地址使用英文逗号分隔</li>
+<li><code>-r</code>或者<code>--resources</code>，资源</li>
+<li><code>-s</code>或者<code>--subject</code>，授权用户</li>
+</ul>
+<h4 id="示例-9"><a href="#示例-9" class="headerlink" title="示例"></a>示例</h4><p>删除 rocketmq_a 用户所有权限</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin deleteAcl -n rmqnamesrv:9876 -c DefaultCluster -s User:rocketmq_a</span><br></pre></td></tr></tbody></table></figure>
+
+<p> 删除 rocketmq_a 用户指定 topic 权限</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin deleteAcl -n rmqnamesrv:9876 -c DefaultCluster -s User:rocketmq_a -r Topic:topic_a</span><br></pre></td></tr></tbody></table></figure>
+
+<p> 删除 rocketmq_a 用户所有 topic 权限</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec rmqbroker sh mqadmin deleteAcl -n rmqnamesrv:9876 -c DefaultCluster -s User:rocketmq_a -r Topic:*</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="Java-SDK-示例"><a href="#Java-SDK-示例" class="headerlink" title="Java SDK 示例"></a>Java SDK 示例</h2><blockquote>
+<p>源码参考：<a target="_blank" rel="noopener" href="https://github.com/woodwhales/woodwhales-study/tree/master/woodwhales-rocketmq-study1">https://github.com/woodwhales/woodwhales-study/tree/master/woodwhales-rocketmq-study1</a></p>
+</blockquote>
+<p>maven 工程引入：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.rocketmq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>rocketmq-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>gradle 工程引入：</p>
+<figure class="highlight groovy"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation(<span class="string">"org.apache.rocketmq:rocketmq-spring-boot-starter:2.3.4"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>yaml 配置文件</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rocketmq:</span></span><br><span class="line">  <span class="attr">name-server:</span> <span class="number">192.168</span><span class="number">.100</span><span class="number">.1</span><span class="string">:9876</span></span><br><span class="line">  <span class="attr">producer:</span></span><br><span class="line">    <span class="attr">group:</span> <span class="string">producer_group</span></span><br><span class="line">    <span class="attr">access-key:</span> <span class="string">woodwhales</span></span><br><span class="line">    <span class="attr">secret-key:</span> <span class="string">woodwhales</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="生产消息"><a href="#生产消息" class="headerlink" title="生产消息"></a>生产消息</h3><p>使用<code>RocketMQTemplate</code>自动注入的 bean 生产消息</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.alibaba.fastjson2.JSON;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.producer.SendResult;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.spring.core.RocketMQTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> woodwhales on 2025-07-24 22:48</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Producer1</span> {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RocketMQTemplate rocketMQTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">topic_a</span> <span class="operator">=</span> <span class="string">"topic_a"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping("/send1")</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">send</span><span class="params">()</span> {</span><br><span class="line">        Map&lt;String, Object&gt; body = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        body.put(<span class="string">"uuid"</span>, UUID.randomUUID().toString());</span><br><span class="line">        <span class="keyword">try</span> {</span><br><span class="line">            <span class="type">SendResult</span> <span class="variable">sendResult</span> <span class="operator">=</span> rocketMQTemplate.syncSend(topic_a, JSON.toJSONString(body));</span><br><span class="line">            log.info(<span class="string">"send msg success, topic={}, sendResult={}"</span>, topic_a, sendResult);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"ok"</span>;</span><br><span class="line">        } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">            log.error(<span class="string">"send msg error, topic={}, errorMsg={}"</span>, topic_a, e.getMessage(), e);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"ko"</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="消费消息方式1"><a href="#消费消息方式1" class="headerlink" title="消费消息方式1"></a>消费消息方式1</h3><p>使用<code>@RocketMQMessageListener</code>注解消费消息</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.common.message.MessageExt;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.spring.annotation.RocketMQMessageListener;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.spring.core.RocketMQListener;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.nio.charset.Charset;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> woodwhales on 2025-07-24 22:52</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RocketMQMessageListener(</span></span><br><span class="line"><span class="meta">        nameServer = "${rocketmq.name-server}",</span></span><br><span class="line"><span class="meta">        consumerGroup = "topic_a_group",</span></span><br><span class="line"><span class="meta">        topic = "topic_a",</span></span><br><span class="line"><span class="meta">        accessKey = "rocketmq_a",</span></span><br><span class="line"><span class="meta">        secretKey = "rocketmq_a")</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Consumer1</span> <span class="keyword">implements</span> <span class="title class_">RocketMQListener</span>&lt;MessageExt&gt; {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onMessage</span><span class="params">(MessageExt message)</span> {</span><br><span class="line">        <span class="type">String</span> <span class="variable">body</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(message.getBody());</span><br><span class="line">        log.info(<span class="string">"accept mq, topic={}, msg={}, message={}"</span>, message.getTopic(), body, message);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="消费消息方式2"><a href="#消费消息方式2" class="headerlink" title="消费消息方式2"></a>消费消息方式2</h3><p>自定义注册消费 bean</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.acl.common.AclClientRPCHook;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.acl.common.SessionCredentials;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.consumer.DefaultLitePullConsumer;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.consumer.MQPushConsumer;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueAveragely;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.exception.MQClientException;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.producer.DefaultMQProducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.common.consumer.ConsumeFromWhere;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.common.message.MessageExt;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.remoting.RPCHook;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.spring.core.RocketMQTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> woodwhales on 2025-07-24 22:59</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Consumer2</span> {</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value("${rocketmq.name-server}")</span></span><br><span class="line">    <span class="keyword">private</span> String namesrvAddr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Consumer2MessageListener consumer2MessageListener;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">RPCHook</span> <span class="variable">rpcHook</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AclClientRPCHook</span>(<span class="keyword">new</span> <span class="title class_">SessionCredentials</span>(<span class="string">"rocketmq_b"</span>, <span class="string">"rocketmq_b"</span>));</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean(value = "pushConsumer", initMethod = "start", destroyMethod = "shutdown")</span></span><br><span class="line">    <span class="keyword">public</span> MQPushConsumer <span class="title function_">pushConsumer</span><span class="params">()</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        <span class="type">DefaultMQPushConsumer</span> <span class="variable">consumer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultMQPushConsumer</span>(rpcHook);</span><br><span class="line">        consumer.setConsumerGroup(<span class="string">"topic_b_group"</span>);</span><br><span class="line">        consumer.setNamesrvAddr(namesrvAddr);</span><br><span class="line">        consumer.subscribe(<span class="string">"topic_b"</span>, <span class="string">"*"</span>);</span><br><span class="line">        consumer.registerMessageListener(<span class="built_in">this</span>.consumer2MessageListener);</span><br><span class="line">        <span class="keyword">return</span> consumer;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Slf4j</span></span><br><span class="line">    <span class="meta">@Component</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Consumer2MessageListener</span> <span class="keyword">implements</span> <span class="title class_">MessageListenerConcurrently</span> {</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> ConsumeConcurrentlyStatus <span class="title function_">consumeMessage</span><span class="params">(List&lt;MessageExt&gt; msgs, ConsumeConcurrentlyContext context)</span> {</span><br><span class="line">            <span class="keyword">for</span> (MessageExt message : msgs) {</span><br><span class="line">                <span class="type">String</span> <span class="variable">body</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(message.getBody());</span><br><span class="line">                log.info(<span class="string">"accept mq, topic={}, msg={}, message={}"</span>, message.getTopic(), body, message);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">return</span> ConsumeConcurrentlyStatus.CONSUME_SUCCESS;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+      
+    </div>
+    
+    
+    
+
+	
+	
+		
+	<div class="updated">
+		<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20">
+			<linearGradient id="b" x2="0" y2="100%">
+				<stop offset="0" stop-color="#bbb" stop-opacity=".1"></stop>
+				<stop offset="1" stop-opacity=".1"></stop>
+			</linearGradient>
+			<clipPath id="a">
+				<rect width="130" height="20" rx="3" fill="#fff"></rect>
+			</clipPath>
+			<g clip-path="url(#a)">
+				<path fill="#555" d="M0 0h55v20H0z"></path>
+				<path fill="#97CA00" d="M55 0h75v20H55z"></path>
+				<path fill="url(#b)" d="M0 0h130v20H0z"></path>
+			</g>
+			<g fill="#fff" text-anchor="middle" font-family="Menlo,monospace" font-size="110">
+				<text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text>
+				<text x="285" y="140" textLength="450" transform="scale(.1)">updated</text>
+				<text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-07-27</text>
+				<text x="915" y="140" textLength="650" transform="scale(.1)">2025-07-27</text>
+			</g>
+			
+		</svg>
+	</div>
+
+
+  <div style="text-align:center;font-size:13px;letter-spacing:10px;user-select:none;margin-top:20px;color:#bbb">本文结束<i class="fa fa-star"></i>感谢阅读</div>
+
+	
+	
+	
+    
+
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2025/07/27/103/">Docker 部署 rocketmq 5.3.3（含 ACL 2.0 配置）</a></p>
+  <p><span>本文作者:</span><a href="https://woodwhales.cn/" title="访问 woodwhales 的个人博客">woodwhales</a></p>
+  <p><span>原始链接:</span><a href="/2025/07/27/103/" title="Docker 部署 rocketmq 5.3.3（含 ACL 2.0 配置）">https://woodwhales.cn/2025/07/27/103/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://woodwhales.cn/2025/07/27/103/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+
+    
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rocketmq/" rel="tag"><i class="fa fa-tag"></i> rocketmq</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2025/05/24/102/" rel="next" title="Docker 安装 Harbor 教程（搭建 Docker 私有仓库 harbor 避坑指南）">
+                <i class="fa fa-chevron-left"></i> Docker 安装 Harbor 教程（搭建 Docker 私有仓库 harbor 避坑指南）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar-woodwhale.png"
+                alt="woodwhales" />
+            
+              <p class="site-author-name" itemprop="name">woodwhales</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/woodwhales" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:woodwhales@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/5b1f7a2f518825137f0d31d1" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-book"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/mujingyu/" target="_blank" title="博客园">
+                      
+                        <i class="fa fa-fw fa-laptop"></i>博客园</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                神奇的链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://music.cloudcoders.cn" title="开源音乐播放器" rel="external nofollow" target="_blank">开源音乐播放器</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://image.woodwhales.cn/" title="woodwhales-image-store" rel="external nofollow" target="_blank">woodwhales-image-store</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bilibili.com/video/av6211226" title="尼古拉·特斯拉：发明了现代世界的人" rel="external nofollow" target="_blank">尼古拉·特斯拉：发明了现代世界的人</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/video/av21376839" title="计算机科学速成课：Crash Course" rel="external nofollow" target="_blank">计算机科学速成课：Crash Course</a>
+                  </li>
+                
+              </ul>
+			  
+			  <div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>
+            </div>
+          
+
+          <!--<div id="days"></div>
+<script>
+	function show_date_time(){
+	window.setTimeout("show_date_time()", 1000);
+	BirthDay=new Date("12/21/2018 00:00:00");
+	today=new Date();
+	timeold=(today.getTime()-BirthDay.getTime());
+	sectimeold=timeold/1000
+	secondsold=Math.floor(sectimeold);
+	msPerDay=24*60*60*1000
+	e_daysold=timeold/msPerDay
+	daysold=Math.floor(e_daysold);
+	e_hrsold=(e_daysold-daysold)*24;
+	hrsold=setzero(Math.floor(e_hrsold));
+	e_minsold=(e_hrsold-hrsold)*60;
+	minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+	seconds=setzero(Math.floor((e_minsold-minsold)*60));
+	document.getElementById('days').innerHTML="已运行 "+daysold+" 天 "+hrsold+" 小时 "+minsold+" 分 "+seconds+" 秒";
+	}
+	function setzero(i){
+	if (i<10)
+	{i="0" + i};
+	return i;
+	}
+	show_date_time();
+</script>-->
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E5%8F%B7%E8%AF%B4%E6%98%8E"><span class="nav-text">端口号说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E5%87%86%E5%A4%87"><span class="nav-text">工作目录准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#broker-%E9%85%8D%E7%BD%AE"><span class="nav-text">broker 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#broker-conf-%E9%85%8D%E7%BD%AE"><span class="nav-text">broker.conf 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tools-yml-%E9%85%8D%E7%BD%AE"><span class="nav-text">tools.yml 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proxy-%E9%85%8D%E7%BD%AE"><span class="nav-text">proxy 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rmq-proxy-json-%E9%85%8D%E7%BD%AE"><span class="nav-text">rmq-proxy.json 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dashboard-%E9%85%8D%E7%BD%AE"><span class="nav-text">dashboard 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#users-properties-%E9%85%8D%E7%BD%AE"><span class="nav-text">users.properties 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-compose-%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AE"><span class="nav-text">docker-compose 完整配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F%E7%8A%B6%E6%80%81%E6%A0%A1%E9%AA%8C"><span class="nav-text">服务启动成功状态校验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NameServer-%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F%E6%A0%A1%E9%AA%8C"><span class="nav-text">NameServer 启动成功校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Broker-%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F%E6%A0%A1%E9%AA%8C"><span class="nav-text">Broker 启动成功校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Proxy-%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F%E6%A0%A1%E9%AA%8C"><span class="nav-text">Proxy 启动成功校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dashboard-%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F%E6%A0%A1%E9%AA%8C"><span class="nav-text">Dashboard 启动成功校验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ACL-2-0-%E7%89%B9%E6%80%A7"><span class="nav-text">ACL 2.0 特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-text">核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%EF%BC%88Authentication%EF%BC%89"><span class="nav-text">认证（Authentication）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="nav-text">认证流程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%88%E6%9D%83%EF%BC%88Authorization%EF%BC%89"><span class="nav-text">授权（Authorization）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5-1"><span class="nav-text">核心概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%88%E6%9D%83%E6%B5%81%E7%A8%8B"><span class="nav-text">授权流程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#topic-%E7%AE%A1%E7%90%86"><span class="nav-text">topic 管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%8E%A7%E5%88%B6%E5%8F%B0%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA-topic"><span class="nav-text">通过控制台手动创建 topic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%91%BD%E4%BB%A4%E5%88%9B%E5%BB%BA-topic"><span class="nav-text">通过命令创建 topic</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%88%B7%E5%88%97%E8%A1%A8"><span class="nav-text">查询用户列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4"><span class="nav-text">指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7"><span class="nav-text">创建用户</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4-1"><span class="nav-text">指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E-1"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E7%94%A8%E6%88%B7"><span class="nav-text">更新用户</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4-2"><span class="nav-text">指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E-2"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-2"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E8%AF%A6%E6%83%85"><span class="nav-text">查看用户详情</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4-3"><span class="nav-text">指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E-3"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-3"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7"><span class="nav-text">删除用户</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4-4"><span class="nav-text">指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E-4"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-4"><span class="nav-text">示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ACL-%E7%AE%A1%E7%90%86"><span class="nav-text">ACL 管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%8E%88%E6%9D%83%E5%88%97%E8%A1%A8"><span class="nav-text">查询授权列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-text">命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E-5"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-5"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%8E%88%E6%9D%83%E8%AF%A6%E6%83%85"><span class="nav-text">查询授权详情</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4-1"><span class="nav-text">命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E-6"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-6"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%8E%88%E6%9D%83"><span class="nav-text">创建授权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4-2"><span class="nav-text">命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E-7"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-7"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%8E%88%E6%9D%83"><span class="nav-text">更新授权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4-3"><span class="nav-text">命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E-8"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-8"><span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%8E%88%E6%9D%83"><span class="nav-text">删除授权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4-4"><span class="nav-text">命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E-9"><span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-9"><span class="nav-text">示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-SDK-%E7%A4%BA%E4%BE%8B"><span class="nav-text">Java SDK 示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E6%B6%88%E6%81%AF"><span class="nav-text">生产消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E6%B6%88%E6%81%AF%E6%96%B9%E5%BC%8F1"><span class="nav-text">消费消息方式1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E6%B6%88%E6%81%AF%E6%96%B9%E5%BC%8F2"><span class="nav-text">消费消息方式2</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1815293530059355"
+     crossorigin="anonymous"></script>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">木鲸鱼</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user-circle-o"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'WWd60b61wU67AeJzg0yzDD1E-gzGzoHsz',
+        appKey: 'QjMAV3Hw76n6nhrDaxLtfoPE',
+        placeholder: '网络一线牵珍惜,珍惜这段缘\n 您可以填写邮箱，回复评论时，您会收到邮件通知。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+        serverURLs: 'https://wwd60b61.lc-cn-n1-shared.com'
+    });
+  </script>
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  <!-- 代码块复制功能 -->
+  <!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  
+  <!-- 音乐 
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  -->
+
+  <!-- 动态背景 
+  <script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+  -->
+  
+</body>
+</html>

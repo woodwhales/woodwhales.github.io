@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APISIX 加密字段移除工具</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <style>
+    body {
+      padding: 20px;
+      font-family: Arial;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .json-box {
+      margin-bottom: 20px;
+    }
+
+    .action-buttons {
+      margin: 20px 0;
+    }
+
+    .result-title {
+      margin: 20px 0 10px;
+    }
+
+    .stats {
+      margin-top: 15px;
+      color: #67C23A;
+    }
+
+    .removed-fields {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ebeef5;
+      border-radius: 4px;
+    }
+
+    .field-tag {
+      margin-right: 10px;
+      margin-bottom: 5px;
+    }
+
+    .file-upload {
+      margin-bottom: 15px;
+    }
+
+    .file-name {
+      margin-left: 10px;
+      color: #666;
+    }
+
+    .progress-wrapper {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <h1>APISIX 加密字段移除工具</h1>
+    <el-alert title="支持处理所有嵌套结构中的 encrypt_fields" type="info" :closable="false">
+      自动识别并移除 plugins、stream_plugins 及其 consumer_schema 中的加密字段
+    </el-alert>
+
+    <div class="progress-wrapper" v-if="showProgress">
+      <el-progress :percentage="progress" :status="progressStatus" :text-inside="true" :stroke-width="20"></el-progress>
+    </div>
+
+    <div class="file-upload">
+      <el-upload action="" :auto-upload="false" :on-change="handleFileChange" :show-file-list="false">
+        <el-button type="primary" icon="el-icon-upload" :disabled="loading">选择JSON文件</el-button>
+        <span class="file-name" v-if="fileName">{{ fileName }}</span>
+      </el-upload>
+    </div>
+
+    <el-card class="json-box">
+      <div slot="header">
+        <span>或直接输入 APISIX 配置 JSON</span>
+      </div>
+      <el-input type="textarea" :rows="15" placeholder='示例：{
+          "plugins": {
+            "jwe-decrypt": {
+              "consumer_schema": {
+                "encrypt_fields": ["key", "secret"],
+                "key": "test_key",
+                "secret": "test_secret"
+              }
+            }
+          }
+        }' v-model="inputJson" :disabled="loading">
+      </el-input>
+    </el-card>
+
+    <div class="action-buttons">
+      <el-button type="primary" @click="processConfig" icon="el-icon-delete" :disabled="!hasInput || loading">
+        移除所有加密字段
+      </el-button>
+      <el-button @click="formatJson" icon="el-icon-edit" :disabled="!hasInput || loading">格式化</el-button>
+      <el-button @click="clearAll" icon="el-icon-delete" :disabled="loading">清空</el-button>
+    </div>
+
+    <div class="stats" v-if="removedFields.length > 0">
+      <div>已移除 {{ removedFields.length }} 个加密字段：</div>
+      <div class="removed-fields">
+        <el-tag v-for="(field, index) in removedFields" :key="index" type="success" class="field-tag" size="small">
+          {{ field }}
+        </el-tag>
+      </div>
+    </div>
+
+    <h3 class="result-title">处理结果：</h3>
+    <el-card class="json-box">
+      <el-input type="textarea" :rows="15" readonly v-model="outputJson">
+      </el-input>
+    </el-card>
+
+    <div class="action-buttons">
+      <el-button type="success" @click="copyResult" icon="el-icon-document-copy" :disabled="!outputJson || loading">
+        复制结果
+      </el-button>
+      <el-button type="warning" @click="downloadResult" icon="el-icon-download" :disabled="!outputJson || loading">
+        下载JSON
+      </el-button>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          inputJson: '',
+          outputJson: '',
+          removedFields: [],
+          fileName: '',
+          fileContent: '',
+          loading: false,
+          progress: 0,
+          showProgress: false,
+          progressStatus: 'success'
+        }
+      },
+      computed: {
+        hasInput() {
+          return this.inputJson.trim() || this.fileContent;
+        }
+      },
+      methods: {
+        simulateProgress(callback) {
+          this.showProgress = true;
+          this.progress = 0;
+          this.progressStatus = 'success';
+          this.loading = true;
+
+          const timer = setInterval(() => {
+            if (this.progress < 90) {
+              this.progress = Math.min(90, Math.floor(this.progress + Math.random() * 10));
+            } else {
+              clearInterval(timer);
+              this.progress = 100;
+              setTimeout(() => {
+                this.showProgress = false;
+                this.loading = false;
+                callback();
+              }, 300);
+            }
+          }, 100);
+        },
+
+        handleFileChange(file) {
+          this.simulateProgress(() => {
+            this.fileName = file.name;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              this.fileContent = e.target.result;
+              this.inputJson = this.fileContent;
+            };
+            reader.onerror = () => {
+              this.$message.error('文件读取失败');
+            };
+            reader.readAsText(file.raw);
+          });
+        },
+
+        processConfig() {
+          this.simulateProgress(() => {
+            let jsonToProcess = this.fileContent || this.inputJson;
+
+            if (!jsonToProcess.trim()) {
+              this.$message.warning('请输入或上传JSON配置');
+              return;
+            }
+
+            try {
+              const config = JSON.parse(jsonToProcess);
+              this.removedFields = [];
+
+              ['plugins', 'stream_plugins'].forEach(type => {
+                if (config[type]) {
+                  Object.entries(config[type]).forEach(([pluginName, plugin]) => {
+                    if (plugin.hasOwnProperty('schema')) {
+                      this.processSchema(plugin.schema, `${type}.${pluginName}.schema`);
+                    }
+                    if (plugin.hasOwnProperty('consumer_schema')) {
+                      this.processSchema(plugin.consumer_schema,
+                        `${type}.${pluginName}.consumer_schema`);
+                    }
+                  });
+                }
+              });
+
+              this.outputJson = JSON.stringify(config, null, 2);
+              this.$message.success(`处理完成，共移除 ${this.removedFields.length} 个加密字段`);
+            } catch (e) {
+              this.$message.error(`处理失败：${e.message}`);
+              this.progressStatus = 'exception';
+            }
+          });
+        },
+
+        processSchema(schema, pathPrefix) {
+          if (!schema || typeof schema !== 'object') return;
+
+          if (schema.hasOwnProperty('encrypt_fields')) {
+            this.removedFields.push(`${pathPrefix}.encrypt_fields`);
+            delete schema.encrypt_fields;
+          }
+        },
+
+        formatJson() {
+          this.simulateProgress(() => {
+            let jsonToFormat = this.fileContent || this.inputJson;
+            try {
+              const formatted = JSON.stringify(JSON.parse(jsonToFormat), null, 2);
+              this.outputJson = formatted;
+              this.inputJson = formatted;
+              if (this.fileContent) this.fileContent = formatted;
+              this.$message.success('格式化完成');
+            } catch (e) {
+              this.$message.error('无效的 JSON 格式');
+              this.progressStatus = 'exception';
+            }
+          });
+        },
+
+        clearAll() {
+          this.inputJson = '';
+          this.outputJson = '';
+          this.removedFields = [];
+          this.fileName = '';
+          this.fileContent = '';
+        },
+
+        copyResult() {
+          const textarea = document.createElement('textarea');
+          textarea.value = this.outputJson;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          this.$message.success('已复制到剪贴板！');
+        },
+
+        downloadResult() {
+          const blob = new Blob([this.outputJson], {
+            type: 'application/json'
+          });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'apisix-config-cleaned.json';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

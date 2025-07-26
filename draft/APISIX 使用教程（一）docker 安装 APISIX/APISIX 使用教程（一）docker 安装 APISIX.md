@@ -1,16 +1,14 @@
-APISIX 使用教程（一）docker 安装 APISIX
+## 申明
 
-## 版本说明
+### 版本说明
 
-### APISIX 及文档版本
+APISIX 版本：`3.12`
 
-本文讲解的 APISIX 版本为：`3.12`
+官方文档：https://apisix.apache.org/zh/docs/apisix/getting-started/README/
 
-官方文档如下：https://apisix.apache.org/zh/docs/apisix/getting-started/README/。注意这个链接为最新版本文档，如果读者在阅读 APISIX 官方文档版本不是上述版本，可在 Version 选项中找到对应版本文档。
+注意这个链接为最新版本文档，如果读者在阅读 APISIX 官方文档时发现版本不是上述版本，可在 Version 选项中找到对应版本文档。
 
 ![](images/01.jpg)
-
-### docker 镜像版本
 
 本文使用到如下 docker 镜像容器，参考版本是文档给出的一键快速启动脚本：https://run.api7.ai/apisix/quickstart，考虑该链接内容可能随着版本升级而更新，本文粘贴出当前`3.12`版本所使用到脚本：
 
@@ -197,9 +195,9 @@ main "$@"
 
 在两个容器启动之后，会更新 apisix 容器中的`/usr/local/apisix/conf/config.yaml`配置。
 
-## APISIX 启动配置文件
+### 自定义配置文件
 
-笔者参考官网一键快速启动脚本、官网文档、github 仓库的 config.yaml，自定义了如下 apisix 的配置：
+笔者参考官网一键快速启动脚本、官网文档、github 仓库的`config.yaml`，自定义了如下 apisix 的配置，在下文的启动 apisix 服务中会使用到。
 
 > 注意：`${ETCD_HOST}`需要配置为宿主机的 IP 地址或者 ETCD 服务的容器名称
 
@@ -223,14 +221,6 @@ deployment:
         role: admin
     allow_admin:
       - 0.0.0.0/0
-plugins:
-  - jwt-auth
-  - proxy-rewrite
-  - public-api
-  - log-rotate
-  - file-logger
-  - limit-count
-  - request-id
 plugin_attr:
   log-rotate:
     interval: 3600
@@ -241,7 +231,7 @@ plugin_attr:
     path: logs/file.log
 ```
 
-上述配置启用插件了：`jwt-auth`、`proxy-rewrite`、`public-api`、`log-rotate`、`file-logger`、`limit-count`、`request-id`，并且配置了`log-rotate`、`file-logger`插件的参数。
+上述配置了`log-rotate`、`file-logger`插件的参数：
 
 **log-rotate 插件**
 
@@ -261,9 +251,7 @@ enable_compression，当设置为 `true` 时，启用日志文件压缩。该功
 
 path，自定义输出文件路径。
 
-## docker 镜像服务安装
-
-### 步骤1：创建网络
+## docker 创建网络
 
 创建`apisix-net`网络
 
@@ -271,45 +259,41 @@ path，自定义输出文件路径。
 docker network create apisix-net
 ```
 
-### 步骤2：安装 etcd 服务
+## docker 安装 etcd
 
-1. 拉去 docker 镜像：
+**步骤1**：拉去 docker 镜像：
 
 ```shell
 docker pull bitnami/etcd:3.4.9
 ```
 
-2. 在宿主机中创建 etcd 要挂载的目录：
+**步骤2**：在宿主机中创建 etcd 要挂载的目录：
 
 ```shell
 mkdir -p /home/etcd/etcd_data
 ```
 
-3. 获取 etcd 容器的用户信息：
+**步骤3**：获取 etcd 容器的用户信息：
 
 ```shell
 docker inspect bitnami/etcd:3.4.9 | grep -i user
 ```
 
-得到如下信息：
+![](images/04.png)
 
-```
-"User": "1001",
-"User": "1001",
-```
-
-4. 授权文件夹权限：
+**步骤4**：授权文件夹权限：
 
 ```shell
 chown -R 1001:1001 /home/etcd/etcd_data
 ```
 
-5. 启动脚本：
+**步骤5**：启动脚本：
 
 ```shell
 docker run -d --name apisix-etcd \
 --restart=always \
 --network=apisix-net \
+-e TZ=Asia/Shanghai \
 -p 2379:2379 \
 -v /home/etcd/etcd_data:/etcd_data \
 -e "ETCD_DATA_DIR=/etcd_data" \
@@ -320,38 +304,52 @@ docker run -d --name apisix-etcd \
 bitnami/etcd:3.4.9
 ```
 
-6. 验证是否安装成功
+**步骤6**：验证是否安装成功
 
-下载 etcd-workbench 客户端工具，github 仓库地址：https://github.com/tzfun/etcd-workbench/releases，安装成功后，配置好 etcd 链接信息，点击测试链接，提示链接成功即可。
+- 方式1：查看容器日志
 
-![](images/02.jpg)
+查看容器日志，出现 serving insecure client requests on [::]:2379, this is strongly discouraged! 字样表示启动成功
 
-### 步骤3：安装 apisix 服务
+```shell
+docker logs apisix-etcd
+```
 
-1. 拉去 docker 镜像：
+![](images/05.png)
+
+- 方式2：etcd 可视化工具链接测试
+
+下载 etcd-workbench 客户端工具，github 仓库地址：https://github.com/tzfun/etcd-workbench/releases
+
+配置好 etcd 链接信息，点击测试链接，提示链接成功即可。
+
+<img src="images/02.jpg" style="zoom:50%;" />
+
+## docker 安装 apisix
+
+**步骤1**：拉去 docker 镜像：
 
 ```shell
 docker pull apache/apisix:3.12.0-debian
 ```
 
-2. 在宿主机中创建 apisix 要挂载的目录：
+**步骤2**：在宿主机中创建 apisix 要挂载的目录：
 
 ```shell
 mkdir -p /home/apisix
 ```
 
-3. 将上章节自定义 config.yaml 脚本创建到 apisix 要挂载的目录。
+**步骤3**：将上章节自定义 config.yaml 脚本创建到 apisix 要挂载的目录。
 
 ```shell
 touch /home/apisix/config.yaml
 ```
 
-笔者写入的配置为：
+笔者写入的配置如下，注意下述配置了一个账号名为`admin`，密码为`admin`的管理员账号，强烈建议读者使用复杂的数值，例如 ：`edd1c9f034335f136f87ad84b625c8f1 `
 
-> 注意 admin_key 是：admin，在生产中建议使用复杂的数值，例如 32 位的：edd1c9f034335f136f87ad84b625c8f1
+> 可使用 1password 快速随机生成密码 https://1password.com/zh-cn/password-generator
 
 ```yaml
-pisix:
+apisix:
   enable_control: true
   control:
     ip: 0.0.0.0
@@ -362,11 +360,12 @@ deployment:
     config_provider: etcd
   etcd:
     host:
+      # 配置外部 etcd 服务地址
       - http://apisix-etcd:2379
   admin:
     admin_key:
       - name: admin
-        key: edd1c9f034335f136f87ad84b625c8f1 # 
+        key: admin
         role: admin
     allow_admin:
       - 0.0.0.0/0
@@ -385,35 +384,36 @@ plugin_attr:
     max_size: -1
     enable_compression: false
   file-logger:
+    # 配置日志输出路径
     path: logs/file.log
 ```
 
-4. 启动脚本：
+**步骤4**：启动脚本：
 
 ```shell
 docker run -d --name apisix \
 --restart=always \
 --user=root \
+-e TZ=Asia/Shanghai \
 --network=apisix-net \
 -v /home/apisix/config.yaml:/usr/local/apisix/conf/config.yaml \
 -p 9180:9180 \
 -p 9080:9080 \
+-p 9092:9092 \
 -p 9091:9091 \
--p 9443:9443 \
 apache/apisix:3.12.0-debian
 ```
 
-5. 验证是否安装成功：
+**步骤5**：验证是否安装成功：
 
 ```shell
 curl "http://127.0.0.1:9080" --head | grep Server
 ```
 
-出现如下信息标志安装成功
-
-```
-Server: APISIX/Version
-```
+出现 Server: APISIX/Version 字样表示安装成功
 
 ![](images/03.jpg)
 
+```
+docker exec -it apisix sh -c "netstat -tuln || ss -tuln"
+```
